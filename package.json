@@ -1,15 +1,14 @@
 {
-  "name": "platform-cdk-constructs",
-  "version": "0.0.1",
+  "name": "test-platform-cdk-constructs",
+  "version": "0.0.0",
   "description": "CDK Package for OrcaBus infrastructure.",
   "main": "packages/index.ts",
   "types": "packages/index.d.ts",
   "scripts": {
     "clean": "git clean -fXd",
-    "dev:clean": "git clean -fXd -e /node_modules",
-    "build": "jsii",
-    "build:watch": "jsii --watch",
-    "package": "jsii-pacmak",
+    "build": "pnpm -r run build",
+    "build:watch": "pnpm -r run build:watch",
+    "package": "pnpm -r run package",
     "postinstall": "pre-commit install"
   },
   "keywords": [],
@@ -22,26 +21,5 @@
     "name": "University of Melbourne Centre for Cancer Research",
     "organization": true
   },
-  "packageManager": "pnpm@10.6.2",
-  "devDependencies": {
-    "aws-cdk": "^2.1004.0",
-    "aws-cdk-lib": "2.183.0",
-    "constructs": "10.4.2",
-    "jsii": "^5.8.0",
-    "jsii-pacmak": "^1.109.0",
-    "publib": "^0.2.960"
-  },
-  "peerDependencies": {
-    "aws-cdk-lib": "^2.183.0",
-    "constructs": "^10.4.2"
-  },
-  "stability": "experimental",
-  "jsii": {
-    "outdir": "dist",
-    "versionFormat": "short",
-    "targets": {},
-    "excludeTypescript": [
-      "dev/**/*.ts"
-    ]
-  }
+  "packageManager": "pnpm@10.6.2"
 }

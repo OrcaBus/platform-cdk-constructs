@@ -1,0 +1,45 @@
+{
+  "name": "test-platform-cdk-constructs",
+  "version": "0.0.4",
+  "description": "CDK Package for OrcaBus infrastructure.",
+  "main": "index.ts",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "jsii",
+    "build:watch": "jsii --watch",
+    "package": "jsii-pacmak"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OrcaBus/platform-cdk-construct.git",
+    "directory": "packages"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "University of Melbourne Centre for Cancer Research",
+    "organization": true
+  },
+  "packageManager": "pnpm@10.6.2",
+  "devDependencies": {
+    "aws-cdk": "^2.1004.0",
+    "aws-cdk-lib": "2.183.0",
+    "constructs": "10.4.2",
+    "jsii": "^5.8.0",
+    "jsii-pacmak": "^1.109.0",
+    "publib": "^0.2.960"
+  },
+  "peerDependencies": {
+    "aws-cdk-lib": "^2.183.0",
+    "constructs": "^10.4.2"
+  },
+  "stability": "experimental",
+  "jsii": {
+    "outdir": "dist",
+    "versionFormat": "short",
+    "targets": {},
+    "excludeTypescript": [
+      "dev/**/*.ts"
+    ]
+  }
+}
