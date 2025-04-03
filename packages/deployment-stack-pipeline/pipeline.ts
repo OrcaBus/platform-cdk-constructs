@@ -23,6 +23,19 @@ import {
   PROD_ENVIRONMENT,
 } from "./config";
 
+/**
+ * The default partial build spec for the synth step in the pipeline.
+ */
+export const DEFAULT_SYNTH_STEP_PARTIAL_BUILD_SPEC = {
+  phases: {
+    install: {
+      "runtime-versions": {
+        nodejs: "22.x",
+      },
+    },
+  },
+};
+
 export interface StageEnvProps {
   /**
    * The environment for the beta stage
@@ -97,6 +110,12 @@ export interface DeploymentStackPipelineProps {
    */
   readonly cdkOut?: string;
   /**
+   * Additional configuration for the CodeBuild step during the CDK synth phase. It will passed as the `partialBuildSpec` to the `CodeBuildStep`.
+   *
+   * @default DEFAULT_SYNTH_STEP_PARTIAL_BUILD_SPEC
+   */
+  readonly synthBuildSpec?: Record<string, any>;
+  /**
    * The stage environment for the deployment stack
    */
   readonly stageEnv?: StageEnvProps;
@@ -159,6 +178,7 @@ export class DeploymentStackPipeline extends Construct {
       ]);
     }
 
+    const { synthBuildSpec = DEFAULT_SYNTH_STEP_PARTIAL_BUILD_SPEC } = props;
     const cdkPipeline = new CodePipeline(this, "CDKCodePipeline", {
       codePipeline: this.pipeline,
       synth: new CodeBuildStep("CdkSynth", {
@@ -171,15 +191,7 @@ export class DeploymentStackPipeline extends Construct {
         commands: props.cdkSynthCmd,
         input: sourceFile,
         primaryOutputDirectory: props.cdkOut || "cdk.out",
-        partialBuildSpec: BuildSpec.fromObject({
-          phases: {
-            install: {
-              "runtime-versions": {
-                nodejs: "22.x",
-              },
-            },
-          },
-        }),
+        partialBuildSpec: BuildSpec.fromObject(synthBuildSpec),
       }),
       selfMutation: true,
       codeBuildDefaults: {
