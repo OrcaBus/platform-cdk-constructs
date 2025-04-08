@@ -12,8 +12,8 @@ export const DEFAULT_LOGS_CONFIG = {
     removalPolicy: RemovalPolicy.DESTROY,
   },
   PROD: {
-    retention: RetentionDays.TWO_WEEKS,
-    removalPolicy: RemovalPolicy.DESTROY,
+    retention: RetentionDays.TWO_YEARS,
+    removalPolicy: RemovalPolicy.RETAIN,
   },
 };
 
