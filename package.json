@@ -1,0 +1,25 @@
+{
+  "name": "@orcabus/platform-cdk-constructs",
+  "version": "0.0.0",
+  "description": "CDK Package for OrcaBus infrastructure.",
+  "main": "packages/index.ts",
+  "types": "packages/index.d.ts",
+  "scripts": {
+    "clean": "git clean -fXd",
+    "build": "pnpm -r run build",
+    "build:watch": "pnpm -r run build:watch",
+    "package": "pnpm -r run package",
+    "postinstall": "pre-commit install"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OrcaBus/platform-cdk-construct.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "University of Melbourne Centre for Cancer Research",
+    "organization": true
+  },
+  "packageManager": "pnpm@10.8.0"
+}
