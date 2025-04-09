@@ -263,8 +263,9 @@ class DeploymentStage extends Stage {
     new stackClass(this, stackName, {
       env: env,
       tags: {
-        "umccr-org:Product": "OrcaUI",
+        "umccr-org:Product": "OrcaBus",
         "umccr-org:Creator": "CDK",
+        "umccr-org:Service": stackName,
       },
       ...appStackProps,
     });
