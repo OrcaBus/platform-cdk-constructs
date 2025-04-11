@@ -9,3 +9,5 @@ cdk.out
 
 # Context json
 cdk.context.json
+
+.DS_Store

@@ -7,7 +7,8 @@
   "scripts": {
     "build": "jsii",
     "build:watch": "jsii --watch",
-    "package": "jsii-pacmak"
+    "package": "jsii-pacmak",
+    "generate-docs": "typedoc --plugin typedoc-plugin-markdown --out ./docs"
   },
   "keywords": [],
   "repository": {
@@ -26,7 +27,9 @@
     "constructs": "10.4.2",
     "jsii": "^5.8.3",
     "jsii-pacmak": "^1.110.0",
-    "publib": "^0.2.965"
+    "publib": "^0.2.965",
+    "typedoc": "^0.28.2",
+    "typedoc-plugin-markdown": "^4.6.2"
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.183.0",
