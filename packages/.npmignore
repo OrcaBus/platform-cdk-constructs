@@ -14,3 +14,6 @@ dist
 # Include .jsii and .jsii.gz
 !.jsii
 !.jsii.gz
+
+# Ignore docs
+docs

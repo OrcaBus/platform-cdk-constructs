@@ -1,6 +1,11 @@
 # CDK Constructs Package for OrcaBus
 
-This repository contains reusable AWS CDK constructs for the OrcaBus platform. These constructs simplify the creation and management of AWS infrastructure components while following best practices and OrcaBus-specific configurations.
+This repository contains reusable AWS CDK constructs for the OrcaBus platform. These constructs simplify the creation
+and management of AWS infrastructure components while following best practices and OrcaBus-specific configurations.
+
+Packages readme docs:
+
+[View Documentation](./packages/docs/README.md)
 
 ## Repository Structure
 
@@ -53,11 +58,21 @@ Use the predefined pnpm script to run CDK commands:
 
 ```sh
 pnpm cdk <command>
+
 ```
+
+### Documentation
+
+The package documentation is automatically generated in Markdown format using `typedoc` and `typedoc-plugin-markdown`.  
+Run `pnpm packages:generate-docs` to update the generated documentation. It follows the JSDoc convention.  
+
+View the package documentation here: [View Documentation](./packages/docs/README.md)
 
 ### Publishing
 
-Ensure the following environment variables are set before publishing:
+A GitHub Action is configured to automatically publish to the npm registry when a release is created.
+
+To publish manually, ensure the following environment variables are set:
 
 - `NPM_ACCESS_LEVEL`
 - `NPM_TOKEN`

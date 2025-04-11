@@ -7,7 +7,8 @@
   "scripts": {
     "build": "jsii",
     "build:watch": "jsii --watch",
-    "package": "jsii-pacmak"
+    "package": "jsii-pacmak",
+    "generate-docs": "typedoc --plugin typedoc-plugin-markdown --out ./docs"
   },
   "keywords": [],
   "repository": {

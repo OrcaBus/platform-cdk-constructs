@@ -2,7 +2,7 @@
 
 ***
 
-[@orcabus/platform-cdk-constructs](../../../globals.md) / apigateway
+[@orcabus/platform-cdk-constructs](../../../README.md) / apigateway
 
 # apigateway
 

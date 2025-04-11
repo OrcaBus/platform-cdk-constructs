@@ -10,7 +10,8 @@
     "build:watch": "pnpm -r run build:watch",
     "package": "pnpm -r run package",
     "postinstall": "pre-commit install",
-    "publish": "cd packages && pnpm publib-npm"
+    "publish": "cd packages && pnpm publib-npm",
+    "packages:generate-docs": "cd packages && pnpm generate-docs"
   },
   "keywords": [],
   "repository": {

@@ -2,7 +2,7 @@
 
 ***
 
-[@orcabus/platform-cdk-constructs](../../../globals.md) / deploymentPipeline
+[@orcabus/platform-cdk-constructs](../../../README.md) / deploymentPipeline
 
 # deploymentPipeline
 

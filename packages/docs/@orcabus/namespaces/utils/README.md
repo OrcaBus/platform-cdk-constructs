@@ -2,7 +2,7 @@
 
 ***
 
-[@orcabus/platform-cdk-constructs](../../../globals.md) / utils
+[@orcabus/platform-cdk-constructs](../../../README.md) / utils
 
 # utils
 
