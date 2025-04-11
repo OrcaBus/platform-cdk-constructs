@@ -9,7 +9,8 @@
     "build": "pnpm -r run build",
     "build:watch": "pnpm -r run build:watch",
     "package": "pnpm -r run package",
-    "postinstall": "pre-commit install"
+    "postinstall": "pre-commit install",
+    "publish": "cd packages && pnpm publib-npm"
   },
   "keywords": [],
   "repository": {
