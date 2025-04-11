@@ -26,7 +26,8 @@
     "constructs": "10.4.2",
     "jsii": "^5.8.3",
     "jsii-pacmak": "^1.110.0",
-    "publib": "^0.2.965"
+    "publib": "^0.2.965",
+    "typedoc": "^0.28.2"
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.183.0",
