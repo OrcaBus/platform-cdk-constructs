@@ -23,7 +23,9 @@
   },
   "devDependencies": {
     "aws-cdk": "^2.1006.0",
-    "aws-cdk-lib": "2.183.0",
+    "aws-cdk-lib": "2.195.0",
+    "@aws-cdk/aws-lambda-python-alpha": "2.195.0-alpha.0",
+    "@types/node": "^22.13.10",
     "constructs": "10.4.2",
     "jsii": "^5.8.3",
     "jsii-pacmak": "^1.110.0",

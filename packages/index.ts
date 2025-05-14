@@ -1,3 +1,3 @@
-export * as apigateway from "./api-gateway";
+// Get stage name
 export * as deploymentPipeline from "./deployment-stack-pipeline";
 export * as utils from "./utils";
