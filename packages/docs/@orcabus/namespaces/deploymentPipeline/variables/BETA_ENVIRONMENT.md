@@ -8,4 +8,4 @@
 
 > `const` **BETA\_ENVIRONMENT**: `Environment`
 
-Defined in: [packages/deployment-stack-pipeline/config.ts:8](https://github.com/OrcaBus/platform-cdk-constructs/blob/f32b67f3286f201d56d0d44eb040dea7b253bf65/packages/deployment-stack-pipeline/config.ts#L8)
+Defined in: [packages/deployment-stack-pipeline/config.ts:8](https://github.com/orcabus/platform-cdk-constructs/blob/981888b42cb208811f38f5bf521650592a20e882/packages/deployment-stack-pipeline/config.ts#L8)
