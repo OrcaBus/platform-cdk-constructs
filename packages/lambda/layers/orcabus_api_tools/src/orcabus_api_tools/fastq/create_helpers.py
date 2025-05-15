@@ -36,8 +36,8 @@ def create_fastq_list_row_object(**kwargs: Unpack[FastqListRowCreate]) -> FastqL
 
 def create_fastq_set_object(**kwargs: Unpack[FastqSetCreate]) -> FastqSet:
     """
-    Add a fastq list row object to the database.
-    Returns the created fastq list row object
+    Add a fastq set object to the database.
+    Returns the created fastq set object
     """
     return FastqSet(
         **fastq_post_request(
