@@ -250,10 +250,12 @@ export class PythonUvFunction extends PythonFunction {
         // Add env vars
         // Iterate over kv pairs of MART_ENV_VARS
         for (const [key, value] of Object.entries(MART_ENV_VARS)) {
-            if (Object(props).getAttr(key) !== undefined) {
-                this.addEnvironment(key, Object(props).getAttr(key));
+            // After
+            if (props[key as keyof MartEnvironmentVariables] !== undefined) {
+                this.addEnvironment(key, props[key as keyof MartEnvironmentVariables]!);
+            } else {
+                this.addEnvironment(key, value);
             }
-            this.addEnvironment(key, value);
         }
 
         // Permissions
