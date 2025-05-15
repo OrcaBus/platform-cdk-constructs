@@ -20,7 +20,7 @@ jobs:
 
       - run: corepack enable
       
-      - run: pnpm install
+      - run: pnpm install --ignore-scripts
 
       # fix package version to match release version
       - run: pnpm version --no-git-tag-version ${{github.ref_name}}
