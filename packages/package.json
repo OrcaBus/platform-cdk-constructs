@@ -5,7 +5,7 @@
   "main": "index.ts",
   "types": "index.d.ts",
   "scripts": {
-    "build": "jsii",
+    "build": "jsii --tsconfig tsconfig.json",
     "build:watch": "jsii --watch",
     "package": "jsii-pacmak",
     "generate-docs": "typedoc --plugin typedoc-plugin-markdown --out ./docs"
@@ -34,8 +34,9 @@
     "typedoc-plugin-markdown": "^4.6.2"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.183.0",
-    "constructs": "^10.4.2"
+    "aws-cdk-lib": "^2.195.0",
+    "constructs": "^10.4.2",
+    "@aws-cdk/aws-lambda-python-alpha": "^2.195.0-alpha.0"
   },
   "stability": "experimental",
   "jsii": {

@@ -4,9 +4,9 @@ export const DEFAULT_ORCABUS_TOKEN_SECRET_ID =  'orcabus/token-service-jwt'
 export const DEFAULT_HOSTNAME_SSM_PARAMETER = '/hosted_zone/umccr/name'
 
 export const MART_ENV_VARS = {
-    ATHENA_WORKGROUP_NAME: 'orcahouse',
-    ATHENA_DATASOURCE_NAME: 'orcavault',
-    ATHENA_DATABASE_NAME: 'mart'
+    athenaWorkgroupName: 'orcahouse',
+    athenaDatasourceName: 'orcavault',
+    athenaDatabaseName: 'mart'
 }
 
 export const MART_S3_BUCKET: Record<StageName, string> = {

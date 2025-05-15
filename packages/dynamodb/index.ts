@@ -5,12 +5,6 @@ import {TablePropsV2} from "aws-cdk-lib/aws-dynamodb";
 import {DEFAULT_PARTITION_KEY_NAME, DEFAULT_SORT_KEY_NAME, DEFAULT_TIME_TO_LIVE_EXPIRY_KEY_NAME} from "./config";
 
 export interface DynamoDbPartitionedConstructProps extends TablePropsV2 {
-    /**
-     * The name of the table.
-     * We force this to be set so that the table can be used across multiple stacks.
-     */
-    readonly tableName: string
-
      /**
      * Optional, name of the partition key, but by default set to 'id'
      */
@@ -25,12 +19,6 @@ export interface DynamoDbPartitionedConstructProps extends TablePropsV2 {
 
 export interface DynamoDbNonPartitionedConstructProps extends TablePropsV2 {
     /**
-     * The name of the table.
-     * We force this to be set so that the table can be used across multiple stacks.
-    */
-    readonly tableName: string
-
-    /**
      * Optional, name of the partition key, but by default set to 'id'
     */
     readonly partitionKeyName?: string
@@ -41,6 +29,12 @@ export class DynamoDbPartitionedConstruct extends Construct {
     public readonly table: dynamodb.TableV2;
     constructor(scope: Construct, id: string, props: DynamoDbPartitionedConstructProps) {
         super(scope, id);
+
+        // We cannot override the tableName property type in the interface
+        // So instead we need to force tableName to be a string rather than an optional string
+        if (props.tableName === undefined) {
+            throw new Error('tableName is required');
+        }
 
         this.table = new dynamodb.TableV2(this, props.tableName, {
             ...props,
@@ -71,6 +65,12 @@ export class DynamoDbNonPartitionedConstruct extends Construct {
     public readonly table: dynamodb.TableV2;
     constructor(scope: Construct, id: string, props: DynamoDbNonPartitionedConstructProps) {
         super(scope, id);
+
+        // We cannot override the tableName property type in the interface
+        // So instead we need to force tableName to be a string rather than an optional string
+        if (props.tableName === undefined) {
+            throw new Error('tableName is required');
+        }
 
         this.table = new dynamodb.TableV2(this, props.tableName, {
             /* Set the table name */
