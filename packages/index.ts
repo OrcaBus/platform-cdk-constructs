@@ -6,3 +6,6 @@ export * as deploymentPipeline from "./deployment-stack-pipeline";
 
 // Api Gateway constructs
 export * as apigateway from "./api-gateway";
+
+// Lambda Constructs
+export * as lambda from "./lambda";

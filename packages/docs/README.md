@@ -8,4 +8,5 @@
 
 - [apigateway](@orcabus/namespaces/apigateway/README.md)
 - [deploymentPipeline](@orcabus/namespaces/deploymentPipeline/README.md)
+- [lambda](@orcabus/namespaces/lambda/README.md)
 - [utils](@orcabus/namespaces/utils/README.md)
