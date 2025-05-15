@@ -11,5 +11,11 @@ export const accountIdAlias: Record<StageName, string> = {
 };
 
 export function resolveStageName(): StageName {
-    return Object.entries(accountIdAlias).find(([_, value]) => value === cdk.Aws.ACCOUNT_ID)?.[0] as StageName;
+    const match = Object.entries(accountIdAlias).find(([_, value]) => value === cdk.Aws.ACCOUNT_ID)
+
+    if (!match) {
+        throw new Error(`Account ID ${cdk.Aws.ACCOUNT_ID} not found in accountIdAlias`);
+    }
+
+    return match[0] as StageName;
 }
