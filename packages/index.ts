@@ -7,5 +7,8 @@ export * as deploymentPipeline from "./deployment-stack-pipeline";
 // Api Gateway constructs
 export * as apigateway from "./api-gateway";
 
+// DynamoDB Constructs
+export * as dynamodb from "./dynamodb";
+
 // ECS / Fargate Constructs
 export * as ecs from "./ecs";
