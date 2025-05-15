@@ -12,3 +12,6 @@ export * as dynamodb from "./dynamodb";
 
 // ECS / Fargate Constructs
 export * as ecs from "./ecs";
+
+// Lambda Constructs
+export * as lambda from "./lambda";
