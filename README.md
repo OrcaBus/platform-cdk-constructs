@@ -84,3 +84,14 @@ pnpm build
 pnpm package
 pnpm publish
 ```
+
+Alternative, you may push a new release to the `main` branch. This will trigger the GitHub Action to publish the package automatically.
+
+i.e
+
+```shell
+git pull origin main
+git checkout main
+
+gh release create 0.0.10-alpha.0 --title '0.0.10-alpha.0 release!' --notes-file 'release-notes.md'
+```

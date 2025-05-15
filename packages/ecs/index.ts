@@ -76,7 +76,7 @@ export interface FargateEcsTaskConstructProps {
     readonly dockerPath: string
 }
 
-export class EcsTaskConstruct extends Construct {
+export class EcsFargateTaskConstruct extends Construct {
     public readonly cluster: ecs.ICluster
     public readonly taskDefinition: ecs.FargateTaskDefinition
     public readonly securityGroup: ec2.ISecurityGroup
