@@ -24,7 +24,7 @@ import {
 import {accountIdAlias, region, resolveStageName} from "../utils";
 
 
-function getPythonUvDockerImage(): DockerImage {
+export function getPythonUvDockerImage(): DockerImage {
     return DockerImage.fromBuild(path.join(__dirname, 'build_python'));
 }
 
@@ -90,8 +90,8 @@ export class PythonUvFunction extends PythonFunction {
     // Class constructs, to be used for caching the layers
     // This means that if there are multiple lambdas throughout the stack
     // They will all use the same layer
-    private static orcabusApiToolsLayer: lambda.ILayerVersion;
-    private static martLayer: lambda.ILayerVersion;
+    private static orcabusApiToolsLayer: Map<Construct, lambda.ILayerVersion>;
+    private static martLayer: Map<Construct, lambda.ILayerVersion>;
 
     constructor(scope: Construct, id: string, props: PythonUvFunctionProps) {
         const uvProps = {
@@ -131,8 +131,8 @@ export class PythonUvFunction extends PythonFunction {
             this.setOrcabusResources(props.orcabusTokenResources ?? {})
 
             /* Build the orcabus Api tools layer */
-            this.buildOrcabusApiToolsLayer()
-            this.addLayers(PythonUvFunction.orcabusApiToolsLayer)
+            this.buildOrcabusApiToolsLayer(scope)
+            this.addLayers(<PythonLayerVersion>PythonUvFunction.orcabusApiToolsLayer.get(scope))
         }
 
         if (props.includeMartLayer) {
@@ -140,15 +140,15 @@ export class PythonUvFunction extends PythonFunction {
             this.setAthenaResources(props.martEnvironmentVariables ?? {})
 
             /* Build the mart layer */
-            this.buildMartToolsLayer()
-            this.addLayers(PythonUvFunction.martLayer)
+            this.buildMartToolsLayer(scope)
+            this.addLayers(<PythonLayerVersion>PythonUvFunction.martLayer.get(scope))
         }
     }
 
-    private buildOrcabusApiToolsLayer() {
+    private buildOrcabusApiToolsLayer(scope: Construct) {
         // Only build orcabus api layer if it doesn't exist
-        if (!PythonUvFunction.orcabusApiToolsLayer) {
-            PythonUvFunction.orcabusApiToolsLayer = new PythonLayerVersion(this, 'orcabusApiToolsLayer', {
+        if (!PythonUvFunction.orcabusApiToolsLayer.has(scope)) {
+            const layer = new PythonLayerVersion(this, 'orcabusApiToolsLayer', {
                 layerVersionName: 'orcabusApiToolsLayer',
                 entry: path.join(__dirname, 'layers/orcabus_api_tools'),
                 compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
@@ -171,13 +171,15 @@ export class PythonUvFunction extends PythonFunction {
                     },
                 },
             });
+
+            PythonUvFunction.orcabusApiToolsLayer.set(scope, layer);
         }
     }
 
-    private buildMartToolsLayer() {
+    private buildMartToolsLayer(scope: Construct) {
         // Only build the layer if it doesn't exist
-        if (!PythonUvFunction.martLayer) {
-            PythonUvFunction.martLayer = new PythonLayerVersion(this, 'martToolsLayer', {
+        if (!PythonUvFunction.martLayer.has(scope)) {
+            const layer = new PythonLayerVersion(this, 'martToolsLayer', {
                 layerVersionName: 'martToolsLayer',
                 entry: path.join(__dirname, 'layers/mart_tools'),
                 compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
@@ -200,6 +202,7 @@ export class PythonUvFunction extends PythonFunction {
                     },
                 },
             });
+            PythonUvFunction.martLayer.set(scope, layer);
         }
 
     }
