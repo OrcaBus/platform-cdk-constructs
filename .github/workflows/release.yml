@@ -24,6 +24,10 @@ jobs:
 
       # fix package version to match release version
       - run: pnpm version --no-git-tag-version ${{github.ref_name}}
+
+      # Rerun in package directory
+      - run: pnpm version --no-git-tag-version ${{github.ref_name}}
+        working-directory: ./packages
         
       # build and package
       - run: pnpm build
