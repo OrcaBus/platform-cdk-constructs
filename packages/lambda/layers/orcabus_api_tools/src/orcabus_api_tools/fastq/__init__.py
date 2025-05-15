@@ -13,9 +13,9 @@ from ..utils.requests_helpers import (
 # Get url for the subdomain
 def get_fastq_url(endpoint: str) -> str:
     """
-    Get the URL for the Metadata endpoint
-    :param endpoint:
-    :return:
+    Get the URL for the FastQ subdomain endpoint.
+    :param endpoint: The specific API endpoint for the FastQ subdomain.
+    :return: The full URL for the FastQ subdomain endpoint.
     """
     return get_url(
         endpoint=endpoint,
