@@ -47,7 +47,7 @@ export interface MartEnvironmentVariables {
     readonly athenaWorkgroupName?: string
 
     /**
-     * Provide the athenaDatasourceName, otherwise it will default to @MART_S3_BUCKET.ATHENA_DATASOURCE_NAME
+     * Provide the athenaDatasourceName, otherwise it will default to @MART_ENV_VARS.athenaDatasourceName
      */
     readonly athenaDatasourceName?: string
 
