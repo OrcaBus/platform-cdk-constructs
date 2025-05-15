@@ -90,8 +90,8 @@ export class PythonUvFunction extends PythonFunction {
     // Class constructs, to be used for caching the layers
     // This means that if there are multiple lambdas throughout the stack
     // They will all use the same layer
-    private static orcabusApiToolsLayer: Map<Construct, lambda.ILayerVersion>;
-    private static martLayer: Map<Construct, lambda.ILayerVersion>;
+    private static orcabusApiToolsLayer: Map<Construct, lambda.ILayerVersion> = new Map();
+    private static martLayer: Map<Construct, lambda.ILayerVersion> = new Map();
 
     constructor(scope: Construct, id: string, props: PythonUvFunctionProps) {
         const uvProps = {
