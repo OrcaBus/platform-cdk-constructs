@@ -44,17 +44,17 @@ export interface MartEnvironmentVariables {
     /**
      * Provide the athenaWorkgroupName, otherwise it will default to @MART_ENV_VARS.ATHENA_WORKGROUP_NAME
      */
-    readonly ATHENA_WORKGROUP_NAME?: string
+    readonly athenaWorkgroupName?: string
 
     /**
-     * Provide the athenaDatasourceName, otherwise it will default to @MART_S3_BUCKET.A
+     * Provide the athenaDatasourceName, otherwise it will default to @MART_S3_BUCKET.ATHENA_DATASOURCE_NAME
      */
-    readonly ATHENA_DATASOURCE_NAME?: string
+    readonly athenaDatasourceName?: string
 
     /**
      * Provide the athenaDatabaseName, otherwise it will default to @MART_ENV_VARS.ATHENA_DATABASE_NAME
      */
-    readonly ATHENA_DATABASE_NAME?: string
+    readonly athenaDatabaseName?: string
 }
 
 export interface PythonUvFunctionProps extends PythonFunctionProps {
@@ -301,7 +301,7 @@ export class PythonUvFunction extends PythonFunction {
                     'athena:DeletePreparedStatement',
                 ],
                 resources: [
-                    `arn:aws:athena:${region}:${accountIdAlias[stageName]}:workgroup/${MART_ENV_VARS.ATHENA_WORKGROUP_NAME}`,
+                    `arn:aws:athena:${region}:${accountIdAlias[stageName]}:workgroup/${MART_ENV_VARS.athenaWorkgroupName}`,
                 ],
             })
         );
