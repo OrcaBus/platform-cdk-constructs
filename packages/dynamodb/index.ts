@@ -4,22 +4,42 @@ import {RemovalPolicy} from 'aws-cdk-lib';
 import {TablePropsV2} from "aws-cdk-lib/aws-dynamodb";
 import {DEFAULT_PARTITION_KEY_NAME, DEFAULT_SORT_KEY_NAME, DEFAULT_TIME_TO_LIVE_EXPIRY_KEY_NAME} from "./config";
 
-export interface DynamoDbPartitionedPipelineConstructProps extends TablePropsV2 {
-    tableName: string
-    partitionKeyName?: string
-    sortKeyName?: string
+export interface DynamoDbPartitionedConstructProps extends TablePropsV2 {
+    /**
+     * The name of the table.
+     * We force this to be set so that the table can be used across multiple stacks.
+     */
+    readonly tableName: string
+
+     /**
+     * Optional, name of the partition key, but by default set to 'id'
+     */
+    readonly partitionKeyName?: string
+
+    /**
+    *  Optional, name of the sort key, but by default set to 'id_type'
+    */
+    readonly sortKeyName?: string
 }
 
 
-export interface DynamoDbNonPartitionedPipelineConstructProps extends TablePropsV2 {
-    tableName: string
-    partitionKeyName?: string
+export interface DynamoDbNonPartitionedConstructProps extends TablePropsV2 {
+    /**
+     * The name of the table.
+     * We force this to be set so that the table can be used across multiple stacks.
+    */
+    readonly tableName: string
+
+    /**
+     * Optional, name of the partition key, but by default set to 'id'
+    */
+    readonly partitionKeyName?: string
 }
 
 
-export class DynamoDbPartitionedPipelineConstruct extends Construct {
+export class DynamoDbPartitionedConstruct extends Construct {
     public readonly table: dynamodb.TableV2;
-    constructor(scope: Construct, id: string, props: DynamoDbPartitionedPipelineConstructProps) {
+    constructor(scope: Construct, id: string, props: DynamoDbPartitionedConstructProps) {
         super(scope, id);
 
         this.table = new dynamodb.TableV2(this, props.tableName, {
@@ -47,9 +67,9 @@ export class DynamoDbPartitionedPipelineConstruct extends Construct {
     }
 }
 
-export class DynamoDbNonPartitionedPipelineConstruct extends Construct {
+export class DynamoDbNonPartitionedConstruct extends Construct {
     public readonly table: dynamodb.TableV2;
-    constructor(scope: Construct, id: string, props: DynamoDbNonPartitionedPipelineConstructProps) {
+    constructor(scope: Construct, id: string, props: DynamoDbNonPartitionedConstructProps) {
         super(scope, id);
 
         this.table = new dynamodb.TableV2(this, props.tableName, {
