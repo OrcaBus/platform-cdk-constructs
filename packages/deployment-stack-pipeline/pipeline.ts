@@ -222,6 +222,8 @@ export class DeploymentStackPipeline extends Construct {
         props.stackName,
         props.stack,
         props.stackConfig.beta,
+        props.githubRepo,
+        props.githubBranch,
       ),
     );
 
@@ -233,6 +235,8 @@ export class DeploymentStackPipeline extends Construct {
         props.stackName,
         props.stack,
         props.stackConfig.gamma,
+        props.githubRepo,
+        props.githubBranch,
       ),
       { post: [new ManualApprovalStep("PromoteToProd")] },
     );
@@ -245,12 +249,14 @@ export class DeploymentStackPipeline extends Construct {
         props.stackName,
         props.stack,
         props.stackConfig.prod,
+        props.githubRepo,
+        props.githubBranch,
       ),
     );
   }
 }
 
-class DeploymentStage extends Stage {
+export class DeploymentStage extends Stage {
   constructor(
     scope: Construct,
     environmentName: string,
@@ -258,14 +264,23 @@ class DeploymentStage extends Stage {
     stackName: string,
     stackClass: new (scope: Construct, id: string, props: any) => Stack,
     appStackProps: any,
+    githubRepo: string,
+    githubBranch?: string,
   ) {
     super(scope, environmentName, { env: env });
+
+    let source = `https://github.com/OrcaBus/${githubRepo}`;
+    if (githubBranch !== undefined && githubBranch !== "main") {
+      source = `${source}/tree/${githubBranch}`;
+    }
+
     new stackClass(this, stackName, {
       env: env,
       tags: {
         "umccr-org:Product": "OrcaBus",
         "umccr-org:Creator": "CDK",
         "umccr-org:Service": stackName,
+        "umccr-org:Source": source,
       },
       ...appStackProps,
     });
