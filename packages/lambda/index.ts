@@ -15,11 +15,14 @@ import {
     ParamsAndSecretsVersions,
 } from 'aws-cdk-lib/aws-lambda';
 import {
-    DEFAULT_HOSTNAME_SSM_PARAMETER,
-    DEFAULT_ORCABUS_TOKEN_SECRET_ID,
+    // Orcabus defaults
+    DEFAULT_HOSTNAME_SSM_PARAMETER, DEFAULT_ORCABUS_TOKEN_SECRET_ID,
+    // Mart defaults
     MART_ENV_VARS, MART_LAMBDA_FUNCTION_NAME,
     MART_S3_BUCKET,
-    MART_S3_PREFIX
+    MART_S3_PREFIX,
+    // ICAV2 defaults
+    DEFAULT_ICAV2_ACCESS_TOKEN_SECRET_ID
 } from "./config";
 import {accountIdAlias, region, resolveStageName} from "../utils";
 
@@ -57,6 +60,15 @@ export interface MartEnvironmentVariables {
     readonly athenaDatabaseName?: string
 }
 
+export interface Icav2ResourcesProps {
+    /**
+     * The id of the secret that contains the icav2 access token
+     * otherwise it will default to @DEFAULT_ICAV2_ACCESS_TOKEN_SECRET_ID
+     */
+    readonly icav2AccessTokenSecretId?: string
+}
+
+
 export interface PythonUvFunctionProps extends PythonFunctionProps {
     /**
      * Whether or not to include the orcabus api tools layer in the lambda function build
@@ -71,6 +83,11 @@ export interface PythonUvFunctionProps extends PythonFunctionProps {
     readonly includeMartLayer?: boolean
 
     /**
+     * Whether or not to include the icav2 layer in the lambda function build
+     */
+    readonly includeIcav2Layer?: boolean
+
+    /**
      * Provide the orcabusTokenResources, optional, otherwise it will default to
      * @DEFAULT_ORCABUS_TOKEN_SECRET_ID and @DEFAULT_HOSTNAME_SSM_PARAMETER
      * for the secret and SSM parameter respectively
@@ -83,6 +100,12 @@ export interface PythonUvFunctionProps extends PythonFunctionProps {
      * and @MART_ENV_VARS.ATHENA_DATABASE_NAME for the athena workgroup, datasource and database respectively
      */
     readonly martEnvironmentVariables?: MartEnvironmentVariables
+
+    /**
+     * Provide the icav2Resources, optional, otherwise it will default to
+     * @DEFAULT_ICAV2_ACCESS_TOKEN_SECRET_ID for the secret
+     */
+    readonly icav2Resources?: Icav2ResourcesProps
 }
 
 
@@ -92,6 +115,7 @@ export class PythonUvFunction extends PythonFunction {
     // They will all use the same layer
     private static orcabusApiToolsLayer: Map<Construct, lambda.ILayerVersion> = new Map();
     private static martLayer: Map<Construct, lambda.ILayerVersion> = new Map();
+    private static icav2Layer: Map<Construct, lambda.ILayerVersion> = new Map();
 
     constructor(scope: Construct, id: string, props: PythonUvFunctionProps) {
         const uvProps = {
@@ -143,13 +167,21 @@ export class PythonUvFunction extends PythonFunction {
             this.buildMartToolsLayer(scope)
             this.addLayers(<PythonLayerVersion>PythonUvFunction.martLayer.get(scope))
         }
+
+        if (props.includeIcav2Layer) {
+            /* Set the environment variables for the icav2 resources */
+            this.setIcav2Resources(props.icav2Resources ?? {})
+
+            /* Build the icav2 layer */
+            this.buildIcav2Layer(scope)
+            this.addLayers(<PythonLayerVersion>PythonUvFunction.icav2Layer.get(scope))
+        }
     }
 
     private buildOrcabusApiToolsLayer(scope: Construct) {
         // Only build orcabus api layer if it doesn't exist
         if (!PythonUvFunction.orcabusApiToolsLayer.has(scope)) {
             const layer = new PythonLayerVersion(this, 'orcabusApiToolsLayer', {
-                layerVersionName: 'orcabusApiToolsLayer',
                 entry: path.join(__dirname, 'layers/orcabus_api_tools'),
                 compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
                 compatibleArchitectures: [lambda.Architecture.ARM_64],
@@ -180,7 +212,6 @@ export class PythonUvFunction extends PythonFunction {
         // Only build the layer if it doesn't exist
         if (!PythonUvFunction.martLayer.has(scope)) {
             const layer = new PythonLayerVersion(this, 'martToolsLayer', {
-                layerVersionName: 'martToolsLayer',
                 entry: path.join(__dirname, 'layers/mart_tools'),
                 compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
                 compatibleArchitectures: [lambda.Architecture.ARM_64],
@@ -204,7 +235,35 @@ export class PythonUvFunction extends PythonFunction {
             });
             PythonUvFunction.martLayer.set(scope, layer);
         }
+    }
 
+    private buildIcav2Layer(scope: Construct) {
+        // Only build the layer if it doesn't exist
+        if (!PythonUvFunction.icav2Layer.has(scope)) {
+            const layer = new PythonLayerVersion(this, 'icav2ToolsLayer', {
+                entry: path.join(__dirname, 'layers/icav2_tools'),
+                compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
+                compatibleArchitectures: [lambda.Architecture.ARM_64],
+                license: 'GPL3',
+                description: 'icav2ToolsLayer',
+                bundling: {
+                    image: getPythonUvDockerImage(),
+                    commandHooks: {
+                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                        beforeBundling(inputDir: string, outputDir: string): string[] {
+                            return [];
+                        },
+                        afterBundling(inputDir: string, outputDir: string): string[] {
+                            return [
+                                `pip install ${inputDir} --target ${outputDir}`,
+                                `find ${outputDir} -name 'pandas' -exec rm -rf {}/tests/ \\;`,
+                            ];
+                        },
+                    },
+                },
+            });
+            PythonUvFunction.icav2Layer.set(scope, layer);
+        }
     }
 
     private setOrcabusResources(
@@ -320,6 +379,29 @@ export class PythonUvFunction extends PythonFunction {
             this.currentVersion
         )
     }
+
+    private setIcav2Resources(
+        props: Icav2ResourcesProps
+    ) {
+        // Resolve the stage name by performing a reverse lookup using cdk.Aws.ACCOUNT_ID on accountIdAlias
+        const stageName = resolveStageName()
+
+        // Set secret object
+        const icav2AccessTokenSecretId = secretsManager.Secret.fromSecretNameV2(
+            this, 'icav2AccessTokenSecretId',
+            props.icav2AccessTokenSecretId ?? DEFAULT_ICAV2_ACCESS_TOKEN_SECRET_ID[stageName]
+        );
+
+        // Add permissions for the secret and SSM parameter
+        // To the current version
+        icav2AccessTokenSecretId.grantRead(this.currentVersion);
+
+        // Add environment variables
+        this.addEnvironment(
+            'ICAV2_ACCESS_TOKEN_SECRET_ID', icav2AccessTokenSecretId.secretName,
+        )
+    }
+
 }
 
 
