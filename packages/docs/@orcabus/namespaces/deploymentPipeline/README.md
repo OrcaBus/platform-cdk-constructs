@@ -9,6 +9,7 @@
 ## Classes
 
 - [DeploymentStackPipeline](classes/DeploymentStackPipeline.md)
+- [DeploymentStage](classes/DeploymentStage.md)
 
 ## Interfaces
 

@@ -6,7 +6,7 @@
 
 # Class: DynamoDbNonPartitionedConstruct
 
-Defined in: [packages/dynamodb/index.ts:70](https://github.com/orcabus/platform-cdk-constructs/blob/108d0b71eb752a4283adc0a5149703d39ba2dfc6/packages/dynamodb/index.ts#L70)
+Defined in: [packages/dynamodb/index.ts:64](https://github.com/OrcaBus/platform-cdk-constructs/blob/c976adc64e129e16931e5f8794549bfec6d441a5/packages/dynamodb/index.ts#L64)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/dynamodb/index.ts:70](https://github.com/orcabus/platform-
 
 > **new DynamoDbNonPartitionedConstruct**(`scope`, `id`, `props`): `DynamoDbNonPartitionedConstruct`
 
-Defined in: [packages/dynamodb/index.ts:72](https://github.com/orcabus/platform-cdk-constructs/blob/108d0b71eb752a4283adc0a5149703d39ba2dfc6/packages/dynamodb/index.ts#L72)
+Defined in: [packages/dynamodb/index.ts:66](https://github.com/OrcaBus/platform-cdk-constructs/blob/c976adc64e129e16931e5f8794549bfec6d441a5/packages/dynamodb/index.ts#L66)
 
 #### Parameters
 
@@ -62,7 +62,7 @@ The tree node.
 
 > `readonly` **table**: `TableV2`
 
-Defined in: [packages/dynamodb/index.ts:71](https://github.com/orcabus/platform-cdk-constructs/blob/108d0b71eb752a4283adc0a5149703d39ba2dfc6/packages/dynamodb/index.ts#L71)
+Defined in: [packages/dynamodb/index.ts:65](https://github.com/OrcaBus/platform-cdk-constructs/blob/c976adc64e129e16931e5f8794549bfec6d441a5/packages/dynamodb/index.ts#L65)
 
 ## Methods
 

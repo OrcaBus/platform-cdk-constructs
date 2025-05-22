@@ -6,34 +6,34 @@
 
 # Interface: MartEnvironmentVariables
 
-Defined in: [packages/lambda/index.ts:43](https://github.com/orcabus/platform-cdk-constructs/blob/d147e1d3dfea325d03b6788743df722bc7755f87/packages/lambda/index.ts#L43)
+Defined in: [packages/lambda/index.ts:46](https://github.com/OrcaBus/platform-cdk-constructs/blob/c976adc64e129e16931e5f8794549bfec6d441a5/packages/lambda/index.ts#L46)
 
 ## Properties
 
-### ATHENA\_DATABASE\_NAME?
+### athenaDatabaseName?
 
-> `readonly` `optional` **ATHENA\_DATABASE\_NAME**: `string`
+> `readonly` `optional` **athenaDatabaseName**: `string`
 
-Defined in: [packages/lambda/index.ts:57](https://github.com/orcabus/platform-cdk-constructs/blob/d147e1d3dfea325d03b6788743df722bc7755f87/packages/lambda/index.ts#L57)
+Defined in: [packages/lambda/index.ts:60](https://github.com/OrcaBus/platform-cdk-constructs/blob/c976adc64e129e16931e5f8794549bfec6d441a5/packages/lambda/index.ts#L60)
 
 Provide the athenaDatabaseName, otherwise it will default to @MART_ENV_VARS.ATHENA_DATABASE_NAME
 
 ***
 
-### ATHENA\_DATASOURCE\_NAME?
+### athenaDatasourceName?
 
-> `readonly` `optional` **ATHENA\_DATASOURCE\_NAME**: `string`
+> `readonly` `optional` **athenaDatasourceName**: `string`
 
-Defined in: [packages/lambda/index.ts:52](https://github.com/orcabus/platform-cdk-constructs/blob/d147e1d3dfea325d03b6788743df722bc7755f87/packages/lambda/index.ts#L52)
+Defined in: [packages/lambda/index.ts:55](https://github.com/OrcaBus/platform-cdk-constructs/blob/c976adc64e129e16931e5f8794549bfec6d441a5/packages/lambda/index.ts#L55)
 
-Provide the athenaDatasourceName, otherwise it will default to @MART_S3_BUCKET.A
+Provide the athenaDatasourceName, otherwise it will default to @MART_ENV_VARS.athenaDatasourceName
 
 ***
 
-### ATHENA\_WORKGROUP\_NAME?
+### athenaWorkgroupName?
 
-> `readonly` `optional` **ATHENA\_WORKGROUP\_NAME**: `string`
+> `readonly` `optional` **athenaWorkgroupName**: `string`
 
-Defined in: [packages/lambda/index.ts:47](https://github.com/orcabus/platform-cdk-constructs/blob/d147e1d3dfea325d03b6788743df722bc7755f87/packages/lambda/index.ts#L47)
+Defined in: [packages/lambda/index.ts:50](https://github.com/OrcaBus/platform-cdk-constructs/blob/c976adc64e129e16931e5f8794549bfec6d441a5/packages/lambda/index.ts#L50)
 
 Provide the athenaWorkgroupName, otherwise it will default to @MART_ENV_VARS.ATHENA_WORKGROUP_NAME
