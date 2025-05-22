@@ -8,7 +8,7 @@
 
 ## Classes
 
-- [EcsFargateTaskConstruct](classes/EcsFargateTaskConstruct.md)
+- [EcsTaskConstruct](classes/EcsTaskConstruct.md)
 
 ## Interfaces
 

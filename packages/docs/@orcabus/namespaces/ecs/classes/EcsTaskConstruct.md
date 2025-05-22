@@ -2,11 +2,11 @@
 
 ***
 
-[@orcabus/platform-cdk-constructs](../../../../README.md) / [ecs](../README.md) / EcsFargateTaskConstruct
+[@orcabus/platform-cdk-constructs](../../../../README.md) / [ecs](../README.md) / EcsTaskConstruct
 
-# Class: EcsFargateTaskConstruct
+# Class: EcsTaskConstruct
 
-Defined in: [packages/ecs/index.ts:79](https://github.com/OrcaBus/platform-cdk-constructs/blob/c976adc64e129e16931e5f8794549bfec6d441a5/packages/ecs/index.ts#L79)
+Defined in: [packages/ecs/index.ts:79](https://github.com/orcabus/platform-cdk-constructs/blob/d147e1d3dfea325d03b6788743df722bc7755f87/packages/ecs/index.ts#L79)
 
 ## Extends
 
@@ -16,9 +16,9 @@ Defined in: [packages/ecs/index.ts:79](https://github.com/OrcaBus/platform-cdk-c
 
 ### Constructor
 
-> **new EcsFargateTaskConstruct**(`scope`, `id`, `props`): `EcsFargateTaskConstruct`
+> **new EcsTaskConstruct**(`scope`, `id`, `props`): `EcsTaskConstruct`
 
-Defined in: [packages/ecs/index.ts:85](https://github.com/OrcaBus/platform-cdk-constructs/blob/c976adc64e129e16931e5f8794549bfec6d441a5/packages/ecs/index.ts#L85)
+Defined in: [packages/ecs/index.ts:85](https://github.com/orcabus/platform-cdk-constructs/blob/d147e1d3dfea325d03b6788743df722bc7755f87/packages/ecs/index.ts#L85)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [packages/ecs/index.ts:85](https://github.com/OrcaBus/platform-cdk-c
 
 #### Returns
 
-`EcsFargateTaskConstruct`
+`EcsTaskConstruct`
 
 #### Overrides
 
@@ -48,7 +48,7 @@ Defined in: [packages/ecs/index.ts:85](https://github.com/OrcaBus/platform-cdk-c
 
 > `readonly` **cluster**: `ICluster`
 
-Defined in: [packages/ecs/index.ts:80](https://github.com/OrcaBus/platform-cdk-constructs/blob/c976adc64e129e16931e5f8794549bfec6d441a5/packages/ecs/index.ts#L80)
+Defined in: [packages/ecs/index.ts:80](https://github.com/orcabus/platform-cdk-constructs/blob/d147e1d3dfea325d03b6788743df722bc7755f87/packages/ecs/index.ts#L80)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [packages/ecs/index.ts:80](https://github.com/OrcaBus/platform-cdk-c
 
 > `readonly` **containerDefinition**: `ContainerDefinition`
 
-Defined in: [packages/ecs/index.ts:83](https://github.com/OrcaBus/platform-cdk-constructs/blob/c976adc64e129e16931e5f8794549bfec6d441a5/packages/ecs/index.ts#L83)
+Defined in: [packages/ecs/index.ts:83](https://github.com/orcabus/platform-cdk-constructs/blob/d147e1d3dfea325d03b6788743df722bc7755f87/packages/ecs/index.ts#L83)
 
 ***
 
@@ -78,7 +78,7 @@ The tree node.
 
 > `readonly` **securityGroup**: `ISecurityGroup`
 
-Defined in: [packages/ecs/index.ts:82](https://github.com/OrcaBus/platform-cdk-constructs/blob/c976adc64e129e16931e5f8794549bfec6d441a5/packages/ecs/index.ts#L82)
+Defined in: [packages/ecs/index.ts:82](https://github.com/orcabus/platform-cdk-constructs/blob/d147e1d3dfea325d03b6788743df722bc7755f87/packages/ecs/index.ts#L82)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: [packages/ecs/index.ts:82](https://github.com/OrcaBus/platform-cdk-c
 
 > `readonly` **taskDefinition**: `FargateTaskDefinition`
 
-Defined in: [packages/ecs/index.ts:81](https://github.com/OrcaBus/platform-cdk-constructs/blob/c976adc64e129e16931e5f8794549bfec6d441a5/packages/ecs/index.ts#L81)
+Defined in: [packages/ecs/index.ts:81](https://github.com/orcabus/platform-cdk-constructs/blob/d147e1d3dfea325d03b6788743df722bc7755f87/packages/ecs/index.ts#L81)
 
 ## Methods
 

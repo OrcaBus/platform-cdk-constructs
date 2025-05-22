@@ -9,12 +9,3 @@
 ## Type Aliases
 
 - [StageName](type-aliases/StageName.md)
-
-## Variables
-
-- [accountIdAlias](variables/accountIdAlias.md)
-- [region](variables/region.md)
-
-## Functions
-
-- [resolveStageName](functions/resolveStageName.md)

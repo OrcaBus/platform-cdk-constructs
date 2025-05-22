@@ -8,7 +8,7 @@
 
 > `const` **DEFAULT\_LOGS\_CONFIG**: `object`
 
-Defined in: [packages/api-gateway/config.ts:5](https://github.com/OrcaBus/platform-cdk-constructs/blob/c976adc64e129e16931e5f8794549bfec6d441a5/packages/api-gateway/config.ts#L5)
+Defined in: [packages/api-gateway/config.ts:5](https://github.com/OrcaBus/platform-cdk-constructs/blob/f32b67f3286f201d56d0d44eb040dea7b253bf65/packages/api-gateway/config.ts#L5)
 
 ## Type declaration
 
