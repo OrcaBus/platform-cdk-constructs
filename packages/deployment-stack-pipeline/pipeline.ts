@@ -256,7 +256,7 @@ export class DeploymentStackPipeline extends Construct {
   }
 }
 
-export class DeploymentStage extends Stage {
+class DeploymentStage extends Stage {
   constructor(
     scope: Construct,
     environmentName: string,
