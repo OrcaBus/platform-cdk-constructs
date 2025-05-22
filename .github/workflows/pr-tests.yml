@@ -1,0 +1,64 @@
+name: Pull Request Tests
+
+on:
+  pull_request:
+    paths-ignore:
+      # The ignore only works only if changes to the main branch only include the following files.
+      # So if the commit only contain .md changes but the PR change contain more, the ignore fails
+      # https://github.com/actions/runner/issues/2324#issuecomment-1703345084
+      - '**.md'
+      - '**.svg'
+      - '**.drawio'
+      - '**.png'
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+    branches:
+      - main
+
+permissions: read-all
+
+jobs:
+  pre-commit-security:
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pre-commit/action@v3.0.1
+
+      - name: TruffleHog OSS
+        uses: trufflesecurity/trufflehog@v3.88.32
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+          extra_args: --debug --only-verified
+
+  # Test if build completes successfully
+  test-successful-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'pnpm'
+
+      - run: corepack enable
+      
+      - run: pnpm install --ignore-scripts
+
+      # build and package
+      - run: pnpm build
+
+      - run: pnpm package
