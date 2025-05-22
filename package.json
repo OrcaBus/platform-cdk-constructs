@@ -1,6 +1,6 @@
 {
   "name": "@orcabus/platform-cdk-constructs",
-  "version": "0.0.7-alpha.0",
+  "version": "0.0.0",
   "description": "CDK Package for OrcaBus infrastructure.",
   "main": "packages/index.ts",
   "types": "packages/index.d.ts",
