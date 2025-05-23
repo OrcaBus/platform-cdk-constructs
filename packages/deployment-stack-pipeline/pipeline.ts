@@ -16,12 +16,15 @@ import {
   Pipeline,
   CfnPipeline,
   PipelineType,
+  PipelineNotificationEvents,
 } from "aws-cdk-lib/aws-codepipeline";
 import {
   BETA_ENVIRONMENT,
   GAMMA_ENVIRONMENT,
   PROD_ENVIRONMENT,
 } from "./config";
+import { SlackChannelConfiguration } from "aws-cdk-lib/aws-chatbot";
+import { DetailType } from "aws-cdk-lib/aws-codestarnotifications";
 
 /**
  * The default partial build spec for the synth step in the pipeline.
@@ -119,6 +122,19 @@ export interface DeploymentStackPipelineProps {
    * The stage environment for the deployment stack
    */
   readonly stageEnv?: StageEnvProps;
+  /**
+   * Enable notification to the 'alerts-build' slack channel.
+   * @default True
+   */
+  readonly enableSlackNotification?: boolean;
+  /**
+   * The pipeline notification events that will trigger a Slack channel notification.
+   * Only applies if `enableSlackNotification` is set to true.
+   *
+   * @default [PipelineNotificationEvents.PIPELINE_EXECUTION_FAILED] –
+   *   Only failed pipeline executions will trigger a notification.
+   */
+  readonly notificationEvents?: PipelineNotificationEvents[];
 }
 
 export class DeploymentStackPipeline extends Construct {
@@ -253,6 +269,26 @@ export class DeploymentStackPipeline extends Construct {
         props.githubBranch,
       ),
     );
+
+    if (props.enableSlackNotification) {
+      const alertsBuildSlackConfigArn = StringParameter.valueForStringParameter(
+        this,
+        "/chatbot_arn/slack/alerts-build",
+      );
+      const target = SlackChannelConfiguration.fromSlackChannelConfigurationArn(
+        this,
+        "SlackChannelConfiguration",
+        alertsBuildSlackConfigArn,
+      );
+
+      this.pipeline.notifyOn("PipelineSlackNotification", target, {
+        events: props.notificationEvents || [
+          PipelineNotificationEvents.PIPELINE_EXECUTION_FAILED,
+        ],
+        detailType: DetailType.FULL,
+        notificationRuleName: `OrcaBus-${props.pipelineName}`,
+      });
+    }
   }
 }
 

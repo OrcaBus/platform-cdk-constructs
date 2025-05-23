@@ -8,4 +8,4 @@
 
 > `const` **DEFAULT\_COGNITO\_USER\_POOL\_ID\_PARAMETER\_NAME**: `"/data_portal/client/cog_user_pool_id"` = `"/data_portal/client/cog_user_pool_id"`
 
-Defined in: [packages/api-gateway/config.ts:31](https://github.com/OrcaBus/platform-cdk-constructs/blob/f32b67f3286f201d56d0d44eb040dea7b253bf65/packages/api-gateway/config.ts#L31)
+Defined in: [packages/api-gateway/config.ts:31](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/api-gateway/config.ts#L31)
