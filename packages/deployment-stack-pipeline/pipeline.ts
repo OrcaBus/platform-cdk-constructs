@@ -270,7 +270,7 @@ export class DeploymentStackPipeline extends Construct {
       ),
     );
 
-    if (props.enableSlackNotification) {
+    if (props.enableSlackNotification ?? true) {
       const alertsBuildSlackConfigArn = StringParameter.valueForStringParameter(
         this,
         "/chatbot_arn/slack/alerts-build",
