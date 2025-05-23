@@ -6,7 +6,7 @@
 
 # Interface: OrcabusResourcesProps
 
-Defined in: [packages/lambda/index.ts:31](https://github.com/orcabus/platform-cdk-constructs/blob/d147e1d3dfea325d03b6788743df722bc7755f87/packages/lambda/index.ts#L31)
+Defined in: [packages/lambda/index.ts:34](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/lambda/index.ts#L34)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/lambda/index.ts:31](https://github.com/orcabus/platform-cd
 
 > `readonly` `optional` **hostnameSsmParameterName**: `string`
 
-Defined in: [packages/lambda/index.ts:40](https://github.com/orcabus/platform-cdk-constructs/blob/d147e1d3dfea325d03b6788743df722bc7755f87/packages/lambda/index.ts#L40)
+Defined in: [packages/lambda/index.ts:43](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/lambda/index.ts#L43)
 
 Provide the hostnameSsmParameterName, otherwise it will default to @DEFAULT_HOSTNAME_SSM_PARAMETER
 
@@ -24,6 +24,6 @@ Provide the hostnameSsmParameterName, otherwise it will default to @DEFAULT_HOST
 
 > `readonly` `optional` **orcabusTokenSecretId**: `string`
 
-Defined in: [packages/lambda/index.ts:35](https://github.com/orcabus/platform-cdk-constructs/blob/d147e1d3dfea325d03b6788743df722bc7755f87/packages/lambda/index.ts#L35)
+Defined in: [packages/lambda/index.ts:38](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/lambda/index.ts#L38)
 
 Provide the orcabusTokenSecretId, otherwise it will default to @DEFAULT_ORCABUS_TOKEN_SECRET_ID

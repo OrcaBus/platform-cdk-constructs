@@ -6,7 +6,7 @@
 
 # Interface: StageEnvProps
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:39](https://github.com/OrcaBus/platform-cdk-constructs/blob/f32b67f3286f201d56d0d44eb040dea7b253bf65/packages/deployment-stack-pipeline/pipeline.ts#L39)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:42](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/deployment-stack-pipeline/pipeline.ts#L42)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:39](https://github.c
 
 > `readonly` **beta**: `Environment`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:43](https://github.com/OrcaBus/platform-cdk-constructs/blob/f32b67f3286f201d56d0d44eb040dea7b253bf65/packages/deployment-stack-pipeline/pipeline.ts#L43)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:46](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/deployment-stack-pipeline/pipeline.ts#L46)
 
 The environment for the beta stage
 
@@ -24,7 +24,7 @@ The environment for the beta stage
 
 > `readonly` **gamma**: `Environment`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:47](https://github.com/OrcaBus/platform-cdk-constructs/blob/f32b67f3286f201d56d0d44eb040dea7b253bf65/packages/deployment-stack-pipeline/pipeline.ts#L47)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:50](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/deployment-stack-pipeline/pipeline.ts#L50)
 
 The environment for the gamma stage
 
@@ -34,6 +34,6 @@ The environment for the gamma stage
 
 > `readonly` **prod**: `Environment`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:51](https://github.com/OrcaBus/platform-cdk-constructs/blob/f32b67f3286f201d56d0d44eb040dea7b253bf65/packages/deployment-stack-pipeline/pipeline.ts#L51)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:54](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/deployment-stack-pipeline/pipeline.ts#L54)
 
 The environment for the prod stage

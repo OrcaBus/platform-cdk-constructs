@@ -8,4 +8,4 @@
 
 > **StageName** = `"BETA"` \| `"GAMMA"` \| `"PROD"`
 
-Defined in: [packages/utils/index.ts:1](https://github.com/OrcaBus/platform-cdk-constructs/blob/f32b67f3286f201d56d0d44eb040dea7b253bf65/packages/utils/index.ts#L1)
+Defined in: [packages/utils/index.ts:3](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/utils/index.ts#L3)
