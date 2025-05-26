@@ -24,10 +24,8 @@ class DeploymentStack extends cdk.Stack {
     super(scope, id, props);
 
     new Bucket(this, "MySimpleBucket", {
-      bucketName: props.bucketName,
       versioned: false,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
-      autoDeleteObjects: true,
     });
 
     // const myKmsKey = new Key(this, "TestArtifactBucketKmsKey", {
@@ -45,6 +43,27 @@ class DeploymentStack extends cdk.Stack {
     //   encryption: BucketEncryption.KMS,
     //   encryptionKey: myKmsKey,
     // });
+
+    // artifactBucket.addToResourcePolicy(
+    //   new iam.PolicyStatement({
+    //     actions: ["s3:GetObject*", "s3:GetBucket*", "s3:List*"],
+    //     resources: [
+    //       artifactBucket.bucketArn,
+    //       artifactBucket.arnForObjects("*"),
+    //     ],
+    //     principals: [
+    //       new iam.ArnPrincipal(
+    //         `arn:aws:iam::${BETA_ENVIRONMENT.account}:role/cdk-hnb659fds-deploy-role-${BETA_ENVIRONMENT.account}-ap-southeast-2`,
+    //       ),
+    //       new iam.ArnPrincipal(
+    //         `arn:aws:iam::${GAMMA_ENVIRONMENT.account}:role/cdk-hnb659fds-deploy-role-${GAMMA_ENVIRONMENT.account}-ap-southeast-2`,
+    //       ),
+    //       new iam.ArnPrincipal(
+    //         `arn:aws:iam::${PROD_ENVIRONMENT.account}:role/cdk-hnb659fds-deploy-role-${PROD_ENVIRONMENT.account}-ap-southeast-2`,
+    //       ),
+    //     ],
+    //   }),
+    // );
   }
 }
 
