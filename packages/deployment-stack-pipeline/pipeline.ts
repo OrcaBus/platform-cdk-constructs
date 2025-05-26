@@ -167,10 +167,11 @@ export class DeploymentStackPipeline extends Construct {
       },
     );
 
-    const artifactBucketKmsKey = Key.fromLookup(this, "ArtifactBucketKmsKey", {
-      aliasName: "test-artifact-bucket-william-kms-key",
-      returnDummyKeyOnMissing: true,
-    });
+    const artifactBucketKmsKey = Key.fromKeyArn(
+      this,
+      "ArtifactBucketKmsKey",
+      "arn:aws:kms:ap-southeast-2:383856791668:key/90bad1c0-a7f4-474e-a40b-598e7af3f3b0",
+    );
     const artifactBucket = Bucket.fromBucketAttributes(
       this,
       "CodepipelineArtifactBucket",
