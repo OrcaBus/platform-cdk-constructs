@@ -81,7 +81,7 @@ class DevStack extends cdk.Stack {
         gamma: { bucketName: "my-simple-bucket-stg" },
         prod: { bucketName: "my-simple-bucket-prod" },
       },
-      pipelineName: "TestDeploymentPipeline",
+      pipelineName: "TestNumber2DeploymentPipeline",
       cdkSynthCmd: [
         "pnpm install --frozen-lockfile --ignore-scripts",
         "cd dev",
@@ -92,7 +92,15 @@ class DevStack extends cdk.Stack {
   }
 }
 
-new DevStack(app, "DevStack", {
+// new DevStack(app, "DevStack", {
+//   env: TOOLCHAIN_ENVIRONMENT,
+//   tags: {
+//     stack: "manual",
+//     useCase: "testing",
+//   },
+// });
+
+new DevStack(app, "DevSecondStack", {
   env: TOOLCHAIN_ENVIRONMENT,
   tags: {
     stack: "manual",
