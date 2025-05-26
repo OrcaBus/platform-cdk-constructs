@@ -5,10 +5,13 @@ import * as cdk from "aws-cdk-lib";
 import {
   BETA_ENVIRONMENT,
   DeploymentStackPipeline,
+  GAMMA_ENVIRONMENT,
+  PROD_ENVIRONMENT,
   TOOLCHAIN_ENVIRONMENT,
 } from "../packages/deployment-stack-pipeline";
 import { Bucket, BucketEncryption } from "aws-cdk-lib/aws-s3";
 import { Key } from "aws-cdk-lib/aws-kms";
+import * as iam from "aws-cdk-lib/aws-iam";
 
 const app = new cdk.App();
 
@@ -34,7 +37,7 @@ class DeploymentStack extends cdk.Stack {
     //   removalPolicy: cdk.RemovalPolicy.DESTROY,
     //   alias: `${props.bucketName}-kms-key`,
     // });
-    // new Bucket(this, "TestArtifactBucket", {
+    // const artifactBucket = new Bucket(this, "TestArtifactBucket", {
     //   bucketName: props.bucketName,
     //   versioned: false,
     //   removalPolicy: cdk.RemovalPolicy.DESTROY,
@@ -73,8 +76,8 @@ class DevStack extends cdk.Stack {
 new DevStack(app, "DevStack", {
   env: TOOLCHAIN_ENVIRONMENT,
   tags: {
-    "umccr-org:Stack": "DevStackPlatPlatformCDKConstructs",
-    "umccr-org:Product": "OrcaBus",
+    stack: "manual",
+    useCase: "testing",
   },
 });
 
