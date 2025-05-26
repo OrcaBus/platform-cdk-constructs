@@ -50,7 +50,7 @@ class DevStack extends cdk.Stack {
     super(scope, id, props);
 
     new DeploymentStackPipeline(this, "DeploymentPipeline", {
-      githubBranch: "main",
+      githubBranch: "feat(cdk-pipeline)/unify-kms-key",
       githubRepo: "platform-cdk-constructs",
       stack: DeploymentStack,
       stackName: "TestStack",
