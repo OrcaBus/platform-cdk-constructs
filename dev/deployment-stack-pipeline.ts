@@ -7,7 +7,8 @@ import {
   DeploymentStackPipeline,
   TOOLCHAIN_ENVIRONMENT,
 } from "../packages/deployment-stack-pipeline";
-import { Bucket } from "aws-cdk-lib/aws-s3";
+import { Bucket, BucketEncryption } from "aws-cdk-lib/aws-s3";
+import { Key } from "aws-cdk-lib/aws-kms";
 
 const app = new cdk.App();
 
@@ -25,6 +26,22 @@ class DeploymentStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
     });
+
+    // const myKmsKey = new Key(this, "TestArtifactBucketKmsKey", {
+    //   pendingWindow: cdk.Duration.days(7),
+    //   description: "Test Artifact Bucket KMS Key",
+    //   enableKeyRotation: false,
+    //   removalPolicy: cdk.RemovalPolicy.DESTROY,
+    //   alias: `${props.bucketName}-kms-key`,
+    // });
+    // new Bucket(this, "TestArtifactBucket", {
+    //   bucketName: props.bucketName,
+    //   versioned: false,
+    //   removalPolicy: cdk.RemovalPolicy.DESTROY,
+    //   autoDeleteObjects: true,
+    //   encryption: BucketEncryption.KMS,
+    //   encryptionKey: myKmsKey,
+    // });
   }
 }
 
@@ -54,11 +71,20 @@ class DevStack extends cdk.Stack {
 }
 
 new DevStack(app, "DevStack", {
-  env: BETA_ENVIRONMENT,
+  env: TOOLCHAIN_ENVIRONMENT,
   tags: {
-    "umccr-org:Stack": "DevStack",
+    "umccr-org:Stack": "DevStackPlatPlatformCDKConstructs",
     "umccr-org:Product": "OrcaBus",
   },
 });
+
+// new DeploymentStack(app, "ArtifactBucketTestStack", {
+//   env: TOOLCHAIN_ENVIRONMENT,
+//   tags: {
+//     stack: "manual",
+//     useCase: "testing",
+//   },
+//   bucketName: "test-artifact-bucket-william",
+// });
 
 app.synth();

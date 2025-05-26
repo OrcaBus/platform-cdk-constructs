@@ -1,5 +1,5 @@
 import { Construct } from "constructs";
-import { Environment, Stack, Stage } from "aws-cdk-lib";
+import { Environment, RemovalPolicy, Stack, Stage } from "aws-cdk-lib";
 import {
   BuildSpec,
   ComputeType,
@@ -25,6 +25,8 @@ import {
 } from "./config";
 import { SlackChannelConfiguration } from "aws-cdk-lib/aws-chatbot";
 import { DetailType } from "aws-cdk-lib/aws-codestarnotifications";
+import { Bucket, BucketEncryption } from "aws-cdk-lib/aws-s3";
+import { Alias, Key } from "aws-cdk-lib/aws-kms";
 
 /**
  * The default partial build spec for the synth step in the pipeline.
@@ -165,7 +167,22 @@ export class DeploymentStackPipeline extends Construct {
       },
     );
 
+    const artifactBucketKmsKey = Alias.fromAliasName(
+      this,
+      "ArtifactBucketKmsKey",
+      "test-artifact-bucket-william-kms-key",
+    );
+    const artifactBucket = Bucket.fromBucketAttributes(
+      this,
+      "CodepipelineArtifactBucket",
+      {
+        bucketName: "test-artifact-bucket-william",
+        encryptionKey: artifactBucketKmsKey,
+      },
+    );
+
     this.pipeline = new Pipeline(this, "DeploymentCodePipeline", {
+      artifactBucket: artifactBucket,
       pipelineType: PipelineType.V2,
       pipelineName: props.pipelineName,
       crossAccountKeys: true,
@@ -257,18 +274,18 @@ export class DeploymentStackPipeline extends Construct {
       { post: [new ManualApprovalStep("PromoteToProd")] },
     );
 
-    cdkPipeline.addStage(
-      new DeploymentStage(
-        this,
-        "OrcaBusProd",
-        stageEnv.prod,
-        props.stackName,
-        props.stack,
-        props.stackConfig.prod,
-        props.githubRepo,
-        props.githubBranch,
-      ),
-    );
+    // cdkPipeline.addStage(
+    //   new DeploymentStage(
+    //     this,
+    //     "OrcaBusProd",
+    //     stageEnv.prod,
+    //     props.stackName,
+    //     props.stack,
+    //     props.stackConfig.prod,
+    //     props.githubRepo,
+    //     props.githubBranch,
+    //   ),
+    // );
 
     if (props.enableSlackNotification ?? true) {
       const alertsBuildSlackConfigArn = StringParameter.valueForStringParameter(
