@@ -339,7 +339,7 @@ export class PythonUvFunction extends PythonFunction {
         props: MartEnvironmentVariables
     ) {
         // Resolve the stage name by performing a reverse lookup using cdk.Aws.ACCOUNT_ID on accountIdAlias
-        const stageName = resolveStageName()
+        const stageName = resolveStageName(this)
 
         const athenaS3Bucket = s3.Bucket.fromBucketName(
             this, 'athenaS3Bucket',
@@ -425,7 +425,7 @@ export class PythonUvFunction extends PythonFunction {
         props: Icav2ResourcesProps
     ) {
         // Resolve the stage name by performing a reverse lookup using cdk.Aws.ACCOUNT_ID on accountIdAlias
-        const stageName = resolveStageName()
+        const stageName = resolveStageName(this)
 
         // Set secret object
         const icav2AccessTokenSecretId = secretsManager.Secret.fromSecretNameV2(
