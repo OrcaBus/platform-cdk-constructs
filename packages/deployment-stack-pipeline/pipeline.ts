@@ -139,6 +139,14 @@ export interface DeploymentStackPipelineProps {
    *   Only failed pipeline executions will trigger a notification.
    */
   readonly notificationEvents?: PipelineNotificationEvents[];
+
+  /**
+   * Whether to reuse the existing artifact bucket for cross-deployment pipelines.
+   * If set to true, it will look up the existing artifact bucket in the TOOLCHAIN account.
+   *
+   * @default True
+   */
+  readonly reuseExistingArtifactBucket?: boolean;
 }
 
 /**
@@ -176,9 +184,13 @@ export class DeploymentStackPipeline extends Construct {
     );
 
     // Disable temporary artifact bucket lookup until is deployed in the TOOLCHAIN account
-    // const artifactBucketKms = CrossDeploymentArtifactBucket.fromLookup(this);
+    // const artifactBucket = props.reuseExistingArtifactBucket
+    //   ? CrossDeploymentArtifactBucket.fromLookup(this).artifactBucket
+    //   : undefined;
+    const artifactBucket = undefined;
+
     this.pipeline = new Pipeline(this, "DeploymentCodePipeline", {
-      // artifactBucket: artifactBucketKms.artifactBucket,
+      artifactBucket: artifactBucket,
       pipelineType: PipelineType.V2,
       pipelineName: props.pipelineName,
       crossAccountKeys: true,
