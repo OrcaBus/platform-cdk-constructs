@@ -3,4 +3,4 @@
 ICAV2_WES_SUBDOMAIN_NAME = "icav2-wes"
 
 # API ENDPOINTS
-ANALYSES_ENDPOINT = "api/v1/analyses"
+ANALYSES_ENDPOINT = "api/v1/analysis"
