@@ -88,6 +88,11 @@ export interface PythonUvFunctionProps extends PythonFunctionProps {
     readonly includeIcav2Layer?: boolean
 
     /**
+     * Whether or not to include the fastapi layer in the lambda function build
+     */
+    readonly includeFastApiLayer?: boolean
+
+    /**
      * Provide the orcabusTokenResources, optional, otherwise it will default to
      * @DEFAULT_ORCABUS_TOKEN_SECRET_ID and @DEFAULT_HOSTNAME_SSM_PARAMETER
      * for the secret and SSM parameter respectively
@@ -116,6 +121,7 @@ export class PythonUvFunction extends PythonFunction {
     private static orcabusApiToolsLayer: Map<Construct, lambda.ILayerVersion> = new Map();
     private static martLayer: Map<Construct, lambda.ILayerVersion> = new Map();
     private static icav2Layer: Map<Construct, lambda.ILayerVersion> = new Map();
+    private static fastApiLayer: Map<Construct, lambda.ILayerVersion> = new Map();
 
     constructor(scope: Construct, id: string, props: PythonUvFunctionProps) {
         const uvProps = {
@@ -175,6 +181,12 @@ export class PythonUvFunction extends PythonFunction {
             /* Build the icav2 layer */
             this.buildIcav2Layer(scope)
             this.addLayers(<PythonLayerVersion>PythonUvFunction.icav2Layer.get(scope))
+        }
+
+        if (props.includeFastApiLayer) {
+            /* Build the fastapi layer */
+            this.buildFastApiLayer(scope)
+            this.addLayers(<PythonLayerVersion>PythonUvFunction.fastApiLayer.get(scope))
         }
     }
 
@@ -263,6 +275,35 @@ export class PythonUvFunction extends PythonFunction {
                 },
             });
             PythonUvFunction.icav2Layer.set(scope, layer);
+        }
+    }
+
+    private buildFastApiLayer(scope: Construct) {
+        // Only build the layer if it doesn't exist
+        if (!PythonUvFunction.fastApiLayer.has(scope)) {
+            const layer = new PythonLayerVersion(this, 'fastApiLayer', {
+                entry: path.join(__dirname, 'layers/fastapi_tools'),
+                compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
+                compatibleArchitectures: [lambda.Architecture.ARM_64],
+                license: 'GPL3',
+                description: 'fastApiLayer',
+                bundling: {
+                    image: getPythonUvDockerImage(),
+                    commandHooks: {
+                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                        beforeBundling(inputDir: string, outputDir: string): string[] {
+                            return [];
+                        },
+                        afterBundling(inputDir: string, outputDir: string): string[] {
+                            return [
+                                `pip install ${inputDir} --target ${outputDir}`,
+                                `find ${outputDir} -name 'pandas' -exec rm -rf {}/tests/ \\;`,
+                            ];
+                        },
+                    },
+                },
+            });
+            PythonUvFunction.fastApiLayer.set(scope, layer);
         }
     }
 
