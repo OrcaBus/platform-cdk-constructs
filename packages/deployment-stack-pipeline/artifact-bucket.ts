@@ -67,6 +67,7 @@ export class CrossDeploymentArtifactBucket
       removalPolicy: RemovalPolicy.RETAIN,
       encryption: BucketEncryption.KMS,
       encryptionKey: this.artifactKms,
+      enforceSSL: true,
     });
 
     this.artifactBucket.addToResourcePolicy(
