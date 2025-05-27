@@ -17,7 +17,7 @@ export const CROSS_DEPLOYMENT_ARTIFACT_KMS_ALIAS =
   "orcabus-cross-deployment-codepipeline-artifact";
 
 export const CROSS_DEPLOYMENT_ARTIFACT_KMS_ARN_SSM_PARAMETER_NAME =
-  "orcabus/deployment-stack-pipeline/artifact-bucket/kms-key-arn";
+  "/orcabus/deployment-stack-pipeline/artifact-bucket/kms-key-arn";
 
 export interface ICrossDeploymentArtifactBucket {
   /**
