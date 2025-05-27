@@ -143,7 +143,7 @@ export interface DeploymentStackPipelineProps {
 
 /**
  * A CDK construct that creates a deployment pipeline across environments for the OrcaBus project.
- * 
+ *
  * Prerequisite: Ensure that the "CrossDeploymentArtifactBucket" stack is deployed in the TOOLCHAIN account
  * before using this construct.
  */
@@ -175,10 +175,10 @@ export class DeploymentStackPipeline extends Construct {
       },
     );
 
-    const artifactBucketKms = CrossDeploymentArtifactBucket.fromLookup(this);
-
+    // Disable temporary artifact bucket lookup until is deployed in the TOOLCHAIN account
+    // const artifactBucketKms = CrossDeploymentArtifactBucket.fromLookup(this);
     this.pipeline = new Pipeline(this, "DeploymentCodePipeline", {
-      artifactBucket: artifactBucketKms.artifactBucket,
+      // artifactBucket: artifactBucketKms.artifactBucket,
       pipelineType: PipelineType.V2,
       pipelineName: props.pipelineName,
       crossAccountKeys: true,

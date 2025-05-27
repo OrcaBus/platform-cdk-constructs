@@ -37,11 +37,11 @@ export class CrossDeploymentArtifactBucket
   /**
    * The S3 bucket used to store artifacts for cross-deployment pipelines.
    */
-  public readonly artifactBucket: Bucket;
+  public readonly artifactBucket: IBucket;
   /**
    * The KMS key used to encrypt artifacts for cross-deployment pipelines.
    */
-  public readonly artifactKms: Key;
+  public readonly artifactKms: IKey;
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
