@@ -1,5 +1,5 @@
 import { Construct } from "constructs";
-import { Environment, Stack, Stage } from "aws-cdk-lib";
+import { Environment, RemovalPolicy, Stack, Stage } from "aws-cdk-lib";
 import {
   BuildSpec,
   ComputeType,
@@ -25,6 +25,7 @@ import {
 } from "./config";
 import { SlackChannelConfiguration } from "aws-cdk-lib/aws-chatbot";
 import { DetailType } from "aws-cdk-lib/aws-codestarnotifications";
+import { CrossDeploymentArtifactBucket } from "./artifact-bucket";
 
 /**
  * The default partial build spec for the synth step in the pipeline.
@@ -71,7 +72,10 @@ export interface StackConfigProps {
 
 export interface DeploymentStackPipelineProps {
   /**
-   * The github branch name it will listen to.
+   * The GitHub branch name the pipeline will listen to.
+   * Avoid using branch names that contain special characters such as parentheses.
+   * Allowed special characters are: "+ - = . _ : / @".
+   * This restriction is due to AWS resource tagging requirements.
    */
   readonly githubBranch: string;
   /**
@@ -135,8 +139,22 @@ export interface DeploymentStackPipelineProps {
    *   Only failed pipeline executions will trigger a notification.
    */
   readonly notificationEvents?: PipelineNotificationEvents[];
+
+  /**
+   * Whether to reuse the existing artifact bucket for cross-deployment pipelines.
+   * If set to true, it will look up the existing artifact bucket in the TOOLCHAIN account.
+   *
+   * @default True
+   */
+  readonly reuseExistingArtifactBucket?: boolean;
 }
 
+/**
+ * A CDK construct that creates a deployment pipeline across environments for the OrcaBus project.
+ *
+ * Prerequisite: Ensure that the "CrossDeploymentArtifactBucket" stack is deployed in the TOOLCHAIN account
+ * before using this construct.
+ */
 export class DeploymentStackPipeline extends Construct {
   /**
    * The code pipeline construct that is created.
@@ -165,7 +183,14 @@ export class DeploymentStackPipeline extends Construct {
       },
     );
 
+    // Disable temporary artifact bucket lookup until is deployed in the TOOLCHAIN account
+    // const artifactBucket = props.reuseExistingArtifactBucket
+    //   ? CrossDeploymentArtifactBucket.fromLookup(this).artifactBucket
+    //   : undefined;
+    const artifactBucket = undefined;
+
     this.pipeline = new Pipeline(this, "DeploymentCodePipeline", {
+      artifactBucket: artifactBucket,
       pipelineType: PipelineType.V2,
       pipelineName: props.pipelineName,
       crossAccountKeys: true,
