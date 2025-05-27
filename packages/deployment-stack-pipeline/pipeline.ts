@@ -25,8 +25,7 @@ import {
 } from "./config";
 import { SlackChannelConfiguration } from "aws-cdk-lib/aws-chatbot";
 import { DetailType } from "aws-cdk-lib/aws-codestarnotifications";
-import { Bucket, BucketEncryption } from "aws-cdk-lib/aws-s3";
-import { Alias, Key } from "aws-cdk-lib/aws-kms";
+import { CrossDeploymentArtifactBucket } from "./artifact-bucket";
 
 /**
  * The default partial build spec for the synth step in the pipeline.
@@ -73,7 +72,10 @@ export interface StackConfigProps {
 
 export interface DeploymentStackPipelineProps {
   /**
-   * The github branch name it will listen to.
+   * The GitHub branch name the pipeline will listen to.
+   * Avoid using branch names that contain special characters such as parentheses.
+   * Allowed special characters are: "+ - = . _ : / @".
+   * This restriction is due to AWS resource tagging requirements.
    */
   readonly githubBranch: string;
   /**
@@ -139,6 +141,12 @@ export interface DeploymentStackPipelineProps {
   readonly notificationEvents?: PipelineNotificationEvents[];
 }
 
+/**
+ * A CDK construct that creates a deployment pipeline across environments for the OrcaBus project.
+ * 
+ * Prerequisite: Ensure that the "CrossDeploymentArtifactBucket" stack is deployed in the TOOLCHAIN account
+ * before using this construct.
+ */
 export class DeploymentStackPipeline extends Construct {
   /**
    * The code pipeline construct that is created.
@@ -167,22 +175,10 @@ export class DeploymentStackPipeline extends Construct {
       },
     );
 
-    const artifactBucketKmsKey = Key.fromKeyArn(
-      this,
-      "ArtifactBucketKmsKey",
-      "arn:aws:kms:ap-southeast-2:383856791668:key/90bad1c0-a7f4-474e-a40b-598e7af3f3b0",
-    );
-    const artifactBucket = Bucket.fromBucketAttributes(
-      this,
-      "CodepipelineArtifactBucket",
-      {
-        bucketName: "test-artifact-bucket-william",
-        encryptionKey: artifactBucketKmsKey,
-      },
-    );
+    const artifactBucketKms = CrossDeploymentArtifactBucket.fromLookup(this);
 
     this.pipeline = new Pipeline(this, "DeploymentCodePipeline", {
-      artifactBucket: artifactBucket,
+      artifactBucket: artifactBucketKms.artifactBucket,
       pipelineType: PipelineType.V2,
       pipelineName: props.pipelineName,
       crossAccountKeys: true,
@@ -274,18 +270,18 @@ export class DeploymentStackPipeline extends Construct {
       { post: [new ManualApprovalStep("PromoteToProd")] },
     );
 
-    // cdkPipeline.addStage(
-    //   new DeploymentStage(
-    //     this,
-    //     "OrcaBusProd",
-    //     stageEnv.prod,
-    //     props.stackName,
-    //     props.stack,
-    //     props.stackConfig.prod,
-    //     props.githubRepo,
-    //     props.githubBranch,
-    //   ),
-    // );
+    cdkPipeline.addStage(
+      new DeploymentStage(
+        this,
+        "OrcaBusProd",
+        stageEnv.prod,
+        props.stackName,
+        props.stack,
+        props.stackConfig.prod,
+        props.githubRepo,
+        props.githubBranch,
+      ),
+    );
 
     if (props.enableSlackNotification ?? true) {
       const alertsBuildSlackConfigArn = StringParameter.valueForStringParameter(
