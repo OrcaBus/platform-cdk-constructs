@@ -120,4 +120,4 @@ def get_orcabus_token() -> str:
     )
 
 def get_hostname() -> str:
-    return get_ssm_value(environ.get("HOSTNAME_SSM_PARAMETER"))
+    return get_ssm_value(environ.get("HOSTNAME_SSM_PARAMETER_NAME"))
