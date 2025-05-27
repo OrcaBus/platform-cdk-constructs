@@ -65,9 +65,9 @@ def icav2_wes_post_request(
 
 
 # Set all
-from create_helpers import create_icav2_wes_analysis
-from query_helpers import get_icav2_wes_analysis_by_name
-from update_helpers import update_icav2_wes_analysis_status
+from .create_helpers import create_icav2_wes_analysis
+from .query_helpers import get_icav2_wes_analysis_by_name
+from .update_helpers import update_icav2_wes_analysis_status
 
 __all__ = [
     # Launch helpers
