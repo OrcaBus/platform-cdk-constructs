@@ -2,7 +2,11 @@ import { Construct } from "constructs";
 import { Bucket, BucketEncryption, IBucket } from "aws-cdk-lib/aws-s3";
 import { IKey, Key } from "aws-cdk-lib/aws-kms";
 import { Duration, RemovalPolicy } from "aws-cdk-lib";
-import { ArnPrincipal, PolicyStatement } from "aws-cdk-lib/aws-iam";
+import {
+  ArnPrincipal,
+  PolicyDocument,
+  PolicyStatement,
+} from "aws-cdk-lib/aws-iam";
 import {
   BETA_ENVIRONMENT,
   GAMMA_ENVIRONMENT,
@@ -46,12 +50,33 @@ export class CrossDeploymentArtifactBucket
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
+    const stageDeployRolePrincipal = [
+      new ArnPrincipal(
+        `arn:aws:iam::${BETA_ENVIRONMENT.account}:role/cdk-hnb659fds-deploy-role-${BETA_ENVIRONMENT.account}-ap-southeast-2`,
+      ),
+      new ArnPrincipal(
+        `arn:aws:iam::${GAMMA_ENVIRONMENT.account}:role/cdk-hnb659fds-deploy-role-${GAMMA_ENVIRONMENT.account}-ap-southeast-2`,
+      ),
+      new ArnPrincipal(
+        `arn:aws:iam::${PROD_ENVIRONMENT.account}:role/cdk-hnb659fds-deploy-role-${PROD_ENVIRONMENT.account}-ap-southeast-2`,
+      ),
+    ];
+
     this.artifactKms = new Key(this, "KmsKeyCodepipelineArtifactBucket", {
       pendingWindow: Duration.days(30),
       description: "OrcaBus Cross Deployment Artifact Bucket KMS Key",
       enableKeyRotation: false,
       removalPolicy: RemovalPolicy.RETAIN,
       alias: CROSS_DEPLOYMENT_ARTIFACT_KMS_ALIAS,
+      policy: new PolicyDocument({
+        statements: [
+          new PolicyStatement({
+            actions: ["kms:Decrypt", "kms:DescribeKey"],
+            principals: stageDeployRolePrincipal,
+            resources: ["*"],
+          }),
+        ],
+      }),
     });
 
     new StringParameter(this, "SSMArtifactBucketKmsArnParameter", {
@@ -77,17 +102,7 @@ export class CrossDeploymentArtifactBucket
           this.artifactBucket.bucketArn,
           this.artifactBucket.arnForObjects("*"),
         ],
-        principals: [
-          new ArnPrincipal(
-            `arn:aws:iam::${BETA_ENVIRONMENT.account}:role/cdk-hnb659fds-deploy-role-${BETA_ENVIRONMENT.account}-ap-southeast-2`,
-          ),
-          new ArnPrincipal(
-            `arn:aws:iam::${GAMMA_ENVIRONMENT.account}:role/cdk-hnb659fds-deploy-role-${GAMMA_ENVIRONMENT.account}-ap-southeast-2`,
-          ),
-          new ArnPrincipal(
-            `arn:aws:iam::${PROD_ENVIRONMENT.account}:role/cdk-hnb659fds-deploy-role-${PROD_ENVIRONMENT.account}-ap-southeast-2`,
-          ),
-        ],
+        principals: stageDeployRolePrincipal,
       }),
     );
   }
