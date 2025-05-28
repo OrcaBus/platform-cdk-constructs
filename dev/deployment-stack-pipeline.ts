@@ -32,7 +32,7 @@ class DevStack extends cdk.Stack {
     super(scope, id, props);
 
     new DeploymentStackPipeline(this, "DeploymentPipeline", {
-      githubBranch: "feat/add-kms-policy",
+      githubBranch: "main",
       githubRepo: "platform-cdk-constructs",
       stack: DeploymentStack,
       stackName: "TestStack",
@@ -48,8 +48,9 @@ class DevStack extends cdk.Stack {
         "pnpm cdk synth",
       ],
       cdkOut: "dev/cdk.out",
-      reuseExistingArtifactBucket: true,
-      enableSlackNotification: false,
+      // Use default props
+      // reuseExistingArtifactBucket: true,
+      // enableSlackNotification: false,
     });
   }
 }
