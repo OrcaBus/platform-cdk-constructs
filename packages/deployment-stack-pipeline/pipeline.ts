@@ -183,11 +183,9 @@ export class DeploymentStackPipeline extends Construct {
       },
     );
 
-    // Disable temporary artifact bucket lookup until is deployed in the TOOLCHAIN account
-    // const artifactBucket = props.reuseExistingArtifactBucket
-    //   ? CrossDeploymentArtifactBucket.fromLookup(this).artifactBucket
-    //   : undefined;
-    const artifactBucket = undefined;
+    const artifactBucket = !!props.reuseExistingArtifactBucket
+      ? CrossDeploymentArtifactBucket.fromLookup(this).artifactBucket
+      : undefined;
 
     this.pipeline = new Pipeline(this, "DeploymentCodePipeline", {
       artifactBucket: artifactBucket,

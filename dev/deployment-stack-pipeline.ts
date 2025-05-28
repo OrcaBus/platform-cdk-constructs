@@ -3,7 +3,6 @@ import "source-map-support/register";
 import { Construct } from "constructs";
 import * as cdk from "aws-cdk-lib";
 import {
-  BETA_ENVIRONMENT,
   DeploymentStackPipeline,
   TOOLCHAIN_ENVIRONMENT,
 } from "../packages/deployment-stack-pipeline";
@@ -49,12 +48,15 @@ class DevStack extends cdk.Stack {
         "pnpm cdk synth",
       ],
       cdkOut: "dev/cdk.out",
+      // Use default props
+      // reuseExistingArtifactBucket: true,
+      // enableSlackNotification: false,
     });
   }
 }
 
 new DevStack(app, "DevStack", {
-  env: BETA_ENVIRONMENT,
+  env: TOOLCHAIN_ENVIRONMENT,
   tags: {
     "umccr-org:Stack": "DevStack",
     "umccr-org:Product": "OrcaBus",
