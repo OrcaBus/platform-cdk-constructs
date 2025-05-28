@@ -32,7 +32,7 @@ class DevStack extends cdk.Stack {
     super(scope, id, props);
 
     new DeploymentStackPipeline(this, "DeploymentPipeline", {
-      githubBranch: "main",
+      githubBranch: "feat/add-kms-policy",
       githubRepo: "platform-cdk-constructs",
       stack: DeploymentStack,
       stackName: "TestStack",
