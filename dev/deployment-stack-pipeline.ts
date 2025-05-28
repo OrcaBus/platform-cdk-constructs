@@ -48,6 +48,8 @@ class DevStack extends cdk.Stack {
         "pnpm cdk synth",
       ],
       cdkOut: "dev/cdk.out",
+      reuseExistingArtifactBucket: true,
+      enableSlackNotification: false,
     });
   }
 }
