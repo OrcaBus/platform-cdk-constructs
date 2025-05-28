@@ -183,7 +183,9 @@ export class DeploymentStackPipeline extends Construct {
       },
     );
 
-    const artifactBucket = !!props.reuseExistingArtifactBucket
+    const isReusingExistingArtifactBucket =
+      props.reuseExistingArtifactBucket ?? true;
+    const artifactBucket = isReusingExistingArtifactBucket
       ? CrossDeploymentArtifactBucket.fromLookup(this).artifactBucket
       : undefined;
 

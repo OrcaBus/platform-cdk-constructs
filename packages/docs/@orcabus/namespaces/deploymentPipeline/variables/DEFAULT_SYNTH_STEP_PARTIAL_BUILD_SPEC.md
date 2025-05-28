@@ -8,7 +8,7 @@
 
 > `const` **DEFAULT\_SYNTH\_STEP\_PARTIAL\_BUILD\_SPEC**: `object`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:32](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/deployment-stack-pipeline/pipeline.ts#L32)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:33](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/pipeline.ts#L33)
 
 The default partial build spec for the synth step in the pipeline.
 

@@ -6,7 +6,12 @@
 
 # Class: DeploymentStackPipeline
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:140](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/deployment-stack-pipeline/pipeline.ts#L140)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:158](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/pipeline.ts#L158)
+
+A CDK construct that creates a deployment pipeline across environments for the OrcaBus project.
+
+Prerequisite: Ensure that the "CrossDeploymentArtifactBucket" stack is deployed in the TOOLCHAIN account
+before using this construct.
 
 ## Extends
 
@@ -18,7 +23,7 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:140](https://github.
 
 > **new DeploymentStackPipeline**(`scope`, `id`, `props`): `DeploymentStackPipeline`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:146](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/deployment-stack-pipeline/pipeline.ts#L146)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:164](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/pipeline.ts#L164)
 
 #### Parameters
 
@@ -62,7 +67,7 @@ The tree node.
 
 > `readonly` **pipeline**: `Pipeline`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:144](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/deployment-stack-pipeline/pipeline.ts#L144)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:162](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/pipeline.ts#L162)
 
 The code pipeline construct that is created.
 
