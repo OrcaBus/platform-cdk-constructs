@@ -8,8 +8,8 @@ Getting the payload helpers
 from typing import Dict
 
 # Local imports
+from . import get_workflow_request
 from .globals import PAYLOAD_ENDPOINT
-from .requests_helpers import get_request_results
 from .models import Payload
 
 
@@ -20,10 +20,10 @@ def get_payload(payload_id: str) -> Dict:
     :return:
     """
     # Get subject
-    return get_request_results(PAYLOAD_ENDPOINT, payload_id)
+    return get_workflow_request(PAYLOAD_ENDPOINT, payload_id)
 
 
-def get_payload_from_state(workflow_run_orcabus_id: str, status: str):
+def get_payload_from_state(workflow_run_orcabus_id: str, status: str) -> Payload:
     """
     Given the workflow_run_orcabus_id and status, get the payload for that status
     :param workflow_run_orcabus_id:
@@ -36,7 +36,7 @@ def get_payload_from_state(workflow_run_orcabus_id: str, status: str):
     workflow_run_state_payload_id = get_workflow_run_state(workflow_run_orcabus_id, status)['payload']
 
     # Get the payload
-    return get_payload(workflow_run_state_payload_id)
+    return Payload(**get_payload(workflow_run_state_payload_id))
 
 
 def get_latest_payload_from_workflow_run(workflow_run_orcabus_id: str) -> Payload:

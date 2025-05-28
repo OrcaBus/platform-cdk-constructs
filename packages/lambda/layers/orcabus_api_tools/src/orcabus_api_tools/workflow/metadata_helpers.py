@@ -9,9 +9,9 @@ from typing import List
 
 
 # Local imports
-from .requests_helpers import get_request_response_results
 from .globals import WORKFLOW_RUN_ENDPOINT
 from .models import WorkflowRunDetail
+from . import get_workflow_request_response_results
 
 
 def get_workflows_from_library_id(library_id: str) -> List[WorkflowRunDetail]:
@@ -20,8 +20,8 @@ def get_workflows_from_library_id(library_id: str) -> List[WorkflowRunDetail]:
     :param library_id:
     :return:
     """
-    return get_request_response_results(
-        WORKFLOW_RUN_ENDPOINT,
+    return get_workflow_request_response_results(
+        endpoint=WORKFLOW_RUN_ENDPOINT,
         params={
             "libraries__libraryId": library_id
         }
