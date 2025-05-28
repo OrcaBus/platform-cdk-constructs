@@ -68,16 +68,15 @@ export class CrossDeploymentArtifactBucket
       enableKeyRotation: false,
       removalPolicy: RemovalPolicy.RETAIN,
       alias: CROSS_DEPLOYMENT_ARTIFACT_KMS_ALIAS,
-      policy: new PolicyDocument({
-        statements: [
-          new PolicyStatement({
-            actions: ["kms:Decrypt", "kms:DescribeKey"],
-            principals: stageDeployRolePrincipal,
-            resources: ["*"],
-          }),
-        ],
-      }),
     });
+
+    this.artifactKms.addToResourcePolicy(
+      new PolicyStatement({
+        actions: ["kms:Decrypt", "kms:DescribeKey"],
+        principals: stageDeployRolePrincipal,
+        resources: ["*"],
+      }),
+    );
 
     new StringParameter(this, "SSMArtifactBucketKmsArnParameter", {
       parameterName: CROSS_DEPLOYMENT_ARTIFACT_KMS_ARN_SSM_PARAMETER_NAME,

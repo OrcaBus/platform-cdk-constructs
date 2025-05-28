@@ -3,7 +3,6 @@ import "source-map-support/register";
 import { Construct } from "constructs";
 import * as cdk from "aws-cdk-lib";
 import {
-  BETA_ENVIRONMENT,
   DeploymentStackPipeline,
   TOOLCHAIN_ENVIRONMENT,
 } from "../packages/deployment-stack-pipeline";
@@ -54,7 +53,7 @@ class DevStack extends cdk.Stack {
 }
 
 new DevStack(app, "DevStack", {
-  env: BETA_ENVIRONMENT,
+  env: TOOLCHAIN_ENVIRONMENT,
   tags: {
     "umccr-org:Stack": "DevStack",
     "umccr-org:Product": "OrcaBus",
