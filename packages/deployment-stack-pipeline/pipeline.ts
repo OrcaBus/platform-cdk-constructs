@@ -144,7 +144,7 @@ export interface DeploymentStackPipelineProps {
    * Whether to reuse the existing artifact bucket for cross-deployment pipelines.
    * If set to true, it will look up the existing artifact bucket in the TOOLCHAIN account.
    *
-   * @default False
+   * @default True
    */
   readonly reuseExistingArtifactBucket?: boolean;
 }
@@ -183,9 +183,7 @@ export class DeploymentStackPipeline extends Construct {
       },
     );
 
-    // Default to false if not provided for now
-    const reuseBucketKms = props.reuseExistingArtifactBucket ?? false;
-    const artifactBucket = reuseBucketKms
+    const artifactBucket = !!props.reuseExistingArtifactBucket
       ? CrossDeploymentArtifactBucket.fromLookup(this).artifactBucket
       : undefined;
 
