@@ -6,7 +6,7 @@
 
 # Interface: Icav2ResourcesProps
 
-Defined in: [packages/lambda/index.ts:63](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/lambda/index.ts#L63)
+Defined in: [packages/lambda/index.ts:63](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/lambda/index.ts#L63)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/lambda/index.ts:63](https://github.com/OrcaBus/platform-cd
 
 > `readonly` `optional` **icav2AccessTokenSecretId**: `string`
 
-Defined in: [packages/lambda/index.ts:68](https://github.com/OrcaBus/platform-cdk-constructs/blob/342fbc450bcf042009fcb0577341af4e80a50756/packages/lambda/index.ts#L68)
+Defined in: [packages/lambda/index.ts:68](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/lambda/index.ts#L68)
 
 The id of the secret that contains the icav2 access token
 otherwise it will default to @DEFAULT_ICAV2_ACCESS_TOKEN_SECRET_ID
