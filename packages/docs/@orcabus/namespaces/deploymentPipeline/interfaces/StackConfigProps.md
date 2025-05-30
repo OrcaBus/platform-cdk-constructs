@@ -6,7 +6,7 @@
 
 # Interface: StackConfigProps
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:58](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/pipeline.ts#L58)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:58](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/deployment-stack-pipeline/pipeline.ts#L58)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:58](https://github.c
 
 > `readonly` **beta**: `Record`\<`string`, `any`\>
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:62](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/pipeline.ts#L62)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:62](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/deployment-stack-pipeline/pipeline.ts#L62)
 
 The configuration for the beta (dev) stage
 
@@ -24,7 +24,7 @@ The configuration for the beta (dev) stage
 
 > `readonly` **gamma**: `Record`\<`string`, `any`\>
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:66](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/pipeline.ts#L66)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:66](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/deployment-stack-pipeline/pipeline.ts#L66)
 
 The configuration for the gamma (stg) stage
 
@@ -34,6 +34,6 @@ The configuration for the gamma (stg) stage
 
 > `readonly` **prod**: `Record`\<`string`, `any`\>
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:70](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/pipeline.ts#L70)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:70](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/deployment-stack-pipeline/pipeline.ts#L70)
 
 The configuration for the prod stage

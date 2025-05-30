@@ -8,7 +8,7 @@
 
 > `const` **DEFAULT\_ALLOW\_CORS\_ORIGINS**: `object`
 
-Defined in: [packages/api-gateway/config.ts:20](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/api-gateway/config.ts#L20)
+Defined in: [packages/api-gateway/config.ts:20](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/api-gateway/config.ts#L20)
 
 ## Type declaration
 
