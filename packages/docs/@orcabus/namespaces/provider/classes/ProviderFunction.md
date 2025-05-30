@@ -2,16 +2,18 @@
 
 ***
 
-[@orcabus/platform-cdk-constructs](../../../../README.md) / [deploymentPipeline](../README.md) / DeploymentStackPipeline
+[@orcabus/platform-cdk-constructs](../../../../README.md) / [provider](../README.md) / ProviderFunction
 
-# Class: DeploymentStackPipeline
+# Class: ProviderFunction
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:158](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/deployment-stack-pipeline/pipeline.ts#L158)
+Defined in: [packages/provider-function/index.ts:41](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/provider-function/index.ts#L41)
 
-A CDK construct that creates a deployment pipeline across environments for the OrcaBus project.
+A construct for invoking a Lambda function using the CDK provider framework:
+https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.custom_resources-readme.html#provider-framework.
 
-Prerequisite: Ensure that the "CrossDeploymentArtifactBucket" stack is deployed in the TOOLCHAIN account
-before using this construct.
+This is useful for performing database actions such as migrations during CloudFormation stack creation, where CDK
+deployment will fail if the function fails. To use this construct the Lambda function must return values according
+to the provider framework.
 
 ## Extends
 
@@ -21,9 +23,9 @@ before using this construct.
 
 ### Constructor
 
-> **new DeploymentStackPipeline**(`scope`, `id`, `props`): `DeploymentStackPipeline`
+> **new ProviderFunction**(`scope`, `id`, `props`): `ProviderFunction`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:164](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/deployment-stack-pipeline/pipeline.ts#L164)
+Defined in: [packages/provider-function/index.ts:45](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/provider-function/index.ts#L45)
 
 #### Parameters
 
@@ -37,11 +39,11 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:164](https://github.
 
 ##### props
 
-[`DeploymentStackPipelineProps`](../interfaces/DeploymentStackPipelineProps.md)
+[`ProviderFunctionProps`](../interfaces/ProviderFunctionProps.md)
 
 #### Returns
 
-`DeploymentStackPipeline`
+`ProviderFunction`
 
 #### Overrides
 
@@ -61,15 +63,37 @@ The tree node.
 
 `Construct.node`
 
+## Accessors
+
+### function
+
+#### Get Signature
+
+> **get** **function**(): `IFunction`
+
+Defined in: [packages/provider-function/index.ts:82](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/provider-function/index.ts#L82)
+
+Get the function.
+
+##### Returns
+
+`IFunction`
+
 ***
 
-### pipeline
+### response
 
-> `readonly` **pipeline**: `Pipeline`
+#### Get Signature
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:162](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/deployment-stack-pipeline/pipeline.ts#L162)
+> **get** **response**(): `string`
 
-The code pipeline construct that is created.
+Defined in: [packages/provider-function/index.ts:75](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/provider-function/index.ts#L75)
+
+Get the response of the Lambda function.
+
+##### Returns
+
+`string`
 
 ## Methods
 
