@@ -12,22 +12,22 @@ export interface ProviderFunctionProps {
   /**
    * Vpc for the function.
    */
-  vpc: IVpc;
+  readonly vpc: IVpc;
   /**
    * The provider function.
    */
-  function: IFunction;
+  readonly function: IFunction;
   /**
    * Properties that get defined in the template and passed to the Lambda function via `ResourceProperties`.
    */
-  resourceProperties?: Record<string, unknown>;
+  readonly resourceProperties?: Record<string, unknown>;
   /**
    * An additional hash property that can be used to determine if the custom resource should be updated. By default,
    * this is the s3Key of the Lambda code asset, which is derived from the asset hash. This is used to ensure that
    * the custom resource is updated whenever the Lambda function changes, so that the function gets called again.
    * Add a constant value here to override this behaviour.
    */
-  additionalHash?: string;
+  readonly additionalHash?: string;
 }
 
 /**
