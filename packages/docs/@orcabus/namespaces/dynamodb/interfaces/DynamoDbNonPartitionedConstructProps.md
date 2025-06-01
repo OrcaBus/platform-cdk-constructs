@@ -6,7 +6,7 @@
 
 # Interface: DynamoDbNonPartitionedConstructProps
 
-Defined in: [packages/dynamodb/index.ts:20](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/dynamodb/index.ts#L20)
+Defined in: [packages/dynamodb/index.ts:20](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/dynamodb/index.ts#L20)
 
 ## Extends
 
@@ -199,7 +199,7 @@ Partition key attribute definition.
 
 > `readonly` `optional` **partitionKeyName**: `string`
 
-Defined in: [packages/dynamodb/index.ts:24](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/dynamodb/index.ts#L24)
+Defined in: [packages/dynamodb/index.ts:24](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/dynamodb/index.ts#L24)
 
 Optional, name of the partition key, but by default set to 'id'
 

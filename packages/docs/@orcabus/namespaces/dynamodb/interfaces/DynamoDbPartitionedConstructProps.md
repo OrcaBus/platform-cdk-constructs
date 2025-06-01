@@ -6,7 +6,7 @@
 
 # Interface: DynamoDbPartitionedConstructProps
 
-Defined in: [packages/dynamodb/index.ts:7](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/dynamodb/index.ts#L7)
+Defined in: [packages/dynamodb/index.ts:7](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/dynamodb/index.ts#L7)
 
 ## Extends
 
@@ -199,7 +199,7 @@ Partition key attribute definition.
 
 > `readonly` `optional` **partitionKeyName**: `string`
 
-Defined in: [packages/dynamodb/index.ts:11](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/dynamodb/index.ts#L11)
+Defined in: [packages/dynamodb/index.ts:11](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/dynamodb/index.ts#L11)
 
 Optional, name of the partition key, but by default set to 'id'
 
@@ -342,7 +342,7 @@ Sort key attribute definition.
 
 > `readonly` `optional` **sortKeyName**: `string`
 
-Defined in: [packages/dynamodb/index.ts:16](https://github.com/OrcaBus/platform-cdk-constructs/blob/eb710b2f105d22a64c8abea3b2245773c2378377/packages/dynamodb/index.ts#L16)
+Defined in: [packages/dynamodb/index.ts:16](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/dynamodb/index.ts#L16)
 
 Optional, name of the sort key, but by default set to 'id_type'
 
