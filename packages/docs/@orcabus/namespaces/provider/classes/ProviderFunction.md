@@ -2,11 +2,18 @@
 
 ***
 
-[@orcabus/platform-cdk-constructs](../../../../README.md) / [ecs](../README.md) / EcsFargateTaskConstruct
+[@orcabus/platform-cdk-constructs](../../../../README.md) / [provider](../README.md) / ProviderFunction
 
-# Class: EcsFargateTaskConstruct
+# Class: ProviderFunction
 
-Defined in: [packages/ecs/index.ts:79](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L79)
+Defined in: [packages/provider-function/index.ts:41](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L41)
+
+A construct for invoking a Lambda function using the CDK provider framework:
+https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.custom_resources-readme.html#provider-framework.
+
+This is useful for performing database actions such as migrations during CloudFormation stack creation, where CDK
+deployment will fail if the function fails. To use this construct the Lambda function must return values according
+to the provider framework.
 
 ## Extends
 
@@ -16,9 +23,9 @@ Defined in: [packages/ecs/index.ts:79](https://github.com/OrcaBus/platform-cdk-c
 
 ### Constructor
 
-> **new EcsFargateTaskConstruct**(`scope`, `id`, `props`): `EcsFargateTaskConstruct`
+> **new ProviderFunction**(`scope`, `id`, `props`): `ProviderFunction`
 
-Defined in: [packages/ecs/index.ts:85](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L85)
+Defined in: [packages/provider-function/index.ts:45](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L45)
 
 #### Parameters
 
@@ -32,33 +39,17 @@ Defined in: [packages/ecs/index.ts:85](https://github.com/OrcaBus/platform-cdk-c
 
 ##### props
 
-[`FargateEcsTaskConstructProps`](../interfaces/FargateEcsTaskConstructProps.md)
+[`ProviderFunctionProps`](../interfaces/ProviderFunctionProps.md)
 
 #### Returns
 
-`EcsFargateTaskConstruct`
+`ProviderFunction`
 
 #### Overrides
 
 `Construct.constructor`
 
 ## Properties
-
-### cluster
-
-> `readonly` **cluster**: `ICluster`
-
-Defined in: [packages/ecs/index.ts:80](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L80)
-
-***
-
-### containerDefinition
-
-> `readonly` **containerDefinition**: `ContainerDefinition`
-
-Defined in: [packages/ecs/index.ts:83](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L83)
-
-***
 
 ### node
 
@@ -72,21 +63,37 @@ The tree node.
 
 `Construct.node`
 
+## Accessors
+
+### function
+
+#### Get Signature
+
+> **get** **function**(): `IFunction`
+
+Defined in: [packages/provider-function/index.ts:82](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L82)
+
+Get the function.
+
+##### Returns
+
+`IFunction`
+
 ***
 
-### securityGroup
+### response
 
-> `readonly` **securityGroup**: `ISecurityGroup`
+#### Get Signature
 
-Defined in: [packages/ecs/index.ts:82](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L82)
+> **get** **response**(): `string`
 
-***
+Defined in: [packages/provider-function/index.ts:75](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L75)
 
-### taskDefinition
+Get the response of the Lambda function.
 
-> `readonly` **taskDefinition**: `FargateTaskDefinition`
+##### Returns
 
-Defined in: [packages/ecs/index.ts:81](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L81)
+`string`
 
 ## Methods
 

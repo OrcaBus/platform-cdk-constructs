@@ -8,7 +8,7 @@
     "build": "jsii --tsconfig tsconfig.json --validate-tsconfig minimal",
     "build:watch": "jsii --watch",
     "package": "jsii-pacmak",
-    "generate-docs": "typedoc --plugin typedoc-plugin-markdown --out ./docs"
+    "generate-docs": "typedoc --gitRevision main --plugin typedoc-plugin-markdown --out ./docs"
   },
   "keywords": [],
   "repository": {
