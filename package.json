@@ -11,7 +11,8 @@
     "package": "pnpm -r run package",
     "postinstall": "pre-commit install",
     "publish": "cd packages && pnpm publib-npm",
-    "packages:generate-docs": "cd packages && pnpm generate-docs"
+    "packages:generate-docs": "cd packages && pnpm generate-docs",
+    "test": "cd packages && pnpm test"
   },
   "keywords": [],
   "repository": {
