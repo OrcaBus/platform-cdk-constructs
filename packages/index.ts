@@ -18,3 +18,4 @@ export * as lambda from "./lambda";
 
 export * as provider from "./provider-function";
 export * as namedLambdaRole from "./named-lambda-role";
+export * as sharedConfig from "./shared-config";

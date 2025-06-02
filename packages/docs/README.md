@@ -13,4 +13,5 @@
 - [lambda](@orcabus/namespaces/lambda/README.md)
 - [namedLambdaRole](@orcabus/namespaces/namedLambdaRole/README.md)
 - [provider](@orcabus/namespaces/provider/README.md)
+- [sharedConfig](@orcabus/namespaces/sharedConfig/README.md)
 - [utils](@orcabus/namespaces/utils/README.md)
