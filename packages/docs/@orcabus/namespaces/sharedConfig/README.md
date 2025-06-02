@@ -6,11 +6,6 @@
 
 # sharedConfig
 
-## Variables
+## Namespaces
 
-- [accessKeySecretArn](variables/accessKeySecretArn.md)
-- [fileManagerBuckets](variables/fileManagerBuckets.md)
-- [fileManagerCacheBuckets](variables/fileManagerCacheBuckets.md)
-- [fileManagerIngestRoleName](variables/fileManagerIngestRoleName.md)
-- [fileManagerPresignUser](variables/fileManagerPresignUser.md)
-- [fileManagerPresignUserSecret](variables/fileManagerPresignUserSecret.md)
+- [fileManager](namespaces/fileManager/README.md)

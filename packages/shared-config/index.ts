@@ -1,1 +1,1 @@
-export * from "./file-manager";
+export * as fileManager from "./file-manager";

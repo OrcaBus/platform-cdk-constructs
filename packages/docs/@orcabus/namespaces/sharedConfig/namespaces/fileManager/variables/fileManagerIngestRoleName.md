@@ -1,8 +1,8 @@
-[**@orcabus/platform-cdk-constructs**](../../../../README.md)
+[**@orcabus/platform-cdk-constructs**](../../../../../../README.md)
 
 ***
 
-[@orcabus/platform-cdk-constructs](../../../../README.md) / [sharedConfig](../README.md) / fileManagerIngestRoleName
+[@orcabus/platform-cdk-constructs](../../../../../../README.md) / [sharedConfig](../../../README.md) / [fileManager](../README.md) / fileManagerIngestRoleName
 
 # Variable: fileManagerIngestRoleName
 
