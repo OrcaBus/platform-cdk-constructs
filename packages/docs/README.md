@@ -11,5 +11,6 @@
 - [dynamodb](@orcabus/namespaces/dynamodb/README.md)
 - [ecs](@orcabus/namespaces/ecs/README.md)
 - [lambda](@orcabus/namespaces/lambda/README.md)
+- [namedLambdaRole](@orcabus/namespaces/namedLambdaRole/README.md)
 - [provider](@orcabus/namespaces/provider/README.md)
 - [utils](@orcabus/namespaces/utils/README.md)
