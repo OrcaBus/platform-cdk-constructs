@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from typing import Dict, Optional, List
-from urllib.parse import urlunparse
+from urllib.parse import urlunparse, unquote
 
 # Standard imports
 import requests
@@ -78,7 +78,7 @@ def get_request_response_results(url: str, params: Optional[Dict] = None) -> Lis
         return [response_json]
 
     if 'next' in response_json['links'].keys() and response_json['links']['next'] is not None:
-        return response_json['results'] + get_request_response_results(response_json['links']['next'])
+        return response_json['results'] + get_request_response_results(unquote(response_json['links']['next']))
     return response_json['results']
 
 
