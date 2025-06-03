@@ -6,7 +6,7 @@
 
 # Interface: ICrossDeploymentArtifactBucket
 
-Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:26](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/artifact-bucket.ts#L26)
+Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:26](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/artifact-bucket.ts#L26)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:26](https://g
 
 > `readonly` **artifactBucket**: `IBucket`
 
-Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:30](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/artifact-bucket.ts#L30)
+Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:30](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/artifact-bucket.ts#L30)
 
 The S3 bucket used to store artifacts for cross-deployment pipelines.
 
@@ -24,6 +24,6 @@ The S3 bucket used to store artifacts for cross-deployment pipelines.
 
 > `readonly` **artifactKms**: `IKey`
 
-Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:34](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/artifact-bucket.ts#L34)
+Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:34](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/artifact-bucket.ts#L34)
 
 The KMS key used to encrypt artifacts for cross-deployment pipelines.

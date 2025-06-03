@@ -18,3 +18,5 @@
 ## Functions
 
 - [resolveStageName](functions/resolveStageName.md)
+- [synthesisMessageToString](functions/synthesisMessageToString.md)
+- [validateSecretName](functions/validateSecretName.md)

@@ -6,7 +6,7 @@
 
 # Class: CrossDeploymentArtifactBucket
 
-Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:37](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/artifact-bucket.ts#L37)
+Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:37](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/artifact-bucket.ts#L37)
 
 ## Extends
 
@@ -22,7 +22,7 @@ Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:37](https://g
 
 > **new CrossDeploymentArtifactBucket**(`scope`, `id`): `CrossDeploymentArtifactBucket`
 
-Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:50](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/artifact-bucket.ts#L50)
+Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:50](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/artifact-bucket.ts#L50)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:50](https://g
 
 > `readonly` **artifactBucket**: `IBucket`
 
-Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:44](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/artifact-bucket.ts#L44)
+Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:44](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/artifact-bucket.ts#L44)
 
 The S3 bucket used to store artifacts for cross-deployment pipelines.
 
@@ -62,7 +62,7 @@ The S3 bucket used to store artifacts for cross-deployment pipelines.
 
 > `readonly` **artifactKms**: `IKey`
 
-Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:48](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/artifact-bucket.ts#L48)
+Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:48](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/artifact-bucket.ts#L48)
 
 The KMS key used to encrypt artifacts for cross-deployment pipelines.
 
@@ -108,7 +108,7 @@ Returns a string representation of this construct.
 
 > `static` **fromLookup**(`scope`): [`ICrossDeploymentArtifactBucket`](../interfaces/ICrossDeploymentArtifactBucket.md)
 
-Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:115](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/deployment-stack-pipeline/artifact-bucket.ts#L115)
+Defined in: [packages/deployment-stack-pipeline/artifact-bucket.ts:115](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/artifact-bucket.ts#L115)
 
 Imports an existing cross-deployment artifact bucket and its KMS key
 using SSM and resource lookups.

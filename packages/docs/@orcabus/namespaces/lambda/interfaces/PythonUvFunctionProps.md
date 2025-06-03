@@ -6,7 +6,7 @@
 
 # Interface: PythonUvFunctionProps
 
-Defined in: [packages/lambda/index.ts:72](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/lambda/index.ts#L72)
+Defined in: [packages/lambda/index.ts:72](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L72)
 
 ## Extends
 
@@ -488,7 +488,7 @@ handler
 
 > `readonly` `optional` **icav2Resources**: [`Icav2ResourcesProps`](Icav2ResourcesProps.md)
 
-Defined in: [packages/lambda/index.ts:113](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/lambda/index.ts#L113)
+Defined in: [packages/lambda/index.ts:113](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L113)
 
 Provide the icav2Resources, optional, otherwise it will default to
 @DEFAULT_ICAV2_ACCESS_TOKEN_SECRET_ID for the secret
@@ -499,7 +499,7 @@ Provide the icav2Resources, optional, otherwise it will default to
 
 > `readonly` `optional` **includeFastApiLayer**: `boolean`
 
-Defined in: [packages/lambda/index.ts:93](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/lambda/index.ts#L93)
+Defined in: [packages/lambda/index.ts:93](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L93)
 
 Whether or not to include the fastapi layer in the lambda function build
 
@@ -509,7 +509,7 @@ Whether or not to include the fastapi layer in the lambda function build
 
 > `readonly` `optional` **includeIcav2Layer**: `boolean`
 
-Defined in: [packages/lambda/index.ts:88](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/lambda/index.ts#L88)
+Defined in: [packages/lambda/index.ts:88](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L88)
 
 Whether or not to include the icav2 layer in the lambda function build
 
@@ -519,7 +519,7 @@ Whether or not to include the icav2 layer in the lambda function build
 
 > `readonly` `optional` **includeMartLayer**: `boolean`
 
-Defined in: [packages/lambda/index.ts:83](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/lambda/index.ts#L83)
+Defined in: [packages/lambda/index.ts:83](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L83)
 
 Whether or not to include the mart layer in the lambda function build
 Note that the mart layer is a little heavier than the orcabus api tools layer
@@ -531,7 +531,7 @@ Since we require pandas to be installed
 
 > `readonly` `optional` **includeOrcabusApiToolsLayer**: `boolean`
 
-Defined in: [packages/lambda/index.ts:76](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/lambda/index.ts#L76)
+Defined in: [packages/lambda/index.ts:76](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L76)
 
 Whether or not to include the orcabus api tools layer in the lambda function build
 
@@ -809,7 +809,7 @@ This is a legacy API and we strongly recommend you migrate to `logGroup` if you 
 
 > `readonly` `optional` **martEnvironmentVariables**: [`MartEnvironmentVariables`](MartEnvironmentVariables.md)
 
-Defined in: [packages/lambda/index.ts:107](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/lambda/index.ts#L107)
+Defined in: [packages/lambda/index.ts:107](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L107)
 
 Provide the martEnvironmentVariables, optional, otherwise it will default to
 @MART_ENV_VARS.ATHENA_WORKGROUP_NAME, @MART_ENV_VARS.ATHENA_DATASOURCE_NAME
@@ -908,7 +908,7 @@ The destination for successful invocations.
 
 > `readonly` `optional` **orcabusTokenResources**: [`OrcabusResourcesProps`](OrcabusResourcesProps.md)
 
-Defined in: [packages/lambda/index.ts:100](https://github.com/OrcaBus/platform-cdk-constructs/blob/885f4bf19a11a54aff506f0fbbcc9831b1a2976f/packages/lambda/index.ts#L100)
+Defined in: [packages/lambda/index.ts:100](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L100)
 
 Provide the orcabusTokenResources, optional, otherwise it will default to
 @DEFAULT_ORCABUS_TOKEN_SECRET_ID and @DEFAULT_HOSTNAME_SSM_PARAMETER
