@@ -8,32 +8,56 @@ import {
 import { Construct } from "constructs";
 
 // VPC configuration
+/**
+ * The main VPC name used by OrcaBus.
+ */
 export const VPC_NAME = "main-vpc";
+/**
+ * The stack name where the VPC is defined.
+ */
 export const VPC_STACK_NAME = "networking";
+/**
+ * VPC lookup options as need by CDK for looking up the VPC.
+ */
 export const VPC_LOOKUP_PROPS: VpcLookupOptions = {
   vpcName: VPC_NAME,
   tags: { Stack: VPC_STACK_NAME },
 };
 
-// Event bus name constant
+/**
+ * The name of the main event bus used by OrcaBus.
+ */
 export const EVENT_BUS_NAME = "OrcaBusMain";
 
 /**
  * Helper for looking up the shared OrcaBus VPC.
  */
 export class OrcaBusVpc {
+  /**
+   * The shared VPC that is used by OrcaBus.
+   * @param scope
+   * @returns IVpc
+   */
   public static fromLookup(scope: Construct): IVpc {
     return Vpc.fromLookup(scope, "OrcaBusMainVpc", VPC_LOOKUP_PROPS);
   }
 }
 
-// Shared Security Group configuration
+/**
+ * Shared Security Group name that used for compute to is allowed by the database.
+ */
 export const SHARED_SECURITY_GROUP_NAME = "OrcaBusSharedComputeSecurityGroup";
 
 /**
  * Helper for looking up the shared compute security group by name.
  */
 export class OrcaBusSharedComputeSecurityGroup {
+  /**
+   * The shared security group that is used by compute resources to access the database.
+   * @param scope
+   * @param vpc
+   * @returns ISecurityGroup
+   */
   public static fromLookup(scope: Construct, vpc: IVpc): ISecurityGroup {
     return SecurityGroup.fromLookupByName(
       scope,

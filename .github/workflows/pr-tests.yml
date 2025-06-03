@@ -81,3 +81,31 @@ jobs:
       - run: pnpm install --frozen-lockfile --ignore-scripts
 
       - run: pnpm test
+
+  test-doc:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'pnpm'
+
+      - run: corepack enable
+      
+      - run: pnpm install --ignore-scripts
+
+      - name: Generate documentation
+        run: pnpm packages:generate-docs
+  
+      - name: Check for uncommitted changes in docs
+        run: |
+          git add .
+          if ! git diff --cached --exit-code; then
+            echo "Documentation is outdated. Please run 'pnpm packages:generate-docs' and commit the changes."
+            exit 1
+          fi
