@@ -13,6 +13,9 @@
 ## Variables
 
 - [accountIdAlias](variables/accountIdAlias.md)
+- [icav2ProjectId](variables/icav2ProjectId.md)
+- [pipelineCacheBucket](variables/pipelineCacheBucket.md)
+- [pipelineCachePrefix](variables/pipelineCachePrefix.md)
 - [region](variables/region.md)
 
 ## Functions

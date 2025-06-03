@@ -31,6 +31,10 @@ export const DEFAULT_COGNITO_CLIENT_ID_PARAMETER_NAME_ARRAY = [
 export const DEFAULT_COGNITO_USER_POOL_ID_PARAMETER_NAME =
   "/data_portal/client/cog_user_pool_id";
 
+export const CERTIFICATE_ARN_PARAMETER_NAME = "/umccr/certificate_arn";
+export const HOSTED_ZONE_DOMAIN_PARAMETER_NAME = "/hosted_zone/umccr/name";
+export const HOSTED_ZONE_ID_PARAMETER_NAME = "/hosted_zone/umccr/id";
+
 export const getDefaultApiGatewayConfiguration = (stage: StageName) => {
   return {
     cognitoClientIdParameterNameArray:

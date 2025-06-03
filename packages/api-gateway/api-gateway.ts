@@ -19,8 +19,11 @@ import { Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
 import { Function } from "aws-cdk-lib/aws-lambda";
 import { ApiGatewayv2DomainProperties } from "aws-cdk-lib/aws-route53-targets";
 import {
+  CERTIFICATE_ARN_PARAMETER_NAME,
   DEFAULT_COGNITO_CLIENT_ID_PARAMETER_NAME_ARRAY,
   DEFAULT_COGNITO_USER_POOL_ID_PARAMETER_NAME,
+  HOSTED_ZONE_DOMAIN_PARAMETER_NAME,
+  HOSTED_ZONE_ID_PARAMETER_NAME,
 } from "./config";
 
 export interface ApiGwLogsConfig {
@@ -97,15 +100,15 @@ export class OrcaBusApiGateway extends Construct {
     // umccr acm arn
     const umccrAcmArn = StringParameter.valueForStringParameter(
       this,
-      "/umccr/certificate_arn",
+      CERTIFICATE_ARN_PARAMETER_NAME,
     );
     const hostedDomainName = StringParameter.valueForStringParameter(
       this,
-      "/hosted_zone/umccr/name",
+      HOSTED_ZONE_DOMAIN_PARAMETER_NAME,
     );
     const hostedZoneId = StringParameter.valueForStringParameter(
       this,
-      "/hosted_zone/umccr/id",
+      HOSTED_ZONE_ID_PARAMETER_NAME,
     );
 
     this.domainName = `${props.customDomainNamePrefix}.${hostedDomainName}`;

@@ -8,4 +8,4 @@
 
 > `const` **accountIdAlias**: `Record`\<[`StageName`](../type-aliases/StageName.md), `string`\>
 
-Defined in: [packages/utils/index.ts:10](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/utils/index.ts#L10)
+Defined in: [packages/utils/index.ts:9](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/utils/index.ts#L9)
