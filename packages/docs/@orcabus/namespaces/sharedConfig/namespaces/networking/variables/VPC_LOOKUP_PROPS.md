@@ -10,4 +10,4 @@
 
 Defined in: [packages/shared-config/networking.ts:22](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/networking.ts#L22)
 
-VPC lookup options as need by CDK for looking up the VPC.
+VPC lookup options as needed by CDK for looking up the VPC.

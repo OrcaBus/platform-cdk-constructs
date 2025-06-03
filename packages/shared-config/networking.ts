@@ -17,7 +17,7 @@ export const VPC_NAME = "main-vpc";
  */
 export const VPC_STACK_NAME = "networking";
 /**
- * VPC lookup options as need by CDK for looking up the VPC.
+ * VPC lookup options as needed by CDK for looking up the VPC.
  */
 export const VPC_LOOKUP_PROPS: VpcLookupOptions = {
   vpcName: VPC_NAME,
@@ -44,7 +44,7 @@ export class OrcaBusVpc {
 }
 
 /**
- * Shared Security Group name that used for compute to is allowed by the database.
+ * Shared security group used by compute resources to access the database.
  */
 export const SHARED_SECURITY_GROUP_NAME = "OrcaBusSharedComputeSecurityGroup";
 

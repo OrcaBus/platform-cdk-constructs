@@ -10,4 +10,4 @@
 
 Defined in: [packages/shared-config/networking.ts:49](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/networking.ts#L49)
 
-Shared Security Group name that used for compute to is allowed by the database.
+Shared security group used by compute resources to access the database.
