@@ -8,6 +8,6 @@
 
 > **StageName** = `"BETA"` \| `"GAMMA"` \| `"PROD"`
 
-Defined in: packages/shared-config/accounts.ts:4
+Defined in: [packages/shared-config/accounts.ts:4](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/accounts.ts#L4)
 
 Supported deployment stage names.

@@ -8,6 +8,6 @@
 
 > `const` **RDS\_MASTER\_SECRET\_NAME**: `"orcabus/master-rds"` = `"orcabus/master-rds"`
 
-Defined in: packages/shared-config/database.ts:21
+Defined in: [packages/shared-config/database.ts:21](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/database.ts#L21)
 
 The name of the AWS Secrets Manager secret for the RDS master user.

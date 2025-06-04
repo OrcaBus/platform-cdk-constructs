@@ -8,6 +8,6 @@
 
 > `const` **DB\_CLUSTER\_IDENTIFIER**: `"orcabus-db"` = `"orcabus-db"`
 
-Defined in: packages/shared-config/database.ts:4
+Defined in: [packages/shared-config/database.ts:4](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/database.ts#L4)
 
 The identifier for the OrcaBus RDS database cluster.

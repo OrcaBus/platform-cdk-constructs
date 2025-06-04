@@ -8,6 +8,6 @@
 
 > `const` **DB\_CLUSTER\_RESOURCE\_ID\_PARAMETER\_NAME**: `"/orcabus/db-cluster-resource-id"` = `"/orcabus/db-cluster-resource-id"`
 
-Defined in: packages/shared-config/database.ts:8
+Defined in: [packages/shared-config/database.ts:8](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/database.ts#L8)
 
 SSM parameter name storing the RDS cluster resource ID.

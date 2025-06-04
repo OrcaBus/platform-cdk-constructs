@@ -8,6 +8,6 @@
 
 > `const` **EVENT\_BUS\_NAME**: `"OrcaBusMain"` = `"OrcaBusMain"`
 
-Defined in: packages/shared-config/event-bridge.ts:4
+Defined in: [packages/shared-config/event-bridge.ts:4](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/event-bridge.ts#L4)
 
 The name of the main event bus used by OrcaBus.

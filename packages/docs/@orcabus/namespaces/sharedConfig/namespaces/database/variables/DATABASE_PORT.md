@@ -8,6 +8,6 @@
 
 > `const` **DATABASE\_PORT**: `5432` = `5432`
 
-Defined in: packages/shared-config/database.ts:17
+Defined in: [packages/shared-config/database.ts:17](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/database.ts#L17)
 
 The port number used by the OrcaBus PostgreSQL database.

@@ -8,6 +8,6 @@
 
 > `const` **EVENT\_SCHEMA\_REGISTRY\_NAME**: `"orcabus.events"` = `"orcabus.events"`
 
-Defined in: packages/shared-config/event-bridge.ts:8
+Defined in: [packages/shared-config/event-bridge.ts:8](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/event-bridge.ts#L8)
 
 The name of event schema registry

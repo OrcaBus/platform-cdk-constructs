@@ -8,6 +8,6 @@
 
 > `const` **REGION**: `"ap-southeast-2"` = `"ap-southeast-2"`
 
-Defined in: packages/shared-config/accounts.ts:9
+Defined in: [packages/shared-config/accounts.ts:9](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/accounts.ts#L9)
 
 Default AWS region for all environments.

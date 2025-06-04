@@ -8,6 +8,6 @@
 
 > `const` **GAMMA\_ACCOUNT\_ID**: `"455634345446"` = `"455634345446"`
 
-Defined in: packages/shared-config/accounts.ts:18
+Defined in: [packages/shared-config/accounts.ts:18](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/accounts.ts#L18)
 
 Gamma Account ID.
