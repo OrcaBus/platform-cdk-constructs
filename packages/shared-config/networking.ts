@@ -25,11 +25,6 @@ export const VPC_LOOKUP_PROPS: VpcLookupOptions = {
 };
 
 /**
- * The name of the main event bus used by OrcaBus.
- */
-export const EVENT_BUS_NAME = "OrcaBusMain";
-
-/**
  * Helper for looking up the shared OrcaBus VPC.
  */
 export class OrcaBusVpc {

@@ -8,7 +8,7 @@
 
 > **resolveStageName**(`scope`): [`StageName`](../type-aliases/StageName.md)
 
-Defined in: [packages/utils/index.ts:15](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/utils/index.ts#L15)
+Defined in: [packages/utils/index.ts:28](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/utils/index.ts#L28)
 
 ## Parameters
 

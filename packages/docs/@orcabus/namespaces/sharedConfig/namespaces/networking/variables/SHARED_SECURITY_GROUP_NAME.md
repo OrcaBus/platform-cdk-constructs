@@ -8,6 +8,6 @@
 
 > `const` **SHARED\_SECURITY\_GROUP\_NAME**: `"OrcaBusSharedComputeSecurityGroup"` = `"OrcaBusSharedComputeSecurityGroup"`
 
-Defined in: [packages/shared-config/networking.ts:49](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/networking.ts#L49)
+Defined in: [packages/shared-config/networking.ts:44](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/networking.ts#L44)
 
 Shared security group used by compute resources to access the database.

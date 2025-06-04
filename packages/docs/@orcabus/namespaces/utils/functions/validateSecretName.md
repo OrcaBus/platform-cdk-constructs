@@ -8,7 +8,7 @@
 
 > **validateSecretName**(`secretName`): `void`
 
-Defined in: [packages/utils/index.ts:38](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/utils/index.ts#L38)
+Defined in: [packages/utils/index.ts:55](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/utils/index.ts#L55)
 
 Validate the secret name so that it doesn't end with 6 characters and a hyphen.
 

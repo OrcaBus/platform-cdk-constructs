@@ -6,7 +6,7 @@
 
 # Class: OrcaBusVpc
 
-Defined in: [packages/shared-config/networking.ts:35](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/networking.ts#L35)
+Defined in: [packages/shared-config/networking.ts:30](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/networking.ts#L30)
 
 Helper for looking up the shared OrcaBus VPC.
 
@@ -26,7 +26,7 @@ Helper for looking up the shared OrcaBus VPC.
 
 > `static` **fromLookup**(`scope`): `IVpc`
 
-Defined in: [packages/shared-config/networking.ts:41](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/networking.ts#L41)
+Defined in: [packages/shared-config/networking.ts:36](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/networking.ts#L36)
 
 The shared VPC that is used by OrcaBus.
 
