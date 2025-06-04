@@ -6,7 +6,7 @@
 
 # Class: OrcaBusSharedComputeSecurityGroup
 
-Defined in: [packages/shared-config/networking.ts:54](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/networking.ts#L54)
+Defined in: [packages/shared-config/networking.ts:49](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/networking.ts#L49)
 
 Helper for looking up the shared compute security group by name.
 
@@ -26,7 +26,7 @@ Helper for looking up the shared compute security group by name.
 
 > `static` **fromLookup**(`scope`, `vpc`): `ISecurityGroup`
 
-Defined in: [packages/shared-config/networking.ts:61](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/networking.ts#L61)
+Defined in: [packages/shared-config/networking.ts:56](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/networking.ts#L56)
 
 The shared security group that is used by compute resources to access the database.
 
