@@ -10,6 +10,16 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:73](https://github.c
 
 ## Properties
 
+### allowStripAssetsFromAssembly?
+
+> `readonly` `optional` **allowStripAssetsFromAssembly**: `boolean`
+
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:154](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L154)
+
+Strip assets from the assembly before stage deployment
+
+***
+
 ### cdkOut?
 
 > `readonly` `optional` **cdkOut**: `string`
