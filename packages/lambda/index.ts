@@ -21,10 +21,10 @@ import {
     MART_ENV_VARS, MART_LAMBDA_FUNCTION_NAME,
     MART_S3_BUCKET,
     MART_S3_PREFIX,
-    // ICAV2 defaults
-    DEFAULT_ICAV2_ACCESS_TOKEN_SECRET_ID
 } from "./config";
-import {accountIdAlias, region, resolveStageName} from "../utils";
+import {resolveStageName} from "../utils";
+import {accountIdAlias, REGION} from "../shared-config/accounts";
+import {icav2AccessTokenSecretId, icav2BaseUrl} from "../shared-config/icav2";
 
 
 export function getPythonUvDockerImage(): DockerImage {
@@ -376,7 +376,7 @@ export class PythonUvFunction extends PythonFunction {
                     'athena:GetTableMetadata',
                     'athena:GetDataCatalog',
                 ],
-                resources: [`arn:aws:athena:${region}:${accountIdAlias[stageName]}:*`],
+                resources: [`arn:aws:athena:${REGION}:${accountIdAlias[stageName]}:*`],
             })
         );
 
@@ -404,7 +404,7 @@ export class PythonUvFunction extends PythonFunction {
                     'athena:DeletePreparedStatement',
                 ],
                 resources: [
-                    `arn:aws:athena:${region}:${accountIdAlias[stageName]}:workgroup/${MART_ENV_VARS.athenaWorkgroupName}`,
+                    `arn:aws:athena:${REGION}:${accountIdAlias[stageName]}:workgroup/${MART_ENV_VARS.athenaWorkgroupName}`,
                 ],
             })
         );
@@ -428,18 +428,21 @@ export class PythonUvFunction extends PythonFunction {
         const stageName = resolveStageName(this)
 
         // Set secret object
-        const icav2AccessTokenSecretId = secretsManager.Secret.fromSecretNameV2(
+        const icav2AccessTokenSecretIdObj = secretsManager.Secret.fromSecretNameV2(
             this, 'icav2AccessTokenSecretId',
-            props.icav2AccessTokenSecretId ?? DEFAULT_ICAV2_ACCESS_TOKEN_SECRET_ID[stageName]
+            props.icav2AccessTokenSecretId ?? icav2AccessTokenSecretId[stageName]
         );
 
         // Add permissions for the secret and SSM parameter
         // To the current version
-        icav2AccessTokenSecretId.grantRead(this.currentVersion);
+        icav2AccessTokenSecretIdObj.grantRead(this.currentVersion);
 
         // Add environment variables
         this.addEnvironment(
-            'ICAV2_ACCESS_TOKEN_SECRET_ID', icav2AccessTokenSecretId.secretName,
+            'ICAV2_ACCESS_TOKEN_SECRET_ID', icav2AccessTokenSecretIdObj.secretName,
+        )
+        this.addEnvironment(
+            'ICAV2_BASE_URL', icav2BaseUrl,
         )
     }
 

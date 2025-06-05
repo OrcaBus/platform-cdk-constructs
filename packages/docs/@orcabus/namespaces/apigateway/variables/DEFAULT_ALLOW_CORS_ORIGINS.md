@@ -6,20 +6,6 @@
 
 # Variable: DEFAULT\_ALLOW\_CORS\_ORIGINS
 
-> `const` **DEFAULT\_ALLOW\_CORS\_ORIGINS**: `object`
+> `const` **DEFAULT\_ALLOW\_CORS\_ORIGINS**: `Record`\<[`StageName`](../../sharedConfig/namespaces/account/type-aliases/StageName.md), `string`[]\>
 
-Defined in: [packages/api-gateway/config.ts:20](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/config.ts#L20)
-
-## Type declaration
-
-### BETA
-
-> **BETA**: `string`[]
-
-### GAMMA
-
-> **GAMMA**: `string`[]
-
-### PROD
-
-> **PROD**: `string`[]
+Defined in: [packages/api-gateway/config.ts:33](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/config.ts#L33)

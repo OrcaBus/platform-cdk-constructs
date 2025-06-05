@@ -8,13 +8,13 @@
 
 > **getDefaultApiGatewayConfiguration**(`stage`): `object`
 
-Defined in: [packages/api-gateway/config.ts:38](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/config.ts#L38)
+Defined in: [packages/api-gateway/config.ts:51](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/config.ts#L51)
 
 ## Parameters
 
 ### stage
 
-[`StageName`](../../utils/type-aliases/StageName.md)
+[`StageName`](../../sharedConfig/namespaces/account/type-aliases/StageName.md)
 
 ## Returns
 
@@ -22,7 +22,7 @@ Defined in: [packages/api-gateway/config.ts:38](https://github.com/OrcaBus/platf
 
 ### apiGwLogsConfig
 
-> **apiGwLogsConfig**: \{ `removalPolicy`: `RemovalPolicy`; `retention`: `RetentionDays`; \} \| \{ `removalPolicy`: `RemovalPolicy`; `retention`: `RetentionDays`; \} \| \{ `removalPolicy`: `RemovalPolicy`; `retention`: `RetentionDays`; \}
+> **apiGwLogsConfig**: [`LogsConfigProps`](../interfaces/LogsConfigProps.md)
 
 ### cognitoClientIdParameterNameArray
 

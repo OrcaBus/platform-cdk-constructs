@@ -6,9 +6,9 @@
 
 # Function: resolveStageName()
 
-> **resolveStageName**(`scope`): [`StageName`](../type-aliases/StageName.md)
+> **resolveStageName**(`scope`): [`StageName`](../../sharedConfig/namespaces/account/type-aliases/StageName.md)
 
-Defined in: [packages/utils/index.ts:28](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/utils/index.ts#L28)
+Defined in: [packages/utils/index.ts:13](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/utils/index.ts#L13)
 
 ## Parameters
 
@@ -18,4 +18,4 @@ Defined in: [packages/utils/index.ts:28](https://github.com/OrcaBus/platform-cdk
 
 ## Returns
 
-[`StageName`](../type-aliases/StageName.md)
+[`StageName`](../../sharedConfig/namespaces/account/type-aliases/StageName.md)
