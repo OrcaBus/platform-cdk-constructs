@@ -4,26 +4,11 @@
  *
  */
 
-import { Construct } from "constructs";
+import {Construct} from "constructs";
 import { Stack } from "aws-cdk-lib";
 import { SynthesisMessage } from "aws-cdk-lib/cx-api";
+import {accountIdAlias, StageName} from "../shared-config/accounts"
 
-/**
- * @deprecated Import from `@orcabus/platform-cdk-constructs/shared-config/accounts` instead.
- */
-export type StageName = "BETA" | "GAMMA" | "PROD";
-/**
- * @deprecated Import from `@orcabus/platform-cdk-constructs/shared-config/accounts` instead.
- */
-export const region = "ap-southeast-2";
-/**
- * @deprecated Import from `@orcabus/platform-cdk-constructs/shared-config/accounts` instead.
- */
-export const accountIdAlias: Record<StageName, string> = {
-  BETA: "843407916570", // umccr_development
-  GAMMA: "455634345446", // umccr_staging
-  PROD: "472057503814", // umccr_production
-};
 
 export function resolveStageName(scope: Construct): StageName {
   // See discussion in https://github.com/aws/aws-cdk/issues/1754
@@ -34,8 +19,16 @@ export function resolveStageName(scope: Construct): StageName {
   );
 
   if (!match) {
+    // Check if the stage name is an attribute in the construct
+    // This is useful when running tests and other circumstances where the account ID is not available.
+    const stageName = scope.node.tryGetContext("stageName");
+    if (stageName) {
+      return stageName as StageName;
+    }
+
     throw new Error(
-      `Account ID ${Stack.of(scope).account} not found in accountIdAlias`,
+      `Account ID ${Stack.of(scope).account} not found in accountIdAlias. 
+      Please set 'stageName' as a construct attribute in your stack as a fallback`,
     );
   }
 
@@ -60,25 +53,4 @@ export const validateSecretName = (secretName: string) => {
       "the secret name should not end with a hyphen and 6 characters",
     );
   }
-};
-
-/**
- * TODO: Move to shared-config package
- */
-
-export const pipelineCacheBucket: Record<StageName, string> = {
-  BETA: "pipeline-dev-cache-503977275616-ap-southeast-2",
-  GAMMA: "pipeline-stg-cache-503977275616-ap-southeast-2",
-  PROD: "pipeline-prod-cache-503977275616-ap-southeast-2",
-};
-export const pipelineCachePrefix: Record<StageName, string> = {
-  BETA: "byob-icav2/development/",
-  GAMMA: "byob-icav2/staging/",
-  PROD: "byob-icav2/production/",
-};
-
-export const icav2ProjectId: Record<StageName, string> = {
-  BETA: "ea19a3f5-ec7c-4940-a474-c31cd91dbad4", // development
-  GAMMA: "157b9e78-b2e1-45a7-bfcd-691159995f7c", // staging
-  PROD: "eba5c946-1677-441d-bbce-6a11baadecbb", // production
 };

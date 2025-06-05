@@ -2,12 +2,13 @@
  * Shared config for the FileManager.
  */
 
-import { StageName, validateSecretName } from "../utils";
+import { validateSecretName } from "../utils";
 import {
   BETA_ENVIRONMENT,
   GAMMA_ENVIRONMENT,
   PROD_ENVIRONMENT,
 } from "../deployment-stack-pipeline";
+import {StageName} from "./accounts";
 
 export const fileManagerBuckets: Record<StageName, string[]> = {
   BETA: [

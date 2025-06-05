@@ -13,6 +13,7 @@
 ## Interfaces
 
 - [ApiGwLogsConfig](interfaces/ApiGwLogsConfig.md)
+- [LogsConfigProps](interfaces/LogsConfigProps.md)
 - [OrcaBusApiGatewayProps](interfaces/OrcaBusApiGatewayProps.md)
 
 ## Variables
