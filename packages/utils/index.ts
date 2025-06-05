@@ -19,17 +19,19 @@ export function resolveStageName(scope: Construct): StageName {
   );
 
   if (!match) {
-    // Check if the stage name is an attribute in the construct
-    // This is useful when running tests and other circumstances where the account ID is not available.
-    const stageName = scope.node.tryGetContext("stageName");
-    if (stageName) {
-      return stageName as StageName;
+    // Check if 'stageName' is a property in the variable 'scope'
+    // This is useful for cases where the account ID is not found in accountIdAlias
+    // but the stage name is provided as a construct attribute.
+    const stackObj = scope.node.scope;
+    const propertyNames = Object.getOwnPropertyNames(stackObj);
+    if (!propertyNames.includes('stageName')) {
+      throw new Error(
+        `Account ID ${Stack.of(scope).account} not found in accountIdAlias.
+        Please set 'stageName' as a construct attribute in your stack as a fallback`,
+      );
     }
-
-    throw new Error(
-      `Account ID ${Stack.of(scope).account} not found in accountIdAlias. 
-      Please set 'stageName' as a construct attribute in your stack as a fallback`,
-    );
+    // If 'stageName' is present, return it as a StageName
+    return Object(stackObj)['stageName'] as StageName;
   }
 
   return match[0] as StageName;
