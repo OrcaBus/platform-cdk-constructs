@@ -6,7 +6,7 @@ from typing import Optional, Dict
 from .globals import ICAV2_WES_SUBDOMAIN_NAME
 from .models import WESRequest
 from ..utils.requests_helpers import (
-    get_request, get_url, patch_request, get_request_response_results
+    get_request, get_url, patch_request, get_request_response_results, post_request
 )
 
 
@@ -58,7 +58,7 @@ def icav2_wes_post_request(
     params: Dict
 ):
     # Confirm param keys are valid
-    return patch_request(
+    return post_request(
         url=get_icav2_wes_url(endpoint),
         params=params
     )
