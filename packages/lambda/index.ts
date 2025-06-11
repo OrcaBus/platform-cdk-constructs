@@ -23,8 +23,8 @@ import {
     MART_S3_PREFIX,
 } from "./config";
 import {resolveStageName} from "../utils";
-import {accountIdAlias, REGION} from "../shared-config/accounts";
-import {icav2AccessTokenSecretId, icav2BaseUrl} from "../shared-config/icav2";
+import {ACCOUNT_ID_ALIAS, REGION} from "../shared-config/accounts";
+import {ICAV2_ACCESS_TOKEN_SECRET_ID, ICAV2_BASE_URL} from "../shared-config/icav2";
 
 
 export function getPythonUvDockerImage(): DockerImage {
@@ -63,7 +63,7 @@ export interface MartEnvironmentVariables {
 export interface Icav2ResourcesProps {
     /**
      * The id of the secret that contains the icav2 access token
-     * otherwise it will default to @DEFAULT_ICAV2_ACCESS_TOKEN_SECRET_ID
+     * otherwise it will default to @ICAV2_ACCESS_TOKEN_SECRET_ID
      */
     readonly icav2AccessTokenSecretId?: string
 }
@@ -338,7 +338,7 @@ export class PythonUvFunction extends PythonFunction {
     private setAthenaResources(
         props: MartEnvironmentVariables
     ) {
-        // Resolve the stage name by performing a reverse lookup using cdk.Aws.ACCOUNT_ID on accountIdAlias
+        // Resolve the stage name by performing a reverse lookup using cdk.Aws.ACCOUNT_ID on ACCOUNT_ID_ALIAS
         const stageName = resolveStageName(this)
 
         const athenaS3Bucket = s3.Bucket.fromBucketName(
@@ -376,7 +376,7 @@ export class PythonUvFunction extends PythonFunction {
                     'athena:GetTableMetadata',
                     'athena:GetDataCatalog',
                 ],
-                resources: [`arn:aws:athena:${REGION}:${accountIdAlias[stageName]}:*`],
+                resources: [`arn:aws:athena:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:*`],
             })
         );
 
@@ -404,7 +404,7 @@ export class PythonUvFunction extends PythonFunction {
                     'athena:DeletePreparedStatement',
                 ],
                 resources: [
-                    `arn:aws:athena:${REGION}:${accountIdAlias[stageName]}:workgroup/${MART_ENV_VARS.athenaWorkgroupName}`,
+                    `arn:aws:athena:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:workgroup/${MART_ENV_VARS.athenaWorkgroupName}`,
                 ],
             })
         );
@@ -424,25 +424,25 @@ export class PythonUvFunction extends PythonFunction {
     private setIcav2Resources(
         props: Icav2ResourcesProps
     ) {
-        // Resolve the stage name by performing a reverse lookup using cdk.Aws.ACCOUNT_ID on accountIdAlias
+        // Resolve the stage name by performing a reverse lookup using cdk.Aws.ACCOUNT_ID on ACCOUNT_ID_ALIAS
         const stageName = resolveStageName(this)
 
         // Set secret object
-        const icav2AccessTokenSecretIdObj = secretsManager.Secret.fromSecretNameV2(
-            this, 'icav2AccessTokenSecretId',
-            props.icav2AccessTokenSecretId ?? icav2AccessTokenSecretId[stageName]
+        const icav2AccessTokenSecretIdObject = secretsManager.Secret.fromSecretNameV2(
+            this, 'ICAV2_ACCESS_TOKEN_SECRET_ID',
+            props.icav2AccessTokenSecretId ?? ICAV2_ACCESS_TOKEN_SECRET_ID[stageName]
         );
 
         // Add permissions for the secret and SSM parameter
         // To the current version
-        icav2AccessTokenSecretIdObj.grantRead(this.currentVersion);
+        icav2AccessTokenSecretIdObject.grantRead(this.currentVersion);
 
         // Add environment variables
         this.addEnvironment(
-            'ICAV2_ACCESS_TOKEN_SECRET_ID', icav2AccessTokenSecretIdObj.secretName,
+            'ICAV2_ACCESS_TOKEN_SECRET_ID', icav2AccessTokenSecretIdObject.secretName,
         )
         this.addEnvironment(
-            'ICAV2_BASE_URL', icav2BaseUrl,
+            'ICAV2_BASE_URL', ICAV2_BASE_URL,
         )
     }
 
