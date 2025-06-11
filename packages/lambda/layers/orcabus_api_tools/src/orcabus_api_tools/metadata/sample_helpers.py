@@ -16,8 +16,7 @@ from requests.exceptions import HTTPError
 from . import get_metadata_request_response_results, get_item_objs_from_item_id_list
 from .errors import SampleNotFoundError
 from .globals import SAMPLE_ENDPOINT, ORCABUS_ULID_REGEX_MATCH
-from .models import Sample, LibraryDetail
-
+from .models import Sample, LibraryDetail, Project
 
 
 def get_sample_from_sample_id(sample_id: str) -> Sample:
