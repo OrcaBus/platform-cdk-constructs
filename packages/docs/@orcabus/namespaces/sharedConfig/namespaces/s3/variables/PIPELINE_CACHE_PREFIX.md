@@ -6,7 +6,7 @@
 
 # Variable: PIPELINE\_CACHE\_PREFIX
 
-> `const` **PIPELINE\_CACHE\_PREFIX**: `Readonly`\<`Record`\<[`StageName`](../../account/type-aliases/StageName.md), `string`\>\>
+> `const` **PIPELINE\_CACHE\_PREFIX**: `Record`\<[`StageName`](../../account/type-aliases/StageName.md), `string`\>
 
 Defined in: [packages/shared-config/s3.ts:33](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/s3.ts#L33)
 
