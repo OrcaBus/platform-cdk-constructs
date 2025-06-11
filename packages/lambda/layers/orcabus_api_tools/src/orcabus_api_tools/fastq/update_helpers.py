@@ -109,20 +109,14 @@ def add_read_set(fastq_id: str, read_set: ReadSet) -> FastqListRow:
     )
 
 
-def detach_read_set(fastq_id: str, read_set: ReadSet) -> FastqListRow:
+def detach_read_set(fastq_id: str) -> FastqListRow:
     """
     Detach a read set to a fastq id.
 
     :param fastq_id: Fastq str
-    :param read_set: ReadSet str
     """
-    for key in read_set.keys():
-        if key not in ReadSet.__annotations__:
-            raise ValueError(f"Invalid parameter: {key}")
-
     return fastq_patch_request(
-        f"{FASTQ_LIST_ROW_ENDPOINT}/{fastq_id}/detachFastqPairStorageObject",
-        params=dict(read_set)
+        f"{FASTQ_LIST_ROW_ENDPOINT}/{fastq_id}/detachFastqPairStorageObject"
     )
 
 
