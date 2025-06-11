@@ -43,7 +43,7 @@ from .metadata_helpers import (
 
 from .payload_helpers import (
     get_payload,
-    get_payload_from_state,
+    get_payload_from_state_orcabus_id,
     get_latest_payload_from_workflow_run,
     get_latest_payload_from_portal_run_id,
 )
@@ -52,6 +52,7 @@ from .workflow_run_helpers import (
     get_workflow_run,
     get_workflow_run_from_portal_run_id,
     get_workflow_run_state,
+    get_workflow_run_state_from_state_orcabus_id,
 )
 
 
@@ -63,11 +64,12 @@ __all__ = [
     "get_workflows_from_library_id",
     # Payload
     "get_payload",
-    "get_payload_from_state",
+    "get_payload_from_state_orcabus_id",
     "get_latest_payload_from_workflow_run",
     "get_latest_payload_from_portal_run_id",
     # Workflow Run
     "get_workflow_run",
     "get_workflow_run_from_portal_run_id",
     "get_workflow_run_state",
+    "get_workflow_run_state_from_state_orcabus_id"
 ]

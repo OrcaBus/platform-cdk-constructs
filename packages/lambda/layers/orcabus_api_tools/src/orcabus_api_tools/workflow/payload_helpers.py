@@ -23,17 +23,17 @@ def get_payload(payload_id: str) -> Dict:
     return get_workflow_request(f"{PAYLOAD_ENDPOINT}/{payload_id}")
 
 
-def get_payload_from_state(workflow_run_orcabus_id: str, status: str):
+def get_payload_from_state_orcabus_id(workflow_run_orcabus_id: str, state_orcabus_id: str):
     """
     Given the workflow_run_orcabus_id and status, get the payload for that status
     :param workflow_run_orcabus_id:
-    :param status:
+    :param state_orcabus_id:
     :return:
     """
-    from .workflow_run_helpers import get_workflow_run_state
+    from .workflow_run_helpers import get_workflow_run_state_from_state_orcabus_id
 
     # Get the workflow run state
-    workflow_run_state_payload_id = get_workflow_run_state(workflow_run_orcabus_id, status)['payload']
+    workflow_run_state_payload_id = get_workflow_run_state_from_state_orcabus_id(workflow_run_orcabus_id, state_orcabus_id)['payload']
 
     # Get the payload
     return get_payload(workflow_run_state_payload_id)
@@ -51,7 +51,10 @@ def get_latest_payload_from_workflow_run(workflow_run_orcabus_id: str) -> Payloa
     workflow_run = get_workflow_run(workflow_run_orcabus_id)
 
     # Get the payload
-    return Payload(**get_payload_from_state(workflow_run_orcabus_id, workflow_run['currentState']['orcabusId']))
+    return Payload(**get_payload_from_state_orcabus_id(
+        workflow_run_orcabus_id=workflow_run_orcabus_id,
+        state_orcabus_id=workflow_run['currentState']['orcabusId']
+    ))
 
 
 def get_latest_payload_from_portal_run_id(portal_run_id: str) -> Payload:
@@ -61,4 +64,7 @@ def get_latest_payload_from_portal_run_id(portal_run_id: str) -> Payload:
     workflow_run = get_workflow_run_from_portal_run_id(portal_run_id)
 
     # Get the payload
-    return Payload(**get_payload_from_state(workflow_run['orcabusId'], workflow_run['currentState']['orcabusId']))
+    return Payload(**get_payload_from_state_orcabus_id(
+        workflow_run_orcabus_id=workflow_run['orcabusId'],
+        state_orcabus_id=workflow_run['currentState']['orcabusId']
+    ))

@@ -46,12 +46,31 @@ def get_workflow_run_from_portal_run_id(portal_run_id: str) -> WorkflowRun:
         raise WorkflowRunNotFoundError(portal_run_id=portal_run_id)
 
     try:
-        return get_workflow_request_response_results(
-            WORKFLOW_RUN_ENDPOINT,
-            workflow_runs_list[0]["orcabusId"],
+        return get_workflow_request(
+            f"{WORKFLOW_RUN_ENDPOINT}/{workflow_runs_list[0]["orcabusId"]}",
         )
     except HTTPError as e:
         raise WorkflowRunNotFoundError(portal_run_id=portal_run_id) from e
+
+
+def get_workflow_run_state_from_state_orcabus_id(
+    workflow_run_orcabus_id: str, state_orcabus_id: str
+)  -> State:
+
+    # Get workflow run state
+    try:
+        return next(
+            filter(
+                lambda workflow_state_iter_: workflow_state_iter_["orcabusId"] == state_orcabus_id,
+                get_workflow_request(f"{WORKFLOW_RUN_ENDPOINT}/{workflow_run_orcabus_id}/state")
+            )
+        )
+    except HTTPError as e:
+        from .errors import WorkflowRunStateNotFoundError
+        raise WorkflowRunStateNotFoundError(
+            workflow_run_id=workflow_run_orcabus_id,
+            status=state_orcabus_id
+        ) from e
 
 
 def get_workflow_run_state(workflow_run_orcabus_id: str, status: str) -> State:
@@ -66,7 +85,7 @@ def get_workflow_run_state(workflow_run_orcabus_id: str, status: str) -> State:
         return next(
             filter(
                 lambda workflow_state_iter_: workflow_state_iter_["status"] == status,
-                get_workflow_request_response_results(f"{WORKFLOW_RUN_ENDPOINT}/{workflow_run_orcabus_id}/{status}")
+                get_workflow_request(f"{WORKFLOW_RUN_ENDPOINT}/{workflow_run_orcabus_id}/state")
             )
         )
     except HTTPError as e:
