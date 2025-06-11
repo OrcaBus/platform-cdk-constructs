@@ -10,9 +10,9 @@ Defined in: [packages/lambda/index.ts:63](https://github.com/OrcaBus/platform-cd
 
 ## Properties
 
-### icav2AccessTokenSecretId?
+### ICAV2\_ACCESS\_TOKEN\_SECRET\_ID?
 
-> `readonly` `optional` **icav2AccessTokenSecretId**: `string`
+> `readonly` `optional` **ICAV2\_ACCESS\_TOKEN\_SECRET\_ID**: `string`
 
 Defined in: [packages/lambda/index.ts:68](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L68)
 

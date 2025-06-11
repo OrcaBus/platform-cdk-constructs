@@ -63,9 +63,9 @@ export interface MartEnvironmentVariables {
 export interface Icav2ResourcesProps {
     /**
      * The id of the secret that contains the icav2 access token
-     * otherwise it will default to @DEFAULT_ICAV2_ACCESS_TOKEN_SECRET_ID
+     * otherwise it will default to @ICAV2_ACCESS_TOKEN_SECRET_ID
      */
-    readonly ICAV2_ACCESS_TOKEN_SECRET_ID?: string
+    readonly icav2AccessTokenSecretId?: string
 }
 
 
@@ -428,18 +428,18 @@ export class PythonUvFunction extends PythonFunction {
         const stageName = resolveStageName(this)
 
         // Set secret object
-        const ICAV2_ACCESS_TOKEN_SECRET_IDObj = secretsManager.Secret.fromSecretNameV2(
+        const icav2AccessTokenSecretIdObject = secretsManager.Secret.fromSecretNameV2(
             this, 'ICAV2_ACCESS_TOKEN_SECRET_ID',
-            props.ICAV2_ACCESS_TOKEN_SECRET_ID ?? ICAV2_ACCESS_TOKEN_SECRET_ID[stageName]
+            props.icav2AccessTokenSecretId ?? ICAV2_ACCESS_TOKEN_SECRET_ID[stageName]
         );
 
         // Add permissions for the secret and SSM parameter
         // To the current version
-        ICAV2_ACCESS_TOKEN_SECRET_IDObj.grantRead(this.currentVersion);
+        icav2AccessTokenSecretIdObject.grantRead(this.currentVersion);
 
         // Add environment variables
         this.addEnvironment(
-            'ICAV2_ACCESS_TOKEN_SECRET_ID', ICAV2_ACCESS_TOKEN_SECRET_IDObj.secretName,
+            'ICAV2_ACCESS_TOKEN_SECRET_ID', icav2AccessTokenSecretIdObject.secretName,
         )
         this.addEnvironment(
             'ICAV2_BASE_URL', ICAV2_BASE_URL,

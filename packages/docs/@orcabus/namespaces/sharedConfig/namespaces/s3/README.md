@@ -8,5 +8,7 @@
 
 ## Variables
 
-- [pipelineCacheBucket](variables/pipelineCacheBucket.md)
-- [pipelineCachePrefix](variables/pipelineCachePrefix.md)
+- [PIPELINE\_CACHE\_BUCKET](variables/PIPELINE_CACHE_BUCKET.md)
+- [PIPELINE\_CACHE\_PREFIX](variables/PIPELINE_CACHE_PREFIX.md)
+- [~~pipelineCacheBucket~~](variables/pipelineCacheBucket.md)
+- [~~pipelineCachePrefix~~](variables/pipelineCachePrefix.md)
