@@ -14,7 +14,7 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:73](https://github.c
 
 > `readonly` `optional` **cdkOut**: `string`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:118](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L118)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:125](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L125)
 
 The location where the cdk output will be stored.
 
@@ -30,7 +30,7 @@ cdk.out
 
 > `readonly` **cdkSynthCmd**: `string`[]
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:112](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L112)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:119](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L119)
 
 The command to run to synth the cdk stack which also installing the cdk dependencies. e.g. ["yarn install --immutable", "yarn cdk synth"]
 
@@ -40,7 +40,7 @@ The command to run to synth the cdk stack which also installing the cdk dependen
 
 > `readonly` `optional` **enableSlackNotification**: `boolean`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:133](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L133)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:140](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L140)
 
 Enable notification to the 'alerts-build' slack channel.
 
@@ -52,13 +52,13 @@ True
 
 ***
 
-### filePaths?
+### excludedFilePaths?
 
-> `readonly` `optional` **filePaths**: `string`[]
+> `readonly` `optional` **excludedFilePaths**: `string`[]
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:108](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L108)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:115](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L115)
 
-The file paths to trigger the pipeline. e.g. ["stateless/**"]
+The list of patterns of Git repository file paths that, when a commit is pushed, are to be EXCLUDED from starting the pipeline.
 
 https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-gitfilepathfiltercriteria.html
 
@@ -87,11 +87,23 @@ The repository name that exist in the 'OrcaBus' github organisation. e.g. `a-mic
 
 ***
 
+### includedFilePaths?
+
+> `readonly` `optional` **includedFilePaths**: `string`[]
+
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:108](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L108)
+
+The list of patterns of Git repository file paths that, when a commit is pushed, are to be INCLUDED as criteria that starts the pipeline.
+
+https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-gitfilepathfiltercriteria.html
+
+***
+
 ### notificationEvents?
 
 > `readonly` `optional` **notificationEvents**: `PipelineNotificationEvents`[]
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:141](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L141)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:148](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L148)
 
 The pipeline notification events that will trigger a Slack channel notification.
 Only applies if `enableSlackNotification` is set to true.
@@ -119,7 +131,7 @@ The pipeline name in the bastion account.
 
 > `readonly` `optional` **reuseExistingArtifactBucket**: `boolean`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:149](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L149)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:156](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L156)
 
 Whether to reuse the existing artifact bucket for cross-deployment pipelines.
 If set to true, it will look up the existing artifact bucket in the TOOLCHAIN account.
@@ -167,7 +179,7 @@ name e.g. `OrcaBusBeta-<stackName>`, `OrcaBusGamma-<stackName>`, `OrcaBusProd-<s
 
 > `readonly` `optional` **stageEnv**: [`StageEnvProps`](StageEnvProps.md)
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:128](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L128)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:135](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L135)
 
 The stage environment for the deployment stack
 
@@ -177,7 +189,7 @@ The stage environment for the deployment stack
 
 > `readonly` `optional` **synthBuildSpec**: `Record`\<`string`, `any`\>
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:124](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L124)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:131](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L131)
 
 Additional configuration for the CodeBuild step during the CDK synth phase. It will passed as the `partialBuildSpec` to the `CodeBuildStep`.
 
