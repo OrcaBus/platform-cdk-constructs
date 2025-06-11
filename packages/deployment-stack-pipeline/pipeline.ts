@@ -100,12 +100,19 @@ export interface DeploymentStackPipelineProps {
    */
   readonly pipelineName: string;
   /**
-   * The file paths to trigger the pipeline. e.g. ["stateless/**"]
+   * The list of patterns of Git repository file paths that, when a commit is pushed, are to be INCLUDED as criteria that starts the pipeline.
    *
    * https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-gitfilepathfiltercriteria.html
    *
    */
-  readonly filePaths?: string[];
+  readonly includedFilePaths?: string[];
+  /**
+   * The list of patterns of Git repository file paths that, when a commit is pushed, are to be EXCLUDED from starting the pipeline.
+   *
+   * https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-gitfilepathfiltercriteria.html
+   *
+   */
+  readonly excludedFilePaths?: string[];
   /**
    * The command to run to synth the cdk stack which also installing the cdk dependencies. e.g. ["yarn install --immutable", "yarn cdk synth"]
    */
@@ -196,7 +203,16 @@ export class DeploymentStackPipeline extends Construct {
       crossAccountKeys: true,
     });
 
-    if (props.filePaths) {
+    if (props.includedFilePaths || props.excludedFilePaths) {
+      const filePaths: Record<string, string[]> = {};
+
+      if (props.includedFilePaths) {
+        filePaths["Includes"] = props.includedFilePaths;
+      }
+      if (props.excludedFilePaths) {
+        filePaths["Excludes"] = props.excludedFilePaths;
+      }
+
       // Add event filter to only trigger if the push event is from `deploy` directory
       const cfnPipeline = this.pipeline.node.defaultChild as CfnPipeline;
       cfnPipeline.addPropertyOverride("Triggers", [
@@ -207,9 +223,7 @@ export class DeploymentStackPipeline extends Construct {
                 Branches: {
                   Includes: [props.githubBranch],
                 },
-                FilePaths: {
-                  Includes: props.filePaths,
-                },
+                FilePaths: filePaths,
               },
             ],
             SourceActionName: codeStarSourceActionName,
