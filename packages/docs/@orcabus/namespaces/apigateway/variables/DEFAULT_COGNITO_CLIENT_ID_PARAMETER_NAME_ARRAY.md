@@ -8,4 +8,4 @@
 
 > `const` **DEFAULT\_COGNITO\_CLIENT\_ID\_PARAMETER\_NAME\_ARRAY**: `string`[]
 
-Defined in: [packages/api-gateway/config.ts:39](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/config.ts#L39)
+Defined in: [packages/api-gateway/config.ts:38](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/config.ts#L38)

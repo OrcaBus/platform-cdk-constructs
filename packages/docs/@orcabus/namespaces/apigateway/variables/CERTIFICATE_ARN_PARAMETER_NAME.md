@@ -8,4 +8,4 @@
 
 > `const` **CERTIFICATE\_ARN\_PARAMETER\_NAME**: `"/umccr/certificate_arn"` = `"/umccr/certificate_arn"`
 
-Defined in: [packages/api-gateway/config.ts:47](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/config.ts#L47)
+Defined in: [packages/api-gateway/config.ts:46](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/config.ts#L46)

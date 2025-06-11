@@ -8,7 +8,7 @@
 
 > **getDefaultApiGatewayConfiguration**(`stage`): `object`
 
-Defined in: [packages/api-gateway/config.ts:51](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/config.ts#L51)
+Defined in: [packages/api-gateway/config.ts:50](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/config.ts#L50)
 
 ## Parameters
 

@@ -8,4 +8,4 @@
 
 > `const` **DEFAULT\_ALLOW\_CORS\_ORIGINS**: `Record`\<[`StageName`](../../sharedConfig/namespaces/account/type-aliases/StageName.md), `string`[]\>
 
-Defined in: [packages/api-gateway/config.ts:33](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/config.ts#L33)
+Defined in: [packages/api-gateway/config.ts:32](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/config.ts#L32)
