@@ -75,7 +75,7 @@ def get_item_from_item_id_list_batched(
         endpoint: str,
         accept_missing: bool = False,
         batch_size: int = 50
-) -> List[Dict[str: Any]]:
+) -> List[Dict[str, Any]]:
     """
     Get items from a list of item ids
     We batch the requests to avoid hitting the API limits
