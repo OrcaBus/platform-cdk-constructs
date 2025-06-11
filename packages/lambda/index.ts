@@ -138,11 +138,11 @@ export class PythonUvFunction extends PythonFunction {
                 commandHooks: {
                     // @ts-ignore
                     beforeBundling(inputDir: string, outputDir: string): string[] {
-                        return [];
+                        return props.bundling?.commandHooks?.beforeBundling as unknown as string[] ?? [];
                     },
                     // @ts-ignore
                     afterBundling(inputDir: string, outputDir: string): string[] {
-                        return [`rm -rf ${outputDir}/pandas/tests`];
+                        return (props.bundling?.commandHooks?.afterBundling as unknown as string[] ?? []).concat([`rm -rf ${outputDir}/pandas/tests`]);
                     },
                 },
             },
