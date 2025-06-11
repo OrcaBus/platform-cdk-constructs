@@ -7,9 +7,9 @@ Getting the payload helpers
 # Standard imports
 from typing import Dict
 
+from . import get_workflow_request
 # Local imports
 from .globals import PAYLOAD_ENDPOINT
-from .requests_helpers import get_request_results
 from .models import Payload
 
 
@@ -20,7 +20,7 @@ def get_payload(payload_id: str) -> Dict:
     :return:
     """
     # Get subject
-    return get_request_results(PAYLOAD_ENDPOINT, payload_id)
+    return get_workflow_request(f"{PAYLOAD_ENDPOINT}/{payload_id}")
 
 
 def get_payload_from_state(workflow_run_orcabus_id: str, status: str):
@@ -51,7 +51,7 @@ def get_latest_payload_from_workflow_run(workflow_run_orcabus_id: str) -> Payloa
     workflow_run = get_workflow_run(workflow_run_orcabus_id)
 
     # Get the payload
-    return get_payload_from_state(workflow_run_orcabus_id, workflow_run['currentState']['orcabusId'])
+    return Payload(**get_payload_from_state(workflow_run_orcabus_id, workflow_run['currentState']['orcabusId']))
 
 
 def get_latest_payload_from_portal_run_id(portal_run_id: str) -> Payload:
@@ -61,4 +61,4 @@ def get_latest_payload_from_portal_run_id(portal_run_id: str) -> Payload:
     workflow_run = get_workflow_run_from_portal_run_id(portal_run_id)
 
     # Get the payload
-    return get_payload_from_state(workflow_run['orcabusId'], workflow_run['currentState']['orcabusId'])
+    return Payload(**get_payload_from_state(workflow_run['orcabusId'], workflow_run['currentState']['orcabusId']))

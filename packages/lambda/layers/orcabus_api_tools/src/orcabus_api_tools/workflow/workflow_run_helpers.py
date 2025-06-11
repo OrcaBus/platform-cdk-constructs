@@ -5,14 +5,12 @@ Helpers for using the contact API endpoint
 """
 
 # Standard imports
-from typing import Dict
 from requests import HTTPError
+from . import get_workflow_request_response_results, get_workflow_request
 
 # Local imports
 from .globals import WORKFLOW_RUN_ENDPOINT
-from .requests_helpers import get_request_response_results, get_request_results_ext, get_request_results
 from .models import WorkflowRun, State
-from .. import WorkflowRunNotFoundError
 
 
 def get_workflow_run(workflow_run_orcabus_id: str) -> WorkflowRun:
@@ -23,7 +21,7 @@ def get_workflow_run(workflow_run_orcabus_id: str) -> WorkflowRun:
     """
     # Get workflow run
     try:
-        return get_request_results(WORKFLOW_RUN_ENDPOINT, workflow_run_orcabus_id)
+        return get_workflow_request(f"{WORKFLOW_RUN_ENDPOINT}/{workflow_run_orcabus_id}")
     except HTTPError as e:
         from .errors import WorkflowRunNotFoundError
         raise WorkflowRunNotFoundError(workflow_run_id=workflow_run_orcabus_id) from e
@@ -42,13 +40,13 @@ def get_workflow_run_from_portal_run_id(portal_run_id: str) -> WorkflowRun:
         "portalRunId": portal_run_id
     }
 
-    workflow_runs_list = get_request_response_results(WORKFLOW_RUN_ENDPOINT, params)
+    workflow_runs_list = get_workflow_request_response_results(WORKFLOW_RUN_ENDPOINT, params)
 
     if len(workflow_runs_list) == 0:
         raise WorkflowRunNotFoundError(portal_run_id=portal_run_id)
 
     try:
-        return get_request_results(
+        return get_workflow_request_response_results(
             WORKFLOW_RUN_ENDPOINT,
             workflow_runs_list[0]["orcabusId"],
         )
@@ -68,7 +66,7 @@ def get_workflow_run_state(workflow_run_orcabus_id: str, status: str) -> State:
         return next(
             filter(
                 lambda workflow_state_iter_: workflow_state_iter_["status"] == status,
-                get_request_results_ext(WORKFLOW_RUN_ENDPOINT, workflow_run_orcabus_id, "state")
+                get_workflow_request_response_results(f"{WORKFLOW_RUN_ENDPOINT}/{workflow_run_orcabus_id}/{status}")
             )
         )
     except HTTPError as e:
