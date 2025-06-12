@@ -30,7 +30,7 @@ export const DEFAULT_LOGS_CONFIG: Record<StageName, LogsConfigProps> = {
 };
 
 export const DEFAULT_ALLOW_CORS_ORIGINS: Record<StageName, string[]> = {
-  BETA: ["https://orcaui.dev.umccr.org"],
+  BETA: ["https://orcaui.dev.umccr.org", "http://localhost:3000"],
   GAMMA: ["https://orcaui.stg.umccr.org"],
   PROD: ["https://orcaui.prod.umccr.org", "https://orcaui.umccr.org"],
 };
