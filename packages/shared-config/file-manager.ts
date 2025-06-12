@@ -2,15 +2,16 @@
  * Shared config for the FileManager.
  */
 
-import { validateSecretName } from "../utils";
 import {
   BETA_ENVIRONMENT,
   GAMMA_ENVIRONMENT,
   PROD_ENVIRONMENT,
 } from "../deployment-stack-pipeline";
-import {StageName} from "./accounts";
+import { StageName } from "./accounts";
+import { pipelineCacheBucket } from "./s3";
+import { validateSecretName } from "./secrets";
 
-export const fileManagerBuckets: Record<StageName, string[]> = {
+export const FILE_MANAGER_BUCKETS: Record<StageName, string[]> = {
   BETA: [
     "umccr-temp-dev",
     `ntsm-fingerprints-${BETA_ENVIRONMENT.account}-ap-southeast-2`,
@@ -32,21 +33,22 @@ export const fileManagerBuckets: Record<StageName, string[]> = {
   ],
 };
 
-export const fileManagerCacheBuckets: Record<StageName, string[]> = {
-  BETA: ["pipeline-dev-cache-503977275616-ap-southeast-2"],
-  GAMMA: ["pipeline-stg-cache-503977275616-ap-southeast-2"],
-  PROD: ["pipeline-prod-cache-503977275616-ap-southeast-2"],
+export const FILE_MANAGER_CACHE_BUCKETS: Record<StageName, string[]> = {
+  BETA: [pipelineCacheBucket.BETA],
+  GAMMA: [pipelineCacheBucket.GAMMA],
+  PROD: [pipelineCacheBucket.PROD],
 };
 
-export const fileManagerPresignUserSecret = "orcabus/file-manager-presign-user"; // pragma: allowlist secret
-export const accessKeySecretArn: Record<StageName, string> = {
-  BETA: `arn:aws:secretsmanager:${BETA_ENVIRONMENT.region}:${BETA_ENVIRONMENT.account}:secret:${fileManagerPresignUserSecret}`,
-  GAMMA: `arn:aws:secretsmanager:${GAMMA_ENVIRONMENT.region}:${GAMMA_ENVIRONMENT.account}:secret:${fileManagerPresignUserSecret}`,
-  PROD: `arn:aws:secretsmanager:${PROD_ENVIRONMENT.region}:${PROD_ENVIRONMENT.account}:secret:${fileManagerPresignUserSecret}`,
+export const FILE_MANAGER_PRESIGN_USER_SECRET =
+  "orcabus/file-manager-presign-user"; // pragma: allowlist secret
+validateSecretName(FILE_MANAGER_PRESIGN_USER_SECRET);
+
+export const FILE_MANAGER_ACCESS_KEY_ARNS: Record<StageName, string> = {
+  BETA: `arn:aws:secretsmanager:${BETA_ENVIRONMENT.region}:${BETA_ENVIRONMENT.account}:secret:${FILE_MANAGER_PRESIGN_USER_SECRET}`,
+  GAMMA: `arn:aws:secretsmanager:${GAMMA_ENVIRONMENT.region}:${GAMMA_ENVIRONMENT.account}:secret:${FILE_MANAGER_PRESIGN_USER_SECRET}`,
+  PROD: `arn:aws:secretsmanager:${PROD_ENVIRONMENT.region}:${PROD_ENVIRONMENT.account}:secret:${FILE_MANAGER_PRESIGN_USER_SECRET}`,
 };
 
-export const fileManagerIngestRoleName = "orcabus-file-manager-ingest-role";
-validateSecretName(fileManagerPresignUserSecret);
-
-export const fileManagerPresignUser = "orcabus-file-manager-presign-user"; // pragma: allowlist secret
-export const fileManagerDomainPrefix = "file";
+export const FILE_MANAGER_INGEST_ROLE = "orcabus-file-manager-ingest-role";
+export const FILE_MANAGER_PRESIGN_USER = "orcabus-file-manager-presign-user"; // pragma: allowlist secret
+export const FILE_MANAGER_DOMAIN_PREFIX = "file";
