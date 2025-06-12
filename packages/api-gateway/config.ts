@@ -35,9 +35,13 @@ export const DEFAULT_ALLOW_CORS_ORIGINS: Record<StageName, string[]> = {
   PROD: ["https://orcaui.prod.umccr.org", "https://orcaui.umccr.org"],
 };
 
+export const COGNITO_PORTAL_APP_CLIENT_ID_PARAMETER_NAME =
+  "/data_portal/client/data2/cog_app_client_id_stage";
+export const COGNITO_ORCAUI_APP_CLIENT_ID_PARAMETER_NAME =
+  "/orcaui/cog_app_client_id_stage";
 export const DEFAULT_COGNITO_CLIENT_ID_PARAMETER_NAME_ARRAY = [
-  "/data_portal/client/data2/cog_app_client_id_stage", // portal - TokenServiceStack
-  "/orcaui/cog_app_client_id_stage", // orcaui - https://github.com/umccr/orca-ui
+  COGNITO_PORTAL_APP_CLIENT_ID_PARAMETER_NAME, // portal - TokenServiceStack
+  COGNITO_ORCAUI_APP_CLIENT_ID_PARAMETER_NAME, // orcaui - https://github.com/umccr/orca-ui
 ];
 
 export const DEFAULT_COGNITO_USER_POOL_ID_PARAMETER_NAME =

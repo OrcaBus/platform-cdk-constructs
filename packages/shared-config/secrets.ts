@@ -13,3 +13,7 @@ export const validateSecretName = (secretName: string) => {
 
 export const JWT_SECRET_NAME = "orcabus/token-service-jwt"; // pragma: allowlist secret
 validateSecretName(JWT_SECRET_NAME);
+
+
+export const SERVICE_USER_SECRET_NAME = "orcabus/token-service-user"; // pragma: allowlist secret
+validateSecretName(JWT_SECRET_NAME);
