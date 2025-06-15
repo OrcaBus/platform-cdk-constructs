@@ -16,6 +16,7 @@ repository = "https://github.com/orcabus/platform-cdk-constructs"
 [tool.poetry.dependencies]
 python = "^3.12, <3.13"
 requests = "^2.31.0"
+fastapi = "^0.115.12"
 
 [tool.poetry.group.dev]
 optional = true
