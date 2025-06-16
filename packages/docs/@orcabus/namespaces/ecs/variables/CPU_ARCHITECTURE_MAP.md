@@ -8,4 +8,4 @@
 
 > `const` **CPU\_ARCHITECTURE\_MAP**: `Record`\<[`Architecture`](../type-aliases/Architecture.md), `ecs.CpuArchitecture`\>
 
-Defined in: [packages/ecs/index.ts:29](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L29)
+Defined in: [packages/ecs/index.ts:32](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L32)

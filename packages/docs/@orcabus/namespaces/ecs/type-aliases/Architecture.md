@@ -8,4 +8,4 @@
 
 > **Architecture** = `"X86_64"` \| `"ARM64"`
 
-Defined in: [packages/ecs/index.ts:27](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L27)
+Defined in: [packages/ecs/index.ts:30](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L30)
