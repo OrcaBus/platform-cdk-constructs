@@ -118,6 +118,12 @@ from .update_helpers import (
     set_is_not_current_fastq_set,
 )
 
+# Validation
+from .validation_helpers import (
+    validate_ntsm_internal,
+    validate_ntsm_external,
+)
+
 # Workflow
 from .workflow_helpers import (
     to_fastq_list_row,
@@ -165,6 +171,9 @@ __all__ = [
     "disallow_additional_fastqs_to_fastq_set",
     "set_is_current_fastq_set",
     "set_is_not_current_fastq_set",
+    # Validation
+    "validate_ntsm_internal",
+    "validate_ntsm_external",
     # Workflow
     "to_fastq_list_row",
     "to_fastq_list_rows",

@@ -22,6 +22,7 @@ from functools import reduce
 from itertools import batched
 from operator import concat
 from typing import List, Unpack
+from fastapi.encoders import jsonable_encoder
 
 from . import get_fastq_request_response_results, get_fastq_request
 from .globals import FASTQ_LIST_ROW_ENDPOINT, FASTQ_SET_ENDPOINT
@@ -95,7 +96,7 @@ def get_fastq_sets(**kwargs: Unpack[FastqSetQueryParameters]) -> List[FastqSet]:
 
     return get_fastq_request_response_results(
         FASTQ_SET_ENDPOINT,
-        params=dict(kwargs)
+        params=jsonable_encoder(dict(kwargs))
     )
 
 
