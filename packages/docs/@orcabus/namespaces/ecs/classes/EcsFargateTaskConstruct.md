@@ -6,7 +6,7 @@
 
 # Class: EcsFargateTaskConstruct
 
-Defined in: [packages/ecs/index.ts:79](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L79)
+Defined in: [packages/ecs/index.ts:82](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L82)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/ecs/index.ts:79](https://github.com/OrcaBus/platform-cdk-c
 
 > **new EcsFargateTaskConstruct**(`scope`, `id`, `props`): `EcsFargateTaskConstruct`
 
-Defined in: [packages/ecs/index.ts:85](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L85)
+Defined in: [packages/ecs/index.ts:88](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L88)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/ecs/index.ts:85](https://github.com/OrcaBus/platform-cdk-c
 
 > `readonly` **cluster**: `ICluster`
 
-Defined in: [packages/ecs/index.ts:80](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L80)
+Defined in: [packages/ecs/index.ts:83](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L83)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [packages/ecs/index.ts:80](https://github.com/OrcaBus/platform-cdk-c
 
 > `readonly` **containerDefinition**: `ContainerDefinition`
 
-Defined in: [packages/ecs/index.ts:83](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L83)
+Defined in: [packages/ecs/index.ts:86](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L86)
 
 ***
 
@@ -78,7 +78,7 @@ The tree node.
 
 > `readonly` **securityGroup**: `ISecurityGroup`
 
-Defined in: [packages/ecs/index.ts:82](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L82)
+Defined in: [packages/ecs/index.ts:85](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L85)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: [packages/ecs/index.ts:82](https://github.com/OrcaBus/platform-cdk-c
 
 > `readonly` **taskDefinition**: `FargateTaskDefinition`
 
-Defined in: [packages/ecs/index.ts:81](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L81)
+Defined in: [packages/ecs/index.ts:84](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L84)
 
 ## Methods
 
