@@ -5,3 +5,4 @@ export * as account from "./accounts";
 export * as database from "./database";
 export * as s3 from "./s3";
 export * as icav2 from "./icav2";
+export * as slack from "./slack";
