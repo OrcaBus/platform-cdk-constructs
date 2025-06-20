@@ -24,7 +24,7 @@ A helper class to construct the arn for the slack SNS topic.
 
 ### formatArn()
 
-> `static` **formatArn**(`stack`): `Arn`
+> `static` **formatArn**(`stack`): `string`
 
 Defined in: [packages/shared-config/slack.ts:17](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/slack.ts#L17)
 
@@ -38,6 +38,6 @@ Format the ARN for the slack alerts SNS topic for the current stack.
 
 #### Returns
 
-`Arn`
+`string`
 
 Arn

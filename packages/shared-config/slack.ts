@@ -14,7 +14,7 @@ export class SlackAlerts {
    * @param stack
    * @returns Arn
    */
-  public static formatArn(stack: Stack): Arn {
+  public static formatArn(stack: Stack): string {
     return Arn.format(
       {
         service: "sns",
