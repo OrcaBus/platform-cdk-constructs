@@ -62,7 +62,7 @@ export class MonitoredQueue extends Construct {
   constructor(scope: Construct, id: string, props: MonitoredQueueProps) {
     super(scope, id);
 
-    this.deadLetterQueue = new Queue(scope, "DeadLetterQueue", {
+    this.deadLetterQueue = new Queue(this, "DeadLetterQueue", {
       enforceSSL: true,
       ...props.dlqProps,
     });
@@ -76,7 +76,7 @@ export class MonitoredQueue extends Construct {
       ...props.queueProps,
     });
 
-    this.alarm = new Alarm(scope, "Alarm", {
+    this.alarm = new Alarm(this, "Alarm", {
       metric: this.deadLetterQueue.metricApproximateNumberOfMessagesVisible(),
       treatMissingData: TreatMissingData.BREACHING,
       comparisonOperator: ComparisonOperator.GREATER_THAN_THRESHOLD,

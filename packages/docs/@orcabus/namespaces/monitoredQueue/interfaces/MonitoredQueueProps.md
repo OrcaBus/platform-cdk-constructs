@@ -14,7 +14,7 @@ Properties for the monitored queue.
 
 ### dlqProps?
 
-> `optional` **dlqProps**: [`QueueProps`](QueueProps.md)
+> `readonly` `optional` **dlqProps**: [`QueueProps`](QueueProps.md)
 
 Defined in: [packages/monitored-queue/index.ts:23](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L23)
 
@@ -24,7 +24,7 @@ The props for the dead-letter SQS queue when a message fails.
 
 ### maxReceiveCount?
 
-> `optional` **maxReceiveCount**: `number`
+> `readonly` `optional` **maxReceiveCount**: `number`
 
 Defined in: [packages/monitored-queue/index.ts:28](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L28)
 
@@ -35,7 +35,7 @@ pushing it to the DLQ. Defaults to 3.
 
 ### queueProps?
 
-> `optional` **queueProps**: [`QueueProps`](QueueProps.md)
+> `readonly` `optional` **queueProps**: [`QueueProps`](QueueProps.md)
 
 Defined in: [packages/monitored-queue/index.ts:19](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L19)
 
@@ -45,7 +45,7 @@ The props for the main SQS queue.
 
 ### snsTopicArn?
 
-> `optional` **snsTopicArn**: `string`
+> `readonly` `optional` **snsTopicArn**: `string`
 
 Defined in: [packages/monitored-queue/index.ts:32](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L32)
 
