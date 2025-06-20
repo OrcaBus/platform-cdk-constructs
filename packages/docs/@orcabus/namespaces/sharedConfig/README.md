@@ -15,3 +15,4 @@
 - [icav2](namespaces/icav2/README.md)
 - [networking](namespaces/networking/README.md)
 - [s3](namespaces/s3/README.md)
+- [slack](namespaces/slack/README.md)
