@@ -6,7 +6,7 @@
 
 # Interface: MonitoredQueueProps
 
-Defined in: [packages/monitored-queue/index.ts:15](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L15)
+Defined in: [packages/monitored-queue/index.ts:11](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L11)
 
 Properties for the monitored queue.
 
@@ -16,7 +16,7 @@ Properties for the monitored queue.
 
 > `readonly` `optional` **dlqProps**: [`QueueProps`](QueueProps.md)
 
-Defined in: [packages/monitored-queue/index.ts:23](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L23)
+Defined in: [packages/monitored-queue/index.ts:19](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L19)
 
 The props for the dead-letter SQS queue when a message fails.
 
@@ -26,7 +26,7 @@ The props for the dead-letter SQS queue when a message fails.
 
 > `readonly` `optional` **maxReceiveCount**: `number`
 
-Defined in: [packages/monitored-queue/index.ts:28](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L28)
+Defined in: [packages/monitored-queue/index.ts:24](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L24)
 
 The maximum number of times a message can be unsuccessfully received before
 pushing it to the DLQ. Defaults to 3.
@@ -37,7 +37,7 @@ pushing it to the DLQ. Defaults to 3.
 
 > `readonly` `optional` **queueProps**: [`QueueProps`](QueueProps.md)
 
-Defined in: [packages/monitored-queue/index.ts:19](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L19)
+Defined in: [packages/monitored-queue/index.ts:15](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L15)
 
 The props for the main SQS queue.
 
@@ -47,6 +47,6 @@ The props for the main SQS queue.
 
 > `readonly` `optional` **snsTopicArn**: `string`
 
-Defined in: [packages/monitored-queue/index.ts:32](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L32)
+Defined in: [packages/monitored-queue/index.ts:28](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L28)
 
 Send the alarm notification to the SNS topic with the ARN.

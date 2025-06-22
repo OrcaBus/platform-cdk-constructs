@@ -1,10 +1,6 @@
 import { Construct } from "constructs";
 import { Queue } from "aws-cdk-lib/aws-sqs";
-import {
-  Alarm,
-  ComparisonOperator,
-  TreatMissingData,
-} from "aws-cdk-lib/aws-cloudwatch";
+import { Alarm, ComparisonOperator } from "aws-cdk-lib/aws-cloudwatch";
 import { Duration, RemovalPolicy } from "aws-cdk-lib";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { SnsAction } from "aws-cdk-lib/aws-cloudwatch-actions";
@@ -78,7 +74,6 @@ export class MonitoredQueue extends Construct {
 
     this.alarm = new Alarm(this, "Alarm", {
       metric: this.deadLetterQueue.metricApproximateNumberOfMessagesVisible(),
-      treatMissingData: TreatMissingData.BREACHING,
       comparisonOperator: ComparisonOperator.GREATER_THAN_THRESHOLD,
       threshold: 0,
       evaluationPeriods: 1,
