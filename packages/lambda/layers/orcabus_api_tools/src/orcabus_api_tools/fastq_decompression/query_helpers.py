@@ -37,6 +37,20 @@ def get_decompression_job_list(**kwargs: Unpack[JobQueryParameters]) -> List[Job
     )
 
 
+def get_job_list_for_fastq(
+        fastq_id: str,
+        job_status: JobStatus
+) -> List[Job]:
+    """
+    Check if fastq in job list
+    :return:
+    """
+    return get_decompression_job_list(
+        fastqId=fastq_id,
+        status=job_status
+    )
+
+
 def get_job_list_for_fastq_set(
         fastq_set_id: str,
         job_status: JobStatus
