@@ -40,6 +40,7 @@ class Job(TypedDict):
 
 
 class JobQueryParameters(TypedDict):
+    fastqId: NotRequired[str]
     fastqSetId: NotRequired[str]
     status: NotRequired[JobStatus]
     createdAfter: NotRequired[str]
