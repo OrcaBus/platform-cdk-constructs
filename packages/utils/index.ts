@@ -7,13 +7,13 @@
 import { Construct } from "constructs";
 import { Stack } from "aws-cdk-lib";
 import { SynthesisMessage } from "aws-cdk-lib/cx-api";
-import { accountIdAlias, StageName } from "../shared-config/accounts";
+import {ACCOUNT_ID_ALIAS, StageName} from "../shared-config/accounts";
 
 export function resolveStageName(scope: Construct): StageName {
   // See discussion in https://github.com/aws/aws-cdk/issues/1754
   // Use Stack.of(scope).account to get the account ID instead of
   // cdk.Aws.ACCOUNT_ID, which may not be available at this point in the CDK lifecycle.
-  const match = Object.entries(accountIdAlias).find(
+  const match = Object.entries(ACCOUNT_ID_ALIAS).find(
     ([_, value]) => value === Stack.of(scope).account,
   );
 
