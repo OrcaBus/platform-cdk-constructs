@@ -70,7 +70,7 @@ from .create_helpers import create_job
 from .query_helpers import (
     get_job_from_job_id,
     get_decompression_job_list,
-    get_job_list_for_fastq_set
+    get_job_list_for_fastq
 )
 
 # Update helpers
@@ -85,7 +85,7 @@ __all__ = [
     # Query helpers
     "get_job_from_job_id",
     "get_decompression_job_list",
-    "get_job_list_for_fastq_set",
+    "get_job_list_for_fastq",
 
     # Update helpers
     "update_status",

@@ -16,6 +16,7 @@ from .models import Job, JobStatus
 def update_status(
         job_id: str,
         job_status: JobStatus,
+        steps_execution_arn: Optional[str] = None,
         error_message: Optional[str] = None
 ) -> Job:
     """
@@ -31,7 +32,8 @@ def update_status(
             lambda x: x[1] is not None,
             {
                 "status": job_status,
-                "error_message": error_message
+                "errorMessage": error_message,
+                "stepsExecutionArn": steps_execution_arn
             }.items()
         ))
     )
