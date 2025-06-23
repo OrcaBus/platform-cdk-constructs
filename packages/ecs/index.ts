@@ -116,7 +116,7 @@ export class EcsFargateTaskConstruct extends Construct {
         // Set up the Fargate task definition
         this.taskDefinition = new ecs.FargateTaskDefinition(this, 'FargateTaskDef', {
             cpu: (props.nCpus ?? DEFAULT_VCPUS) * 1024,
-            memoryLimitMiB: props.memoryLimitGiB ?? (DEFAULT_MEMORY_GB) * 1024,
+            memoryLimitMiB: (props.memoryLimitGiB ?? DEFAULT_MEMORY_GB) * 1024,
             runtimePlatform: {
                 cpuArchitecture: props.runtimePlatform ?? CPU_ARCHITECTURE_MAP[architecture],
             },
