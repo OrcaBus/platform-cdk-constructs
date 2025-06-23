@@ -49,17 +49,3 @@ def get_job_list_for_fastq(
         fastqId=fastq_id,
         status=job_status
     )
-
-
-def get_job_list_for_fastq_set(
-        fastq_set_id: str,
-        job_status: JobStatus
-) -> List[Job]:
-    """
-    Check if fastq in job list
-    :return:
-    """
-    return get_decompression_job_list(
-        fastqSetId=fastq_set_id,
-        status=job_status
-    )
