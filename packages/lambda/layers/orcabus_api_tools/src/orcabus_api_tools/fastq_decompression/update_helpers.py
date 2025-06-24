@@ -5,7 +5,7 @@ Update helpers for the update script.
 """
 
 # Standard imports
-from typing import Optional
+from typing import Optional, Dict
 
 # Local imports
 from . import fastq_decompression_patch_request
@@ -17,7 +17,8 @@ def update_status(
         job_id: str,
         job_status: JobStatus,
         steps_execution_arn: Optional[str] = None,
-        error_message: Optional[str] = None
+        error_message: Optional[str] = None,
+        output: Optional[Dict] = None
 ) -> Job:
     """
     Add QC stats to a fastq_id.
@@ -33,7 +34,8 @@ def update_status(
             {
                 "status": job_status,
                 "errorMessage": error_message,
-                "stepsExecutionArn": steps_execution_arn
+                "stepsExecutionArn": steps_execution_arn,
+                "output": output
             }.items()
         ))
     )
