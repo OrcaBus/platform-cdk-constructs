@@ -18,7 +18,7 @@ def update_status(
         job_status: JobStatus,
         steps_execution_arn: Optional[str] = None,
         error_message: Optional[str] = None,
-        output: Optional[Dict] = None
+        output: Optional[Dict[str, Any]] = None
 ) -> Job:
     """
     Add QC stats to a fastq_id.
