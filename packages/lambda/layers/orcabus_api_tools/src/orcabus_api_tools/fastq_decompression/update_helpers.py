@@ -5,12 +5,12 @@ Update helpers for the update script.
 """
 
 # Standard imports
-from typing import Optional, Dict
+from typing import Optional, Dict, Any
 
 # Local imports
 from . import fastq_decompression_patch_request
 from .globals import JOB_ENDPOINT
-from .models import Job, JobStatus
+from .models import Job, JobStatus, JobOutputType
 
 
 def update_status(
@@ -18,13 +18,15 @@ def update_status(
         job_status: JobStatus,
         steps_execution_arn: Optional[str] = None,
         error_message: Optional[str] = None,
-        output: Optional[Dict[str, Any]] = None
+        output: Optional[Dict[str, JobOutputType]] = None
 ) -> Job:
     """
     Add QC stats to a fastq_id.
 
     :param job_id: The job id
     :param job_status: Dictionary of QC stats
+    :param steps_execution_arn:
+    :param output:
     :param error_message: Optional error message
     """
     return fastq_decompression_patch_request(
