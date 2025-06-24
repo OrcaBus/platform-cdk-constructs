@@ -8,7 +8,7 @@ import * as ecrAssets from "aws-cdk-lib/aws-ecr-assets";
 import * as iam from "aws-cdk-lib/aws-iam";
 import {RetentionDays} from "aws-cdk-lib/aws-logs";
 import {VPC_NAME} from "../shared-config/networking";
-import {ManagedPolicy} from "aws-cdk-lib/aws-iam";
+import {IRole, ManagedPolicy} from "aws-cdk-lib/aws-iam";
 
 // Memory and CPU limits for Fargate tasks
 /*
@@ -82,6 +82,7 @@ export interface FargateEcsTaskConstructProps {
 export class EcsFargateTaskConstruct extends Construct {
     public readonly cluster: ecs.ICluster
     public readonly taskDefinition: ecs.FargateTaskDefinition
+    public readonly taskExecutionRole: IRole
     public readonly securityGroup: ec2.ISecurityGroup
     public readonly containerDefinition: ecs.ContainerDefinition
 
@@ -108,7 +109,7 @@ export class EcsFargateTaskConstruct extends Construct {
         // Allow the task definition role ecr access to the guardduty agent
         // https://docs.aws.amazon.com/guardduty/latest/ug/prereq-runtime-monitoring-ecs-support.html#before-enable-runtime-monitoring-ecs
         // Which is in another account - 005257825471.dkr.ecr.ap-southeast-2.amazonaws.com/aws-guardduty-agent-fargate
-        const taskExecutionRole = new iam.Role(this, `task-execution-role`, {
+        this.taskExecutionRole = new iam.Role(this, `task-execution-role`, {
           assumedBy: new iam.ServicePrincipal('ecs-tasks.amazonaws.com'),
           managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('service-role/AmazonECSTaskExecutionRolePolicy')],
         })
@@ -121,7 +122,7 @@ export class EcsFargateTaskConstruct extends Construct {
             runtimePlatform: {
                 cpuArchitecture: props.runtimePlatform ?? CPU_ARCHITECTURE_MAP[architecture],
             },
-            executionRole: taskExecutionRole
+            executionRole: this.taskExecutionRole
         })
 
         // Set up the security group
