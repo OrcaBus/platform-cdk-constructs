@@ -12,21 +12,62 @@
 """
 
 from typing import (
-    TypedDict, NotRequired, Literal, List
+    TypedDict, NotRequired, Literal, List, Union
 )
 
 JobType = Literal['FASTQ_DECOMPRESSION']
 JobStatus = Literal['PENDING', 'RUNNING', 'FAILED', 'ABORTED', 'SUCCEEDED']
 
+# Output jobs
+class DecompressionJobOutputObjectItem(TypedDict):
+    ingestId: str
+    gzipFileUri: str
 
-class JobOutput(TypedDict):
-    index: str
-    lane: str
-    libraryId: str
-    instrumentRunId: str
-    read1FileUriDecompressed: str
-    read2FileUriDecompressed: NotRequired[str]
 
+class DecompressionJobOutputObjectFastqId(TypedDict):
+    fastqId: str
+    decompressedFileUriByOraFileIngestIdList: List[DecompressionJobOutputObjectItem]
+
+
+class GzipFileSizeCalculationOutputObjectItem(TypedDict):
+    ingestId: str
+    gzipFileSize: int
+
+
+class GzipFileSizeCalculationOutputsFastqId(TypedDict):
+    fastqId: str
+    gzipFileSizeByOraFileIngestIdList: List[GzipFileSizeCalculationOutputObjectItem]
+
+
+class RawMd5sumCalculationOutputsObjectItem(TypedDict):
+    ingestId: str
+    rawMd5sum: str
+
+
+class RawMd5sumCalculationOutputsFastqId(TypedDict):
+    fastqId: str
+    rawMd5sumByOraFileIngestIdList: List[RawMd5sumCalculationOutputsObjectItem]
+
+
+class DecompressionJobOutputObject(TypedDict):
+   # Decompressed file URI by ORA file ingest ID list
+   decompressedFileList: List[DecompressionJobOutputObjectFastqId]
+
+class GzipFileSizeCalculationOutputObject(TypedDict):
+    # Gzip file size by ORA file ingest ID list
+    gzipFileSizeList: List[GzipFileSizeCalculationOutputsFastqId]
+
+
+class RawMd5sumCalculationOutputObject(TypedDict):
+    # Raw md5sum by ORA file ingest ID list
+    rawMd5sumList: List[RawMd5sumCalculationOutputsFastqId]
+
+
+JobOutputType = Union[
+  DecompressionJobOutputObject |
+  GzipFileSizeCalculationOutputObject |
+  RawMd5sumCalculationOutputObject
+]
 
 class Job(TypedDict):
     id: str
@@ -36,7 +77,7 @@ class Job(TypedDict):
     startTime: str
     endTime: str
     errorMessages: NotRequired[str]
-    outputs: NotRequired[List[JobOutput]]
+    outputs: NotRequired[JobOutputType]
 
 
 class JobQueryParameters(TypedDict):
