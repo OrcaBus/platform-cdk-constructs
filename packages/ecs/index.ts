@@ -109,7 +109,7 @@ export class EcsFargateTaskConstruct extends Construct {
         // Allow the task definition role ecr access to the guardduty agent
         // https://docs.aws.amazon.com/guardduty/latest/ug/prereq-runtime-monitoring-ecs-support.html#before-enable-runtime-monitoring-ecs
         // Which is in another account - 005257825471.dkr.ecr.ap-southeast-2.amazonaws.com/aws-guardduty-agent-fargate
-        this.taskExecutionRole = new iam.Role(this, `task-execution-role`, {
+        this.taskExecutionRole = new iam.Role(this, `TaskExecutionRole`, {
           assumedBy: new iam.ServicePrincipal('ecs-tasks.amazonaws.com'),
           managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('service-role/AmazonECSTaskExecutionRolePolicy')],
         })
