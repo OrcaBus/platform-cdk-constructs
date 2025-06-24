@@ -337,5 +337,8 @@ def update_ingest_id(s3_object_id: str, new_ingest_id: str) -> Dict:
     }
     return file_manager_patch_request(
         endpoint=f"{S3_LIST_ENDPOINT}/{s3_object_id}",
-        params=json_data
+        json_data=json_data,
+        params = {
+            "updateTag": json.dumps(True)
+        }
     )
