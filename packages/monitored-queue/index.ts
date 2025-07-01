@@ -67,7 +67,7 @@ export class MonitoredQueue extends Construct {
       enforceSSL: true,
       ...props.dlqProps,
     });
-    this.alarmOldestMessage(this.deadLetterQueue, props.dlqProps);
+    const dlqAlarm = this.alarmOldestMessage(this.deadLetterQueue, props.dlqProps);
 
     this.queue = new Queue(this, "Queue", {
       enforceSSL: true,
@@ -77,7 +77,7 @@ export class MonitoredQueue extends Construct {
       },
       ...props.queueProps,
     });
-    this.alarmOldestMessage(this.queue, props.queueProps);
+    const queueAlarm = this.alarmOldestMessage(this.queue, props.queueProps);
 
     this.alarm = new Alarm(this, "Alarm", {
       metric: this.deadLetterQueue.metricApproximateNumberOfMessagesVisible(),
@@ -91,19 +91,22 @@ export class MonitoredQueue extends Construct {
     if (props.snsTopicArn !== undefined) {
       const topic = Topic.fromTopicArn(this, "Topic", props.snsTopicArn);
       this.alarm.addAlarmAction(new SnsAction(topic));
+      dlqAlarm?.addAlarmAction(new SnsAction(topic));
+      queueAlarm?.addAlarmAction(new SnsAction(topic));
     }
   }
 
   /**
    * Create an alarm based on the oldest message in the queue.
    */
-  alarmOldestMessage(queue: IQueue, queueProps?: QueueProps) {
+  private alarmOldestMessage(queue: IQueue, queueProps?: QueueProps): Alarm | null {
     const seconds = queueProps?.alarmOldestMessageSeconds;
+
     if (seconds !== undefined) {
       const uniqueId = Names.uniqueResourceName(this, {
         maxLength: 6,
       });
-      new Alarm(this, `AlarmOldestMessage-${queueProps?.queueName}-${uniqueId}`, {
+      return new Alarm(this, `AlarmOldestMessage-${queueProps?.queueName}-${uniqueId}`, {
         metric: queue.metricApproximateAgeOfOldestMessage(),
         comparisonOperator: ComparisonOperator.GREATER_THAN_THRESHOLD,
         threshold: seconds,
@@ -112,6 +115,8 @@ export class MonitoredQueue extends Construct {
         alarmDescription: `The age of the oldest message has exceeded ${seconds} seconds.`,
       });
     }
+
+    return null;
   }
 
   /**
