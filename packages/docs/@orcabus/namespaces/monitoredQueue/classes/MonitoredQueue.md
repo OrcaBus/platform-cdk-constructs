@@ -6,7 +6,7 @@
 
 # Class: MonitoredQueue
 
-Defined in: [packages/monitored-queue/index.ts:53](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L53)
+Defined in: [packages/monitored-queue/index.ts:58](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L58)
 
 A construct that defines an SQS queue, along with a DLQ and CloudWatch alarms that can notify an
 SNS topic.
@@ -21,7 +21,7 @@ SNS topic.
 
 > **new MonitoredQueue**(`scope`, `id`, `props`): `MonitoredQueue`
 
-Defined in: [packages/monitored-queue/index.ts:58](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L58)
+Defined in: [packages/monitored-queue/index.ts:63](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L63)
 
 #### Parameters
 
@@ -51,7 +51,7 @@ Defined in: [packages/monitored-queue/index.ts:58](https://github.com/OrcaBus/pl
 
 > `readonly` **alarm**: `Alarm`
 
-Defined in: [packages/monitored-queue/index.ts:56](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L56)
+Defined in: [packages/monitored-queue/index.ts:61](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L61)
 
 ***
 
@@ -59,7 +59,7 @@ Defined in: [packages/monitored-queue/index.ts:56](https://github.com/OrcaBus/pl
 
 > `readonly` **deadLetterQueue**: `Queue`
 
-Defined in: [packages/monitored-queue/index.ts:55](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L55)
+Defined in: [packages/monitored-queue/index.ts:60](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L60)
 
 ***
 
@@ -81,7 +81,7 @@ The tree node.
 
 > `readonly` **queue**: `Queue`
 
-Defined in: [packages/monitored-queue/index.ts:54](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L54)
+Defined in: [packages/monitored-queue/index.ts:59](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L59)
 
 ## Accessors
 
@@ -91,7 +91,7 @@ Defined in: [packages/monitored-queue/index.ts:54](https://github.com/OrcaBus/pl
 
 > **get** **queueArn**(): `string`
 
-Defined in: [packages/monitored-queue/index.ts:93](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L93)
+Defined in: [packages/monitored-queue/index.ts:117](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L117)
 
 Get the SQS queue ARN.
 
@@ -100,6 +100,30 @@ Get the SQS queue ARN.
 `string`
 
 ## Methods
+
+### alarmOldestMessage()
+
+> **alarmOldestMessage**(`queue`, `queueProps?`): `void`
+
+Defined in: [packages/monitored-queue/index.ts:100](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L100)
+
+Create an alarm based on the oldest message in the queue.
+
+#### Parameters
+
+##### queue
+
+`IQueue`
+
+##### queueProps?
+
+[`QueueProps`](../interfaces/QueueProps.md)
+
+#### Returns
+
+`void`
+
+***
 
 ### toString()
 

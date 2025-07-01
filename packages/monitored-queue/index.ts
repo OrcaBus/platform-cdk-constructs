@@ -1,5 +1,5 @@
 import { Construct } from "constructs";
-import { Queue } from "aws-cdk-lib/aws-sqs";
+import {IQueue, Queue} from "aws-cdk-lib/aws-sqs";
 import { Alarm, ComparisonOperator } from "aws-cdk-lib/aws-cloudwatch";
 import { Duration, RemovalPolicy } from "aws-cdk-lib";
 import { Topic } from "aws-cdk-lib/aws-sns";
@@ -44,6 +44,11 @@ export interface QueueProps {
    * The removal policy of the queue.
    */
   readonly removalPolicy?: RemovalPolicy;
+  /**
+   * Set an alarm when the age of the oldest message in the queue exceeds the number of seconds specified.
+   * Defaults to no alarm based on the oldest message.
+   */
+  readonly alarmOldestMessageSeconds?: number;
 }
 
 /**
@@ -62,6 +67,7 @@ export class MonitoredQueue extends Construct {
       enforceSSL: true,
       ...props.dlqProps,
     });
+    this.alarmOldestMessage(this.deadLetterQueue, props.dlqProps);
 
     this.queue = new Queue(this, "Queue", {
       enforceSSL: true,
@@ -71,6 +77,7 @@ export class MonitoredQueue extends Construct {
       },
       ...props.queueProps,
     });
+    this.alarmOldestMessage(this.queue, props.queueProps);
 
     this.alarm = new Alarm(this, "Alarm", {
       metric: this.deadLetterQueue.metricApproximateNumberOfMessagesVisible(),
@@ -84,6 +91,23 @@ export class MonitoredQueue extends Construct {
     if (props.snsTopicArn !== undefined) {
       const topic = Topic.fromTopicArn(this, "Topic", props.snsTopicArn);
       this.alarm.addAlarmAction(new SnsAction(topic));
+    }
+  }
+
+  /**
+   * Create an alarm based on the oldest message in the queue.
+   */
+  alarmOldestMessage(queue: IQueue, queueProps?: QueueProps) {
+    const seconds = queueProps?.alarmOldestMessageSeconds;
+    if (seconds !== undefined) {
+      new Alarm(this, `AlarmOldestMessage-${queue.queueName}`, {
+        metric: queue.metricApproximateAgeOfOldestMessage(),
+        comparisonOperator: ComparisonOperator.GREATER_THAN_THRESHOLD,
+        threshold: seconds,
+        evaluationPeriods: 1,
+        alarmName: `${queue.queueName}-oldest-message-alarm`,
+        alarmDescription: `The age of the oldest message has exceeded ${seconds} seconds.`,
+      });
     }
   }
 

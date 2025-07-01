@@ -12,6 +12,17 @@ Properties for an SQS queue.
 
 ## Properties
 
+### alarmOldestMessageSeconds?
+
+> `readonly` `optional` **alarmOldestMessageSeconds**: `number`
+
+Defined in: [packages/monitored-queue/index.ts:51](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L51)
+
+Set an alarm when the age of the oldest message in the queue exceeds the number of seconds specified.
+Defaults to no alarm based on the oldest message.
+
+***
+
 ### queueName?
 
 > `readonly` `optional` **queueName**: `string`
