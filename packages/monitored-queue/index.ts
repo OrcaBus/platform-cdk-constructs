@@ -1,7 +1,7 @@
 import { Construct } from "constructs";
 import {IQueue, Queue} from "aws-cdk-lib/aws-sqs";
 import { Alarm, ComparisonOperator } from "aws-cdk-lib/aws-cloudwatch";
-import { Duration, RemovalPolicy } from "aws-cdk-lib";
+import {Duration, Names, RemovalPolicy} from "aws-cdk-lib";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { SnsAction } from "aws-cdk-lib/aws-cloudwatch-actions";
 
@@ -100,7 +100,10 @@ export class MonitoredQueue extends Construct {
   alarmOldestMessage(queue: IQueue, queueProps?: QueueProps) {
     const seconds = queueProps?.alarmOldestMessageSeconds;
     if (seconds !== undefined) {
-      new Alarm(this, `AlarmOldestMessage-${queue.queueName}`, {
+      const uniqueId = Names.uniqueResourceName(this, {
+        maxLength: 6,
+      });
+      new Alarm(this, `AlarmOldestMessage-${queueProps?.queueName}-${uniqueId}`, {
         metric: queue.metricApproximateAgeOfOldestMessage(),
         comparisonOperator: ComparisonOperator.GREATER_THAN_THRESHOLD,
         threshold: seconds,

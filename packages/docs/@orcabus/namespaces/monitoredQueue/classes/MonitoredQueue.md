@@ -91,7 +91,7 @@ Defined in: [packages/monitored-queue/index.ts:59](https://github.com/OrcaBus/pl
 
 > **get** **queueArn**(): `string`
 
-Defined in: [packages/monitored-queue/index.ts:117](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L117)
+Defined in: [packages/monitored-queue/index.ts:120](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L120)
 
 Get the SQS queue ARN.
 
