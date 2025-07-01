@@ -20,7 +20,6 @@ import { Function } from "aws-cdk-lib/aws-lambda";
 import { ApiGatewayv2DomainProperties } from "aws-cdk-lib/aws-route53-targets";
 import {
   CERTIFICATE_ARN_PARAMETER_NAME,
-  DEFAULT_COGNITO_CLIENT_ID_PARAMETER_NAME_ARRAY,
   DEFAULT_COGNITO_USER_POOL_ID_PARAMETER_NAME,
   HOSTED_ZONE_DOMAIN_PARAMETER_NAME,
   HOSTED_ZONE_ID_PARAMETER_NAME,
@@ -53,13 +52,13 @@ export interface OrcaBusApiGatewayProps {
    */
   readonly cognitoUserPoolIdParameterName?: string;
   /**
-   * The parameter name for the cognito client id in array.
-   * In order API Gateway to validate the JWT token, it needs to know the client id which usually
-   * stored in SSM Parameter. This will accept multiple parameter name in an array.
+   * Array of SSM parameter names containing Cognito client IDs.
    *
-   * @default DEFAULT_COGNITO_CLIENT_ID_PARAMETER_NAME_ARRAY
+   * API Gateway uses these client IDs to validate JWT tokens. Each parameter
+   * should contain a valid Cognito application client ID that is authorized
+   * to access this API.
    */
-  readonly cognitoClientIdParameterNameArray?: string[];
+  readonly cognitoClientIdParameterNameArray: string[];
   /**
    * The configuration for aws cloudwatch logs
    */
@@ -209,7 +208,7 @@ export class OrcaBusApiGateway extends Construct {
 
   private getJWTAuthorizer({
     cognitoUserPoolIdParameterName = DEFAULT_COGNITO_USER_POOL_ID_PARAMETER_NAME,
-    cognitoClientIdParameterNameArray = DEFAULT_COGNITO_CLIENT_ID_PARAMETER_NAME_ARRAY,
+    cognitoClientIdParameterNameArray,
   }: OrcaBusApiGatewayProps): HttpJwtAuthorizer {
     /**
      * FIXME One fine day in future when we have proper Cognito AAI setup.
