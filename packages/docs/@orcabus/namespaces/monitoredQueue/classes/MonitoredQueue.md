@@ -91,7 +91,7 @@ Defined in: [packages/monitored-queue/index.ts:59](https://github.com/OrcaBus/pl
 
 > **get** **queueArn**(): `string`
 
-Defined in: [packages/monitored-queue/index.ts:120](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L120)
+Defined in: [packages/monitored-queue/index.ts:125](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L125)
 
 Get the SQS queue ARN.
 
@@ -100,30 +100,6 @@ Get the SQS queue ARN.
 `string`
 
 ## Methods
-
-### alarmOldestMessage()
-
-> **alarmOldestMessage**(`queue`, `queueProps?`): `void`
-
-Defined in: [packages/monitored-queue/index.ts:100](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L100)
-
-Create an alarm based on the oldest message in the queue.
-
-#### Parameters
-
-##### queue
-
-`IQueue`
-
-##### queueProps?
-
-[`QueueProps`](../interfaces/QueueProps.md)
-
-#### Returns
-
-`void`
-
-***
 
 ### toString()
 

@@ -12,7 +12,7 @@ new MonitoredQueue(this, "MonitoredQueue", {
     removalPolicy: RemovalPolicy.RETAIN,
   },
   dlqProps: {
-    queueName: `$queue-dlq`,
+    queueName: "queue-dlq",
     removalPolicy: RemovalPolicy.RETAIN,
     retentionPeriod: Duration.days(14),
   },
