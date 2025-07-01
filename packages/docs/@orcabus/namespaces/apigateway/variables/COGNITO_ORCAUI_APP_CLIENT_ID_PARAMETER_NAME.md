@@ -8,4 +8,4 @@
 
 > `const` **COGNITO\_ORCAUI\_APP\_CLIENT\_ID\_PARAMETER\_NAME**: `"/orcaui/cog_app_client_id_stage"` = `"/orcaui/cog_app_client_id_stage"`
 
-Defined in: [packages/api-gateway/config.ts:40](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/config.ts#L40)
+Defined in: [packages/api-gateway/config.ts:42](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/config.ts#L42)

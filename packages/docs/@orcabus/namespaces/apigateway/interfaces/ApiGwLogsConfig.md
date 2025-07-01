@@ -6,7 +6,7 @@
 
 # Interface: ApiGwLogsConfig
 
-Defined in: [packages/api-gateway/api-gateway.ts:29](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L29)
+Defined in: [packages/api-gateway/api-gateway.ts:28](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L28)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/api-gateway/api-gateway.ts:29](https://github.com/OrcaBus/
 
 > `readonly` **removalPolicy**: `RemovalPolicy`
 
-Defined in: [packages/api-gateway/api-gateway.ts:37](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L37)
+Defined in: [packages/api-gateway/api-gateway.ts:36](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L36)
 
 The removal policy to apply to the log group.
 
@@ -24,6 +24,6 @@ The removal policy to apply to the log group.
 
 > `readonly` **retention**: `RetentionDays`
 
-Defined in: [packages/api-gateway/api-gateway.ts:33](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L33)
+Defined in: [packages/api-gateway/api-gateway.ts:32](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L32)
 
 The number of days log events are kept in CloudWatch Logs.
