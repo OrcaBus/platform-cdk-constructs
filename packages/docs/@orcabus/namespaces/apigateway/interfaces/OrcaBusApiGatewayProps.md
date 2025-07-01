@@ -6,7 +6,7 @@
 
 # Interface: OrcaBusApiGatewayProps
 
-Defined in: [packages/api-gateway/api-gateway.ts:40](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L40)
+Defined in: [packages/api-gateway/api-gateway.ts:39](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L39)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/api-gateway/api-gateway.ts:40](https://github.com/OrcaBus/
 
 > `readonly` **apiGwLogsConfig**: [`ApiGwLogsConfig`](ApiGwLogsConfig.md)
 
-Defined in: [packages/api-gateway/api-gateway.ts:66](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L66)
+Defined in: [packages/api-gateway/api-gateway.ts:65](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L65)
 
 The configuration for aws cloudwatch logs
 
@@ -24,27 +24,23 @@ The configuration for aws cloudwatch logs
 
 > `readonly` **apiName**: `string`
 
-Defined in: [packages/api-gateway/api-gateway.ts:44](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L44)
+Defined in: [packages/api-gateway/api-gateway.ts:43](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L43)
 
 The name of the API.
 
 ***
 
-### cognitoClientIdParameterNameArray?
+### cognitoClientIdParameterNameArray
 
-> `readonly` `optional` **cognitoClientIdParameterNameArray**: `string`[]
+> `readonly` **cognitoClientIdParameterNameArray**: `string`[]
 
-Defined in: [packages/api-gateway/api-gateway.ts:62](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L62)
+Defined in: [packages/api-gateway/api-gateway.ts:61](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L61)
 
-The parameter name for the cognito client id in array.
-In order API Gateway to validate the JWT token, it needs to know the client id which usually
-stored in SSM Parameter. This will accept multiple parameter name in an array.
+Array of SSM parameter names containing Cognito client IDs.
 
-#### Default
-
-```ts
-DEFAULT_COGNITO_CLIENT_ID_PARAMETER_NAME_ARRAY
-```
+API Gateway uses these client IDs to validate JWT tokens. Each parameter
+should contain a valid Cognito application client ID that is authorized
+to access this API.
 
 ***
 
@@ -52,7 +48,7 @@ DEFAULT_COGNITO_CLIENT_ID_PARAMETER_NAME_ARRAY
 
 > `readonly` `optional` **cognitoUserPoolIdParameterName**: `string`
 
-Defined in: [packages/api-gateway/api-gateway.ts:54](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L54)
+Defined in: [packages/api-gateway/api-gateway.ts:53](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L53)
 
 The cognito user pool id parameter name.
 
@@ -68,7 +64,7 @@ DEFAULT_COGNITO_USER_POOL_ID_PARAMETER_NAME
 
 > `readonly` **corsAllowOrigins**: `string`[]
 
-Defined in: [packages/api-gateway/api-gateway.ts:70](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L70)
+Defined in: [packages/api-gateway/api-gateway.ts:69](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L69)
 
 Allowed CORS origins.
 
@@ -78,6 +74,6 @@ Allowed CORS origins.
 
 > `readonly` **customDomainNamePrefix**: `string`
 
-Defined in: [packages/api-gateway/api-gateway.ts:48](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L48)
+Defined in: [packages/api-gateway/api-gateway.ts:47](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L47)
 
 The prefix for the custom domain name

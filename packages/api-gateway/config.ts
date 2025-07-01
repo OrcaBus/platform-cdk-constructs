@@ -35,14 +35,35 @@ export const DEFAULT_ALLOW_CORS_ORIGINS: Record<StageName, string[]> = {
   PROD: ["https://orcaui.prod.umccr.org", "https://orcaui.umccr.org"],
 };
 
+// portal - TokenServiceStack
 export const COGNITO_PORTAL_APP_CLIENT_ID_PARAMETER_NAME =
   "/data_portal/client/data2/cog_app_client_id_stage";
+
 export const COGNITO_ORCAUI_APP_CLIENT_ID_PARAMETER_NAME =
   "/orcaui/cog_app_client_id_stage";
-export const DEFAULT_COGNITO_CLIENT_ID_PARAMETER_NAME_ARRAY = [
-  COGNITO_PORTAL_APP_CLIENT_ID_PARAMETER_NAME, // portal - TokenServiceStack
-  COGNITO_ORCAUI_APP_CLIENT_ID_PARAMETER_NAME, // orcaui - https://github.com/umccr/orca-ui
+
+// localhost development
+export const COGNITO_LOCAL_APP_CLIENT_ID_PARAMETER_NAME =
+  "/data_portal/client/cog_app_client_id_local";
+
+// Base client IDs used across all environments
+const BASE_COGNITO_CLIENT_ID_PARAMETER_NAMES = [
+  COGNITO_PORTAL_APP_CLIENT_ID_PARAMETER_NAME,
+  COGNITO_ORCAUI_APP_CLIENT_ID_PARAMETER_NAME,
 ];
+
+// Environment-specific client ID arrays
+export const COGNITO_CLIENT_ID_PARAMETER_NAME_ARRAY: Record<
+  StageName,
+  string[]
+> = {
+  BETA: [
+    ...BASE_COGNITO_CLIENT_ID_PARAMETER_NAMES,
+    COGNITO_LOCAL_APP_CLIENT_ID_PARAMETER_NAME,
+  ],
+  GAMMA: BASE_COGNITO_CLIENT_ID_PARAMETER_NAMES,
+  PROD: BASE_COGNITO_CLIENT_ID_PARAMETER_NAMES,
+};
 
 export const DEFAULT_COGNITO_USER_POOL_ID_PARAMETER_NAME =
   "/data_portal/client/cog_user_pool_id";
@@ -54,7 +75,7 @@ export const HOSTED_ZONE_ID_PARAMETER_NAME = "/hosted_zone/umccr/id";
 export const getDefaultApiGatewayConfiguration = (stage: StageName) => {
   return {
     cognitoClientIdParameterNameArray:
-      DEFAULT_COGNITO_CLIENT_ID_PARAMETER_NAME_ARRAY,
+      COGNITO_CLIENT_ID_PARAMETER_NAME_ARRAY[stage],
     corsAllowOrigins: DEFAULT_ALLOW_CORS_ORIGINS[stage],
     apiGwLogsConfig: DEFAULT_LOGS_CONFIG[stage],
   };
