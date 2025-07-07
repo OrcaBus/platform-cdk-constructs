@@ -365,9 +365,8 @@ interface ManualApprovalActionStepProps extends ManualApprovalActionProps {
 /**
  * Custom manual approval step for CDK CodePipeline.
  *
- * This class bridges the gap between the high-level ManualApprovalStep from
- * aws-cdk-lib/pipelines and the low-level Pipeline construct, exposing
- * additional configuration options not available in the standard implementation.
+ * This class bridges the gap to enable using ManualApprovalAction within a Step class,
+ * making it compatible with cdk.pipelines constructs.
  *
  * @param id - The unique identifier for the step.
  * @param options - The properties for the manual approval action, including
