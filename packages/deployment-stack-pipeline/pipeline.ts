@@ -1,5 +1,5 @@
 import { Construct } from "constructs";
-import { Environment, RemovalPolicy, Stack, Stage } from "aws-cdk-lib";
+import { Duration, Environment, Stack, Stage } from "aws-cdk-lib";
 import {
   BuildSpec,
   ComputeType,
@@ -9,14 +9,19 @@ import { StringParameter } from "aws-cdk-lib/aws-ssm";
 import {
   CodeBuildStep,
   CodePipeline,
+  CodePipelineActionFactoryResult,
   CodePipelineSource,
+  ICodePipelineActionFactory,
   ManualApprovalStep,
+  ProduceActionOptions,
+  Step,
 } from "aws-cdk-lib/pipelines";
 import {
   Pipeline,
   CfnPipeline,
   PipelineType,
   PipelineNotificationEvents,
+  IStage,
 } from "aws-cdk-lib/aws-codepipeline";
 import {
   BETA_ENVIRONMENT,
@@ -26,6 +31,10 @@ import {
 import { SlackChannelConfiguration } from "aws-cdk-lib/aws-chatbot";
 import { DetailType } from "aws-cdk-lib/aws-codestarnotifications";
 import { CrossDeploymentArtifactBucket } from "./artifact-bucket";
+import {
+  ManualApprovalAction,
+  ManualApprovalActionProps,
+} from "aws-cdk-lib/aws-codepipeline-actions";
 
 /**
  * The default partial build spec for the synth step in the pipeline.
@@ -293,7 +302,19 @@ export class DeploymentStackPipeline extends Construct {
         props.githubRepo,
         props.githubBranch,
       ),
-      { post: [new ManualApprovalStep("PromoteToProd")] },
+      {
+        post: [
+          new ManualApprovalActionStep("PromoteToProd", {
+            actionName: "PromoteToProd",
+            // Custom steps bypass stage pre/post ordering, so runOrder must be explicitly set.
+            // Set to 5 to ensure this runs after all OrcaBusGamma stage steps complete.
+            // (Gamma deployment typically uses 2 steps, so 5 provides adequate buffer)
+            runOrder: 5,
+            // 60-minute timeout allows queued pipeline executions to proceed if approval expires
+            timeout: Duration.minutes(60),
+          }),
+        ],
+      },
     );
 
     cdkPipeline.addStage(
@@ -328,6 +349,46 @@ export class DeploymentStackPipeline extends Construct {
         notificationRuleName: `OrcaBus-${props.pipelineName}`,
       });
     }
+  }
+}
+
+/**
+ * Properties for ManualApprovalActionStep with required runOrder.
+ */
+interface ManualApprovalActionStepProps extends ManualApprovalActionProps {
+  /**
+   * The run order for this action in the pipeline stage. The stage Pre/Post order does not apply to this custom
+   * step/action, you need to explicitly set the runOrder.
+   */
+  runOrder: number;
+}
+/**
+ * Custom manual approval step for CDK CodePipeline.
+ *
+ * This class bridges the gap between the high-level ManualApprovalStep from
+ * aws-cdk-lib/pipelines and the low-level Pipeline construct, exposing
+ * additional configuration options not available in the standard implementation.
+ *
+ * @param id - The unique identifier for the step.
+ * @param options - The properties for the manual approval action, including
+ */
+class ManualApprovalActionStep
+  extends Step
+  implements ICodePipelineActionFactory
+{
+  private readonly manualApprovalActionProps: ManualApprovalActionStepProps;
+  constructor(id: string, options: ManualApprovalActionStepProps) {
+    super(id);
+    this.manualApprovalActionProps = options;
+  }
+
+  public produceAction(
+    stage: IStage,
+    options: ProduceActionOptions,
+  ): CodePipelineActionFactoryResult {
+    stage.addAction(new ManualApprovalAction(this.manualApprovalActionProps));
+
+    return { runOrdersConsumed: 1 };
   }
 }
 
