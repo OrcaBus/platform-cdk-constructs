@@ -1,4 +1,4 @@
-from typing import Optional, TypedDict, Dict
+from typing import Optional, TypedDict, Dict, Literal
 
 """
 Example File Object response
@@ -26,6 +26,23 @@ Example File Object response
     }
 """
 
+StorageClassType = Literal[
+    "Standard",
+    "StandardIa",
+    "IntelligentTiering",
+    "GlacierIr",
+    "Glacier",
+    "DeepArchive",
+]
+
+StorageClassPriority: Dict[StorageClassType, int] = {
+    "Standard": 1,
+    "StandardIa": 2,
+    "IntelligentTiering": 3,
+    "GlacierIr": 4,
+    "Glacier": 5,
+    "DeepArchive": 6,
+}
 
 class FileObject(TypedDict):
     # Identifier
@@ -47,7 +64,7 @@ class FileObject(TypedDict):
     numberReordered: int
     sequencer: str
     size: int
-    storageClass: str
+    storageClass: StorageClassType
 
     # Attribute attributes
     attributes: Optional[Dict]

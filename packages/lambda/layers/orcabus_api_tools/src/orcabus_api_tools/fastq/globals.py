@@ -6,7 +6,7 @@ import re
 FASTQ_SUBDOMAIN_NAME = "fastq"
 
 # API ENDPOINTS
-FASTQ_LIST_ROW_ENDPOINT = "api/v1/fastq"
+FASTQ_ENDPOINT = "api/v1/fastq"
 FASTQ_SET_ENDPOINT = "api/v1/fastqSet"
 
 # REGEX

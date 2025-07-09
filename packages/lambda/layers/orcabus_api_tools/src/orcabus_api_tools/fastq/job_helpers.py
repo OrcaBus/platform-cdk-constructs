@@ -11,7 +11,7 @@ Update helpers for the update script.
 
 # Local imports
 from . import fastq_patch_request
-from .globals import FASTQ_LIST_ROW_ENDPOINT
+from .globals import FASTQ_ENDPOINT
 from .models import Job
 
 
@@ -23,7 +23,7 @@ def run_qc_stats(fastq_id: str) -> Job:
     """
     return Job(
         **fastq_patch_request(
-            f"{FASTQ_LIST_ROW_ENDPOINT}/{fastq_id}:runQcStats"
+            f"{FASTQ_ENDPOINT}/{fastq_id}:runQcStats"
         )
     )
 
@@ -36,7 +36,7 @@ def run_ntsm(fastq_id: str) -> Job:
     """
     return Job(
         **fastq_patch_request(
-            f"{FASTQ_LIST_ROW_ENDPOINT}/{fastq_id}:runNtsm"
+            f"{FASTQ_ENDPOINT}/{fastq_id}:runNtsm"
         )
     )
 
@@ -48,6 +48,18 @@ def run_file_compression_stats(fastq_id: str) -> Job:
     """
     return Job(
         **fastq_patch_request(
-            f"{FASTQ_LIST_ROW_ENDPOINT}/{fastq_id}:runFileCompressionInformation"
+            f"{FASTQ_ENDPOINT}/{fastq_id}:runFileCompressionInformation"
+        )
+    )
+
+def run_read_count_stats(fastq_id: str) -> Job:
+    """
+    Run file compression stats for a fastq_id.
+
+    :param fastq_id: Fastq str
+    """
+    return Job(
+        **fastq_patch_request(
+            f"{FASTQ_ENDPOINT}/{fastq_id}:runReadCountInformation"
         )
     )

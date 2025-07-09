@@ -13,28 +13,27 @@
 
 from typing import (
     TypedDict, NotRequired,
+    Literal
 )
 
-from enum import Enum
+JobType = Literal[
+    "S3_UNARCHIVING",
+]
 
 
-class JobType(Enum):
-    S3_UNARCHIVING = "S3_UNARCHIVING"
-
-
-class JobStatus(Enum):
-    PENDING = "PENDING"
-    RUNNING = "RUNNING"
-    FAILED = "FAILED"
-    ABORTED = "ABORTED"
-    SUCCEEDED = "SUCCEEDED"
-
+JobStatusType = Literal[
+    "PENDING",
+    "RUNNING",
+    "FAILED",
+    "ABORTED",
+    "SUCCEEDED",
+]
 
 class Job(TypedDict):
     id: str
     jobType: JobType
     stepsExecutionArn: str
-    status: JobStatus
+    status: JobStatusType
     startTime: str
     endTime: str
     errorMessages: str
@@ -42,7 +41,7 @@ class Job(TypedDict):
 
 class JobQueryParameters(TypedDict):
     fastqId: NotRequired[str]
-    status: NotRequired[JobStatus]
+    status: NotRequired[JobStatusType]
     createdAfter: NotRequired[str]
     createdBefore: NotRequired[str]
     completedAfter: NotRequired[str]

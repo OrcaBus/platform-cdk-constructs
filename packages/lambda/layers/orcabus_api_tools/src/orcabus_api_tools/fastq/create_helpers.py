@@ -17,18 +17,30 @@ from typing import Unpack
 
 # Local imports
 from . import fastq_post_request
-from .globals import FASTQ_LIST_ROW_ENDPOINT, FASTQ_SET_ENDPOINT
-from .models import FastqListRow, FastqSet, FastqListRowCreate, FastqSetCreate
+from .globals import FASTQ_ENDPOINT, FASTQ_SET_ENDPOINT
+from .models import Fastq, FastqSet, FastqCreate, FastqSetCreate
 
 
-def create_fastq_list_row_object(**kwargs: Unpack[FastqListRowCreate]) -> FastqListRow:
+def create_fastq_list_row_object(**kwargs: Unpack[FastqCreate]) -> Fastq:
+    """
+    DEPRECATED: Use create_fastq_object instead.
+    """
+    return create_fastq_object(**kwargs)
+
+
+def create_fastq_object(**kwargs: Unpack[FastqCreate]) -> Fastq:
     """
     Add a fastq list row object to the database.
     Returns the created fastq list row object
     """
-    return FastqListRow(
+    # Raise error if any of the kwargs are not in the FastqCreate
+    for key in kwargs.keys():
+        if key not in FastqCreate.__annotations__:
+            raise ValueError(f"Invalid parameter: {key}")
+
+    return Fastq(
         **fastq_post_request(
-            endpoint=FASTQ_LIST_ROW_ENDPOINT,
+            endpoint=FASTQ_ENDPOINT,
             params=dict(kwargs)
         )
     )
@@ -39,6 +51,11 @@ def create_fastq_set_object(**kwargs: Unpack[FastqSetCreate]) -> FastqSet:
     Add a fastq set object to the database.
     Returns the created fastq set object
     """
+    # Raise error if any of the kwargs are not in the FastqCreate
+    for key in kwargs.keys():
+        if key not in FastqSetCreate.__annotations__:
+            raise ValueError(f"Invalid parameter: {key}")
+
     return FastqSet(
         **fastq_post_request(
             endpoint=FASTQ_SET_ENDPOINT,

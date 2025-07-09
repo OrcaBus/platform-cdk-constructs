@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from enum import Enum
 
 # AWS PARAMETERS
 FILEMANAGER_SUBDOMAIN_NAME = "file"
@@ -41,30 +40,3 @@ S3_PREFIXES_BY_ACCOUNT_ID = {
     },
 }
 
-# FROM FileManager Schema
-# "DeepArchive"
-# "Glacier"
-# "GlacierIr"
-# "IntelligentTiering"
-# "OnezoneIa"
-# "Outposts"
-# "ReducedRedundancy"
-# "Snow"
-# "Standard"
-# "StandardIa"
-class StorageEnum(Enum):
-    STANDARD = "Standard"
-    STANDARD_IA = "StandardIa"
-    INTELLIGENT_TIERING = "IntelligentTiering"
-    GLACIER_INSTANT_RETRIEVAL = "GlacierIr"
-    GLACIER = "Glacier"
-    DEEP_ARCHIVE = "DeepArchive"
-
-
-class StoragePriority(Enum):
-    STANDARD = 1
-    STANDARD_IA = 2
-    INTELLIGENT_TIERING = 3
-    GLACIER_INSTANT_RETRIEVAL = 4
-    GLACIER = 5
-    DEEP_ARCHIVE = 6
