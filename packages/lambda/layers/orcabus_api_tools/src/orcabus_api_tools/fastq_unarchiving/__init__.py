@@ -6,7 +6,10 @@ from typing import Dict, Optional
 # Local imports
 from .globals import FASTQ_UNARCHIVING_SUBDOMAIN_NAME
 from ..utils.requests_helpers import (
-    get_request_response_results, get_url, patch_request, get_request
+    get_request_response_results,
+    get_url,
+    patch_request,
+    get_request
 )
 
 

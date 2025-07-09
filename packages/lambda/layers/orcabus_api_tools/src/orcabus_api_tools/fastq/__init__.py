@@ -70,14 +70,16 @@ def fastq_post_request(
 # Create
 from .create_helpers import (
     create_fastq_set_object,
-    create_fastq_list_row_object
+    create_fastq_list_row_object,
+    create_fastq_object,
 )
 
 # Job
 from .job_helpers import (
     run_qc_stats,
     run_ntsm,
-    run_file_compression_stats
+    run_file_compression_stats,
+    run_read_count_stats
 )
 
 # Query
@@ -97,6 +99,7 @@ from .query_helpers import (
     get_fastqs_in_individual,
     get_fastqs_in_project,
     get_fastq_list_rows_in_fastq_set,
+    get_fastqs_in_fastq_set,
     get_fastq_jobs,
 )
 
@@ -111,7 +114,9 @@ from .update_helpers import (
     validate_fastq,
     invalidate_fastq,
     link_fastq_list_row_to_fastq_set,
+    link_fastq_to_fastq_set,
     unlink_fastq_list_row_from_fastq_set,
+    unlink_fastq_from_fastq_set,
     allow_additional_fastqs_to_fastq_set,
     disallow_additional_fastqs_to_fastq_set,
     set_is_current_fastq_set,
@@ -135,10 +140,12 @@ __all__ = [
     # Create
     "create_fastq_set_object",
     "create_fastq_list_row_object",
+    "create_fastq_object",
     # Job
     "run_qc_stats",
     "run_ntsm",
     "run_file_compression_stats",
+    "run_read_count_stats",
     # Query
     "get_fastq",
     "get_fastq_set",
@@ -155,6 +162,7 @@ __all__ = [
     "get_fastqs_in_individual",
     "get_fastqs_in_project",
     "get_fastq_list_rows_in_fastq_set",
+    "get_fastqs_in_fastq_set",
     "get_fastq_jobs",
     # Updaters
     "add_qc_stats",
@@ -166,7 +174,9 @@ __all__ = [
     "validate_fastq",
     "invalidate_fastq",
     "link_fastq_list_row_to_fastq_set",
+    "link_fastq_to_fastq_set",
     "unlink_fastq_list_row_from_fastq_set",
+    "unlink_fastq_from_fastq_set",
     "allow_additional_fastqs_to_fastq_set",
     "disallow_additional_fastqs_to_fastq_set",
     "set_is_current_fastq_set",

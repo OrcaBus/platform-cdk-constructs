@@ -16,12 +16,12 @@ def create_job(fastq_ids: List[str], job_type: Optional[JobType] = None) -> Job:
     Create the job
     """
     if job_type is None:
-        job_type = JobType.S3_UNARCHIVING
+        job_type = 'S3_UNARCHIVING'
 
     return fastq_unarchiving_post_request(
         JOB_ENDPOINT,
         params={
             "fastqIds": fastq_ids,
-            "jobType": job_type.value
+            "jobType": job_type
         }
     )

@@ -40,10 +40,12 @@ def get_file_manager_request(
 
 def file_manager_patch_request(
         endpoint: str,
+        json_data: Optional[Dict] = None,
         params: Optional[Dict] = None
 ):
     return patch_request(
         get_file_manager_url(endpoint),
+        json_data=json_data,
         params=params
     )
 

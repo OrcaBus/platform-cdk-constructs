@@ -9,6 +9,8 @@ from copy import deepcopy
 
 from requests import HTTPError
 
+from fastapi.encoders import jsonable_encoder
+
 # Locals
 from .aws_helpers import (
     get_orcabus_token, get_hostname
@@ -103,7 +105,11 @@ def get_request(url: str, params: Optional[Dict] = None) -> Dict:
     return response.json()
 
 
-def patch_request(url: str, params: Optional[Dict] = None) -> Dict:
+def patch_request(
+        url: str,
+        json_data: Optional[Dict] = None,
+        params: Optional[Dict] = None
+) -> Dict:
     # Get authorization header
     headers = {
         "Authorization": f"Bearer {get_orcabus_token()}"
@@ -119,7 +125,8 @@ def patch_request(url: str, params: Optional[Dict] = None) -> Dict:
     response = requests.patch(
         url,
         headers=headers,
-        json=req_params
+        params=req_params,
+        json=json_data
     )
 
     try:

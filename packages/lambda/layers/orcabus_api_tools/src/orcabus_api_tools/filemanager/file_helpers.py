@@ -1,24 +1,30 @@
 #!/usr/bin/env python3
+
+# Standard imports
+import json
 from functools import reduce
 from operator import concat
 from typing import List, Dict, Union
 import typing
-
 import boto3
-
-from .errors import S3FileNotFoundError, S3DuplicateFileCopyError
-from .models import FileObject
-from ..utils.miscell import get_bucket_key_pair_from_uri
-from . import get_file_manager_request_response_results, get_file_manager_request, file_manager_patch_request
-from .globals import (
-    S3_LIST_ENDPOINT,
-    S3_BUCKETS_BY_ACCOUNT_ID,
-    S3_PREFIXES_BY_ACCOUNT_ID,
-    StorageEnum, StoragePriority,
-)
 from datetime import datetime, timedelta, timezone
 from urllib.parse import urlparse
 from itertools import batched
+
+# Local imports
+from .errors import S3FileNotFoundError, S3DuplicateFileCopyError
+from .models import FileObject, StorageClassPriority
+from ..utils.miscell import get_bucket_key_pair_from_uri
+from . import (
+    get_file_manager_request_response_results,
+    get_file_manager_request,
+    file_manager_patch_request
+)
+from .globals import (
+    S3_LIST_ENDPOINT,
+    S3_BUCKETS_BY_ACCOUNT_ID,
+    S3_PREFIXES_BY_ACCOUNT_ID
+)
 
 if typing.TYPE_CHECKING:
     from mypy_boto3_sts import STSClient
@@ -94,7 +100,7 @@ def get_file_object_from_ingest_id(ingest_id: str, **kwargs) -> FileObject:
     ))
 
     # Order by storage class
-    file_objects_list.sort(key=lambda file_obj_iter_: StoragePriority[StorageEnum(file_obj_iter_['storageClass']).name].value)
+    file_objects_list.sort(key=lambda file_obj_iter_: StorageClassPriority[file_obj_iter_['storageClass']])
 
     # Return as a FileObject model
     return file_objects_list[0]
@@ -263,8 +269,9 @@ def get_s3_objs_from_ingest_ids_map(ingest_ids: List[str], **kwargs) -> List[Dic
             continue
 
         s3_objects_match.sort(
-            key=lambda s3_object_iter_: StoragePriority[
-                StorageEnum(s3_object_iter_['fileObject']['storageClass']).name].value
+            key=lambda s3_object_iter_: StorageClassPriority[
+                s3_object_iter_['fileObject']['storageClass']
+            ]
         )
 
         s3_objects_by_ingest_id_filtered.append(
