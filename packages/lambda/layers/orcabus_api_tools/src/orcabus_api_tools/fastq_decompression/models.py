@@ -80,6 +80,13 @@ class Job(TypedDict):
     outputs: NotRequired[JobOutputType]
 
 
+class JobCreateParameters(TypedDict):
+    fastqIdList: List[str]
+    jobType: JobType
+    maxReads: NotRequired[int]
+    outputUriPrefix: NotRequired[str]
+
+
 class JobQueryParameters(TypedDict):
     fastqId: NotRequired[str]
     fastqSetId: NotRequired[str]
