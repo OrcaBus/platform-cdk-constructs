@@ -115,17 +115,16 @@ def patch_request(
         "Authorization": f"Bearer {get_orcabus_token()}"
     }
 
-    req_params = deepcopy(DEFAULT_REQUEST_PARAMS)
-
-    req_params.update(
-        params if params is not None else {}
-    )
+    if json_data is not None:
+       headers.update({
+           "Content-Type": "application/json"
+       })
 
     # Make the request
     response = requests.patch(
         url,
         headers=headers,
-        params=req_params,
+        params=params,
         json=json_data
     )
 
@@ -137,29 +136,34 @@ def patch_request(
     return response.json()
 
 
-def post_request(url: str, params: Optional[Dict] = None) -> Dict:
+def post_request(
+        url: str,
+        json_data: Optional[Dict] = None,
+        params: Optional[Dict] = None
+) -> Dict:
     """
     Run post request against the fastq endpoint
+    :param json_data:
     :param url:
     :param params:
     :return:
     """
     # Get authorization header
     headers = {
-        "Authorization": f"Bearer {get_orcabus_token()}"
+        "Authorization": f"Bearer {get_orcabus_token()}",
     }
 
-    req_params = deepcopy(DEFAULT_REQUEST_PARAMS)
-
-    req_params.update(
-        params if params is not None else {}
-    )
+    if json_data is not None:
+       headers.update({
+           "Content-Type": "application/json"
+       })
 
     # Make the request
     response = requests.post(
         url,
         headers=headers,
-        json=req_params
+        json=json_data,
+        params=params
     )
 
     try:

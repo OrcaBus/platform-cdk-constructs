@@ -4,11 +4,11 @@
 Create the job
 """
 
-from typing import List, Optional, Unpack
+from typing import Unpack
 
 from . import fastq_decompression_post_request
 from .globals import JOB_ENDPOINT
-from .models import Job, JobType, JobCreateParameters
+from .models import Job, JobCreateParameters
 
 
 def create_job(
@@ -30,5 +30,5 @@ def create_job(
 
     return fastq_decompression_post_request(
         JOB_ENDPOINT,
-        params=non_null_kwargs
+        json_data=non_null_kwargs
     )

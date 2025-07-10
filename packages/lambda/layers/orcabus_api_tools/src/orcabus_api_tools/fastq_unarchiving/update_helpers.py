@@ -35,7 +35,7 @@ def update_status(
     """
     return fastq_unarchiving_patch_request(
         f"{JOB_ENDPOINT}/{job_id}",
-        params=dict(filter(
+        json_data=dict(filter(
             lambda x: x[1] is not None,
             {
                 "status": job_status,
