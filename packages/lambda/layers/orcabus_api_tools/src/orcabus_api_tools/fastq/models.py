@@ -180,6 +180,7 @@ class QcStats(TypedDict):
     r2Q20Fraction: float
     r1GcFraction: float
     r2GcFraction: float
+    duplicationFractionEstimate: float
 
 
 class ReadCount(TypedDict):
@@ -218,12 +219,6 @@ class Job(TypedDict):
     startTime: datetime
     endTime: Optional[datetime]
 
-# Deprecated: Use BoolLiteral instead
-class BoolAllEnum(Enum):
-    ALL = "ALL"
-    true = True
-    false = False
-
 BoolLiteral = Literal[
     'ALL',
     True,
@@ -232,7 +227,7 @@ BoolLiteral = Literal[
 
 
 class FastqGetResponseParameters(TypedDict):
-    includeS3Details: NotRequired[BoolLiteral]
+    includeS3Details: NotRequired[bool]
 
 
 class StandardQueryParameters(TypedDict):
