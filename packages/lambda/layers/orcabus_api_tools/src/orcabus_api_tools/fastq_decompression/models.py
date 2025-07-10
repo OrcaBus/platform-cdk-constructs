@@ -16,7 +16,7 @@ from typing import (
 )
 
 JobType = Literal['FASTQ_DECOMPRESSION']
-JobStatus = Literal['PENDING', 'RUNNING', 'FAILED', 'ABORTED', 'SUCCEEDED']
+JobStatusType = Literal['PENDING', 'RUNNING', 'FAILED', 'ABORTED', 'SUCCEEDED']
 
 # Output jobs
 class DecompressionJobOutputObjectItem(TypedDict):
@@ -73,7 +73,7 @@ class Job(TypedDict):
     id: str
     jobType: JobType
     stepsExecutionArn: str
-    status: JobStatus
+    status: JobStatusType
     startTime: str
     endTime: str
     errorMessages: NotRequired[str]
@@ -90,10 +90,17 @@ class JobCreateParameters(TypedDict):
 class JobQueryParameters(TypedDict):
     fastqId: NotRequired[str]
     fastqSetId: NotRequired[str]
-    status: NotRequired[JobStatus]
+    status: NotRequired[JobStatusType]
     createdAfter: NotRequired[str]
     createdBefore: NotRequired[str]
     completedAfter: NotRequired[str]
     completedBefore: NotRequired[str]
     page: NotRequired[int]
     rowsPerPage: NotRequired[int]
+
+
+class JobUpdateParameters(TypedDict):
+    status: JobStatusType
+    errorMessage: NotRequired[str]
+    stepsExecutionArn: NotRequired[str]
+    output: NotRequired[JobOutputType]

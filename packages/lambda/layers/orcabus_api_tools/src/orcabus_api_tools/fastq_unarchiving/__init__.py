@@ -9,7 +9,7 @@ from ..utils.requests_helpers import (
     get_request_response_results,
     get_url,
     patch_request,
-    get_request
+    get_request, post_request
 )
 
 
@@ -49,21 +49,21 @@ def get_fastq_unarchiving_request_response_results(
 
 def fastq_unarchiving_patch_request(
     endpoint: str,
-    params: Optional[Dict] = None,
+    json_data: Optional[Dict] = None,
 ):
     return patch_request(
         url=get_fastq_unarchiving_url(endpoint),
-        params=params
+        json_data=json_data
     )
 
 
 def fastq_unarchiving_post_request(
     endpoint: str,
-    params: Optional[Dict] = None,
+    json_data: Optional[Dict] = None,
 ):
-    return patch_request(
+    return post_request(
         url=get_fastq_unarchiving_url(endpoint),
-        params=params
+        json_data=json_data
     )
 
 # Create imports

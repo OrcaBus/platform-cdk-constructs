@@ -6,7 +6,7 @@ from typing import Dict, Optional
 # Local imports
 from .globals import FASTQ_DECOMPRESSION_SUBDOMAIN_NAME
 from ..utils.requests_helpers import (
-    get_request_response_results, get_url, patch_request, get_request
+    get_request_response_results, get_url, patch_request, get_request, post_request
 )
 
 
@@ -46,21 +46,21 @@ def get_fastq_decompression_request_response_results(
 
 def fastq_decompression_patch_request(
     endpoint: str,
-    params: Optional[Dict] = None,
+    json_data: Optional[Dict] = None,
 ):
     return patch_request(
         url=get_fastq_decompression_url(endpoint),
-        params=params
+        json_data=json_data
     )
 
 
 def fastq_decompression_post_request(
     endpoint: str,
-    params: Optional[Dict] = None,
+    json_data: Optional[Dict] = None,
 ):
-    return patch_request(
+    return post_request(
         url=get_fastq_decompression_url(endpoint),
-        params=params
+        json_data=json_data
     )
 
 # Create imports
