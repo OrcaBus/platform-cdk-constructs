@@ -5,7 +5,7 @@ Update helpers for the update script.
 """
 
 # Standard imports
-from typing import Optional, Dict, Any, Unpack
+from typing import Unpack
 
 # Local imports
 from . import fastq_decompression_patch_request

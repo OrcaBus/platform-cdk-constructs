@@ -41,21 +41,21 @@ def get_data_sharing_request_response_results(
 
 def data_sharing_patch_request(
     endpoint: str,
-    params: Optional[Dict] = None,
+    json_data: Optional[Dict] = None,
 ):
     return patch_request(
         url=get_data_sharing_url(endpoint),
-        params=params
+        json_data=json_data
     )
 
 
 def data_sharing_post_request(
     endpoint: str,
-    params: Optional[Dict] = None,
+    json_data: Optional[Dict] = None,
 ):
     return patch_request(
         url=get_data_sharing_url(endpoint),
-        params=params
+        json_data=json_data
     )
 
 

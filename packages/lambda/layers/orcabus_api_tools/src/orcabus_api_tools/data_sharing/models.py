@@ -17,7 +17,6 @@ PushJobStatusType = Literal[
 ]
 
 
-
 class PackageObject(TypedDict):
     id: str
     packageName: str
@@ -26,3 +25,8 @@ class PackageObject(TypedDict):
     requestTime: str
     completionTime: NotRequired[str]
     hasExpired: NotRequired[bool]
+
+
+class JobPatchParameters(TypedDict):
+    status: str
+    errorMessage: NotRequired[str]

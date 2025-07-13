@@ -1,6 +1,5 @@
 # Imports
 import re
-from typing import Literal
 
 # AWS PARAMETERS
 DATA_SHARING_SUBDOMAIN_NAME = "data-sharing"

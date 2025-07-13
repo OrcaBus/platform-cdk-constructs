@@ -1,38 +1,37 @@
-from typing import Optional
+from typing import Unpack
 
 from . import data_sharing_patch_request
 from .globals import PACKAGE_ENDPOINT, PUSH_ENDPOINT
-from .models import PackageStatusType, PackageObject, PushJobStatusType
+from .models import PackageObject, JobPatchParameters
 
 
 def update_package_status(
         package_id: str,
-        package_status: PackageStatusType,
-        error_message: Optional[str] = None
+        **kwargs: Unpack[JobPatchParameters]
 ) -> PackageObject:
     """
     Add QC stats to a fastq_id.
 
     :param package_id: The package id
-    :param package_status: The package status to set
-    :param error_message: Optional error message
+    :param kwargs: JobPatchParameters to update the package with.
     """
+    # Raise error if any of the kwargs are not in the FastqListRowQueryParameters
+    for key in kwargs.keys():
+        if key not in JobPatchParameters.__annotations__:
+            raise ValueError(f"Invalid parameter: {key}")
+
     return data_sharing_patch_request(
         f"{PACKAGE_ENDPOINT}/{package_id}",
-        params=dict(filter(
+        json_data=dict(filter(
             lambda x: x[1] is not None,
-            {
-                "status": package_status,
-                "error_message": error_message
-            }.items()
+            kwargs.items()
         ))
     )
 
 
 def update_push_job_status(
         push_job_id: str,
-        push_job_status: PushJobStatusType,
-        error_message: Optional[str] = None
+        **kwargs: Unpack[JobPatchParameters]
 ) -> PackageObject:
     """
     Add push job status to a push job.
@@ -43,11 +42,8 @@ def update_push_job_status(
     """
     return data_sharing_patch_request(
         f"{PUSH_ENDPOINT}/{push_job_id}",
-        params=dict(filter(
+        json_data=dict(filter(
             lambda x: x[1] is not None,
-            {
-                "status": push_job_status,
-                "error_message": error_message
-            }.items()
+            kwargs.items()
         ))
     )

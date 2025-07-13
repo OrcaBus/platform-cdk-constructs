@@ -9,8 +9,6 @@ from copy import deepcopy
 
 from requests import HTTPError
 
-from fastapi.encoders import jsonable_encoder
-
 # Locals
 from .aws_helpers import (
     get_orcabus_token, get_hostname

@@ -42,7 +42,7 @@ def get_project_from_project_id(project_id: str) -> Project:
 def get_projects_list_from_project_id_list(project_id_list: List[str], accept_missing: bool = False) -> List[Project]:
     """
     Get project from the project id
-    :param project_id:
+    :param project_id_list:
     :return:
     """
     # We have an internal id, convert to int
