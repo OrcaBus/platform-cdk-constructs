@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from typing import TypedDict, Literal, NotRequired, Optional, Dict
+from typing import TypedDict, Literal, Optional, Dict
 
 statusLiteral = Literal['STARTED', 'FAILED', 'SUCCEEDED', 'ABORTED', 'RESOLVED']
 

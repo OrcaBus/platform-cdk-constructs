@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import re
-from enum import Enum
 
 # AWS PARAMETERS
 FASTQ_DECOMPRESSION_SUBDOMAIN_NAME = "fastq-decompression"

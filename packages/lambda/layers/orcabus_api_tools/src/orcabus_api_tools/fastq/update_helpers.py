@@ -37,7 +37,7 @@ def add_qc_stats(fastq_id: str, qc_stats: QcStats) -> Fastq:
 
     return fastq_patch_request(
         f"{FASTQ_ENDPOINT}/{fastq_id}/addQcStats",
-        params=dict(qc_stats)
+        json_data=dict(qc_stats)
     )
 
 
@@ -54,7 +54,7 @@ def add_read_count(fastq_id: str, read_count: ReadCount) -> Fastq:
 
     return fastq_patch_request(
         f"{FASTQ_ENDPOINT}/{fastq_id}/addReadCount",
-        params=dict(read_count)
+        json_data=dict(read_count)
     )
 
 
@@ -71,7 +71,7 @@ def add_file_compression_information(fastq_id: str, file_compression_information
 
     return fastq_patch_request(
         f"{FASTQ_ENDPOINT}/{fastq_id}/addFileCompressionInformation",
-        params=dict(file_compression_information)
+        json_data=dict(file_compression_information)
     )
 
 
@@ -88,7 +88,7 @@ def add_ntsm_storage_object(fastq_id: str, ntsm_fastq_storage_object: FileStorag
 
     return fastq_patch_request(
         f"{FASTQ_ENDPOINT}/{fastq_id}/addNtsmStorageObject",
-        params=dict(ntsm_fastq_storage_object)
+        json_data=dict(ntsm_fastq_storage_object)
     )
 
 
@@ -105,7 +105,7 @@ def add_read_set(fastq_id: str, read_set: ReadSet) -> Fastq:
 
     return fastq_patch_request(
         f"{FASTQ_ENDPOINT}/{fastq_id}/addFastqPairStorageObject",
-        params=dict(read_set)
+        json_data=dict(read_set)
     )
 
 

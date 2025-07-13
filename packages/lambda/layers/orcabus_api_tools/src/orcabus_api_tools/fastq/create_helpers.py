@@ -41,7 +41,7 @@ def create_fastq_object(**kwargs: Unpack[FastqCreate]) -> Fastq:
     return Fastq(
         **fastq_post_request(
             endpoint=FASTQ_ENDPOINT,
-            params=dict(kwargs)
+            json_data=dict(kwargs)
         )
     )
 
@@ -59,6 +59,6 @@ def create_fastq_set_object(**kwargs: Unpack[FastqSetCreate]) -> FastqSet:
     return FastqSet(
         **fastq_post_request(
             endpoint=FASTQ_SET_ENDPOINT,
-            params=dict(kwargs)
+            json_data=dict(kwargs)
         )
     )

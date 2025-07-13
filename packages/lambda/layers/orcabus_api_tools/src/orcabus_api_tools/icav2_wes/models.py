@@ -25,12 +25,17 @@ class EngineParameters(TypedDict):
     logsUri: str
 
 
-class WESRequest(TypedDict):
+class WESPostRequest(TypedDict):
     """WES request object."""
     name: str
     inputs: Dict[str, Any]
     engineParameters: EngineParameters
     tags: NotRequired[Dict[str, Any]]
+
+
+class WESPatchRequest(TypedDict):
+    status: str
+    icav2AnalysisId: NotRequired[str]
 
 
 class WESResponse(TypedDict):

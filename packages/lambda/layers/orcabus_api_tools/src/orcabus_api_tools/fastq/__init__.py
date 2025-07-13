@@ -40,27 +40,31 @@ def get_fastq_request_response_results(
 ):
     return get_request_response_results(
         url=get_fastq_url(endpoint),
-        params=params
+        params=params,
     )
 
 
 def fastq_patch_request(
     endpoint: str,
     params: Optional[Dict] = None,
+    json_data: Optional[Dict] = None,
 ):
     return patch_request(
         url=get_fastq_url(endpoint),
-        params=params
+        params=params,
+        json_data=json_data,
     )
 
 
 def fastq_post_request(
     endpoint: str,
     params: Optional[Dict] = None,
+    json_data: Optional[Dict] = None,
 ):
     return post_request(
         url=get_fastq_url(endpoint),
-        params=params
+        params=params,
+        json_data=json_data,
     )
 
 

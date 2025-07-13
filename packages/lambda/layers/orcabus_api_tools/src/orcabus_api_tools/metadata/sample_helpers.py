@@ -44,7 +44,7 @@ def get_sample_from_sample_id(sample_id: str) -> Sample:
 def get_samples_list_from_sample_id_list(sample_id_list: List[str], accept_missing: bool = False) -> List[Sample]:
     """
     Get sample from the sample id
-    :param sample_id:
+    :param sample_id_list:
     :return:
     """
     # We have an internal id, convert to int
@@ -88,7 +88,7 @@ def get_sample_from_sample_orcabus_id(sample_orcabus_id: str) -> Sample:
 def get_samples_list_from_sample_orcabus_id_list(sample_orcabus_id_list: List[str], accept_missing: bool = False) -> List[Project]:
     """
     Get sample from the sample id
-    :param sample_id:
+    :param sample_orcabus_id_list:
     :return:
     """
     # We have an internal id, convert to int
