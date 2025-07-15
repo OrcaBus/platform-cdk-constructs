@@ -1,4 +1,4 @@
-from typing import Literal, TypedDict, NotRequired
+from typing import Literal, TypedDict, NotRequired, Union
 
 PackageStatusType = Literal[
     "PENDING",
@@ -28,5 +28,5 @@ class PackageObject(TypedDict):
 
 
 class JobPatchParameters(TypedDict):
-    status: str
+    status: Union[PackageStatusType, PushJobStatusType]
     errorMessage: NotRequired[str]
