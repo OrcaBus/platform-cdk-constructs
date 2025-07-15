@@ -104,7 +104,7 @@ from .query_helpers import (
     get_fastqs_in_project,
     get_fastq_list_rows_in_fastq_set,
     get_fastqs_in_fastq_set,
-    get_fastq_jobs,
+    get_fastq_jobs, get_fastq_by_rgid,
 )
 
 # Updaters
@@ -165,6 +165,7 @@ __all__ = [
     "get_fastqs_in_subject",
     "get_fastqs_in_individual",
     "get_fastqs_in_project",
+    "get_fastq_by_rgid",
     "get_fastq_list_rows_in_fastq_set",
     "get_fastqs_in_fastq_set",
     "get_fastq_jobs",

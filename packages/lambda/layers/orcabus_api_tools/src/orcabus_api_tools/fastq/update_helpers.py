@@ -144,7 +144,7 @@ def invalidate_fastq(fastq_id: str) -> Fastq:
 
 def link_fastq_list_row_to_fastq_set(fastq_id: str, fastq_set_id: str) -> FastqSet:
     """
-    Deprecated: Use `link_fastq_to_fast_set` instead.
+    Deprecated: Use `link_fastq_to_fastq_set` instead.
     Link a fastq id to a fastq set.
 
     :param fastq_id:
