@@ -85,6 +85,7 @@ class JobCreateParameters(TypedDict):
     jobType: JobType
     maxReads: NotRequired[int]
     outputUriPrefix: NotRequired[str]
+    sampling: NotRequired[bool]
 
 
 class JobQueryParameters(TypedDict):
