@@ -23,7 +23,7 @@ from . import (
 from .globals import (
     S3_LIST_ENDPOINT,
     S3_BUCKETS_BY_ACCOUNT_ID,
-    S3_PREFIXES_BY_ACCOUNT_ID
+    S3_PREFIXES_BY_ACCOUNT_ID, S3_ATTRIBUTES_LIST_ENDPOINT
 )
 
 if typing.TYPE_CHECKING:
@@ -108,27 +108,22 @@ def get_file_object_from_ingest_id(ingest_id: str, **kwargs) -> FileObject:
 
 def list_files_from_portal_run_id(
         portal_run_id: str,
-        workflow_name: str,
-        **kwargs
+        remove_log_files: bool = True,
 ) -> List[FileObject]:
-    portal_run_id_date_str = datetime.strptime(portal_run_id[:8], "%Y%m%d")
 
     # Get files from cache
-    cache_response = get_file_manager_request_response_results(S3_LIST_ENDPOINT, {
-        "bucket": get_cache_bucket_from_account_id(),
-        "key": f"{get_analysis_cache_prefix_from_account_id()}/{workflow_name}/{portal_run_id}/*",
-        **kwargs
+    all_files_list = get_file_manager_request_response_results(S3_ATTRIBUTES_LIST_ENDPOINT, {
+        "portalRunId": portal_run_id,
+        "currentState": json.dumps(True)
     })
 
-    # Get files from archive
-    archive_response = get_file_manager_request_response_results(S3_LIST_ENDPOINT, {
-        "bucket": get_archive_analysis_bucket_from_account_id(),
-        "key": f"v1/year={portal_run_id_date_str.year}/month={str(portal_run_id_date_str.month).zfill(2)}/{portal_run_id}/*",
-        **kwargs
-    })
+    if not remove_log_files:
+        return all_files_list
 
-    # Return as a list of FileObject models
-    return [FileObject(**file) for file in cache_response + archive_response]
+    return list(filter(
+        lambda file_iter_: not '/ica_logs/' in file_iter_['key'],
+        all_files_list
+    ))
 
 
 def get_presigned_url(s3_object_id: str) -> str:
@@ -137,7 +132,6 @@ def get_presigned_url(s3_object_id: str) -> str:
     :param s3_object_id:
     :return:
     """
-
     response = get_file_manager_request(f"{S3_LIST_ENDPOINT}/presign/{s3_object_id}")
 
     return str(response)
