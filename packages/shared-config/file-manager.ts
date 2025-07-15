@@ -14,22 +14,25 @@ import { validateSecretName } from "./secrets";
 export const FILE_MANAGER_BUCKETS: Record<StageName, string[]> = {
   BETA: [
     "umccr-temp-dev",
-    `ntsm-fingerprints-${BETA_ENVIRONMENT.account}-ap-southeast-2`,
-    `data-sharing-artifacts-${BETA_ENVIRONMENT.account}-ap-southeast-2`,
+    `ntsm-fingerprints-${BETA_ENVIRONMENT.account}-${BETA_ENVIRONMENT.region}`,
+    `fastq-manager-sequali-outputs-${BETA_ENVIRONMENT.account}-${BETA_ENVIRONMENT.region}`,
+    `data-sharing-artifacts-${BETA_ENVIRONMENT.account}-${BETA_ENVIRONMENT.region}`,
     "filemanager-inventory-test",
   ],
   GAMMA: [
     "umccr-temp-stg",
-    `ntsm-fingerprints-${GAMMA_ENVIRONMENT.account}-ap-southeast-2`,
-    `data-sharing-artifacts-${GAMMA_ENVIRONMENT.account}-ap-southeast-2`,
+    `ntsm-fingerprints-${GAMMA_ENVIRONMENT.account}-${GAMMA_ENVIRONMENT.region}`,
+    `fastq-manager-sequali-outputs-${GAMMA_ENVIRONMENT.account}-${GAMMA_ENVIRONMENT.region}`,
+    `data-sharing-artifacts-${GAMMA_ENVIRONMENT.account}-${GAMMA_ENVIRONMENT.region}`,
   ],
   PROD: [
     "org.umccr.data.oncoanalyser",
     "archive-prod-analysis-503977275616-ap-southeast-2",
     "archive-prod-fastq-503977275616-ap-southeast-2",
-    `ntsm-fingerprints-${PROD_ENVIRONMENT.account}-ap-southeast-2`,
-    `data-sharing-artifacts-${PROD_ENVIRONMENT.account}-ap-southeast-2`,
-    "pipeline-montauk-977251586657-ap-southeast-2",
+    `ntsm-fingerprints-${PROD_ENVIRONMENT.account}-${PROD_ENVIRONMENT.region}`,
+    `fastq-manager-sequali-outputs-${GAMMA_ENVIRONMENT.account}-${PROD_ENVIRONMENT.region}`,
+    `data-sharing-artifacts-${PROD_ENVIRONMENT.account}-${PROD_ENVIRONMENT.region}`,
+    `pipeline-montauk-977251586657-${PROD_ENVIRONMENT.region}`,
   ],
 };
 
