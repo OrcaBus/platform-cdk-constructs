@@ -15,7 +15,7 @@ get_fastqs_in_individual
 
 get_fastqs_in_project
 
-get_fastq_by_rgid_and_instrument_run_id
+get_fastq_by_rgid
 
 """
 from functools import reduce
@@ -25,7 +25,7 @@ from typing import List, Unpack
 from fastapi.encoders import jsonable_encoder
 
 from . import get_fastq_request_response_results, get_fastq_request
-from .globals import FASTQ_ENDPOINT, FASTQ_SET_ENDPOINT
+from .globals import FASTQ_ENDPOINT, FASTQ_SET_ENDPOINT, RGID_ENDPOINT
 from .models import (
     FastqSet, Job, FastqParameters, FastqSetQueryParameters,
     FastqGetResponseParameters, VALID_BATCH_KEYS, Fastq
@@ -58,7 +58,7 @@ def get_fastq_set(
     """
     # Raise error if any of the kwargs are not in the FastqSetQueryParameters
     for key in kwargs.keys():
-        if key not in FastqSetQueryParameters.__annotations__:
+        if key not in FastqGetResponseParameters.__annotations__:
             raise ValueError(f"Invalid parameter: {key}")
 
     return FastqSet(
@@ -227,6 +227,24 @@ def get_fastqs_in_project(project_id):
     """
     return get_fastqs(
         project=project_id
+    )
+
+
+def get_fastq_by_rgid(
+        rgid: str,
+        **kwargs: Unpack[FastqGetResponseParameters]
+) -> Fastq:
+    # Raise error if any of the kwargs are not in the FastqGetResponseParameters
+    for key in kwargs.keys():
+        if key not in FastqGetResponseParameters.__annotations__:
+            raise ValueError(f"Invalid parameter: {key}")
+
+    return get_fastq_request(
+        f"{RGID_ENDPOINT}/{rgid}",
+        params=dict(filter(
+            lambda kv_iter_: kv_iter_[1] is not None,
+            kwargs.items()
+        ))
     )
 
 
