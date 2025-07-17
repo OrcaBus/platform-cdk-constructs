@@ -8,7 +8,7 @@ from typing import List, Dict, Union
 import typing
 import boto3
 from datetime import datetime, timedelta, timezone
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 from itertools import batched
 
 # Local imports
@@ -164,6 +164,16 @@ def get_presigned_url_from_ingest_id(ingest_id: str) -> str:
     return get_presigned_url(get_file_object_from_ingest_id(ingest_id)['s3ObjectId'])
 
 
+def create_presigned_url_map(s3_object_iter_: Dict, presigned_url_list: List[str]):
+    return {
+        "ingestId": s3_object_iter_['ingestId'],
+        "presignedUrl": next(filter(
+            lambda presigned_url_iter_: unquote(urlparse(presigned_url_iter_).path.lstrip("/")) == s3_object_iter_['fileObject']['key'],
+            presigned_url_list
+        ))
+    }
+
+
 def get_presigned_urls_from_ingest_ids(ingest_ids: List[str]) -> List[Dict[str, str]]:
     """
     Get presigned urls from a list of ingest ids using the bulk presign method
@@ -189,14 +199,8 @@ def get_presigned_urls_from_ingest_ids(ingest_ids: List[str]) -> List[Dict[str, 
 
     # Map the presigned urls to the s3 objects
     return list(map(
-        lambda presigned_url_iter_: {
-            "ingestId": next(filter(
-                lambda s3_object_iter_: s3_object_iter_['fileObject']['key'] == urlparse(presigned_url_iter_).path.lstrip("/"),
-                s3_object_list
-            ))['ingestId'],
-            "presignedUrl": presigned_url_iter_
-        },
-        presigned_url_list
+        lambda s3_object_iter_: create_presigned_url_map(s3_object_iter_, presigned_url_list),
+        s3_object_list
     ))
 
 
