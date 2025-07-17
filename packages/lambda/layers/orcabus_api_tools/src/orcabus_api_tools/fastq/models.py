@@ -85,6 +85,13 @@ class Library(TypedDict):
     libraryId: str
 
 
+class SequaliReportsDict(TypedDict):
+    sequaliHtml: FileStorageObject
+    sequaliParquet: FileStorageObject
+    multiqcHtml: FileStorageObject
+    multiqcParquet: FileStorageObject
+
+
 # Deprecated: Use FastqCreate instead
 class FastqListRowCreate(TypedDict):
     fastqSetId: Optional[str]
@@ -180,6 +187,7 @@ class QcStats(TypedDict):
     r1GcFraction: float
     r2GcFraction: float
     duplicationFractionEstimate: float
+    sequaliReports: Optional[SequaliReportsDict]
 
 
 class ReadCount(TypedDict):
