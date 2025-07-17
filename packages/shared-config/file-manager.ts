@@ -8,7 +8,7 @@ import {
   PROD_ENVIRONMENT,
 } from "../deployment-stack-pipeline";
 import { StageName } from "./accounts";
-import { pipelineCacheBucket } from "./s3";
+import {PIPELINE_CACHE_BUCKET} from "./s3";
 import { validateSecretName } from "./secrets";
 
 export const FILE_MANAGER_BUCKETS: Record<StageName, string[]> = {
@@ -37,9 +37,9 @@ export const FILE_MANAGER_BUCKETS: Record<StageName, string[]> = {
 };
 
 export const FILE_MANAGER_CACHE_BUCKETS: Record<StageName, string[]> = {
-  BETA: [pipelineCacheBucket.BETA],
-  GAMMA: [pipelineCacheBucket.GAMMA],
-  PROD: [pipelineCacheBucket.PROD],
+  BETA: [PIPELINE_CACHE_BUCKET.BETA],
+  GAMMA: [PIPELINE_CACHE_BUCKET.GAMMA],
+  PROD: [PIPELINE_CACHE_BUCKET.PROD],
 };
 
 export const FILE_MANAGER_PRESIGN_USER_SECRET =
