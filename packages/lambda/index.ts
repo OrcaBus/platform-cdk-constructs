@@ -193,7 +193,7 @@ export class PythonUvFunction extends PythonFunction {
     private buildOrcabusApiToolsLayer(scope: Construct) {
         // Only build orcabus api layer if it doesn't exist
         if (!PythonUvFunction.orcabusApiToolsLayer.has(scope)) {
-            const layer = new PythonLayerVersion(this, 'orcabusApiToolsLayer', {
+            const layer = new PythonLayerVersion(scope, 'orcabusApiToolsLayer', {
                 entry: path.join(__dirname, 'layers/orcabus_api_tools'),
                 compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
                 compatibleArchitectures: [lambda.Architecture.ARM_64],
@@ -223,7 +223,7 @@ export class PythonUvFunction extends PythonFunction {
     private buildMartToolsLayer(scope: Construct) {
         // Only build the layer if it doesn't exist
         if (!PythonUvFunction.martLayer.has(scope)) {
-            const layer = new PythonLayerVersion(this, 'martToolsLayer', {
+            const layer = new PythonLayerVersion(scope, 'martToolsLayer', {
                 entry: path.join(__dirname, 'layers/mart_tools'),
                 compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
                 compatibleArchitectures: [lambda.Architecture.ARM_64],
@@ -252,7 +252,7 @@ export class PythonUvFunction extends PythonFunction {
     private buildIcav2Layer(scope: Construct) {
         // Only build the layer if it doesn't exist
         if (!PythonUvFunction.icav2Layer.has(scope)) {
-            const layer = new PythonLayerVersion(this, 'icav2ToolsLayer', {
+            const layer = new PythonLayerVersion(scope, 'icav2ToolsLayer', {
                 entry: path.join(__dirname, 'layers/icav2_tools'),
                 compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
                 compatibleArchitectures: [lambda.Architecture.ARM_64],
@@ -281,7 +281,7 @@ export class PythonUvFunction extends PythonFunction {
     private buildFastApiLayer(scope: Construct) {
         // Only build the layer if it doesn't exist
         if (!PythonUvFunction.fastApiLayer.has(scope)) {
-            const layer = new PythonLayerVersion(this, 'fastApiLayer', {
+            const layer = new PythonLayerVersion(scope, 'fastApiLayer', {
                 entry: path.join(__dirname, 'layers/fastapi_tools'),
                 compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
                 compatibleArchitectures: [lambda.Architecture.ARM_64],
