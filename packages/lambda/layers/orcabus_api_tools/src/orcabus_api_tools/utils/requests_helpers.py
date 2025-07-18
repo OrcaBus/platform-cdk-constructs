@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from typing import Dict, Optional, List
+from typing import Dict, Optional, List, Union
 from urllib.parse import urlunparse, unquote
 
 # Standard imports
@@ -106,7 +106,7 @@ def get_request(url: str, params: Optional[Dict] = None) -> Dict:
 def patch_request(
         url: str,
         json_data: Optional[Dict] = None,
-        params: Optional[Dict] = None
+        params: Optional[Union[List | Dict]] = None
 ) -> Dict:
     # Get authorization header
     headers = {
