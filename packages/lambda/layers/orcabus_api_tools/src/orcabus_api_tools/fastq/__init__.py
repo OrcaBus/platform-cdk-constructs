@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Standard imports
-from typing import Dict, Optional
+from typing import Dict, Optional, List, Union
 
 # Local imports
 from .globals import FASTQ_SUBDOMAIN_NAME
@@ -47,7 +47,7 @@ def get_fastq_request_response_results(
 def fastq_patch_request(
     endpoint: str,
     params: Optional[Dict] = None,
-    json_data: Optional[Dict] = None,
+    json_data: Optional[Union[List, Dict]] = None,
 ):
     return patch_request(
         url=get_fastq_url(endpoint),
@@ -139,6 +139,11 @@ from .workflow_helpers import (
     to_fastq_list_rows
 )
 
+# Multiqc
+from .multiqc_helpers import (
+    run_multiqc
+)
+
 
 __all__ = [
     # Create
@@ -192,5 +197,7 @@ __all__ = [
     # Workflow
     "to_fastq_list_row",
     "to_fastq_list_rows",
+    # Multiqc
+    "run_multiqc",
 ]
 
