@@ -20,7 +20,7 @@ def create_job(fastq_ids: List[str], job_type: Optional[JobType] = None) -> Job:
 
     return fastq_unarchiving_post_request(
         JOB_ENDPOINT,
-        params={
+        json_data={
             "fastqIds": fastq_ids,
             "jobType": job_type
         }
