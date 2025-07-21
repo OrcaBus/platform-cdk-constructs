@@ -141,7 +141,8 @@ from .workflow_helpers import (
 
 # Multiqc
 from .multiqc_helpers import (
-    run_multiqc
+    run_multiqc,
+    update_multiqc_job_status
 )
 
 
@@ -199,5 +200,6 @@ __all__ = [
     "to_fastq_list_rows",
     # Multiqc
     "run_multiqc",
+    "update_multiqc_job_status",
 ]
 

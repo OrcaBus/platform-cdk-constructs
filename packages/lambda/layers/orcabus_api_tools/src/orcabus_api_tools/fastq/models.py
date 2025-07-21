@@ -92,6 +92,17 @@ class SequaliReportsDict(TypedDict):
     multiqcParquet: FileStorageObject
 
 
+class QcStats(TypedDict):
+    insertSizeEstimate: int
+    rawWgsCoverageEstimate: int
+    r1Q20Fraction: float
+    r2Q20Fraction: float
+    r1GcFraction: float
+    r2GcFraction: float
+    duplicationFractionEstimate: float
+    sequaliReports: Optional[SequaliReportsDict]
+
+
 # Deprecated: Use FastqCreate instead
 class FastqListRowCreate(TypedDict):
     fastqSetId: Optional[str]
@@ -140,7 +151,7 @@ class Fastq(TypedDict):
     center: Optional[str]
     date: Optional[datetime]
     readSet: Optional[ReadSet]
-    qc: Optional[Dict]
+    qc: Optional[QcStats]
     readCount: Optional[int]
     baseCountEst: Optional[int]
     isValid: Optional[bool]
@@ -157,7 +168,7 @@ class FastqCreate(TypedDict):
     center: Optional[str]
     date: Optional[datetime]
     readSet: Optional[ReadSet]
-    qc: Optional[Dict]
+    qc: Optional[QcStats]
     readCount: Optional[int]
     baseCountEst: Optional[int]
     isValid: Optional[bool]
@@ -177,17 +188,6 @@ class FastqSet(TypedDict):
     fastqSet: List[Fastq]
     allowAdditionalFastq: bool
     isCurrentFastqSet: bool
-
-
-class QcStats(TypedDict):
-    insertSizeEstimate: int
-    rawWgsCoverageEstimate: int
-    r1Q20Fraction: float
-    r2Q20Fraction: float
-    r1GcFraction: float
-    r2GcFraction: float
-    duplicationFractionEstimate: float
-    sequaliReports: Optional[SequaliReportsDict]
 
 
 class ReadCount(TypedDict):
