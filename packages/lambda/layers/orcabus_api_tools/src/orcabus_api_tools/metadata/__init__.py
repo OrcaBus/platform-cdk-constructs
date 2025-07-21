@@ -50,7 +50,7 @@ def get_item_objs_from_item_id_list(
             }
         )
     except HTTPError as e:
-        raise HTTPError(f"Could not get item from item id list {item_id_list} from endpoint {endpoint}") from e
+        raise ValueError(f"Could not get item from item id list {item_id_list} from endpoint {endpoint}") from e
 
     # Accept missing
     if accept_missing:
