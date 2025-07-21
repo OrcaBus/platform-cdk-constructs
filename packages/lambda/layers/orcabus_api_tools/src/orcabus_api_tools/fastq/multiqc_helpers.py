@@ -30,6 +30,15 @@ def update_multiqc_job_status(
         steps_execution_arn: Optional[str] = None,
         output_uri: Optional[str] = None
 ):
+    """
+    Update the status of a MultiQC job.
+
+    :param job_id: The unique identifier of the MultiQC job.
+    :param status: The new status of the job (e.g., "running", "completed", "failed").
+    :param steps_execution_arn: (Optional) The ARN of the step function execution associated with the job.
+    :param output_uri: (Optional) The URI of the output MultiQC report.
+    :return: The response from the fastq_patch_request function.
+    """
     return fastq_patch_request(
         f"{MULTIQC_ENDPOINT}/{job_id}",
         json_data=dict(filter(
