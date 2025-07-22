@@ -28,7 +28,8 @@ def update_multiqc_job_status(
         job_id: str,
         status: str,
         steps_execution_arn: Optional[str] = None,
-        output_uri: Optional[str] = None
+        html_output_uri: Optional[str] = None,
+        parquet_output_uri: Optional[str] = None
 ):
     """
     Update the status of a MultiQC job.
@@ -36,7 +37,8 @@ def update_multiqc_job_status(
     :param job_id: The unique identifier of the MultiQC job.
     :param status: The new status of the job (e.g., "running", "completed", "failed").
     :param steps_execution_arn: (Optional) The ARN of the step function execution associated with the job.
-    :param output_uri: (Optional) The URI of the output MultiQC report.
+    :param html_output_uri: (Optional) The URI of the output MultiQC report.
+    :param parquet_output_uri: (Optional) The URI of the output MultiQC parquet file.
     :return: The response from the fastq_patch_request function.
     """
     return fastq_patch_request(
@@ -46,7 +48,12 @@ def update_multiqc_job_status(
             {
                 "status": status,
                 "stepsExecutionArn": steps_execution_arn,
-                "multiqcOutputHtmlUri": output_uri
+                "multiqcHtml": ({
+                    "s3Uri": html_output_uri
+                }) if html_output_uri else None,
+                "multiqcParquet": ({
+                    "s3Uri": parquet_output_uri
+                }) if parquet_output_uri else None
             }.items())
         )
     )
