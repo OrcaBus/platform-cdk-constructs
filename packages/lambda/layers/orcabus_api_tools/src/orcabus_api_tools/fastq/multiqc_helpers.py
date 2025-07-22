@@ -48,12 +48,12 @@ def update_multiqc_job_status(
             {
                 "status": status,
                 "stepsExecutionArn": steps_execution_arn,
-                "multiqcHtml": {
+                "multiqcHtml": ({
                     "s3Uri": html_output_uri
-                },
-                "multiqcParquet": {
+                }) if html_output_uri else None,
+                "multiqcParquet": ({
                     "s3Uri": parquet_output_uri
-                }
+                }) if parquet_output_uri else None
             }.items())
         )
     )
