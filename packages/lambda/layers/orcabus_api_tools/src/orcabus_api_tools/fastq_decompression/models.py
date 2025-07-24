@@ -15,6 +15,8 @@ from typing import (
     TypedDict, NotRequired, Literal, List, Union
 )
 
+from app.interface.jobs_api.models import ReadCountCalculationOutputObject
+
 JobType = Literal['FASTQ_DECOMPRESSION']
 JobStatusType = Literal['PENDING', 'RUNNING', 'FAILED', 'ABORTED', 'SUCCEEDED']
 
@@ -66,7 +68,8 @@ class RawMd5sumCalculationOutputObject(TypedDict):
 JobOutputType = Union[
   DecompressionJobOutputObject |
   GzipFileSizeCalculationOutputObject |
-  RawMd5sumCalculationOutputObject
+  RawMd5sumCalculationOutputObject |
+  ReadCountCalculationOutputObject
 ]
 
 class Job(TypedDict):
@@ -86,6 +89,7 @@ class JobCreateParameters(TypedDict):
     maxReads: NotRequired[int]
     outputUriPrefix: NotRequired[str]
     sampling: NotRequired[bool]
+    noSplitByLane: NotRequired[bool]
 
 
 class JobQueryParameters(TypedDict):
