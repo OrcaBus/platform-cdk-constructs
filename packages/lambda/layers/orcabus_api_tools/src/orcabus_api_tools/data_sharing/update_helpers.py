@@ -2,13 +2,13 @@ from typing import Unpack
 
 from . import data_sharing_patch_request
 from .globals import PACKAGE_ENDPOINT, PUSH_ENDPOINT
-from .models import PackageObject, JobPatchParameters
+from .models import PackageObjectDict, JobPatchParameters, PushJobObjectDict
 
 
 def update_package_status(
         package_id: str,
         **kwargs: Unpack[JobPatchParameters]
-) -> PackageObject:
+) -> PackageObjectDict:
     """
     Add QC stats to a fastq_id.
 
@@ -32,7 +32,7 @@ def update_package_status(
 def update_push_job_status(
         push_job_id: str,
         **kwargs: Unpack[JobPatchParameters]
-) -> PackageObject:
+) -> PushJobObjectDict:
     """
     Add push job status to a push job.
 
