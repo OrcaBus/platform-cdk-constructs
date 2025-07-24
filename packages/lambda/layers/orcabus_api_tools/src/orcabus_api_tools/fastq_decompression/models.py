@@ -15,8 +15,6 @@ from typing import (
     TypedDict, NotRequired, Literal, List, Union
 )
 
-from app.interface.jobs_api.models import ReadCountCalculationOutputObject
-
 JobType = Literal['FASTQ_DECOMPRESSION']
 JobStatusType = Literal['PENDING', 'RUNNING', 'FAILED', 'ABORTED', 'SUCCEEDED']
 
@@ -51,9 +49,15 @@ class RawMd5sumCalculationOutputsFastqId(TypedDict):
     rawMd5sumByOraFileIngestIdList: List[RawMd5sumCalculationOutputsObjectItem]
 
 
+class ReadCountCalculationOutputsFastqId(TypedDict):
+    fastqId: str
+    readCount: int
+
+
 class DecompressionJobOutputObject(TypedDict):
    # Decompressed file URI by ORA file ingest ID list
    decompressedFileList: List[DecompressionJobOutputObjectFastqId]
+
 
 class GzipFileSizeCalculationOutputObject(TypedDict):
     # Gzip file size by ORA file ingest ID list
@@ -63,6 +67,11 @@ class GzipFileSizeCalculationOutputObject(TypedDict):
 class RawMd5sumCalculationOutputObject(TypedDict):
     # Raw md5sum by ORA file ingest ID list
     rawMd5sumList: List[RawMd5sumCalculationOutputsFastqId]
+
+
+class ReadCountCalculationOutputObject(TypedDict):
+    # Raw md5sum by ORA file ingest ID list
+    readCountList: List[ReadCountCalculationOutputsFastqId]
 
 
 JobOutputType = Union[
