@@ -45,7 +45,7 @@ def get_libraries_from_instrument_run_id(instrument_run_id: str) -> List[str]:
         logging.warning("Could not find sequence run for instrument run id: %s", instrument_run_id)
         return []
 
-    return sequence_run_object['libraries']
+    return sequence_run_object.get('libraries', [])
 
 
 def get_sequence_object_from_instrument_run_id(instrument_run_id: str) -> Optional[Sequence]:
