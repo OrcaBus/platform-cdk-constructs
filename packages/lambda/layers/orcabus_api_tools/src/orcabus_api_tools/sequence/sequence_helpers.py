@@ -98,4 +98,4 @@ def get_library_ids_in_sequence(sequence_orcabus_id: str) -> List[str]:
     :param sequence_orcabus_id:
     :return:
     """
-    return get_sequence_request(endpoint=f"{SEQUENCE_RUN_ENDPOINT}/{sequence_orcabus_id}")['libraries']
+    return get_sequence_request(endpoint=f"{SEQUENCE_RUN_ENDPOINT}/{sequence_orcabus_id}").get('libraries', [])
