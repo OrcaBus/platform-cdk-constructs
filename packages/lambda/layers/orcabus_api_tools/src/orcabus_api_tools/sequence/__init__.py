@@ -27,14 +27,14 @@ def get_sequence_url(endpoint: str) -> str:
 
 def get_sequence_request(
         endpoint: str,
-        params: Dict = None,
+        params: Optional[Dict] = None,
 ):
     return get_request(get_sequence_url(endpoint), params=params)
 
 
 def get_sequence_request_response_results(
         endpoint: str,
-        params: Dict = None,
+        params: Optional[Dict] = None,
 ):
     return get_request_response_results(get_sequence_url(endpoint), params=params)
 
