@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-from typing import TypedDict, Literal, Optional, Dict
+from typing import TypedDict, Literal, Optional, Dict, List
 
-statusLiteral = Literal['STARTED', 'FAILED', 'SUCCEEDED', 'ABORTED', 'RESOLVED']
+StatusType = Literal['STARTED', 'FAILED', 'SUCCEEDED', 'ABORTED', 'RESOLVED']
 
 
 class SequenceDetail(TypedDict):
@@ -10,15 +10,15 @@ class SequenceDetail(TypedDict):
     instrumentRunId: str
     experimentName: str
     startTime: str
-    endTime: str
-    status: statusLiteral
+    endTime: Optional[str]
+    status: Optional[StatusType]
 
 
 class Sequence(TypedDict):
     orcabusId: str
-    libraries: str
+    libraries: List[str]
     sequenceRunId: str
-    status: statusLiteral
+    status: StatusType
     startTime: str
     sampleSheetName: str
     v1pre3Id: str
