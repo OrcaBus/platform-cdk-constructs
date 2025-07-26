@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Standard imports
-from typing import Dict
+from typing import Dict, Optional
 
 # Local imports
 from ..utils.requests_helpers import (
