@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import json
 from typing import Dict, Optional, List, Union
 from urllib.parse import urlunparse, unquote
 
@@ -7,6 +8,7 @@ import requests
 import logging
 from copy import deepcopy
 
+from fastapi.encoders import jsonable_encoder
 from requests import HTTPError
 
 # Locals
@@ -62,12 +64,24 @@ def get_request_response_results(url: str, params: Optional[Dict] = None) -> Lis
         params if params is not None else {}
     )
 
+    # Iterate through each of the params, if any of the values
+    # are boolean, convert them to strings via json.dumps
+    req_params = dict(map(
+        lambda kv_iter_: (
+            kv_iter_[0], (
+                json.dumps(kv_iter_[1])
+                if isinstance(kv_iter_[1], bool)
+                else kv_iter_[1]
+            )
+        ),
+        req_params.items()
+    ))
 
     # Make the request
     response = requests.get(
         url,
         headers=headers,
-        params=req_params
+        params=jsonable_encoder(req_params)
     )
 
     response.raise_for_status()

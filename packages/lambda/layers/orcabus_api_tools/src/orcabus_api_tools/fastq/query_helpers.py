@@ -18,12 +18,15 @@ get_fastqs_in_project
 get_fastq_by_rgid
 
 """
+
+# Standard imports
 from functools import reduce
 from itertools import batched
 from operator import concat
 from typing import List, Unpack
 from fastapi.encoders import jsonable_encoder
 
+# Local imports
 from . import get_fastq_request_response_results, get_fastq_request
 from .globals import FASTQ_ENDPOINT, FASTQ_SET_ENDPOINT, RGID_ENDPOINT
 from .models import (
