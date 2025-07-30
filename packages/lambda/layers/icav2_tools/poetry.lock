@@ -1124,21 +1124,21 @@ test = ["websockets"]
 
 [[package]]
 name = "wrapica"
-version = "2.37.0.dev20250730201935"
+version = "2.37.0.dev20250731075657"
 description = "Secondary level functions for ICAv2 based off libica"
 optional = false
-python-versions = ">=3.12"
+python-versions = "<3.13,>=3.12"
 groups = ["main"]
 files = [
-    {file = "wrapica-2.37.0.dev20250730201935-py3-none-any.whl", hash = "sha256:d193755ea9ca12bd12097b0369dd7695f26f0ffd77c713a3371b09bdd41b0c94"},
-    {file = "wrapica-2.37.0.dev20250730201935.tar.gz", hash = "sha256:f4893fb742a8b310d1f718c29ea034b2709a6f13fda8f7d281d94293d24f4ecd"},
+    {file = "wrapica-2.37.0.dev20250731075657-py3-none-any.whl", hash = "sha256:25b50698f2dcd31375f210acea468f13f967cb207c971c1046363b373797494a"},
+    {file = "wrapica-2.37.0.dev20250731075657.tar.gz", hash = "sha256:6fa73905c90a0d0f7eb7c3898c06be83cd459aa83d0be1c986e280c4361138de"},
 ]
 
 [package.dependencies]
 beautifulsoup4 = ">=4.10.0,<5"
 cwl_utils = ">=0.38,<1"
 libica = ">=3.0"
-pandas = ">=2.2.2"
+pandas = ">=2.2.2,<3"
 PyJWT = ">=2.8.0,<3"
 "ruamel.base" = ">=1.0.0,<2"
 "ruamel.yaml" = ">=0.18.0,<0.19"
@@ -1159,4 +1159,4 @@ reference = "testpypi"
 [metadata]
 lock-version = "2.1"
 python-versions = ">3.12,<3.13"
-content-hash = "62cbb9efb7d0ffc56ef290ac8fd85244a0698aa353a35fdcbff8dc4f1927fa41"
+content-hash = "54b0a46d02e2f14b20643b25d73cfe556a2998de9b4fb116dddc1ae35d169b6e"
