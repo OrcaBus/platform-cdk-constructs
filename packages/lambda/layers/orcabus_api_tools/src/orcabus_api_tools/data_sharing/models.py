@@ -1,4 +1,5 @@
-from datetime import datetime
+#!/usr/bin/env python3
+
 from typing import Literal, TypedDict, NotRequired, Union
 
 PackageStatusType = Literal[
