@@ -4,7 +4,7 @@
 
 [@orcabus/platform-cdk-constructs](../../../../../../README.md) / [sharedConfig](../../../README.md) / [s3](../README.md) / pipelineCachePrefix
 
-# Variable: ~~pipelineCachePrefix~~
+# ~~Variable: pipelineCachePrefix~~
 
 > `const` **pipelineCachePrefix**: `Record`\<[`StageName`](../../account/type-aliases/StageName.md), `string`\>
 
