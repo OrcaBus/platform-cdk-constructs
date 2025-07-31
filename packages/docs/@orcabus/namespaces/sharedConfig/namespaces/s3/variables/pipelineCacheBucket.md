@@ -4,7 +4,7 @@
 
 [@orcabus/platform-cdk-constructs](../../../../../../README.md) / [sharedConfig](../../../README.md) / [s3](../README.md) / pipelineCacheBucket
 
-# Variable: ~~pipelineCacheBucket~~
+# ~~Variable: pipelineCacheBucket~~
 
 > `const` **pipelineCacheBucket**: `Record`\<[`StageName`](../../account/type-aliases/StageName.md), `string`\>
 

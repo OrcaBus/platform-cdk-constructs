@@ -4,7 +4,7 @@
 
 [@orcabus/platform-cdk-constructs](../../../../../../README.md) / [sharedConfig](../../../README.md) / [icav2](../README.md) / icav2AccessTokenSecretId
 
-# Variable: ~~icav2AccessTokenSecretId~~
+# ~~Variable: icav2AccessTokenSecretId~~
 
 > `const` **icav2AccessTokenSecretId**: `Record`\<[`StageName`](../../account/type-aliases/StageName.md), `string`\>
 

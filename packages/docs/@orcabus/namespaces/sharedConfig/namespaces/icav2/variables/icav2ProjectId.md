@@ -4,7 +4,7 @@
 
 [@orcabus/platform-cdk-constructs](../../../../../../README.md) / [sharedConfig](../../../README.md) / [icav2](../README.md) / icav2ProjectId
 
-# Variable: ~~icav2ProjectId~~
+# ~~Variable: icav2ProjectId~~
 
 > `const` **icav2ProjectId**: `Record`\<[`StageName`](../../account/type-aliases/StageName.md), `string`\>
 
