@@ -274,14 +274,14 @@ files = [
 
 [[package]]
 name = "libica"
-version = "3.0"
+version = "3.1"
 description = "Python SDK for Illumina Connected Analytics"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "libica-3.0-py3-none-any.whl", hash = "sha256:ac268d0eeec64a7c85bd1ac29d8b60fb8befea470b715daa081ccefffad13e3e"},
-    {file = "libica-3.0.tar.gz", hash = "sha256:65b5cba177756437c518b1e2c81e48fd92ac3fe464ddf7d44bfe7f7d1eb639ef"},
+    {file = "libica-3.1-py3-none-any.whl", hash = "sha256:ef27d5576a5765d39a5f8617f18e46fbb2dce85e64e627e4f998a248d08e5439"},
+    {file = "libica-3.1.tar.gz", hash = "sha256:6b4f18d35d9881ec870b5d5b6ad5daa58e29110ab5d4537847cbf646086aafec"},
 ]
 
 [package.dependencies]
@@ -377,14 +377,14 @@ files = [
 
 [[package]]
 name = "mypy-boto3-secretsmanager"
-version = "1.39.0"
-description = "Type annotations for boto3 SecretsManager 1.39.0 service generated with mypy-boto3-builder 8.11.0"
+version = "1.40.0"
+description = "Type annotations for boto3 SecretsManager 1.40.0 service generated with mypy-boto3-builder 8.11.0"
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
 files = [
-    {file = "mypy_boto3_secretsmanager-1.39.0-py3-none-any.whl", hash = "sha256:7b652f05e05e5792c31bb30a668e77ba948462ac2e78cdf80aaf9fc6064fa387"},
-    {file = "mypy_boto3_secretsmanager-1.39.0.tar.gz", hash = "sha256:e054bd86e942cf26c13596564a156d9f4dac4dc72479f1c5d1fafa9cf231290d"},
+    {file = "mypy_boto3_secretsmanager-1.40.0-py3-none-any.whl", hash = "sha256:be624629e76d929c952e80e45faabfd7b512652ce1270c7e03c3ae247738eef6"},
+    {file = "mypy_boto3_secretsmanager-1.40.0.tar.gz", hash = "sha256:f6509365d5d4fe3260703badcef5a1c45455ed454e5f03f3573a5023cc176644"},
 ]
 
 [[package]]
@@ -1124,20 +1124,20 @@ test = ["websockets"]
 
 [[package]]
 name = "wrapica"
-version = "2.37.0.dev20250731075657"
+version = "2.37.0.dev20250801071834"
 description = "Secondary level functions for ICAv2 based off libica"
 optional = false
 python-versions = "<3.13,>=3.12"
 groups = ["main"]
 files = [
-    {file = "wrapica-2.37.0.dev20250731075657-py3-none-any.whl", hash = "sha256:25b50698f2dcd31375f210acea468f13f967cb207c971c1046363b373797494a"},
-    {file = "wrapica-2.37.0.dev20250731075657.tar.gz", hash = "sha256:6fa73905c90a0d0f7eb7c3898c06be83cd459aa83d0be1c986e280c4361138de"},
+    {file = "wrapica-2.37.0.dev20250801071834-py3-none-any.whl", hash = "sha256:93b1bae9d316e41b2976925da7ec478d2ce06403562c523b091cb94e43a15bce"},
+    {file = "wrapica-2.37.0.dev20250801071834.tar.gz", hash = "sha256:71a1fee7a346807aa71b9139ce70d281686f4a0ad0bf850bfbcfa4e852a4d538"},
 ]
 
 [package.dependencies]
 beautifulsoup4 = ">=4.10.0,<5"
 cwl_utils = ">=0.38,<1"
-libica = ">=3.0"
+libica = ">=3.1,<4"
 pandas = ">=2.2.2,<3"
 PyJWT = ">=2.8.0,<3"
 "ruamel.base" = ">=1.0.0,<2"
@@ -1159,4 +1159,4 @@ reference = "testpypi"
 [metadata]
 lock-version = "2.1"
 python-versions = ">3.12,<3.13"
-content-hash = "54b0a46d02e2f14b20643b25d73cfe556a2998de9b4fb116dddc1ae35d169b6e"
+content-hash = "6538cd5b066dc99768df4363fc24e298599ea7f94afb4e2fc50c2e8b75a6421b"
