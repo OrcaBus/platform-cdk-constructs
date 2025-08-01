@@ -70,6 +70,8 @@ from .query_helpers import get_icav2_wes_analysis_by_name
 from .update_helpers import update_icav2_wes_analysis_status
 
 __all__ = [
+    # Models
+    'WESPostRequest',
     # Launch helpers
     'create_icav2_wes_analysis',
     # Query helpers
