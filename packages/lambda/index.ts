@@ -144,8 +144,14 @@ export class PythonUvFunction extends PythonFunction {
                     afterBundling(inputDir: string, outputDir: string): string[] {
                         return (props.bundling?.commandHooks?.afterBundling as unknown as string[] ?? []).concat(
                           [
+                            // Delete the tests directory from pandas
                             `rm -rf ${outputDir}/pandas/tests`,
-                            `find ${outputDir} -name '__pycache__' -exec rm -rf {}/ \\;`,
+                            // Delete the *pyc files and __pycache__ directories
+                            `find ${outputDir} -type f -name '*.pyc' -delete`,
+                            // Delete the __pycache__ directories contents
+                            `find ${outputDir} -type d -name '__pycache__' -exec rm -rf {}/* \\;`,
+                            // Delete the __pycache__ directories themselves
+                            `find ${outputDir} -type d -name '__pycache__' -delete`,
                           ]
                         );
                     },
@@ -214,8 +220,14 @@ export class PythonUvFunction extends PythonFunction {
                         afterBundling(inputDir: string, outputDir: string): string[] {
                             return [
                                 `pip install ${inputDir} --target ${outputDir}`,
-                                `find ${outputDir} -name 'pandas' -exec rm -rf {}/tests/ \\;`,
-                                `find ${outputDir} -name '__pycache__' -exec rm -rf {}/ \\;`,
+                                // Delete the tests directory from pandas
+                                `rm -rf ${outputDir}/pandas/tests`,
+                                // Delete the *pyc files and __pycache__ directories
+                                `find ${outputDir} -type f -name '*.pyc' -delete`,
+                                // Delete the __pycache__ directories contents
+                                `find ${outputDir} -type d -name '__pycache__' -exec rm -rf {}/* \\;`,
+                                // Delete the __pycache__ directories themselves
+                                `find ${outputDir} -type d -name '__pycache__' -delete`,
                             ];
                         },
                     },
@@ -245,8 +257,14 @@ export class PythonUvFunction extends PythonFunction {
                         afterBundling(inputDir: string, outputDir: string): string[] {
                             return [
                                 `pip install ${inputDir} --target ${outputDir}`,
-                                `find ${outputDir} -name 'pandas' -exec rm -rf {}/tests/ \\;`,
-                                `find ${outputDir} -name '__pycache__' -exec rm -rf {}/ \\;`,
+                                // Delete the tests directory from pandas
+                                `rm -rf ${outputDir}/pandas/tests`,
+                                // Delete the *pyc files and __pycache__ directories
+                                `find ${outputDir} -type f -name '*.pyc' -delete`,
+                                // Delete the __pycache__ directories contents
+                                `find ${outputDir} -type d -name '__pycache__' -exec rm -rf {}/* \\;`,
+                                // Delete the __pycache__ directories themselves
+                                `find ${outputDir} -type d -name '__pycache__' -delete`,
                             ];
                         },
                     },
@@ -275,8 +293,14 @@ export class PythonUvFunction extends PythonFunction {
                         afterBundling(inputDir: string, outputDir: string): string[] {
                             return [
                                 `pip install ${inputDir} --target ${outputDir}`,
-                                `find ${outputDir} -name 'pandas' -exec rm -rf {}/tests/ \\;`,
-                                `find ${outputDir} -name '__pycache__' -exec rm -rf {}/ \\;`,
+                                // Delete the tests directory from pandas
+                                `rm -rf ${outputDir}/pandas/tests`,
+                                // Delete the *pyc files and __pycache__ directories
+                                `find ${outputDir} -type f -name '*.pyc' -delete`,
+                                // Delete the __pycache__ directories contents
+                                `find ${outputDir} -type d -name '__pycache__' -exec rm -rf {}/* \\;`,
+                                // Delete the __pycache__ directories themselves
+                                `find ${outputDir} -type d -name '__pycache__' -delete`,
                             ];
                         },
                     },
@@ -305,8 +329,14 @@ export class PythonUvFunction extends PythonFunction {
                         afterBundling(inputDir: string, outputDir: string): string[] {
                             return [
                                 `pip install ${inputDir} --target ${outputDir}`,
-                                `find ${outputDir} -name 'pandas' -exec rm -rf {}/tests/ \\;`,
-                                `find ${outputDir} -name '__pycache__' -exec rm -rf {}/ \\;`,
+                                // Delete the tests directory from pandas
+                                `rm -rf ${outputDir}/pandas/tests`,
+                                // Delete the *pyc files and __pycache__ directories
+                                `find ${outputDir} -type f -name '*.pyc' -delete`,
+                                // Delete the __pycache__ directories contents
+                                `find ${outputDir} -type d -name '__pycache__' -exec rm -rf {}/* \\;`,
+                                // Delete the __pycache__ directories themselves
+                                `find ${outputDir} -type d -name '__pycache__' -delete`,
                             ];
                         },
                     },
