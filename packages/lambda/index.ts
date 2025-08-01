@@ -142,7 +142,12 @@ export class PythonUvFunction extends PythonFunction {
                     },
                     // @ts-ignore
                     afterBundling(inputDir: string, outputDir: string): string[] {
-                        return (props.bundling?.commandHooks?.afterBundling as unknown as string[] ?? []).concat([`rm -rf ${outputDir}/pandas/tests`]);
+                        return (props.bundling?.commandHooks?.afterBundling as unknown as string[] ?? []).concat(
+                          [
+                            `rm -rf ${outputDir}/pandas/tests`,
+                            `find ${outputDir} -name '__pycache__' -exec rm -rf {}/ \\;`,
+                          ]
+                        );
                     },
                 },
             },
@@ -210,6 +215,7 @@ export class PythonUvFunction extends PythonFunction {
                             return [
                                 `pip install ${inputDir} --target ${outputDir}`,
                                 `find ${outputDir} -name 'pandas' -exec rm -rf {}/tests/ \\;`,
+                                `find ${outputDir} -name '__pycache__' -exec rm -rf {}/ \\;`,
                             ];
                         },
                     },
@@ -240,6 +246,7 @@ export class PythonUvFunction extends PythonFunction {
                             return [
                                 `pip install ${inputDir} --target ${outputDir}`,
                                 `find ${outputDir} -name 'pandas' -exec rm -rf {}/tests/ \\;`,
+                                `find ${outputDir} -name '__pycache__' -exec rm -rf {}/ \\;`,
                             ];
                         },
                     },
@@ -269,6 +276,7 @@ export class PythonUvFunction extends PythonFunction {
                             return [
                                 `pip install ${inputDir} --target ${outputDir}`,
                                 `find ${outputDir} -name 'pandas' -exec rm -rf {}/tests/ \\;`,
+                                `find ${outputDir} -name '__pycache__' -exec rm -rf {}/ \\;`,
                             ];
                         },
                     },
@@ -298,6 +306,7 @@ export class PythonUvFunction extends PythonFunction {
                             return [
                                 `pip install ${inputDir} --target ${outputDir}`,
                                 `find ${outputDir} -name 'pandas' -exec rm -rf {}/tests/ \\;`,
+                                `find ${outputDir} -name '__pycache__' -exec rm -rf {}/ \\;`,
                             ];
                         },
                     },
