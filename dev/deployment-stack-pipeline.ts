@@ -32,7 +32,7 @@ class DevStack extends cdk.Stack {
     super(scope, id, props);
 
     new DeploymentStackPipeline(this, "DeploymentPipeline", {
-      githubBranch: "main",
+      githubBranch: "feat/cdk-codepipeline-strip-assets",
       githubRepo: "platform-cdk-constructs",
       stack: DeploymentStack,
       stackName: "TestStack",
@@ -48,9 +48,7 @@ class DevStack extends cdk.Stack {
         "pnpm cdk synth",
       ],
       cdkOut: "dev/cdk.out",
-      // Use default props
-      // reuseExistingArtifactBucket: true,
-      // enableSlackNotification: false,
+      stripAssemblyAssets: true,
     });
   }
 }
