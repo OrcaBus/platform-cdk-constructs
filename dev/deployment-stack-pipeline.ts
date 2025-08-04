@@ -32,7 +32,7 @@ class DevStack extends cdk.Stack {
     super(scope, id, props);
 
     new DeploymentStackPipeline(this, "DeploymentPipeline", {
-      githubBranch: "feat/cdk-codepipeline-strip-assets",
+      githubBranch: "main",
       githubRepo: "platform-cdk-constructs",
       stack: DeploymentStack,
       stackName: "TestStack",
