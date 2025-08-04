@@ -14,7 +14,7 @@ from typing import List, Unpack
 
 # Local imports
 from . import get_fastq_unarchiving_request_response_results
-from .models import Job, JobStatus, JobQueryParameters
+from .models import Job, JobStatusType, JobQueryParameters
 
 from .globals import JOB_ENDPOINT
 
@@ -40,7 +40,7 @@ def get_unarchiving_job_list(**kwargs: Unpack[JobQueryParameters]) -> List[Job]:
 
 def get_job_list_for_fastq(
         fastq_id: str,
-        job_status: JobStatus
+        job_status: JobStatusType
 ) -> List[Job]:
     """
     Check if fastq in job list
@@ -48,5 +48,5 @@ def get_job_list_for_fastq(
     """
     return get_unarchiving_job_list(
         fastqId=fastq_id,
-        status=job_status.value
+        status=job_status
     )

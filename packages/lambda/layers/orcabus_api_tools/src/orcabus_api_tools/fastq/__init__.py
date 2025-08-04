@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Standard imports
-from typing import Dict, Optional
+from typing import Dict, Optional, List, Union
 
 # Local imports
 from .globals import FASTQ_SUBDOMAIN_NAME
@@ -40,27 +40,31 @@ def get_fastq_request_response_results(
 ):
     return get_request_response_results(
         url=get_fastq_url(endpoint),
-        params=params
+        params=params,
     )
 
 
 def fastq_patch_request(
     endpoint: str,
     params: Optional[Dict] = None,
+    json_data: Optional[Union[List, Dict]] = None,
 ):
     return patch_request(
         url=get_fastq_url(endpoint),
-        params=params
+        params=params,
+        json_data=json_data,
     )
 
 
 def fastq_post_request(
     endpoint: str,
     params: Optional[Dict] = None,
+    json_data: Optional[Dict] = None,
 ):
     return post_request(
         url=get_fastq_url(endpoint),
-        params=params
+        params=params,
+        json_data=json_data,
     )
 
 
@@ -70,14 +74,16 @@ def fastq_post_request(
 # Create
 from .create_helpers import (
     create_fastq_set_object,
-    create_fastq_list_row_object
+    create_fastq_list_row_object,
+    create_fastq_object,
 )
 
 # Job
 from .job_helpers import (
     run_qc_stats,
     run_ntsm,
-    run_file_compression_stats
+    run_file_compression_stats,
+    run_read_count_stats
 )
 
 # Query
@@ -97,7 +103,8 @@ from .query_helpers import (
     get_fastqs_in_individual,
     get_fastqs_in_project,
     get_fastq_list_rows_in_fastq_set,
-    get_fastq_jobs,
+    get_fastqs_in_fastq_set,
+    get_fastq_jobs, get_fastq_by_rgid,
 )
 
 # Updaters
@@ -111,11 +118,19 @@ from .update_helpers import (
     validate_fastq,
     invalidate_fastq,
     link_fastq_list_row_to_fastq_set,
+    link_fastq_to_fastq_set,
     unlink_fastq_list_row_from_fastq_set,
+    unlink_fastq_from_fastq_set,
     allow_additional_fastqs_to_fastq_set,
     disallow_additional_fastqs_to_fastq_set,
     set_is_current_fastq_set,
     set_is_not_current_fastq_set,
+)
+
+# Validation
+from .validation_helpers import (
+    validate_ntsm_internal,
+    validate_ntsm_external,
 )
 
 # Workflow
@@ -124,15 +139,23 @@ from .workflow_helpers import (
     to_fastq_list_rows
 )
 
+# Multiqc
+from .multiqc_helpers import (
+    run_multiqc,
+    update_multiqc_job_status
+)
+
 
 __all__ = [
     # Create
     "create_fastq_set_object",
     "create_fastq_list_row_object",
+    "create_fastq_object",
     # Job
     "run_qc_stats",
     "run_ntsm",
     "run_file_compression_stats",
+    "run_read_count_stats",
     # Query
     "get_fastq",
     "get_fastq_set",
@@ -148,7 +171,9 @@ __all__ = [
     "get_fastqs_in_subject",
     "get_fastqs_in_individual",
     "get_fastqs_in_project",
+    "get_fastq_by_rgid",
     "get_fastq_list_rows_in_fastq_set",
+    "get_fastqs_in_fastq_set",
     "get_fastq_jobs",
     # Updaters
     "add_qc_stats",
@@ -160,13 +185,21 @@ __all__ = [
     "validate_fastq",
     "invalidate_fastq",
     "link_fastq_list_row_to_fastq_set",
+    "link_fastq_to_fastq_set",
     "unlink_fastq_list_row_from_fastq_set",
+    "unlink_fastq_from_fastq_set",
     "allow_additional_fastqs_to_fastq_set",
     "disallow_additional_fastqs_to_fastq_set",
     "set_is_current_fastq_set",
     "set_is_not_current_fastq_set",
+    # Validation
+    "validate_ntsm_internal",
+    "validate_ntsm_external",
     # Workflow
     "to_fastq_list_row",
     "to_fastq_list_rows",
+    # Multiqc
+    "run_multiqc",
+    "update_multiqc_job_status",
 ]
 

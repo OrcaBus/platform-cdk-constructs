@@ -15,29 +15,35 @@ get_fastqs_in_individual
 
 get_fastqs_in_project
 
-get_fastq_by_rgid_and_instrument_run_id
+get_fastq_by_rgid
 
 """
+
+# Standard imports
 from functools import reduce
 from itertools import batched
 from operator import concat
 from typing import List, Unpack
+from fastapi.encoders import jsonable_encoder
 
+# Local imports
 from . import get_fastq_request_response_results, get_fastq_request
-from .globals import FASTQ_LIST_ROW_ENDPOINT, FASTQ_SET_ENDPOINT
-from .models import FastqListRow, FastqSet, Job, FastqListRowQueryParameters, FastqSetQueryParameters, \
-    FastqGetResponseParameters, VALID_BATCH_KEYS
+from .globals import FASTQ_ENDPOINT, FASTQ_SET_ENDPOINT, RGID_ENDPOINT
+from .models import (
+    FastqSet, Job, FastqParameters, FastqSetQueryParameters,
+    FastqGetResponseParameters, VALID_BATCH_KEYS, Fastq
+)
 
 
-def get_fastq(fastq_id: str, **kwargs: Unpack[FastqGetResponseParameters]) -> FastqListRow:
+def get_fastq(fastq_id: str, **kwargs: Unpack[FastqGetResponseParameters]) -> Fastq:
     # Raise error if any of the kwargs are not in the FastqSetQueryParameters
     for key in kwargs.keys():
         if key not in FastqGetResponseParameters.__annotations__:
             raise ValueError(f"Invalid parameter: {key}")
 
-    return FastqListRow(
+    return Fastq(
         **get_fastq_request(
-            f"{FASTQ_LIST_ROW_ENDPOINT}/{fastq_id}",
+            f"{FASTQ_ENDPOINT}/{fastq_id}",
             params=dict(kwargs)
         )
     )
@@ -55,7 +61,7 @@ def get_fastq_set(
     """
     # Raise error if any of the kwargs are not in the FastqSetQueryParameters
     for key in kwargs.keys():
-        if key not in FastqSetQueryParameters.__annotations__:
+        if key not in FastqGetResponseParameters.__annotations__:
             raise ValueError(f"Invalid parameter: {key}")
 
     return FastqSet(
@@ -66,17 +72,17 @@ def get_fastq_set(
     )
 
 
-def get_fastqs(**kwargs: Unpack[FastqListRowQueryParameters]) -> List[FastqListRow]:
+def get_fastqs(**kwargs: Unpack[FastqParameters]) -> List[Fastq]:
     """
     Get all fastqs
     """
-    # Raise error if any of the kwargs are not in the FastqListRowQueryParameters
+    # Raise error if any of the kwargs are not in the FastqParameters
     for key in kwargs.keys():
-        if key not in FastqListRowQueryParameters.__annotations__:
+        if key not in FastqParameters.__annotations__:
             raise ValueError(f"Invalid parameter: {key}")
 
     return get_fastq_request_response_results(
-        FASTQ_LIST_ROW_ENDPOINT,
+        FASTQ_ENDPOINT,
         params=dict(kwargs)
     )
 
@@ -88,14 +94,14 @@ def get_fastq_sets(**kwargs: Unpack[FastqSetQueryParameters]) -> List[FastqSet]:
     :param kwargs:
     :return:
     """
-    # Raise error if any of the kwargs are not in the FastqListRowQueryParameters
+    # Raise error if any of the kwargs are not in the FastqParameters
     for key in kwargs.keys():
         if key not in FastqSetQueryParameters.__annotations__:
             raise ValueError(f"Invalid parameter: {key}")
 
     return get_fastq_request_response_results(
         FASTQ_SET_ENDPOINT,
-        params=dict(kwargs)
+        params=jsonable_encoder(dict(kwargs))
     )
 
 
@@ -122,7 +128,7 @@ def get_fastqs_batched(
         item_list: List[str],
         batch_size: int = 100,
         **kwargs
-) -> List[FastqListRow]:
+) -> List[Fastq]:
     """
     Get all fastqs in a list of libraries
     """
@@ -152,7 +158,7 @@ def get_fastqs_batched(
 
 def get_fastqs_in_library_list(
         library_id_list: List[str]
-) -> List[FastqListRow]:
+) -> List[Fastq]:
     """
     Get all fastqs in a list of libraries
     """
@@ -227,9 +233,36 @@ def get_fastqs_in_project(project_id):
     )
 
 
+def get_fastq_by_rgid(
+        rgid: str,
+        **kwargs: Unpack[FastqGetResponseParameters]
+) -> Fastq:
+    # Raise error if any of the kwargs are not in the FastqGetResponseParameters
+    for key in kwargs.keys():
+        if key not in FastqGetResponseParameters.__annotations__:
+            raise ValueError(f"Invalid parameter: {key}")
+
+    return get_fastq_request(
+        f"{RGID_ENDPOINT}/{rgid}",
+        params=dict(filter(
+            lambda kv_iter_: kv_iter_[1] is not None,
+            kwargs.items()
+        ))
+    )
+
+
 def get_fastq_list_rows_in_fastq_set(fastq_set_id):
     """
+    DEPRECATED: Use get_fastqs_in_fastq_set instead
+    """
+    return get_fastqs_in_fastq_set(fastq_set_id)
+
+
+def get_fastqs_in_fastq_set(fastq_set_id: str) -> List[Fastq]:
+    """
     Get all fastqs in a fastq set
+    :param fastq_set_id:
+    :return:
     """
     return get_fastqs(
         fastqSetId=fastq_set_id
@@ -243,6 +276,6 @@ def get_fastq_jobs(fastq_id: str) -> List[Job]:
     return list(map(
         lambda job_iter_: Job(**job_iter_),
         get_fastq_request_response_results(
-            f"{FASTQ_LIST_ROW_ENDPOINT}/{fastq_id}/jobs"
+            f"{FASTQ_ENDPOINT}/{fastq_id}/jobs"
         )
     ))

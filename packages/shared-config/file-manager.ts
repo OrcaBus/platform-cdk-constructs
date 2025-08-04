@@ -2,51 +2,56 @@
  * Shared config for the FileManager.
  */
 
-import { validateSecretName } from "../utils";
 import {
   BETA_ENVIRONMENT,
   GAMMA_ENVIRONMENT,
   PROD_ENVIRONMENT,
 } from "../deployment-stack-pipeline";
-import {StageName} from "./accounts";
+import { StageName } from "./accounts";
+import {PIPELINE_CACHE_BUCKET} from "./s3";
+import { validateSecretName } from "./secrets";
 
-export const fileManagerBuckets: Record<StageName, string[]> = {
+export const FILE_MANAGER_BUCKETS: Record<StageName, string[]> = {
   BETA: [
     "umccr-temp-dev",
-    `ntsm-fingerprints-${BETA_ENVIRONMENT.account}-ap-southeast-2`,
-    `data-sharing-artifacts-${BETA_ENVIRONMENT.account}-ap-southeast-2`,
+    `ntsm-fingerprints-${BETA_ENVIRONMENT.account}-${BETA_ENVIRONMENT.region}`,
+    `fastq-manager-sequali-outputs-${BETA_ENVIRONMENT.account}-${BETA_ENVIRONMENT.region}`,
+    `data-sharing-artifacts-${BETA_ENVIRONMENT.account}-${BETA_ENVIRONMENT.region}`,
     "filemanager-inventory-test",
   ],
   GAMMA: [
     "umccr-temp-stg",
-    `ntsm-fingerprints-${GAMMA_ENVIRONMENT.account}-ap-southeast-2`,
-    `data-sharing-artifacts-${GAMMA_ENVIRONMENT.account}-ap-southeast-2`,
+    `ntsm-fingerprints-${GAMMA_ENVIRONMENT.account}-${GAMMA_ENVIRONMENT.region}`,
+    `fastq-manager-sequali-outputs-${GAMMA_ENVIRONMENT.account}-${GAMMA_ENVIRONMENT.region}`,
+    `data-sharing-artifacts-${GAMMA_ENVIRONMENT.account}-${GAMMA_ENVIRONMENT.region}`,
   ],
   PROD: [
     "org.umccr.data.oncoanalyser",
     "archive-prod-analysis-503977275616-ap-southeast-2",
     "archive-prod-fastq-503977275616-ap-southeast-2",
-    `ntsm-fingerprints-${PROD_ENVIRONMENT.account}-ap-southeast-2`,
-    `data-sharing-artifacts-${PROD_ENVIRONMENT.account}-ap-southeast-2`,
-    "pipeline-montauk-977251586657-ap-southeast-2",
+    `ntsm-fingerprints-${PROD_ENVIRONMENT.account}-${PROD_ENVIRONMENT.region}`,
+    `fastq-manager-sequali-outputs-${PROD_ENVIRONMENT.account}-${PROD_ENVIRONMENT.region}`,
+    `data-sharing-artifacts-${PROD_ENVIRONMENT.account}-${PROD_ENVIRONMENT.region}`,
+    `pipeline-montauk-977251586657-${PROD_ENVIRONMENT.region}`,
   ],
 };
 
-export const fileManagerCacheBuckets: Record<StageName, string[]> = {
-  BETA: ["pipeline-dev-cache-503977275616-ap-southeast-2"],
-  GAMMA: ["pipeline-stg-cache-503977275616-ap-southeast-2"],
-  PROD: ["pipeline-prod-cache-503977275616-ap-southeast-2"],
+export const FILE_MANAGER_CACHE_BUCKETS: Record<StageName, string[]> = {
+  BETA: [PIPELINE_CACHE_BUCKET.BETA],
+  GAMMA: [PIPELINE_CACHE_BUCKET.GAMMA],
+  PROD: [PIPELINE_CACHE_BUCKET.PROD],
 };
 
-export const fileManagerPresignUserSecret = "orcabus/file-manager-presign-user"; // pragma: allowlist secret
-export const accessKeySecretArn: Record<StageName, string> = {
-  BETA: `arn:aws:secretsmanager:${BETA_ENVIRONMENT.region}:${BETA_ENVIRONMENT.account}:secret:${fileManagerPresignUserSecret}`,
-  GAMMA: `arn:aws:secretsmanager:${GAMMA_ENVIRONMENT.region}:${GAMMA_ENVIRONMENT.account}:secret:${fileManagerPresignUserSecret}`,
-  PROD: `arn:aws:secretsmanager:${PROD_ENVIRONMENT.region}:${PROD_ENVIRONMENT.account}:secret:${fileManagerPresignUserSecret}`,
+export const FILE_MANAGER_PRESIGN_USER_SECRET =
+  "orcabus/file-manager-presign-user"; // pragma: allowlist secret
+validateSecretName(FILE_MANAGER_PRESIGN_USER_SECRET);
+
+export const FILE_MANAGER_ACCESS_KEY_ARNS: Record<StageName, string> = {
+  BETA: `arn:aws:secretsmanager:${BETA_ENVIRONMENT.region}:${BETA_ENVIRONMENT.account}:secret:${FILE_MANAGER_PRESIGN_USER_SECRET}`,
+  GAMMA: `arn:aws:secretsmanager:${GAMMA_ENVIRONMENT.region}:${GAMMA_ENVIRONMENT.account}:secret:${FILE_MANAGER_PRESIGN_USER_SECRET}`,
+  PROD: `arn:aws:secretsmanager:${PROD_ENVIRONMENT.region}:${PROD_ENVIRONMENT.account}:secret:${FILE_MANAGER_PRESIGN_USER_SECRET}`,
 };
 
-export const fileManagerIngestRoleName = "orcabus-file-manager-ingest-role";
-validateSecretName(fileManagerPresignUserSecret);
-
-export const fileManagerPresignUser = "orcabus-file-manager-presign-user"; // pragma: allowlist secret
-export const fileManagerDomainPrefix = "file";
+export const FILE_MANAGER_INGEST_ROLE = "orcabus-file-manager-ingest-role";
+export const FILE_MANAGER_PRESIGN_USER = "orcabus-file-manager-presign-user"; // pragma: allowlist secret
+export const FILE_MANAGER_DOMAIN_PREFIX = "file";

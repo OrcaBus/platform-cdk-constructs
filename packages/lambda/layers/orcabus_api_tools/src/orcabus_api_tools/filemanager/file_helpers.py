@@ -1,24 +1,30 @@
 #!/usr/bin/env python3
+
+# Standard imports
+import json
 from functools import reduce
 from operator import concat
 from typing import List, Dict, Union
 import typing
-
 import boto3
+from datetime import datetime, timedelta, timezone
+from urllib.parse import urlparse, unquote
+from itertools import batched
 
+# Local imports
 from .errors import S3FileNotFoundError, S3DuplicateFileCopyError
-from .models import FileObject
+from .models import FileObject, StorageClassPriority
 from ..utils.miscell import get_bucket_key_pair_from_uri
-from . import get_file_manager_request_response_results, get_file_manager_request, file_manager_patch_request
+from . import (
+    get_file_manager_request_response_results,
+    get_file_manager_request,
+    file_manager_patch_request
+)
 from .globals import (
     S3_LIST_ENDPOINT,
     S3_BUCKETS_BY_ACCOUNT_ID,
-    S3_PREFIXES_BY_ACCOUNT_ID,
-    StorageEnum, StoragePriority,
+    S3_PREFIXES_BY_ACCOUNT_ID, S3_ATTRIBUTES_LIST_ENDPOINT
 )
-from datetime import datetime, timedelta, timezone
-from urllib.parse import urlparse
-from itertools import batched
 
 if typing.TYPE_CHECKING:
     from mypy_boto3_sts import STSClient
@@ -94,7 +100,7 @@ def get_file_object_from_ingest_id(ingest_id: str, **kwargs) -> FileObject:
     ))
 
     # Order by storage class
-    file_objects_list.sort(key=lambda file_obj_iter_: StoragePriority[StorageEnum(file_obj_iter_['storageClass']).name].value)
+    file_objects_list.sort(key=lambda file_obj_iter_: StorageClassPriority[file_obj_iter_['storageClass']])
 
     # Return as a FileObject model
     return file_objects_list[0]
@@ -102,27 +108,22 @@ def get_file_object_from_ingest_id(ingest_id: str, **kwargs) -> FileObject:
 
 def list_files_from_portal_run_id(
         portal_run_id: str,
-        workflow_name: str,
-        **kwargs
+        remove_log_files: bool = True,
 ) -> List[FileObject]:
-    portal_run_id_date_str = datetime.strptime(portal_run_id[:8], "%Y%m%d")
 
     # Get files from cache
-    cache_response = get_file_manager_request_response_results(S3_LIST_ENDPOINT, {
-        "bucket": get_cache_bucket_from_account_id(),
-        "key": f"{get_analysis_cache_prefix_from_account_id()}/{workflow_name}/{portal_run_id}/*",
-        **kwargs
+    all_files_list = get_file_manager_request_response_results(S3_ATTRIBUTES_LIST_ENDPOINT, {
+        "portalRunId": portal_run_id,
+        "currentState": json.dumps(True)
     })
 
-    # Get files from archive
-    archive_response = get_file_manager_request_response_results(S3_LIST_ENDPOINT, {
-        "bucket": get_archive_analysis_bucket_from_account_id(),
-        "key": f"v1/year={portal_run_id_date_str.year}/month={str(portal_run_id_date_str.month).zfill(2)}/{portal_run_id}/*",
-        **kwargs
-    })
+    if not remove_log_files:
+        return all_files_list
 
-    # Return as a list of FileObject models
-    return [FileObject(**file) for file in cache_response + archive_response]
+    return list(filter(
+        lambda file_iter_: not '/ica_logs/' in file_iter_['key'],
+        all_files_list
+    ))
 
 
 def get_presigned_url(s3_object_id: str) -> str:
@@ -131,7 +132,6 @@ def get_presigned_url(s3_object_id: str) -> str:
     :param s3_object_id:
     :return:
     """
-
     response = get_file_manager_request(f"{S3_LIST_ENDPOINT}/presign/{s3_object_id}")
 
     return str(response)
@@ -164,6 +164,16 @@ def get_presigned_url_from_ingest_id(ingest_id: str) -> str:
     return get_presigned_url(get_file_object_from_ingest_id(ingest_id)['s3ObjectId'])
 
 
+def create_presigned_url_map(s3_object_iter_: Dict, presigned_url_list: List[str]):
+    return {
+        "ingestId": s3_object_iter_['ingestId'],
+        "presignedUrl": next(filter(
+            lambda presigned_url_iter_: unquote(urlparse(presigned_url_iter_).path.lstrip("/")) == s3_object_iter_['fileObject']['key'],
+            presigned_url_list
+        ))
+    }
+
+
 def get_presigned_urls_from_ingest_ids(ingest_ids: List[str]) -> List[Dict[str, str]]:
     """
     Get presigned urls from a list of ingest ids using the bulk presign method
@@ -189,14 +199,8 @@ def get_presigned_urls_from_ingest_ids(ingest_ids: List[str]) -> List[Dict[str, 
 
     # Map the presigned urls to the s3 objects
     return list(map(
-        lambda presigned_url_iter_: {
-            "ingestId": next(filter(
-                lambda s3_object_iter_: s3_object_iter_['fileObject']['key'] == urlparse(presigned_url_iter_).path.lstrip("/"),
-                s3_object_list
-            ))['ingestId'],
-            "presignedUrl": presigned_url_iter_
-        },
-        presigned_url_list
+        lambda s3_object_iter_: create_presigned_url_map(s3_object_iter_, presigned_url_list),
+        s3_object_list
     ))
 
 
@@ -263,8 +267,9 @@ def get_s3_objs_from_ingest_ids_map(ingest_ids: List[str], **kwargs) -> List[Dic
             continue
 
         s3_objects_match.sort(
-            key=lambda s3_object_iter_: StoragePriority[
-                StorageEnum(s3_object_iter_['fileObject']['storageClass']).name].value
+            key=lambda s3_object_iter_: StorageClassPriority[
+                s3_object_iter_['fileObject']['storageClass']
+            ]
         )
 
         s3_objects_by_ingest_id_filtered.append(
@@ -337,5 +342,8 @@ def update_ingest_id(s3_object_id: str, new_ingest_id: str) -> Dict:
     }
     return file_manager_patch_request(
         endpoint=f"{S3_LIST_ENDPOINT}/{s3_object_id}",
-        params=json_data
+        json_data=json_data,
+        params = {
+            "updateTag": json.dumps(True)
+        }
     )

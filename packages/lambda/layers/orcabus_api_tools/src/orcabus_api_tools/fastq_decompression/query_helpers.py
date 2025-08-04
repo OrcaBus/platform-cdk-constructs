@@ -10,11 +10,11 @@ get_unarchiving_job_list
 """
 
 # Type hints
-from typing import List, Unpack
+from typing import List, Unpack, Optional
 
 # Local imports
 from . import get_fastq_decompression_request_response_results
-from .models import Job, JobStatus, JobQueryParameters
+from .models import Job, JobStatusType, JobQueryParameters
 from .globals import JOB_ENDPOINT
 
 
@@ -37,15 +37,18 @@ def get_decompression_job_list(**kwargs: Unpack[JobQueryParameters]) -> List[Job
     )
 
 
-def get_job_list_for_fastq_set(
-        fastq_set_id: str,
-        job_status: JobStatus
+def get_job_list_for_fastq(
+        fastq_id: str,
+        status: Optional[JobStatusType] = None
 ) -> List[Job]:
     """
     Check if fastq in job list
     :return:
     """
-    return get_decompression_job_list(
-        fastqSetId=fastq_set_id,
-        status=job_status
-    )
+    return get_decompression_job_list(**dict(filter(
+        lambda kv_iter_: kv_iter_[1] is not None,
+        {
+            "fastqId": fastq_id,
+            "status": status
+        }.items()
+    )))

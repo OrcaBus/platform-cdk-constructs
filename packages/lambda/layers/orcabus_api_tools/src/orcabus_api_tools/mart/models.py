@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 from enum import Enum
-from typing import Literal
-
 
 class AthenaDMLTypes(Enum):
     # https://docs.aws.amazon.com/athena/latest/ug/data-types.html

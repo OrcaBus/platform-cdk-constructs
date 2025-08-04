@@ -17,13 +17,13 @@ from typing import Optional
 
 # Local imports
 from . import fastq_unarchiving_patch_request
-from .globals import JobStatus, JOB_ENDPOINT
-from .models import Job
+from .globals import JOB_ENDPOINT
+from .models import Job, JobStatusType
 
 
 def update_status(
         job_id: str,
-        job_status: JobStatus,
+        job_status: JobStatusType,
         error_message: Optional[str] = None
 ) -> Job:
     """
@@ -35,7 +35,7 @@ def update_status(
     """
     return fastq_unarchiving_patch_request(
         f"{JOB_ENDPOINT}/{job_id}",
-        params=dict(filter(
+        json_data=dict(filter(
             lambda x: x[1] is not None,
             {
                 "status": job_status,

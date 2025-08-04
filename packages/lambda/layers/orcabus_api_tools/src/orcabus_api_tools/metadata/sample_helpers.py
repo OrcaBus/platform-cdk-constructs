@@ -16,8 +16,7 @@ from requests.exceptions import HTTPError
 from . import get_metadata_request_response_results, get_item_objs_from_item_id_list
 from .errors import SampleNotFoundError
 from .globals import SAMPLE_ENDPOINT, ORCABUS_ULID_REGEX_MATCH
-from .models import Sample, LibraryDetail
-
+from .models import Sample, LibraryDetail, Project
 
 
 def get_sample_from_sample_id(sample_id: str) -> Sample:
@@ -45,7 +44,7 @@ def get_sample_from_sample_id(sample_id: str) -> Sample:
 def get_samples_list_from_sample_id_list(sample_id_list: List[str], accept_missing: bool = False) -> List[Sample]:
     """
     Get sample from the sample id
-    :param sample_id:
+    :param sample_id_list:
     :return:
     """
     # We have an internal id, convert to int
@@ -89,7 +88,7 @@ def get_sample_from_sample_orcabus_id(sample_orcabus_id: str) -> Sample:
 def get_samples_list_from_sample_orcabus_id_list(sample_orcabus_id_list: List[str], accept_missing: bool = False) -> List[Project]:
     """
     Get sample from the sample id
-    :param sample_id:
+    :param sample_orcabus_id_list:
     :return:
     """
     # We have an internal id, convert to int

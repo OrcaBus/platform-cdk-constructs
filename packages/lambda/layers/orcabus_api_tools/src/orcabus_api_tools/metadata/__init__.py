@@ -50,7 +50,7 @@ def get_item_objs_from_item_id_list(
             }
         )
     except HTTPError as e:
-        raise HTTPError(f"Could not get item from item id list {item_id_list} from endpoint {endpoint}") from e
+        raise ValueError(f"Could not get item from item id list {item_id_list} from endpoint {endpoint}") from e
 
     # Accept missing
     if accept_missing:
@@ -75,7 +75,7 @@ def get_item_from_item_id_list_batched(
         endpoint: str,
         accept_missing: bool = False,
         batch_size: int = 50
-) -> List[Dict[str: Any]]:
+) -> List[Dict[str, Any]]:
     """
     Get items from a list of item ids
     We batch the requests to avoid hitting the API limits

@@ -17,4 +17,4 @@ Defined in: [packages/lambda/index.ts:63](https://github.com/OrcaBus/platform-cd
 Defined in: [packages/lambda/index.ts:68](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L68)
 
 The id of the secret that contains the icav2 access token
-otherwise it will default to @DEFAULT_ICAV2_ACCESS_TOKEN_SECRET_ID
+otherwise it will default to @ICAV2_ACCESS_TOKEN_SECRET_ID

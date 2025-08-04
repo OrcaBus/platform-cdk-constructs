@@ -1,11 +1,14 @@
 import {Construct} from "constructs";
-import {DEFAULT_ARCHITECTURE, DEFAULT_MAIN_VPC_NAME, DEFAULT_MEMORY_GB, DEFAULT_VCPUS} from "./config";
+import {DEFAULT_ARCHITECTURE, DEFAULT_MEMORY_GB, DEFAULT_VCPUS} from "./config";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as ecs from "aws-cdk-lib/aws-ecs";
 import {ContainerInsights} from "aws-cdk-lib/aws-ecs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as ecrAssets from "aws-cdk-lib/aws-ecr-assets";
+import * as iam from "aws-cdk-lib/aws-iam";
 import {RetentionDays} from "aws-cdk-lib/aws-logs";
+import {VPC_NAME} from "../shared-config/networking";
+import {IRole, ManagedPolicy} from "aws-cdk-lib/aws-iam";
 
 // Memory and CPU limits for Fargate tasks
 /*
@@ -45,7 +48,7 @@ export interface FargateEcsTaskConstructProps {
     /**
      * The runtime CPU architecture, either X86_64 or ARM64. If not provided, the default is @DEFAULT_ARCHITECTURE.
      */
-    readonly runtimePlatform: ecs.CpuArchitecture
+    readonly runtimePlatform?: ecs.CpuArchitecture
 
     /**
      * The number of CPUs to use, between 0.25 and 16. If not provided, the default is @DEFAULT_VCPUS.
@@ -62,7 +65,7 @@ export interface FargateEcsTaskConstructProps {
     /**
      * The architecture of the container. If not provided, the default is @DEFAULT_ARCHITECTURE.
      */
-    readonly architecture: Architecture
+    readonly architecture?: Architecture
 
 
     /**
@@ -79,6 +82,7 @@ export interface FargateEcsTaskConstructProps {
 export class EcsFargateTaskConstruct extends Construct {
     public readonly cluster: ecs.ICluster
     public readonly taskDefinition: ecs.FargateTaskDefinition
+    public readonly taskExecutionRole: IRole
     public readonly securityGroup: ec2.ISecurityGroup
     public readonly containerDefinition: ecs.ContainerDefinition
 
@@ -91,7 +95,7 @@ export class EcsFargateTaskConstruct extends Construct {
         // Set up the main vpc
         const mainVpc = ec2.Vpc.fromLookup(
             this, 'MainVpc', {
-                vpcName: props.vpcName ?? DEFAULT_MAIN_VPC_NAME
+                vpcName: props.vpcName ?? VPC_NAME
             }
         )
 
@@ -102,13 +106,23 @@ export class EcsFargateTaskConstruct extends Construct {
             containerInsightsV2: ContainerInsights.ENABLED
         })
 
+        // Allow the task definition role ecr access to the guardduty agent
+        // https://docs.aws.amazon.com/guardduty/latest/ug/prereq-runtime-monitoring-ecs-support.html#before-enable-runtime-monitoring-ecs
+        // Which is in another account - 005257825471.dkr.ecr.ap-southeast-2.amazonaws.com/aws-guardduty-agent-fargate
+        this.taskExecutionRole = new iam.Role(this, `TaskExecutionRole`, {
+          assumedBy: new iam.ServicePrincipal('ecs-tasks.amazonaws.com'),
+          managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('service-role/AmazonECSTaskExecutionRolePolicy')],
+        })
+
         // Set up the Fargate task definition
         this.taskDefinition = new ecs.FargateTaskDefinition(this, 'FargateTaskDef', {
             cpu: (props.nCpus ?? DEFAULT_VCPUS) * 1024,
-            memoryLimitMiB: props.memoryLimitGiB ?? (DEFAULT_MEMORY_GB) * 1024,
+            // Convert memory limit from GiB to MiB (1 GiB = 1024 MiB)
+            memoryLimitMiB: (props.memoryLimitGiB ?? DEFAULT_MEMORY_GB) * 1024,
             runtimePlatform: {
                 cpuArchitecture: props.runtimePlatform ?? CPU_ARCHITECTURE_MAP[architecture],
-            }
+            },
+            executionRole: this.taskExecutionRole
         })
 
         // Set up the security group

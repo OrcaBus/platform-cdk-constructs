@@ -8,4 +8,4 @@
 
 > `const` **LAMBDA\_ARCHITECTURE\_MAP**: `Record`\<[`Architecture`](../type-aliases/Architecture.md), `lambda.Architecture`\>
 
-Defined in: [packages/ecs/index.ts:34](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L34)
+Defined in: [packages/ecs/index.ts:37](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L37)

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-from typing import Dict, Optional, List
+import json
+from typing import Dict, Optional, List, Union
 from urllib.parse import urlunparse, unquote
 
 # Standard imports
@@ -7,6 +8,7 @@ import requests
 import logging
 from copy import deepcopy
 
+from fastapi.encoders import jsonable_encoder
 from requests import HTTPError
 
 # Locals
@@ -62,12 +64,24 @@ def get_request_response_results(url: str, params: Optional[Dict] = None) -> Lis
         params if params is not None else {}
     )
 
+    # Iterate through each of the params, if any of the values
+    # are boolean, convert them to strings via json.dumps
+    req_params = dict(map(
+        lambda kv_iter_: (
+            kv_iter_[0], (
+                json.dumps(kv_iter_[1])
+                if isinstance(kv_iter_[1], bool)
+                else kv_iter_[1]
+            )
+        ),
+        req_params.items()
+    ))
 
     # Make the request
     response = requests.get(
         url,
         headers=headers,
-        params=req_params
+        params=jsonable_encoder(req_params)
     )
 
     response.raise_for_status()
@@ -103,23 +117,27 @@ def get_request(url: str, params: Optional[Dict] = None) -> Dict:
     return response.json()
 
 
-def patch_request(url: str, params: Optional[Dict] = None) -> Dict:
+def patch_request(
+        url: str,
+        json_data: Optional[Dict] = None,
+        params: Optional[Union[List | Dict]] = None
+) -> Dict:
     # Get authorization header
     headers = {
         "Authorization": f"Bearer {get_orcabus_token()}"
     }
 
-    req_params = deepcopy(DEFAULT_REQUEST_PARAMS)
-
-    req_params.update(
-        params if params is not None else {}
-    )
+    if json_data is not None:
+       headers.update({
+           "Content-Type": "application/json"
+       })
 
     # Make the request
     response = requests.patch(
         url,
         headers=headers,
-        json=req_params
+        params=params,
+        json=json_data
     )
 
     try:
@@ -130,29 +148,34 @@ def patch_request(url: str, params: Optional[Dict] = None) -> Dict:
     return response.json()
 
 
-def post_request(url: str, params: Optional[Dict] = None) -> Dict:
+def post_request(
+        url: str,
+        json_data: Optional[Dict] = None,
+        params: Optional[Dict] = None
+) -> Dict:
     """
     Run post request against the fastq endpoint
+    :param json_data:
     :param url:
     :param params:
     :return:
     """
     # Get authorization header
     headers = {
-        "Authorization": f"Bearer {get_orcabus_token()}"
+        "Authorization": f"Bearer {get_orcabus_token()}",
     }
 
-    req_params = deepcopy(DEFAULT_REQUEST_PARAMS)
-
-    req_params.update(
-        params if params is not None else {}
-    )
+    if json_data is not None:
+       headers.update({
+           "Content-Type": "application/json"
+       })
 
     # Make the request
     response = requests.post(
         url,
         headers=headers,
-        json=req_params
+        json=json_data,
+        params=params
     )
 
     try:

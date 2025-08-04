@@ -35,27 +35,31 @@
 }
 """
 
-from enum import Enum
 from typing import (
     TypedDict,
     Optional,
     Dict,
-    List, NotRequired, Union, Literal
+    List, NotRequired, Union,
+    Literal
 )
 from datetime import datetime
 
 
-class JobType(Enum):
-    QC = 'QC'
-    FILE_COMPRESSION = 'FILE_COMPRESSION'
-    NTSM = 'NTSM'
+JobType = Literal[
+    'QC',
+    'FILE_COMPRESSION',
+    'NTSM',
+    'READ_COUNT',
+]
 
 
-class JobStatus(Enum):
-    PENDING = "PENDING"
-    RUNNING = "RUNNING"
-    FAILED = "FAILED"
-    SUCCEEDED = "SUCCEEDED"
+JobStatus = Literal[
+    "PENDING",
+    "RUNNING",
+    "FAILED",
+    "SUCCEEDED",
+]
+
 
 
 class FileStorageObject(TypedDict):
@@ -81,6 +85,25 @@ class Library(TypedDict):
     libraryId: str
 
 
+class SequaliReportsDict(TypedDict):
+    sequaliHtml: FileStorageObject
+    sequaliParquet: FileStorageObject
+    multiqcHtml: FileStorageObject
+    multiqcParquet: FileStorageObject
+
+
+class QcStats(TypedDict):
+    insertSizeEstimate: int
+    rawWgsCoverageEstimate: int
+    r1Q20Fraction: float
+    r2Q20Fraction: float
+    r1GcFraction: float
+    r2GcFraction: float
+    duplicationFractionEstimate: float
+    sequaliReports: Optional[SequaliReportsDict]
+
+
+# Deprecated: Use FastqCreate instead
 class FastqListRowCreate(TypedDict):
     fastqSetId: Optional[str]
     index: str
@@ -98,6 +121,7 @@ class FastqListRowCreate(TypedDict):
     ntsm: Optional[FileStorageObject]
 
 
+# Deprecated: Use Fastq instead
 class FastqListRow(TypedDict):
     id: str
     fastqSetId: Optional[str]
@@ -116,9 +140,44 @@ class FastqListRow(TypedDict):
     ntsm: Optional[FileStorageObject]
 
 
+class Fastq(TypedDict):
+    id: str
+    fastqSetId: Optional[str]
+    index: str
+    lane: int
+    instrumentRunId: str
+    library: Library
+    platform: Optional[str]
+    center: Optional[str]
+    date: Optional[datetime]
+    readSet: Optional[ReadSet]
+    qc: Optional[QcStats]
+    readCount: Optional[int]
+    baseCountEst: Optional[int]
+    isValid: Optional[bool]
+    ntsm: Optional[FileStorageObject]
+
+
+class FastqCreate(TypedDict):
+    fastqSetId: Optional[str]
+    index: str
+    lane: int
+    instrumentRunId: str
+    library: Library
+    platform: Optional[str]
+    center: Optional[str]
+    date: Optional[datetime]
+    readSet: Optional[ReadSet]
+    qc: Optional[QcStats]
+    readCount: Optional[int]
+    baseCountEst: Optional[int]
+    isValid: Optional[bool]
+    ntsm: Optional[FileStorageObject]
+
+
 class FastqSetCreate(TypedDict):
     library: Library
-    fastqSet: List[Union[str, FastqListRow]]
+    fastqSet: List[Union[str, Fastq]]
     allowAdditionalFastq: bool
     isCurrentFastqSet: bool
 
@@ -126,18 +185,9 @@ class FastqSetCreate(TypedDict):
 class FastqSet(TypedDict):
     id: str
     library: Library
-    fastqSet: List[FastqListRow]
+    fastqSet: List[Fastq]
     allowAdditionalFastq: bool
     isCurrentFastqSet: bool
-
-
-class QcStats(TypedDict):
-    insertSizeEstimate: int
-    rawWgsCoverageEstimate: int
-    r1Q20Fraction: float
-    r2Q20Fraction: float
-    r1GcFraction: float
-    r2GcFraction: float
 
 
 class ReadCount(TypedDict):
@@ -176,15 +226,15 @@ class Job(TypedDict):
     startTime: datetime
     endTime: Optional[datetime]
 
-
-class BoolAllEnum(Enum):
-    ALL = "ALL"
-    true = True
-    false = False
+BoolLiteral = Literal[
+    'ALL',
+    True,
+    False
+]
 
 
 class FastqGetResponseParameters(TypedDict):
-    includeS3Details: NotRequired[BoolAllEnum]
+    includeS3Details: NotRequired[bool]
 
 
 class StandardQueryParameters(TypedDict):
@@ -224,15 +274,28 @@ InstrumentRunIdQueryParametersList = TypedDict(
 )
 
 
-class FastqListRowQueryParameters(
+# Deprecated: Use FastqQueryParameters instead
+class FastqParameters(
     StandardQueryParameters,
     MetadataQueryParameter,
     InstrumentRunIdQueryParameters,
     MetadataQueryParametersList,
     InstrumentRunIdQueryParametersList
 ):
-    valid: NotRequired[BoolAllEnum]
-    includeS3Details: NotRequired[BoolAllEnum]
+    valid: NotRequired[BoolLiteral]
+    includeS3Details: NotRequired[BoolLiteral]
+    fastqSetId: NotRequired[str]
+
+
+class FastqQueryParameters(
+    StandardQueryParameters,
+    MetadataQueryParameter,
+    InstrumentRunIdQueryParameters,
+    MetadataQueryParametersList,
+    InstrumentRunIdQueryParametersList
+):
+    valid: NotRequired[BoolLiteral]
+    includeS3Details: NotRequired[BoolLiteral]
     fastqSetId: NotRequired[str]
 
 
@@ -242,9 +305,9 @@ class FastqSetQueryParameters(
     MetadataQueryParametersList,
     InstrumentRunIdQueryParameters
 ):
-    currentFastqSet: NotRequired[BoolAllEnum]
-    allowAdditionalFastq: NotRequired[BoolAllEnum]
-    includeS3Details: NotRequired[BoolAllEnum]
+    currentFastqSet: NotRequired[BoolLiteral]
+    allowAdditionalFastq: NotRequired[BoolLiteral]
+    includeS3Details: NotRequired[BoolLiteral]
 
 # Additional types
 VALID_BATCH_KEYS = Literal[

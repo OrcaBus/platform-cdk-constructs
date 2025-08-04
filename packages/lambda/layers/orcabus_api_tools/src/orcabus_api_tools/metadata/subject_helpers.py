@@ -40,8 +40,8 @@ def get_subject_from_subject_id(subject_id: str) -> Subject:
 
 def get_subjects_list_from_subject_id_list(subject_id_list: List[str], accept_missing: bool = False) -> List[Sample]:
     """
-    Get sample from the sample id
-    :param sample_id:
+    Get subject objects from subject id list
+    :param subject_id_list:
     :return:
     """
     # We have an internal id, convert to int
@@ -74,8 +74,8 @@ def get_subject_orcabus_id_from_subject_id(subject_id: str) -> str:
 
 def get_subjects_list_from_subject_orcabus_id_list(subject_orcabus_id_list: List[str], accept_missing: bool = False) -> List[Sample]:
     """
-    Get sample from the sample id
-    :param sample_id:
+    Get subject objects from subject orcabus id list
+    :param subject_orcabus_id_list:
     :return:
     """
     # We have an internal id, convert to int

@@ -24,8 +24,8 @@ export const PROD_ACCOUNT_ID = "472057503814";
 /**
  * Mapping from stage name to AWS Account ID.
  */
-export const accountIdAlias: Record<StageName, string> = {
+export const ACCOUNT_ID_ALIAS: Record<StageName, string> = {
   BETA: BETA_ACCOUNT_ID,
   GAMMA: GAMMA_ACCOUNT_ID,
   PROD: PROD_ACCOUNT_ID,
-};
+}

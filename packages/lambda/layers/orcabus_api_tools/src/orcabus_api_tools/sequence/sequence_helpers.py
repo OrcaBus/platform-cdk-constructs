@@ -1,37 +1,81 @@
 #!/usr/bin/env python3
-from .globals import SEQUENCE_SUBDOMAIN_NAME
-from .models import Sequence, SequenceDetail, SampleSheet
-from ..utils.requests_helpers import get_request_response_results, get_request, get_url
+
+# Standard imports
+from typing import Optional, cast, List
+import logging
 
 
-def get_sequence_url(endpoint: str) -> str:
-    """
-    Get the URL for the Metadata endpoint
-    :param endpoint:
-    :return:
-    """
-    return get_url(
-        endpoint,
-        SEQUENCE_SUBDOMAIN_NAME
+# Local imports
+from . import get_sequence_request
+from .globals import SEQUENCE_RUN_ENDPOINT, SEQUENCE_ENDPOINT
+from .models import SequenceDetail, SampleSheet, Sequence
+
+
+def get_sample_sheet_from_instrument_run_id(instrument_run_id: str) -> Optional[SampleSheet]:
+    samplesheet_dict_list = sorted(
+        get_sequence_request(endpoint=f"{SEQUENCE_ENDPOINT}/{instrument_run_id}/sample_sheets"),
+        key=lambda x: x.get("orcabusId")
     )
 
-def get_sequence_object_from_instrument_run_id(instrument_run_id: str) -> SequenceDetail:
+    if len(samplesheet_dict_list) == 0:
+        logging.warning("Could not find sample sheet for instrument run id: %s", instrument_run_id)
+        return None
+
+    # If there are multiple sample sheets, print to logs, but return the last one
+    if len(samplesheet_dict_list) > 1:
+        logging.warning(
+            f"Multiple sample sheets found for instrument run id {instrument_run_id}. "
+            f"Returning the last one."
+        )
+
+    return cast(SampleSheet, samplesheet_dict_list[-1])
+
+
+def get_libraries_from_instrument_run_id(instrument_run_id: str) -> List[str]:
+    """
+    Get the sequence run object
+    :param instrument_run_id:
+    :return:
+    """
+    sequence_run_object = get_sequence_object_from_instrument_run_id(
+        instrument_run_id=instrument_run_id
+    )
+
+    if sequence_run_object is None:
+        logging.warning("Could not find sequence run for instrument run id: %s", instrument_run_id)
+        return []
+
+    return sequence_run_object.get('libraries', [])
+
+
+def get_sequence_object_from_instrument_run_id(instrument_run_id: str) -> Optional[Sequence]:
     """
     Get the sequence object from the instrument run id.
     :param instrument_run_id:
     :return:
     """
 
-    return Sequence(
-        **dict(
-            get_request_response_results(
-                get_sequence_url(endpoint="api/v1/sequence"),
-                params={
-                    "instrumentRunId": instrument_run_id,
-                }
-            )[0]
-        )
+    # Get the sequence run details from the instrument run id
+    sequence_run_dict_list = sorted(
+        get_sequence_request(endpoint=f"{SEQUENCE_ENDPOINT}/{instrument_run_id}/sequence_run"),
+        # Orcabus ids are ulids so they are sortable by timestamp
+        key=lambda x: x.get("orcabusId")
     )
+
+    # Check we have at least one sequence run
+    if len(sequence_run_dict_list) == 0:
+        logging.warning("Could not find sequence run for instrument run id: %s", instrument_run_id)
+        return None
+
+    # Check if there are multiple sequence runs
+    if len(sequence_run_dict_list) > 1:
+        logging.warning(
+            f"Multiple sequence runs found for instrument run id {instrument_run_id}. "
+            f"Returning the last one."
+        )
+
+    # Return the last sequence run
+    return cast(Sequence, sequence_run_dict_list[-1])
 
 
 def get_sample_sheet_from_orcabus_id(sequence_orcabus_id: str) -> SampleSheet:
@@ -43,20 +87,15 @@ def get_sample_sheet_from_orcabus_id(sequence_orcabus_id: str) -> SampleSheet:
 
     return SampleSheet(
         **dict(
-            get_request(
-                get_sequence_url(endpoint=f"api/v1/sequence/{sequence_orcabus_id}/sample_sheet")
-            )
+            get_sequence_request(endpoint=f"{SEQUENCE_RUN_ENDPOINT}/{sequence_orcabus_id}/sample_sheet")
         )
     )
 
 
-def get_library_ids_in_sequence(sequence_orcabus_id: str) -> list[str]:
+def get_library_ids_in_sequence(sequence_orcabus_id: str) -> List[str]:
     """
     Get the library ids in the sequence run.
     :param sequence_orcabus_id:
     :return:
     """
-
-    return get_request(
-        get_sequence_url(endpoint=f"api/v1/sequence/{sequence_orcabus_id}")
-    )['libraries']
+    return get_sequence_request(endpoint=f"{SEQUENCE_RUN_ENDPOINT}/{sequence_orcabus_id}").get('libraries', [])
