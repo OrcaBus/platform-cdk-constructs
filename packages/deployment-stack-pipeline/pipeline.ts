@@ -324,44 +324,44 @@ export class DeploymentStackPipeline extends Construct {
       ),
     );
 
-    // cdkPipeline.addStage(
-    //   new DeploymentStage(
-    //     this,
-    //     "OrcaBusGamma",
-    //     stageEnv.gamma,
-    //     props.stackName,
-    //     props.stack,
-    //     props.stackConfig.gamma,
-    //     props.githubRepo,
-    //     props.githubBranch,
-    //   ),
-    //   {
-    //     post: [
-    //       new ManualApprovalActionStep("PromoteToProd", {
-    //         actionName: "PromoteToProd",
-    //         // Custom steps bypass stage pre/post ordering, so runOrder must be explicitly set.
-    //         // Set to 5 to ensure this runs after all OrcaBusGamma stage steps complete.
-    //         // (Gamma deployment typically uses 2 steps, so 5 provides adequate buffer)
-    //         runOrder: 5,
-    //         // 60-minute timeout allows queued pipeline executions to proceed if approval expires
-    //         timeout: Duration.minutes(60),
-    //       }),
-    //     ],
-    //   },
-    // );
+    cdkPipeline.addStage(
+      new DeploymentStage(
+        this,
+        "OrcaBusGamma",
+        stageEnv.gamma,
+        props.stackName,
+        props.stack,
+        props.stackConfig.gamma,
+        props.githubRepo,
+        props.githubBranch,
+      ),
+      {
+        post: [
+          new ManualApprovalActionStep("PromoteToProd", {
+            actionName: "PromoteToProd",
+            // Custom steps bypass stage pre/post ordering, so runOrder must be explicitly set.
+            // Set to 5 to ensure this runs after all OrcaBusGamma stage steps complete.
+            // (Gamma deployment typically uses 2 steps, so 5 provides adequate buffer)
+            runOrder: 5,
+            // 60-minute timeout allows queued pipeline executions to proceed if approval expires
+            timeout: Duration.minutes(60),
+          }),
+        ],
+      },
+    );
 
-    // cdkPipeline.addStage(
-    //   new DeploymentStage(
-    //     this,
-    //     "OrcaBusProd",
-    //     stageEnv.prod,
-    //     props.stackName,
-    //     props.stack,
-    //     props.stackConfig.prod,
-    //     props.githubRepo,
-    //     props.githubBranch,
-    //   ),
-    // );
+    cdkPipeline.addStage(
+      new DeploymentStage(
+        this,
+        "OrcaBusProd",
+        stageEnv.prod,
+        props.stackName,
+        props.stack,
+        props.stackConfig.prod,
+        props.githubRepo,
+        props.githubBranch,
+      ),
+    );
 
     cdkPipeline.buildPipeline();
 
