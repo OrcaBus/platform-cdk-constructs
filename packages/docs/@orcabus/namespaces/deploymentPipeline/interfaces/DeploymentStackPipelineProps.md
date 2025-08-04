@@ -185,6 +185,21 @@ The stage environment for the deployment stack
 
 ***
 
+### stripAssemblyAssets?
+
+> `readonly` `optional` **stripAssemblyAssets**: `boolean`
+
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:173](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L173)
+
+Remove assets from the CDK assembly pre-deployment to prevent hitting CodePipeline's 256 MB artifact size limit.
+Useful when CDK assets (Lambda code, Docker images, etc.) are large.
+
+#### See
+
+https://github.com/aws/aws-cdk/issues/9917
+
+***
+
 ### synthBuildSpec?
 
 > `readonly` `optional` **synthBuildSpec**: `Record`\<`string`, `any`\>

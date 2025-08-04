@@ -163,6 +163,14 @@ export interface DeploymentStackPipelineProps {
    * @default True
    */
   readonly reuseExistingArtifactBucket?: boolean;
+
+  /**
+   * Remove assets from the CDK assembly pre-deployment to prevent hitting CodePipeline's 256 MB artifact size limit.
+   * Useful when CDK assets (Lambda code, Docker images, etc.) are large.
+   *
+   * @see https://github.com/aws/aws-cdk/issues/9917
+   */
+  readonly stripAssemblyAssets?: boolean;
 }
 
 /**
@@ -278,6 +286,31 @@ export class DeploymentStackPipeline extends Construct {
     };
     const stageEnv = props.stageEnv || defaultStageEnv;
 
+    // After assets are published, they can be removed from the assembly directory
+    // to help prevent hitting the CodePipeline artifact limit.
+    // https://github.com/aws/aws-cdk/issues/9917
+    let stripAssetsFromAssembly: CodeBuildStep | undefined;
+    if (props.stripAssemblyAssets) {
+      stripAssetsFromAssembly = new CodeBuildStep("StripAssetsFromAssembly", {
+        input: cdkPipeline.cloudAssemblyFileSet,
+        commands: [
+          'S3_PATH=${CODEBUILD_SOURCE_VERSION#"arn:aws:s3:::"}',
+          "ZIP_ARCHIVE=$(basename $S3_PATH)",
+          "echo $S3_PATH",
+          "echo $ZIP_ARCHIVE",
+          "ls",
+          "rm -rfv asset.*",
+          "zip -r -q -A $ZIP_ARCHIVE *",
+          "ls",
+          "aws s3 cp $ZIP_ARCHIVE s3://$S3_PATH",
+        ],
+      });
+
+      cdkPipeline.addWave("BeforeStageDeployment", {
+        pre: [stripAssetsFromAssembly],
+      });
+    }
+
     cdkPipeline.addStage(
       new DeploymentStage(
         this,
@@ -329,6 +362,14 @@ export class DeploymentStackPipeline extends Construct {
         props.githubBranch,
       ),
     );
+
+    cdkPipeline.buildPipeline();
+
+    if (stripAssetsFromAssembly) {
+      cdkPipeline.pipeline.artifactBucket.grantReadWrite(
+        stripAssetsFromAssembly.project,
+      );
+    }
 
     if (props.enableSlackNotification ?? true) {
       const alertsBuildSlackConfigArn = StringParameter.valueForStringParameter(

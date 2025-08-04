@@ -43,14 +43,12 @@ class DevStack extends cdk.Stack {
       },
       pipelineName: "TestDeploymentPipeline",
       cdkSynthCmd: [
-        "pnpm install --frozen-lockfile --ignore-scripts",
         "cd dev",
+        "pnpm install --frozen-lockfile --ignore-scripts",
         "pnpm cdk synth",
       ],
       cdkOut: "dev/cdk.out",
-      // Use default props
-      // reuseExistingArtifactBucket: true,
-      // enableSlackNotification: false,
+      stripAssemblyAssets: true,
     });
   }
 }
