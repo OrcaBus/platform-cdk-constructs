@@ -8,4 +8,4 @@
 
 > `const` **FILE\_MANAGER\_PRESIGN\_USER\_SECRET**: `"orcabus/file-manager-presign-user"` = `"orcabus/file-manager-presign-user"`
 
-Defined in: [packages/shared-config/file-manager.ts:46](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/file-manager.ts#L46)
+Defined in: [packages/shared-config/file-manager.ts:47](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/file-manager.ts#L47)
