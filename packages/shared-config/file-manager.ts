@@ -34,6 +34,7 @@ export const FILE_MANAGER_BUCKETS: Record<StageName, string[]> = {
     `data-sharing-artifacts-${PROD_ENVIRONMENT.account}-${PROD_ENVIRONMENT.region}`,
     `pipeline-montauk-977251586657-${PROD_ENVIRONMENT.region}`,
     "research-data-550435500918-ap-southeast-2",
+    "test-data-503977275616-ap-southeast-2",
   ],
 };
 
