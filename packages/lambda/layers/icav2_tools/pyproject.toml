@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "icav2_tools"
 version = "1.0.0"
-description = "Useful layer for python lambdas that use ICAv2, smart-collection of the ICAv2 access token"
+description = "Useful layer for python lambdas that use ICAv2, smart-collection of the ICAv2 access token and other env vars"
 license = "GPL-3.0-or-later"
 authors = [
     "Alexis Lucattini"
@@ -15,7 +15,7 @@ repository = "https://github.com/orcabus/platform-cdk-constructs"
 
 [tool.poetry.dependencies]
 python = ">3.12,<3.13"
-wrapica = "2.37.0"
+wrapica = "2.38.0.dev20250813155848"
 
 [tool.poetry.group.dev]
 optional = true
@@ -29,7 +29,7 @@ mypy-boto3-secretsmanager = ">=1.34.0, <2"
 name = "PyPI"
 priority = "primary"
 
-#[[tool.poetry.source]]
-#name = "testpypi"
-#url = "https://test.pypi.org/simple/"
-#priority = "supplemental"
+[[tool.poetry.source]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+priority = "supplemental"

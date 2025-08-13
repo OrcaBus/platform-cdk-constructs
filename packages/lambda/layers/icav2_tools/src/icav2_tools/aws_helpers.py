@@ -2,21 +2,29 @@
 
 # Standard imports
 import typing
-from typing import Optional
+from typing import Optional, List, cast
 import boto3
 import json
 from os import environ
 import urllib3
 from urllib.parse import urlunparse
 
+# Wrapica imports
+from wrapica.storage_configuration import StorageConfigurationObjectModel, ProjectToStorageMappingDictModel
+from wrapica.storage_credentials import StorageCredentialMappingModel
 
 # Type hinting
 if typing.TYPE_CHECKING:
     from mypy_boto3_secretsmanager import SecretsManagerClient
     from mypy_boto3_ssm import SSMClient
+    from mypy_boto3_ssm.type_defs import GetParametersByPathResultTypeDef, ParameterTypeDef
 
 # Set globals
-from .globals import ICAV2_BASE_URL
+from .globals import (
+    STORAGE_CONFIGURATIONS_SSM_PATH,
+    STORAGE_CREDENTIALS_SSM_PATH,
+    PROJECT_TO_STORAGE_CONFIGURATION_SSM_PATH
+)
 
 http = urllib3.PoolManager()
 
@@ -26,7 +34,8 @@ SECRETS_URL = '/secretsmanager/get/'
 
 def retrieve_extension_value(url, query):
     url = str(urlunparse((
-        'http', f'localhost:{LOCAL_HTTP_CACHE_PORT}',
+        'http',
+        f'localhost:{LOCAL_HTTP_CACHE_PORT}',
         url, None,
         "&".join(list(map(
             lambda kv: f"{kv[0]}={kv[1]}",
@@ -51,6 +60,21 @@ def get_ssm_value_from_cache(parameter_name: str) -> Optional[str]:
         )['Parameter']['Value']
     except Exception as e:
         print("Got an exception while trying to get ssm value from cache")
+        print(e)
+        return None
+
+
+def get_ssm_list_from_cache(path: str) -> Optional[List[str]]:
+    try:
+        return retrieve_extension_value(
+            PARAMETER_URL,
+            {
+                "path": path,
+                "recursive": "true",
+            }
+        )
+    except Exception as e:
+        print("Got an exception while trying to get ssm list from cache")
         print(e)
         return None
 
@@ -108,9 +132,86 @@ def get_ssm_value(parameter_name) -> str:
     return get_ssm_parameter_response['Parameter']['Value']
 
 
+def get_ssm_parameters_list_by_path(parameter_path: str) -> List['ParameterTypeDef']:
+    """
+    We cannot use the cache for this function because we don't know what we're missing
+    :param parameter_path:
+    :return:
+    """
+
+    next_token = None
+    ssm_response_list = []
+
+    while True:
+        ssm_response: 'GetParametersByPathResultTypeDef' = get_ssm_client().get_parameters_by_path(
+            **dict(filter(
+                lambda kv_iter_: kv_iter_[1] is not None,
+                {
+                    "Path": parameter_path,
+                    "Recursive": True,
+                    "NextToken": next_token,
+                    "MaxResults": 10,
+                }.items()
+            ))
+        )
+        ssm_response_list.extend(
+            ssm_response['Parameters']
+        )
+
+        if "NextToken" in ssm_response:
+            next_token = ssm_response["NextToken"]
+        else:
+            break
+
+    return ssm_response_list
+
+
 def get_icav2_access_token() -> str:
     """
     From the AWS Secrets Manager, retrieve the OrcaBus token.
     :return:
     """
     return get_secret_value(environ.get("ICAV2_ACCESS_TOKEN_SECRET_ID"))
+
+
+def get_storage_configuration_list() -> List['StorageConfigurationObjectModel']:
+    """
+    Storage configuration list is a list of storage configurations
+    :return:
+    """
+    # Get the ssm parameter list
+    storage_configuration_ssm_parameter_list = get_ssm_parameters_list_by_path(str(STORAGE_CONFIGURATIONS_SSM_PATH) + "/")
+
+    return list(map(
+        lambda ssm_parameter_obj_iter: cast(
+            StorageConfigurationObjectModel,
+            json.loads(ssm_parameter_obj_iter['Value'])
+        ),
+        storage_configuration_ssm_parameter_list
+    ))
+
+
+def get_project_to_storage_configuration_list() -> List['ProjectToStorageMappingDictModel']:
+    # Get the ssm parameter list
+    project_to_storage_ssm_parameter_list = get_ssm_parameters_list_by_path(str(PROJECT_TO_STORAGE_CONFIGURATION_SSM_PATH) + "/")
+
+    return list(map(
+        lambda ssm_parameter_obj_iter: cast(
+            ProjectToStorageMappingDictModel,
+            json.loads(ssm_parameter_obj_iter['Value'])
+        ),
+        project_to_storage_ssm_parameter_list
+    ))
+
+
+def get_storage_credential_list() -> List['StorageCredentialMappingModel']:
+    # Get the ssm parameter list
+    storage_credential_ssm_parameter_list = get_ssm_parameters_list_by_path(str(STORAGE_CREDENTIALS_SSM_PATH) + "/")
+
+    return list(map(
+        lambda ssm_parameter_obj_iter: cast(
+            StorageCredentialMappingModel,
+            json.loads(ssm_parameter_obj_iter['Value'])
+        ),
+        storage_credential_ssm_parameter_list
+    ))
