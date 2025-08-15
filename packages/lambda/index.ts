@@ -499,9 +499,9 @@ export class PythonUvFunction extends PythonFunction {
             new iam.PolicyStatement({
                 actions: ['ssm:GetParametersByPath'],
                 resources: [
-                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:parameter/${icav2StorageConfigurationSsmParameterPathPrefix}*`,
-                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:parameter/${icav2ProjectToStorageConfigurationsSsmParameterPathPrefix}*`,
-                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:parameter/${icav2StorageCredentialsSsmParameterPathPrefix}*`,
+                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:${path.join("parameter", icav2StorageConfigurationSsmParameterPathPrefix)}/*`,
+                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:${path.join("parameter", icav2ProjectToStorageConfigurationsSsmParameterPathPrefix)}/*`,
+                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:${path.join("parameter", icav2StorageCredentialsSsmParameterPathPrefix)}/*`,
                 ],
             })
         );
