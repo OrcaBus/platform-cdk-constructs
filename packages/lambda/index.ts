@@ -24,7 +24,11 @@ import {
 } from "./config";
 import {resolveStageName} from "../utils";
 import {ACCOUNT_ID_ALIAS, REGION} from "../shared-config/accounts";
-import {ICAV2_ACCESS_TOKEN_SECRET_ID, ICAV2_BASE_URL} from "../shared-config/icav2";
+import {
+  ICAV2_ACCESS_TOKEN_SECRET_ID,
+  ICAV2_BASE_URL, ICAV2_PROJECT_TO_STORAGE_CONFIGURATIONS_SSM_PARAMETER_PATH_PREFIX,
+  ICAV2_STORAGE_CONFIGURATION_SSM_PARAMETER_PATH_PREFIX, ICAV2_STORAGE_CREDENTIALS_SSM_PARAMETER_PATH_PREFIX
+} from "../shared-config/icav2";
 
 
 export function getPythonUvDockerImage(): DockerImage {
@@ -66,6 +70,9 @@ export interface Icav2ResourcesProps {
      * otherwise it will default to @ICAV2_ACCESS_TOKEN_SECRET_ID
      */
     readonly icav2AccessTokenSecretId?: string
+    readonly icav2StorageConfigurationSsmParameterPathPrefix?: string
+    readonly icav2ProjectToStorageConfigurationsSsmParameterPathPrefix?: string
+    readonly icav2StorageCredentialsSsmParameterPathPrefix?: string
 }
 
 
@@ -476,6 +483,29 @@ export class PythonUvFunction extends PythonFunction {
         // To the current version
         icav2AccessTokenSecretIdObject.grantRead(this.currentVersion);
 
+        // Add configuration paths
+        const icav2StorageConfigurationSsmParameterPathPrefix = (
+          props.icav2StorageConfigurationSsmParameterPathPrefix ?? ICAV2_STORAGE_CONFIGURATION_SSM_PARAMETER_PATH_PREFIX
+        )
+        const icav2ProjectToStorageConfigurationsSsmParameterPathPrefix = (
+          props.icav2ProjectToStorageConfigurationsSsmParameterPathPrefix ?? ICAV2_PROJECT_TO_STORAGE_CONFIGURATIONS_SSM_PARAMETER_PATH_PREFIX
+        )
+        const icav2StorageCredentialsSsmParameterPathPrefix = (
+          props.icav2StorageCredentialsSsmParameterPathPrefix ?? ICAV2_STORAGE_CREDENTIALS_SSM_PARAMETER_PATH_PREFIX
+        )
+
+        // Provide access to the ssm parameter paths
+        this.currentVersion.addToRolePolicy(
+            new iam.PolicyStatement({
+                actions: ['ssm:GetParametersByPath'],
+                resources: [
+                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:parameter/${icav2StorageConfigurationSsmParameterPathPrefix}*`,
+                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:parameter/${icav2ProjectToStorageConfigurationsSsmParameterPathPrefix}*`,
+                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:parameter/${icav2StorageCredentialsSsmParameterPathPrefix}*`,
+                ],
+            })
+        );
+
         // Add environment variables
         this.addEnvironment(
             'ICAV2_ACCESS_TOKEN_SECRET_ID', icav2AccessTokenSecretIdObject.secretName,
@@ -483,6 +513,7 @@ export class PythonUvFunction extends PythonFunction {
         this.addEnvironment(
             'ICAV2_BASE_URL', ICAV2_BASE_URL,
         )
+
     }
 
 }

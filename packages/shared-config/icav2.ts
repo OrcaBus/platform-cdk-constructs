@@ -36,6 +36,10 @@ export const ICAV2_ACCESS_TOKEN_SECRET_ID: Record<StageName, string> = {
   PROD: 'ICAv2JWTKey-umccr-prod-service-production',  // pragma: allowlist secret
 }
 
+export const ICAV2_STORAGE_CONFIGURATION_SSM_PARAMETER_PATH_PREFIX = '/icav2/umccr-prod/storage-configurations/'
+export const ICAV2_PROJECT_TO_STORAGE_CONFIGURATIONS_SSM_PARAMETER_PATH_PREFIX = '/icav2/umccr-prod/project-to-storage-configurations/'
+export const ICAV2_STORAGE_CREDENTIALS_SSM_PARAMETER_PATH_PREFIX = '/icav2/umccr-prod/storage-credentials/'
+
 /**
  * @deprecated Use ICAV2_BASE_URL instead.
  */
