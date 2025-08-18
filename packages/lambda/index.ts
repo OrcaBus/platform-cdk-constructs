@@ -497,11 +497,12 @@ export class PythonUvFunction extends PythonFunction {
         // Provide access to the ssm parameter paths
         this.currentVersion.addToRolePolicy(
             new iam.PolicyStatement({
-                actions: ['ssm:GetParametersByPath'],
+                // We may need to get the parameters individually or by path
+                actions: ['ssm:GetParametersByPath', 'ssm:GetParameter'],
                 resources: [
-                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:${path.join("parameter", icav2StorageConfigurationSsmParameterPathPrefix)}/*`,
-                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:${path.join("parameter", icav2ProjectToStorageConfigurationsSsmParameterPathPrefix)}/*`,
-                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:${path.join("parameter", icav2StorageCredentialsSsmParameterPathPrefix)}/*`,
+                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:parameter${icav2StorageConfigurationSsmParameterPathPrefix.replace(/\/$/, "")}/*`,
+                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:parameter${icav2ProjectToStorageConfigurationsSsmParameterPathPrefix.replace(/\/$/, "")}/*`,
+                    `arn:aws:ssm:${REGION}:${ACCOUNT_ID_ALIAS[stageName]}:parameter${icav2StorageCredentialsSsmParameterPathPrefix.replace(/\/$/, "")}/*`,
                 ],
             })
         );
