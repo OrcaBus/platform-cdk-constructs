@@ -8,7 +8,7 @@
 
 > `const` **icav2BaseUrl**: `string` = `"https://ica.illumina.com/ica/rest"`
 
-Defined in: [packages/shared-config/icav2.ts:42](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/icav2.ts#L42)
+Defined in: [packages/shared-config/icav2.ts:46](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/icav2.ts#L46)
 
 ## Deprecated
 
