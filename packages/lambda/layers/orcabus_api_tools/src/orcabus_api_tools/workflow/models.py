@@ -20,8 +20,8 @@ Workflow Run is (when the workflow is queried directly
   ],
   "workflow": {
     "orcabusId": "wfl.01JD7C2HWVR5KF7VWWQPH0M0FZ",
-    "workflowName": "ora-compression",
-    "workflowVersion": "4-2-4--v2",
+    "name": "ora-compression",
+    "version": "4-2-4--v2",
     "executionEngine": "Unknown",
     "executionEnginePipelineId": "Unknown"
   },
@@ -53,8 +53,8 @@ class StateDetail(TypedDict):
 
 class Workflow(TypedDict):
     orcabusId: str
-    workflowName: str
-    workflowVersion: str
+    name: str
+    version: str
 
 
 class State(StateDetail):
