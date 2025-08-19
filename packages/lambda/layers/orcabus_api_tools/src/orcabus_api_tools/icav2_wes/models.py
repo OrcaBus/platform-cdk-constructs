@@ -23,6 +23,7 @@ class EngineParameters(TypedDict):
     # Locations
     outputUri: str
     logsUri: str
+    cacheUri: NotRequired[str]
 
 
 class WESPostRequest(TypedDict):
