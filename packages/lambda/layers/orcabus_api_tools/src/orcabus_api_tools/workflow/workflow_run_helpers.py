@@ -60,8 +60,8 @@ def get_workflow_run_from_portal_run_id(portal_run_id: str) -> WorkflowRun:
         raise WorkflowRunNotFoundError(portal_run_id=portal_run_id)
 
     try:
-        return get_workflow_request(
-            f"{WORKFLOW_RUN_ENDPOINT}/{workflow_runs_list[0]['orcabusId']}",
+        return get_workflow_run(
+            workflow_runs_list[0]['orcabusId'],
         )
     except HTTPError as e:
         raise WorkflowRunNotFoundError(portal_run_id=portal_run_id) from e
