@@ -6,7 +6,7 @@
 
 # Interface: PythonUvFunctionProps
 
-Defined in: [packages/lambda/index.ts:79](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L79)
+Defined in: [packages/lambda/index.ts:80](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L80)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/lambda/index.ts:79](https://github.com/OrcaBus/platform-cd
 
 > `readonly` `optional` **adotInstrumentation**: `AdotInstrumentationConfig`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:347
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:347
 
 Specify the configuration of AWS Distro for OpenTelemetry (ADOT) instrumentation
 
@@ -42,7 +42,7 @@ https://aws-otel.github.io/docs/getting-started/lambda
 
 > `readonly` `optional` **allowAllIpv6Outbound**: `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:280
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:280
 
 Whether to allow the Lambda to send all ipv6 network traffic
 
@@ -69,7 +69,7 @@ false
 
 > `readonly` `optional` **allowAllOutbound**: `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:267
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:267
 
 Whether to allow the Lambda to send all network traffic (except ipv6)
 
@@ -95,7 +95,7 @@ true
 
 > `readonly` `optional` **allowPublicSubnet**: `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:453
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:453
 
 Lambda Functions in a public subnet can NOT access the internet.
 Use this property to acknowledge this limitation and still place the function in a public subnet.
@@ -120,7 +120,7 @@ false
 
 > `readonly` `optional` **applicationLogLevel**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:513
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:513
 
 Sets the application log level for the function.
 
@@ -144,7 +144,7 @@ Use `applicationLogLevelV2` as a property instead.
 
 > `readonly` `optional` **applicationLogLevelV2**: `ApplicationLogLevel`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:518
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:518
 
 Sets the application log level for the function.
 
@@ -164,7 +164,7 @@ ApplicationLogLevel.INFO
 
 > `readonly` `optional` **architecture**: `Architecture`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:470
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:470
 
 The system architectures compatible with this lambda function.
 
@@ -184,7 +184,7 @@ Architecture.X86_64
 
 > `readonly` `optional` **bundling**: `BundlingOptions`
 
-Defined in: node\_modules/.pnpm/@aws-cdk+aws-lambda-python-alpha@2.208.0-alpha.0\_aws-cdk-lib@2.208.0\_constructs@10.4.2\_\_constructs@10.4.2/node\_modules/@aws-cdk/aws-lambda-python-alpha/lib/function.d.ts:35
+Defined in: node\_modules/.pnpm/@aws-cdk+aws-lambda-python-alpha@2.211.0-alpha.0\_aws-cdk-lib@2.211.0\_constructs@10.4.2\_\_constructs@10.4.2/node\_modules/@aws-cdk/aws-lambda-python-alpha/lib/function.d.ts:35
 
 Bundling options to use for this function. Use this to specify custom bundling options like
 the bundling Docker image, asset hash type, custom hash, architecture, etc.
@@ -205,7 +205,7 @@ the bundling Docker image, asset hash type, custom hash, architecture, etc.
 
 > `readonly` `optional` **codeSigningConfig**: `ICodeSigningConfig`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:465
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:465
 
 Code signing config associated with this function
 
@@ -225,7 +225,7 @@ Code signing config associated with this function
 
 > `readonly` `optional` **currentVersionOptions**: `VersionOptions`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:439
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:439
 
 Options for the `lambda.Version` resource automatically created by the
 `fn.currentVersion` method.
@@ -244,7 +244,7 @@ Options for the `lambda.Version` resource automatically created by the
 
 > `readonly` `optional` **deadLetterQueue**: `IQueue`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:294
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:294
 
 The SQS queue to use if DLQ is enabled.
 If SNS topic is desired, specify `deadLetterTopic` property instead.
@@ -263,7 +263,7 @@ If SNS topic is desired, specify `deadLetterTopic` property instead.
 
 > `readonly` `optional` **deadLetterQueueEnabled**: `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:287
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:287
 
 Enabled DLQ. If `deadLetterQueue` is undefined,
 an SQS queue with default options will be defined for your Function.
@@ -282,7 +282,7 @@ an SQS queue with default options will be defined for your Function.
 
 > `readonly` `optional` **deadLetterTopic**: `ITopic`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:302
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:302
 
 The SNS topic to use as a DLQ.
 Note that if `deadLetterQueueEnabled` is set to `true`, an SQS queue will be created
@@ -304,7 +304,7 @@ rather than an SNS topic. Using an SNS topic as a DLQ requires this property to 
 
 > `readonly` `optional` **description**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:150
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:150
 
 A description of the function.
 
@@ -324,7 +324,7 @@ A description of the function.
 
 > `readonly` **entry**: `string`
 
-Defined in: node\_modules/.pnpm/@aws-cdk+aws-lambda-python-alpha@2.208.0-alpha.0\_aws-cdk-lib@2.208.0\_constructs@10.4.2\_\_constructs@10.4.2/node\_modules/@aws-cdk/aws-lambda-python-alpha/lib/function.d.ts:11
+Defined in: node\_modules/.pnpm/@aws-cdk+aws-lambda-python-alpha@2.211.0-alpha.0\_aws-cdk-lib@2.211.0\_constructs@10.4.2\_\_constructs@10.4.2/node\_modules/@aws-cdk/aws-lambda-python-alpha/lib/function.d.ts:11
 
 Path to the source of the function or the location for dependencies.
 
@@ -338,7 +338,7 @@ Path to the source of the function or the location for dependencies.
 
 > `readonly` `optional` **environment**: `object`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:167
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:167
 
 Key-value pairs that Lambda caches and makes available for your Lambda
 functions. Use environment variables to apply configuration changes, such
@@ -365,7 +365,7 @@ Lambda function source code.
 
 > `readonly` `optional` **environmentEncryption**: `IKey`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:459
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:459
 
 The AWS KMS key that's used to encrypt your function's environment variables.
 
@@ -385,7 +385,7 @@ The AWS KMS key that's used to encrypt your function's environment variables.
 
 > `readonly` `optional` **ephemeralStorageSize**: `Size`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:191
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:191
 
 The size of the function’s /tmp directory in MiB.
 
@@ -405,7 +405,7 @@ The size of the function’s /tmp directory in MiB.
 
 > `readonly` `optional` **events**: `IEventSource`[]
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:378
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:378
 
 Event sources for this function.
 
@@ -427,7 +427,7 @@ You can also add event sources using `addEventSource`.
 
 > `readonly` `optional` **filesystem**: `FileSystem`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:445
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:445
 
 The filesystem configuration for the lambda function
 
@@ -447,7 +447,7 @@ The filesystem configuration for the lambda function
 
 > `readonly` `optional` **functionName**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:176
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:176
 
 A name for the function.
 
@@ -468,7 +468,7 @@ ID for the function's name. For more information, see Name Type.
 
 > `readonly` `optional` **handler**: `string`
 
-Defined in: node\_modules/.pnpm/@aws-cdk+aws-lambda-python-alpha@2.208.0-alpha.0\_aws-cdk-lib@2.208.0\_constructs@10.4.2\_\_constructs@10.4.2/node\_modules/@aws-cdk/aws-lambda-python-alpha/lib/function.d.ts:28
+Defined in: node\_modules/.pnpm/@aws-cdk+aws-lambda-python-alpha@2.211.0-alpha.0\_aws-cdk-lib@2.211.0\_constructs@10.4.2\_\_constructs@10.4.2/node\_modules/@aws-cdk/aws-lambda-python-alpha/lib/function.d.ts:28
 
 The name of the exported handler in the index file.
 
@@ -488,7 +488,7 @@ handler
 
 > `readonly` `optional` **icav2Resources**: [`Icav2ResourcesProps`](Icav2ResourcesProps.md)
 
-Defined in: [packages/lambda/index.ts:120](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L120)
+Defined in: [packages/lambda/index.ts:121](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L121)
 
 Provide the icav2Resources, optional, otherwise it will default to
 @DEFAULT_ICAV2_ACCESS_TOKEN_SECRET_ID for the secret
@@ -499,7 +499,7 @@ Provide the icav2Resources, optional, otherwise it will default to
 
 > `readonly` `optional` **includeFastApiLayer**: `boolean`
 
-Defined in: [packages/lambda/index.ts:100](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L100)
+Defined in: [packages/lambda/index.ts:101](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L101)
 
 Whether or not to include the fastapi layer in the lambda function build
 
@@ -509,7 +509,7 @@ Whether or not to include the fastapi layer in the lambda function build
 
 > `readonly` `optional` **includeIcav2Layer**: `boolean`
 
-Defined in: [packages/lambda/index.ts:95](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L95)
+Defined in: [packages/lambda/index.ts:96](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L96)
 
 Whether or not to include the icav2 layer in the lambda function build
 
@@ -519,7 +519,7 @@ Whether or not to include the icav2 layer in the lambda function build
 
 > `readonly` `optional` **includeMartLayer**: `boolean`
 
-Defined in: [packages/lambda/index.ts:90](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L90)
+Defined in: [packages/lambda/index.ts:91](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L91)
 
 Whether or not to include the mart layer in the lambda function build
 Note that the mart layer is a little heavier than the orcabus api tools layer
@@ -531,7 +531,7 @@ Since we require pandas to be installed
 
 > `readonly` `optional` **includeOrcabusApiToolsLayer**: `boolean`
 
-Defined in: [packages/lambda/index.ts:83](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L83)
+Defined in: [packages/lambda/index.ts:84](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L84)
 
 Whether or not to include the orcabus api tools layer in the lambda function build
 
@@ -541,7 +541,7 @@ Whether or not to include the orcabus api tools layer in the lambda function bui
 
 > `readonly` `optional` **index**: `string`
 
-Defined in: node\_modules/.pnpm/@aws-cdk+aws-lambda-python-alpha@2.208.0-alpha.0\_aws-cdk-lib@2.208.0\_constructs@10.4.2\_\_constructs@10.4.2/node\_modules/@aws-cdk/aws-lambda-python-alpha/lib/function.d.ts:22
+Defined in: node\_modules/.pnpm/@aws-cdk+aws-lambda-python-alpha@2.211.0-alpha.0\_aws-cdk-lib@2.211.0\_constructs@10.4.2\_\_constructs@10.4.2/node\_modules/@aws-cdk/aws-lambda-python-alpha/lib/function.d.ts:22
 
 The path (relative to entry) to the index file containing the exported handler.
 
@@ -561,7 +561,7 @@ index.py
 
 > `readonly` `optional` **initialPolicy**: `PolicyStatement`[]
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:199
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:199
 
 Initial policy statements to add to the created Lambda Role.
 
@@ -583,7 +583,7 @@ You can call `addToRolePolicy` to the created lambda to add statements post crea
 
 > `readonly` `optional` **insightsVersion**: `LambdaInsightsVersion`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:340
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:340
 
 Specify the version of CloudWatch Lambda insights to use for monitoring
 
@@ -611,7 +611,7 @@ the Lambda insights agent installed.
 
 > `readonly` `optional` **ipv6AllowedForDualStack**: `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:233
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:233
 
 Allows outbound IPv6 traffic on VPC functions that are connected to dual-stack subnets.
 
@@ -633,7 +633,7 @@ false
 
 > `readonly` `optional` **layers**: `ILayerVersion`[]
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:363
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:363
 
 A list of layers to add to the function's execution environment. You can configure your Lambda function to pull in
 additional code during initialization in the form of layers. Layers are packages of libraries or other dependencies
@@ -655,7 +655,7 @@ that can be used by multiple functions.
 
 > `readonly` `optional` **logFormat**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:495
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:495
 
 Sets the logFormat for the function.
 
@@ -679,7 +679,7 @@ Use `loggingFormat` as a property instead.
 
 > `readonly` `optional` **loggingFormat**: `LoggingFormat`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:500
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:500
 
 Sets the loggingFormat for the function.
 
@@ -699,7 +699,7 @@ LoggingFormat.TEXT
 
 > `readonly` `optional` **logGroup**: `ILogGroup`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:489
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:489
 
 The log group the function sends logs to.
 
@@ -725,7 +725,7 @@ If you are deploying to another type of region, please check regional availabili
 
 > `readonly` `optional` **logRemovalPolicy**: `RemovalPolicy`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:413
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:413
 
 Determine the removal policy of the log group that is auto-created by this construct.
 
@@ -754,7 +754,7 @@ RemovalPolicy.Retain
 
 > `readonly` `optional` **logRetention**: `RetentionDays`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:401
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:401
 
 The number of days log events are kept in CloudWatch Logs. When updating
 this property, unsetting it doesn't remove the log retention policy. To
@@ -794,7 +794,7 @@ logs.RetentionDays.INFINITE
 
 > `readonly` `optional` **logRetentionRetryOptions**: `LogRetentionRetryOptions`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:433
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:433
 
 When log retention is specified, a custom resource attempts to create the CloudWatch log group.
 These options control the retry policy when interacting with CloudWatch APIs.
@@ -818,7 +818,7 @@ This is a legacy API and we strongly recommend you migrate to `logGroup` if you 
 
 > `readonly` `optional` **logRetentionRole**: `IRole`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:423
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:423
 
 The IAM role for the Lambda function associated with the custom resource
 that sets the retention policy.
@@ -842,7 +842,7 @@ This is a legacy API and we strongly recommend you migrate to `logGroup` if you 
 
 > `readonly` `optional` **martEnvironmentVariables**: [`MartEnvironmentVariables`](MartEnvironmentVariables.md)
 
-Defined in: [packages/lambda/index.ts:114](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L114)
+Defined in: [packages/lambda/index.ts:115](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L115)
 
 Provide the martEnvironmentVariables, optional, otherwise it will default to
 @MART_ENV_VARS.ATHENA_WORKGROUP_NAME, @MART_ENV_VARS.ATHENA_DATASOURCE_NAME
@@ -854,7 +854,7 @@ and @MART_ENV_VARS.ATHENA_DATABASE_NAME for the athena workgroup, datasource and
 
 > `readonly` `optional` **maxEventAge**: `Duration`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/event-invoke-config.d.ts:30
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/event-invoke-config.d.ts:30
 
 The maximum age of a request that Lambda sends to a function for
 processing.
@@ -878,7 +878,7 @@ Duration.hours(6)
 
 > `readonly` `optional` **memorySize**: `number`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:185
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:185
 
 The amount of memory, in MB, that is allocated to your Lambda function.
 Lambda uses this value to proportionally allocate the amount of CPU
@@ -901,7 +901,7 @@ Developer Guide.
 
 > `readonly` `optional` **onFailure**: `IDestination`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/event-invoke-config.d.ts:14
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/event-invoke-config.d.ts:14
 
 The destination for failed invocations.
 
@@ -921,7 +921,7 @@ The destination for failed invocations.
 
 > `readonly` `optional` **onSuccess**: `IDestination`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/event-invoke-config.d.ts:20
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/event-invoke-config.d.ts:20
 
 The destination for successful invocations.
 
@@ -941,7 +941,7 @@ The destination for successful invocations.
 
 > `readonly` `optional` **orcabusTokenResources**: [`OrcabusResourcesProps`](OrcabusResourcesProps.md)
 
-Defined in: [packages/lambda/index.ts:107](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L107)
+Defined in: [packages/lambda/index.ts:108](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L108)
 
 Provide the orcabusTokenResources, optional, otherwise it will default to
 @DEFAULT_ORCABUS_TOKEN_SECRET_ID and @DEFAULT_HOSTNAME_SSM_PARAMETER
@@ -953,7 +953,7 @@ for the secret and SSM parameter respectively
 
 > `readonly` `optional` **paramsAndSecrets**: `ParamsAndSecretsLayerVersion`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:355
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:355
 
 Specify the configuration of Parameters and Secrets Extension
 
@@ -978,7 +978,7 @@ Specify the configuration of Parameters and Secrets Extension
 
 > `readonly` `optional` **profiling**: `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:322
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:322
 
 Enable profiling.
 
@@ -1002,7 +1002,7 @@ https://docs.aws.amazon.com/codeguru/latest/profiler-ug/setting-up-lambda.html
 
 > `readonly` `optional` **profilingGroup**: `IProfilingGroup`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:329
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:329
 
 Profiling Group.
 
@@ -1024,7 +1024,7 @@ https://docs.aws.amazon.com/codeguru/latest/profiler-ug/setting-up-lambda.html
 
 > `readonly` `optional` **recursiveLoop**: `RecursiveLoop`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:507
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:507
 
 Sets the Recursive Loop Protection for Lambda Function.
 It lets Lambda detect and terminate unintended recursive loops.
@@ -1045,7 +1045,7 @@ RecursiveLoop.Terminate
 
 > `readonly` `optional` **reservedConcurrentExecutions**: `number`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:370
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:370
 
 The maximum of concurrent executions you want to reserve for the function.
 
@@ -1069,7 +1069,7 @@ https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html
 
 > `readonly` `optional` **retryAttempts**: `number`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/event-invoke-config.d.ts:39
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/event-invoke-config.d.ts:39
 
 The maximum number of times to retry when the function returns an error.
 
@@ -1092,7 +1092,7 @@ Maximum: 2
 
 > `readonly` `optional` **role**: `IRole`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:216
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:216
 
 Lambda execution role.
 
@@ -1121,7 +1121,7 @@ Both supplied and generated roles can always be changed by calling `addToRolePol
 
 > `readonly` **runtime**: `Runtime`
 
-Defined in: node\_modules/.pnpm/@aws-cdk+aws-lambda-python-alpha@2.208.0-alpha.0\_aws-cdk-lib@2.208.0\_constructs@10.4.2\_\_constructs@10.4.2/node\_modules/@aws-cdk/aws-lambda-python-alpha/lib/function.d.ts:16
+Defined in: node\_modules/.pnpm/@aws-cdk+aws-lambda-python-alpha@2.211.0-alpha.0\_aws-cdk-lib@2.211.0\_constructs@10.4.2\_\_constructs@10.4.2/node\_modules/@aws-cdk/aws-lambda-python-alpha/lib/function.d.ts:16
 
 The runtime environment. Only runtimes of the Python family are
 supported.
@@ -1136,7 +1136,7 @@ supported.
 
 > `readonly` `optional` **runtimeManagementMode**: `RuntimeManagementMode`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:475
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:475
 
 Sets the runtime management configuration for a function's version.
 
@@ -1156,7 +1156,7 @@ Auto
 
 > `readonly` `optional` **securityGroups**: `ISecurityGroup`[]
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:255
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:255
 
 The list of security groups to associate with the Lambda's network interfaces.
 
@@ -1180,7 +1180,7 @@ group will be created for this function.
 
 > `readonly` `optional` **snapStart**: `SnapStartConf`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:315
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:315
 
 Enable SnapStart for Lambda Function.
 SnapStart is currently supported for Java 11, Java 17, Python 3.12, Python 3.13, and .NET 8 runtime
@@ -1201,7 +1201,7 @@ SnapStart is currently supported for Java 11, Java 17, Python 3.12, Python 3.13,
 
 > `readonly` `optional` **systemLogLevel**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:524
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:524
 
 Sets the system log level for the function.
 
@@ -1225,7 +1225,7 @@ Use `systemLogLevelV2` as a property instead.
 
 > `readonly` `optional` **systemLogLevelV2**: `SystemLogLevel`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:529
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:529
 
 Sets the system log level for the function.
 
@@ -1245,7 +1245,7 @@ SystemLogLevel.INFO
 
 > `readonly` `optional` **timeout**: `Duration`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:158
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:158
 
 The function execution time (in seconds) after which Lambda terminates
 the function. Because the execution time affects cost, set this value
@@ -1267,7 +1267,7 @@ Duration.seconds(3)
 
 > `readonly` `optional` **tracing**: `Tracing`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:308
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:308
 
 Enable AWS X-Ray Tracing for Lambda Function.
 
@@ -1287,7 +1287,7 @@ Tracing.Disabled
 
 > `readonly` `optional` **vpc**: `IVpc`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:225
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:225
 
 VPC network to place Lambda network interfaces
 
@@ -1310,7 +1310,7 @@ This is required when `vpcSubnets` is specified.
 
 > `readonly` `optional` **vpcSubnets**: `SubnetSelection`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.208.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:245
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.211.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:245
 
 Where to place the network interfaces within the VPC.
 
