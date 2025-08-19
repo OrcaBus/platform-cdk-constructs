@@ -5,6 +5,7 @@ import * as secretsManager from "aws-cdk-lib/aws-secretsmanager";
 import * as ssm from "aws-cdk-lib/aws-ssm";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as s3 from "aws-cdk-lib/aws-s3";
+import {NagSuppressions} from "cdk-nag";
 import {DockerImage} from 'aws-cdk-lib';
 
 import path from "path";
@@ -199,6 +200,18 @@ export class PythonUvFunction extends PythonFunction {
             /* Build the icav2 layer */
             this.buildIcav2Layer(scope)
             this.addLayers(<PythonLayerVersion>PythonUvFunction.icav2Layer.get(scope))
+            // Add nag suppression
+            // Since the lambda will need to access the SSM parameters
+            NagSuppressions.addResourceSuppressions(
+              this,
+              [
+                {
+                  id: 'AwsSolutions-IAM5',
+                  reason: 'The lambda iam role needs to access the ssm parameters.',
+                },
+              ],
+              true
+            );
         }
 
         if (props.includeFastApiLayer) {
@@ -514,7 +527,6 @@ export class PythonUvFunction extends PythonFunction {
         this.addEnvironment(
             'ICAV2_BASE_URL', ICAV2_BASE_URL,
         )
-
     }
 
 }
