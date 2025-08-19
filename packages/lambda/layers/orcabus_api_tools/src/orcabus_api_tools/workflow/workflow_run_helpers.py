@@ -36,7 +36,7 @@ def get_workflow_run(workflow_run_orcabus_id: str) -> WorkflowRun:
         workflow_obj['version'] = workflow_obj.pop('workflowVersion')
 
     # Re-add the workflow object to the workflow_run
-    workflow_run['workflow']  = workflow_obj
+    workflow_run['workflow'] = workflow_obj
 
     return workflow_run
 
