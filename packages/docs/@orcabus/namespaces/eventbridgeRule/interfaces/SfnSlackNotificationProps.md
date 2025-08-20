@@ -36,7 +36,7 @@ The event statuses to listen for.
 
 > `readonly` **message**: `string`[]
 
-Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:68](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/eventbridge-rules/sfn-slack-notification.ts#L68)
+Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:69](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/eventbridge-rules/sfn-slack-notification.ts#L69)
 
 The detailed message content for the Slack notification.
 
@@ -49,7 +49,7 @@ To include dynamic event data, embed JSONPath expressions in strings using `Even
 For example, `EventField.fromPath("$.detail.executionArn")` references the `executionArn` field from the event payload.
 The `EventField` is imported from `aws-cdk-lib/aws-events`.
 
-#### Example
+Example:
 
 ```typescript
 message: [
@@ -66,7 +66,7 @@ message: [
 
 > `readonly` `optional` **showExecutionLink**: `boolean`
 
-Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:76](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/eventbridge-rules/sfn-slack-notification.ts#L76)
+Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:77](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/eventbridge-rules/sfn-slack-notification.ts#L77)
 
 Whether to include a link to the Step Function execution in the Slack notification. on the first line
 
