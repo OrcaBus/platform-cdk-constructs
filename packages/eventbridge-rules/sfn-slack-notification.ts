@@ -25,7 +25,9 @@ export interface SfnSlackNotificationProps {
    */
   readonly stateMachine: IStateMachine;
   /**
-   * The event bus to associate with this rule.
+   * The event statuses to listen for.
+   *
+   *  Default: The default AWS event bus
    */
   readonly eventBus?: IEventBus;
   /**
@@ -115,7 +117,7 @@ export class SfnSlackNotification extends Construct {
               props.showExecutionLink
                 ? `<https://console.aws.amazon.com/states/home?#/v2/executions/details/${EventField.fromPath(
                     "$.detail.executionArn",
-                  )}|View in Console>`
+                  )}|View in Console>\n`
                 : "",
               ...props.message,
             ].join("\n"),

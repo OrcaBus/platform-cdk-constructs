@@ -20,3 +20,4 @@ export * as provider from "./provider-function";
 export * as namedLambdaRole from "./named-lambda-role";
 export * as sharedConfig from "./shared-config";
 export * as monitoredQueue from "./monitored-queue";
+export * as eventbridgeRule from "./eventbridge-rules";

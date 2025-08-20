@@ -10,6 +10,7 @@
 - [deploymentPipeline](@orcabus/namespaces/deploymentPipeline/README.md)
 - [dynamodb](@orcabus/namespaces/dynamodb/README.md)
 - [ecs](@orcabus/namespaces/ecs/README.md)
+- [eventbridgeRule](@orcabus/namespaces/eventbridgeRule/README.md)
 - [lambda](@orcabus/namespaces/lambda/README.md)
 - [monitoredQueue](@orcabus/namespaces/monitoredQueue/README.md)
 - [namedLambdaRole](@orcabus/namespaces/namedLambdaRole/README.md)
