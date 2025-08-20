@@ -55,7 +55,8 @@ export interface SfnSlackNotificationProps {
    * For example, `EventField.fromPath("$.detail.executionArn")` references the `executionArn` field from the event payload.
    * The `EventField` is imported from `aws-cdk-lib/aws-events`.
    *
-   * @example
+   * Example:
+   * 
    * ```typescript
    * message: [
    *   "*Execution Details:*",
