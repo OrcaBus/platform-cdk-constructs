@@ -56,7 +56,7 @@ export interface SfnSlackNotificationProps {
    * The `EventField` is imported from `aws-cdk-lib/aws-events`.
    *
    * Example:
-   * 
+   *
    * ```typescript
    * message: [
    *   "*Execution Details:*",
@@ -68,13 +68,16 @@ export interface SfnSlackNotificationProps {
    */
   readonly message: string[];
   /**
-   * Whether to include a link to the Step Function execution in the Slack notification. on the first line
+   * Whether to include a link to the Step Function execution in the AWS Console.
    *
-   * Append execution arn with `https://console.aws.amazon.com/states/home?#/v2/executions/details/
+   * When enabled, adds a clickable console link at the beginning of the Slack message.
+   * The link is constructed using the execution ARN from the event payload.
    *
    * Ref: https://stackoverflow.com/a/76008805
+   *
+   * @default false
    */
-  readonly showExecutionLink?: boolean;
+  readonly includeConsoleLink?: boolean;
 }
 
 export class SfnSlackNotification extends Construct {
@@ -115,7 +118,7 @@ export class SfnSlackNotification extends Construct {
             textType: "client-markdown",
             title: props.title,
             description: [
-              props.showExecutionLink
+              props.includeConsoleLink
                 ? `<https://console.aws.amazon.com/states/home?#/v2/executions/details/${EventField.fromPath(
                     "$.detail.executionArn",
                   )}|View in Console>\n`

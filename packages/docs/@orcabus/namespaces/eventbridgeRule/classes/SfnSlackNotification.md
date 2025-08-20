@@ -6,7 +6,7 @@
 
 # Class: SfnSlackNotification
 
-Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:80](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/eventbridge-rules/sfn-slack-notification.ts#L80)
+Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:83](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/eventbridge-rules/sfn-slack-notification.ts#L83)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:80](https://gi
 
 > **new SfnSlackNotification**(`scope`, `id`, `props`): `SfnSlackNotification`
 
-Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:82](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/eventbridge-rules/sfn-slack-notification.ts#L82)
+Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:85](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/eventbridge-rules/sfn-slack-notification.ts#L85)
 
 #### Parameters
 
@@ -62,7 +62,7 @@ The tree node.
 
 > `readonly` **rule**: `Rule`
 
-Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:81](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/eventbridge-rules/sfn-slack-notification.ts#L81)
+Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:84](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/eventbridge-rules/sfn-slack-notification.ts#L84)
 
 ## Methods
 

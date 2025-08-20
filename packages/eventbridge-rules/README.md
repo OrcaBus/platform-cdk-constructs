@@ -16,11 +16,11 @@ new SfnSlackNotification(this, "SfnSlackNotification", {
     `• ARN: ${EventField.fromPath("$.detail.executionArn")}`,
     `• Status: ${EventField.fromPath("$.detail.status")}`,
   ],
-  showExecutionLink: true,
+  includeConsoleLink: true,
 });
 ```
 
 ### Notes
 
 - Use `EventField.fromPath("$.jsonpath")` to include dynamic event data in your title or message.
-- `showExecutionLink` adds a link to the AWS Console for the execution.
+- `includeConsoleLink` adds a link to the AWS Console for the execution.

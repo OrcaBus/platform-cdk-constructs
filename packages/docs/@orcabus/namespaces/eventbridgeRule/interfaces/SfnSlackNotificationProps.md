@@ -32,6 +32,27 @@ The event statuses to listen for.
 
 ***
 
+### includeConsoleLink?
+
+> `readonly` `optional` **includeConsoleLink**: `boolean`
+
+Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:80](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/eventbridge-rules/sfn-slack-notification.ts#L80)
+
+Whether to include a link to the Step Function execution in the AWS Console.
+
+When enabled, adds a clickable console link at the beginning of the Slack message.
+The link is constructed using the execution ARN from the event payload.
+
+Ref: https://stackoverflow.com/a/76008805
+
+#### Default
+
+```ts
+false
+```
+
+***
+
 ### message
 
 > `readonly` **message**: `string`[]
@@ -59,20 +80,6 @@ message: [
   "",
 ]
 ```
-
-***
-
-### showExecutionLink?
-
-> `readonly` `optional` **showExecutionLink**: `boolean`
-
-Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:77](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/eventbridge-rules/sfn-slack-notification.ts#L77)
-
-Whether to include a link to the Step Function execution in the Slack notification. on the first line
-
-Append execution arn with `https://console.aws.amazon.com/states/home?#/v2/executions/details/
-
-Ref: https://stackoverflow.com/a/76008805
 
 ***
 
