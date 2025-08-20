@@ -3,6 +3,7 @@
 """
 Helpers for using the contact API endpoint
 """
+from copy import copy
 
 # Standard imports
 from requests import HTTPError
@@ -21,10 +22,23 @@ def get_workflow_run(workflow_run_orcabus_id: str) -> WorkflowRun:
     """
     # Get workflow run
     try:
-        return get_workflow_request(f"{WORKFLOW_RUN_ENDPOINT}/{workflow_run_orcabus_id}")
+        workflow_run = get_workflow_request(f"{WORKFLOW_RUN_ENDPOINT}/{workflow_run_orcabus_id}")
     except HTTPError as e:
         from .errors import WorkflowRunNotFoundError
         raise WorkflowRunNotFoundError(workflow_run_id=workflow_run_orcabus_id) from e
+
+    # Get the workflow attribute of the workflow_run, make sure it uses 'name' and 'version'
+    # Rather than 'workflowName' and 'workflowVersion'
+    workflow_obj = copy(workflow_run.get("workflow", {}))
+    if 'workflowName' in workflow_obj:
+        workflow_obj['name'] = workflow_obj.pop('workflowName')
+    if 'workflowVersion' in workflow_obj:
+        workflow_obj['version'] = workflow_obj.pop('workflowVersion')
+
+    # Re-add the workflow object to the workflow_run
+    workflow_run['workflow'] = workflow_obj
+
+    return workflow_run
 
 
 def get_workflow_run_from_portal_run_id(portal_run_id: str) -> WorkflowRun:
@@ -46,8 +60,8 @@ def get_workflow_run_from_portal_run_id(portal_run_id: str) -> WorkflowRun:
         raise WorkflowRunNotFoundError(portal_run_id=portal_run_id)
 
     try:
-        return get_workflow_request(
-            f"{WORKFLOW_RUN_ENDPOINT}/{workflow_runs_list[0]['orcabusId']}",
+        return get_workflow_run(
+            workflow_runs_list[0]['orcabusId'],
         )
     except HTTPError as e:
         raise WorkflowRunNotFoundError(portal_run_id=portal_run_id) from e

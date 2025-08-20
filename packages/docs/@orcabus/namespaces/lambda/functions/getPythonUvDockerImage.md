@@ -8,7 +8,7 @@
 
 > **getPythonUvDockerImage**(): `DockerImage`
 
-Defined in: [packages/lambda/index.ts:34](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L34)
+Defined in: [packages/lambda/index.ts:35](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L35)
 
 ## Returns
 

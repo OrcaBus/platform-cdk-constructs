@@ -6,7 +6,7 @@
 
 # Class: PythonUvFunction
 
-Defined in: [packages/lambda/index.ts:124](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L124)
+Defined in: [packages/lambda/index.ts:125](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L125)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/lambda/index.ts:124](https://github.com/OrcaBus/platform-c
 
 > **new PythonUvFunction**(`scope`, `id`, `props`): `PythonUvFunction`
 
-Defined in: [packages/lambda/index.ts:133](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L133)
+Defined in: [packages/lambda/index.ts:134](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L134)
 
 #### Parameters
 
