@@ -122,7 +122,7 @@ export class EcsFargateTaskConstruct extends Construct {
             runtimePlatform: {
                 cpuArchitecture: props.runtimePlatform ?? CPU_ARCHITECTURE_MAP[architecture],
             },
-            executionRole: this.taskExecutionRole
+            executionRole: this.taskExecutionRole,
         })
 
         // Set up the security group
