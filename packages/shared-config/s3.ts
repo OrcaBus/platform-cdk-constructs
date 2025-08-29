@@ -1,15 +1,6 @@
 import {StageName} from "./accounts";
 
 /**
- * @deprecated Use PIPELINE_CACHE_BUCKET instead
- */
-export const pipelineCacheBucket: Record<StageName, string> = {
-  BETA: "pipeline-dev-cache-503977275616-ap-southeast-2",
-  GAMMA: "pipeline-stg-cache-503977275616-ap-southeast-2",
-  PROD: "pipeline-prod-cache-503977275616-ap-southeast-2",
-};
-
-/**
  * The default S3 bucket names used for pipeline data.
  */
 export const PIPELINE_CACHE_BUCKET: Record<StageName, string> = {
@@ -19,13 +10,14 @@ export const PIPELINE_CACHE_BUCKET: Record<StageName, string> = {
 }
 
 /**
- * @deprecated Use PIPELINE_CACHE_PREFIX instead
+ * The reference data bucket
  */
-export const pipelineCachePrefix: Record<StageName, string> = {
-  BETA: "byob-icav2/development/",
-  GAMMA: "byob-icav2/staging/",
-  PROD: "byob-icav2/production/",
-};
+export const REFERENCE_DATA_BUCKET = "reference-data-503977275616-ap-southeast-2"
+
+/**
+ * The test data bucket
+ */
+export const TEST_DATA_BUCKET = "test-data-503977275616-ap-southeast-2"
 
 /**
  * The default S3 prefixes used for pipeline data.

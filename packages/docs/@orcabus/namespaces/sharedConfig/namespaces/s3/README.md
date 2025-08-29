@@ -10,5 +10,5 @@
 
 - [PIPELINE\_CACHE\_BUCKET](variables/PIPELINE_CACHE_BUCKET.md)
 - [PIPELINE\_CACHE\_PREFIX](variables/PIPELINE_CACHE_PREFIX.md)
-- [~~pipelineCacheBucket~~](variables/pipelineCacheBucket.md)
-- [~~pipelineCachePrefix~~](variables/pipelineCachePrefix.md)
+- [REFERENCE\_DATA\_BUCKET](variables/REFERENCE_DATA_BUCKET.md)
+- [TEST\_DATA\_BUCKET](variables/TEST_DATA_BUCKET.md)
