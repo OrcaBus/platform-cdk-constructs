@@ -1106,14 +1106,14 @@ test = ["websockets"]
 
 [[package]]
 name = "wrapica"
-version = "2.38.0.dev20250818113956"
+version = "2.38.0.dev20250829090236"
 description = "Secondary level functions for ICAv2 based off libica"
 optional = false
 python-versions = "<3.15,>=3.12"
 groups = ["main"]
 files = [
-    {file = "wrapica-2.38.0.dev20250818113956-py3-none-any.whl", hash = "sha256:efc5b53e4e05ec8a7d5e03561069768427f70d1034d1894c200b60a4d98b129a"},
-    {file = "wrapica-2.38.0.dev20250818113956.tar.gz", hash = "sha256:4c3bd38a52cf9d633117c53dc19dbaee2d31047d67f2dc698a5d13824db6469e"},
+    {file = "wrapica-2.38.0.dev20250829090236-py3-none-any.whl", hash = "sha256:28810414a85009ae0badd928deac7d561e1ceaf893bbbe6c632096f89f9d9aae"},
+    {file = "wrapica-2.38.0.dev20250829090236.tar.gz", hash = "sha256:95a0647fad69f2141214c28e9965249b83bbf419fe0dd4d738c0f853de62068b"},
 ]
 
 [package.dependencies]
@@ -1141,4 +1141,4 @@ reference = "testpypi"
 [metadata]
 lock-version = "2.1"
 python-versions = ">3.12,<3.15"
-content-hash = "5850f4bd85221412896d65111f8da8ecebc99ad745aaf7324fbd9b0cdbb12ea4"
+content-hash = "73e3db5577145bb4d6ce2005eeed6a3bb48aa52130392fae36d8600897fd8515"
