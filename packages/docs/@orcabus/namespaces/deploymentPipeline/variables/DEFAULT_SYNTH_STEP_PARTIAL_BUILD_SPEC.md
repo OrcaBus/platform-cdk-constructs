@@ -12,7 +12,7 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:42](https://github.c
 
 The default partial build spec for the synth step in the pipeline.
 
-## Type declaration
+## Type Declaration
 
 ### phases
 
