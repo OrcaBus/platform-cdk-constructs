@@ -11,6 +11,7 @@ import { StageName } from "./accounts";
 import {PIPELINE_CACHE_BUCKET} from "./s3";
 import { validateSecretName } from "./secrets";
 
+// Regular buckets where all data is available and ingested.
 export const FILE_MANAGER_BUCKETS: Record<StageName, string[]> = {
   BETA: [
     "umccr-temp-dev",
@@ -34,15 +35,21 @@ export const FILE_MANAGER_BUCKETS: Record<StageName, string[]> = {
     `data-sharing-artifacts-${PROD_ENVIRONMENT.account}-${PROD_ENVIRONMENT.region}`,
     `pipeline-montauk-977251586657-${PROD_ENVIRONMENT.region}`,
     "research-data-550435500918-ap-southeast-2",
-    "test-data-503977275616-ap-southeast-2",
   ],
 };
 
+// Cache buckets where the `byob-icav2/*/cache/*` pattern is ignored for the ingester.
 export const FILE_MANAGER_CACHE_BUCKETS: Record<StageName, string[]> = {
   BETA: [PIPELINE_CACHE_BUCKET.BETA],
   GAMMA: [PIPELINE_CACHE_BUCKET.GAMMA],
   PROD: [PIPELINE_CACHE_BUCKET.PROD],
 };
+
+// Cross account buckets where the dev/stg/prod filemanager instances should all ingest the same bucket,
+// so more care needs to be taken when tagging objects.
+export const FILE_MANAGER_CROSS_ACCOUNT_BUCKETS: string[] = [
+    "test-data-503977275616-ap-southeast-2"
+];
 
 export const FILE_MANAGER_PRESIGN_USER_SECRET =
   "orcabus/file-manager-presign-user"; // pragma: allowlist secret

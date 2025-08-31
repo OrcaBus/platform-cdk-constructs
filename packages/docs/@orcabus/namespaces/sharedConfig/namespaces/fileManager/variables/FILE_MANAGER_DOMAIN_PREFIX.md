@@ -8,4 +8,4 @@
 
 > `const` **FILE\_MANAGER\_DOMAIN\_PREFIX**: `"file"` = `"file"`
 
-Defined in: [packages/shared-config/file-manager.ts:59](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/file-manager.ts#L59)
+Defined in: [packages/shared-config/file-manager.ts:66](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/file-manager.ts#L66)
