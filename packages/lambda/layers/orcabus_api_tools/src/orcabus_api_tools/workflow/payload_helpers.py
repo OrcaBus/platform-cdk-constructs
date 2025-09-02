@@ -5,7 +5,7 @@ Getting the payload helpers
 """
 
 # Standard imports
-from typing import  Optional
+from typing import Optional, cast
 
 # Local imports
 from . import get_workflow_request
@@ -19,8 +19,8 @@ def get_payload(payload_id: str) -> Payload:
     :param payload_id:
     :return:
     """
-    # Get subject
-    return get_workflow_request(f"{PAYLOAD_ENDPOINT}/{payload_id}")
+    # Get payload
+    return Payload(**get_workflow_request(f"{PAYLOAD_ENDPOINT}/{payload_id}"))
 
 
 def get_payload_from_state_orcabus_id(workflow_run_orcabus_id: str, state_orcabus_id: str) -> Optional[Payload]:
