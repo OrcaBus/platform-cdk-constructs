@@ -5,25 +5,25 @@ Getting the payload helpers
 """
 
 # Standard imports
-from typing import Dict
+from typing import Optional, cast
 
-from . import get_workflow_request
 # Local imports
+from . import get_workflow_request
 from .globals import PAYLOAD_ENDPOINT
 from .models import Payload
 
 
-def get_payload(payload_id: str) -> Dict:
+def get_payload(payload_id: str) -> Payload:
     """
     Get payload from the payload id
     :param payload_id:
     :return:
     """
-    # Get subject
-    return get_workflow_request(f"{PAYLOAD_ENDPOINT}/{payload_id}")
+    # Get payload
+    return Payload(**get_workflow_request(f"{PAYLOAD_ENDPOINT}/{payload_id}"))
 
 
-def get_payload_from_state_orcabus_id(workflow_run_orcabus_id: str, state_orcabus_id: str):
+def get_payload_from_state_orcabus_id(workflow_run_orcabus_id: str, state_orcabus_id: str) -> Optional[Payload]:
     """
     Given the workflow_run_orcabus_id and status, get the payload for that status
     :param workflow_run_orcabus_id:
@@ -34,6 +34,9 @@ def get_payload_from_state_orcabus_id(workflow_run_orcabus_id: str, state_orcabu
 
     # Get the workflow run state
     workflow_run_state_payload_id = get_workflow_run_state_from_state_orcabus_id(workflow_run_orcabus_id, state_orcabus_id)['payload']
+
+    if workflow_run_state_payload_id is None:
+        return None
 
     # Get the payload
     return get_payload(workflow_run_state_payload_id)
