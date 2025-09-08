@@ -41,8 +41,17 @@ Payload is
 """
 
 # Imports
-from typing import TypedDict, Optional, Dict, List
+from typing import TypedDict, Optional, Dict, List, NotRequired, Literal
 
+# Literals
+AnalysisStatusType = Literal[
+    'ACTIVE',
+    'INACTIVE',
+]
+ContextUseCaseType = Literal[
+    'COMPUTE',
+    'STORAGE',
+]
 
 # Classes
 class StateDetail(TypedDict):
@@ -63,6 +72,30 @@ class State(StateDetail):
     payload: str
 
 
+class Analysis(TypedDict):
+    orcabusId: str
+    analysisName: str
+    analysisVersion: str
+    status: AnalysisStatusType
+
+
+class Context(TypedDict):
+    orcabusId: str
+    name: str
+    usecase: ContextUseCaseType
+
+
+class AnalysisRun(TypedDict):
+    orcabusId: str
+    analysis: Analysis
+    storageContext: Context
+    computeContext: Context
+    analysisRunName: str
+    comment: NotRequired[str]
+    contexts: List[str]
+    readsets: List[str]
+
+
 class WorkflowRunDetail(TypedDict):
     orcabusId: str
     currentState: StateDetail
@@ -71,7 +104,9 @@ class WorkflowRunDetail(TypedDict):
     executionId: Optional[str]
     workflowRunName: str
     comment: Optional[str]
-    analysisRun: Optional[str]
+    analysisRun: Optional[AnalysisRun]
+    contexts: NotRequired[List[str]]
+    readsets: NotRequired[List[str]]
 
 
 class WorkflowRun(WorkflowRunDetail):
