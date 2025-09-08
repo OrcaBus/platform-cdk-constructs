@@ -11,7 +11,6 @@ from typing import List
 from . import get_workflow_request_response_results
 from .globals import WORKFLOW_RUN_ENDPOINT
 from .models import WorkflowRunDetail
-from ..utils.aws_helpers import get_hostname
 
 
 def get_workflows_from_analysis_run_id(analysis_run_id: str) -> List[WorkflowRunDetail]:
