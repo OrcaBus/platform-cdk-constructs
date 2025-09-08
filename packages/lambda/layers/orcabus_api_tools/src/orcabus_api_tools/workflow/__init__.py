@@ -38,7 +38,13 @@ from .create_helpers import (
 )
 
 from .metadata_helpers import (
-    get_workflows_from_library_id
+    get_workflows_from_library_id,
+    get_workflows_from_library_id_list
+)
+
+from .query_helpers import (
+    get_workflow_by_workflow_name,
+    get_workflows_from_analysis_run_id,
 )
 
 from .payload_helpers import (
@@ -62,6 +68,10 @@ __all__ = [
     "create_workflow_run_name_from_workflow_name_workflow_version_and_portal_run_id",
     # Metadata
     "get_workflows_from_library_id",
+    "get_workflows_from_library_id_list",
+    # Query
+    "get_workflow_by_workflow_name",
+    "get_workflows_from_analysis_run_id",
     # Payload
     "get_payload",
     "get_payload_from_state_orcabus_id",

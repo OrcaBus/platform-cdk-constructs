@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Helpers for using the contact API endpoint
+Helpers for using the workflow run API endpoint
 """
 from copy import copy
 
@@ -108,4 +108,3 @@ def get_workflow_run_state(workflow_run_orcabus_id: str, status: str) -> State:
             workflow_run_id=workflow_run_orcabus_id,
             status=status
         ) from e
-
