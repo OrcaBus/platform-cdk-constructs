@@ -50,8 +50,8 @@ def get_workflows_from_library_id_list(library_id_list: List[str]) -> List[Workf
     for library_id in library_id_list[1:]:
         workflows_for_library = get_workflows_from_library_id(library_id)
         all_workflows_intersected = list(filter(
-            lambda workflow_iter_: workflow_iter_.id in list(map(
-                lambda all_workflows_iter_: all_workflows_iter_.id,
+            lambda workflow_iter_: workflow_iter_['orcabusId'] in list(map(
+                lambda all_workflows_iter_: all_workflows_iter_['orcabusId'],
                 all_workflows_intersected
             )),
             workflows_for_library
