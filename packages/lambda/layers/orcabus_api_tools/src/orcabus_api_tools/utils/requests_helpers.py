@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import json
 from typing import Dict, Optional, List, Union
-from urllib.parse import urlunparse, unquote
+from urllib.parse import urlunparse, unquote, urlparse, parse_qs
 
 # Standard imports
 import requests
@@ -58,8 +58,16 @@ def get_request_response_results(url: str, params: Optional[Dict] = None) -> Lis
         "Authorization": f"Bearer {get_orcabus_token()}"
     }
 
+    # Get default request params
     req_params = deepcopy(DEFAULT_REQUEST_PARAMS)
 
+    # Drop any req params that are already in the url
+    req_params = dict(filter(
+        lambda kv_iter_: kv_iter_[0] not in parse_qs(urlparse(url).query).keys(),
+        req_params.items()
+    ))
+
+    # Update with params
     req_params.update(
         params if params is not None else {}
     )
