@@ -103,7 +103,7 @@ def get_file_object_from_ingest_id(ingest_id: str, **kwargs) -> FileObject:
     file_objects_list.sort(
         key=lambda file_obj_iter_: (
             StorageClassPriority[file_obj_iter_['storageClass']],
-            -file_obj_iter_['eventTime']
+            -datetime.fromisoformat(file_obj_iter_['eventTime']).timestamp()
         )
     )
 
