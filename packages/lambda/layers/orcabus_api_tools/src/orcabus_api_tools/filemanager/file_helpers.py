@@ -272,9 +272,10 @@ def get_s3_objs_from_ingest_ids_map(ingest_ids: List[str], **kwargs) -> List[Dic
             continue
 
         s3_objects_match.sort(
-            key=lambda s3_object_iter_: StorageClassPriority[
-                s3_object_iter_['fileObject']['storageClass']
-            ]
+            key=lambda s3_object_iter_: (
+                StorageClassPriority[s3_object_iter_['fileObject']['storageClass']],
+                -datetime.fromisoformat(s3_object_iter_['fileObject']['eventTime']).timestamp()
+            )
         )
 
         s3_objects_by_ingest_id_filtered.append(
