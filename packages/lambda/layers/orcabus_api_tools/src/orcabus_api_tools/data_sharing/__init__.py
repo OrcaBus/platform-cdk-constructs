@@ -1,8 +1,11 @@
 # FIMXE Implement the following imports
-from typing import Optional, Dict
+from typing import Optional, List, Dict, TypedDict, NotRequired
 
 from .globals import DATA_SHARING_SUBDOMAIN_NAME
 from ..utils.requests_helpers import get_url, get_request, get_request_response_results, patch_request
+
+import requests
+from requests import HTTPError
 
 
 # Get url for the subdomain
@@ -59,6 +62,81 @@ def data_sharing_post_request(
     )
 
 
+# Models
+class PackageRequestDict(TypedDict):
+    libraryIdList: List[str]
+    dataTypeList: List[str]
+    portalRunIdList: Optional[List[str]]
+    defrostArchivedFastqs: NotRequired[bool]
+    useWorkflowFilters: NotRequired[bool]
+    instrumentRunIdList: NotRequired[List[str]]
+
+
+
+def create_package(
+        package_name: str,
+        package_request: PackageRequestDict,
+        headers: Optional[Dict[str, str]] = None,
+
+) -> str:
+    """
+    Create a package request
+    :param package_name:
+    :param package_request:
+    :param headers: Optional HTTP headers
+    :return:
+    """
+
+    # Default to JSON content-type if no headers passed
+    if headers is None:
+        headers = {"Content-Type": "application/json"}
+
+
+    response = requests.post(
+        headers=headers,
+        json={
+            "packageName": package_name,
+            "packageRequest": package_request,
+        },
+        url = get_data_sharing_url("/api/v1/package"),
+    )
+
+    try:
+        response.raise_for_status()
+    except HTTPError as e:
+        raise HTTPError(f"Got an error, response was {response.text}") from e
+
+    return response.json()['id']
+
+
+
+def push_package(package_id: str, 
+                 location_uri: str,
+                 headers: Optional[Dict[str, str]] = None
+) -> str:
+    
+    # Default to JSON content-type if no headers passed
+    if headers is None:
+        headers = {"Content-Type": "application/json"}
+
+
+    response = requests.post(
+        headers=headers,
+        json={
+            "shareDestination": location_uri,
+        },
+        url = get_data_sharing_url(f"/api/v1/package/{package_id}:push")
+    )
+
+    try:
+        response.raise_for_status()
+    except HTTPError as e:
+        raise HTTPError(f"Got an error, response was {response.text}") from e
+
+    return response.json()['id']
+
+
+
 from .query_helpers import (
     get_package,
     get_push_job
@@ -74,6 +152,9 @@ __all__ = [
     "get_package",
     "get_push_job",
     # Push job helpers
+    "push_package",
     "update_package_status",
     "update_push_job_status",
+    # Package helpers
+    "create_package",
 ]
