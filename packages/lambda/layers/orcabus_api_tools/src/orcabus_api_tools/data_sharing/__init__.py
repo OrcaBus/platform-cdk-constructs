@@ -2,9 +2,8 @@
 from typing import Optional, List, Dict, TypedDict, NotRequired
 
 from .globals import DATA_SHARING_SUBDOMAIN_NAME
-from ..utils.requests_helpers import get_url, get_request, get_request_response_results, patch_request
+from ..utils.requests_helpers import get_url, get_request, get_request_response_results, patch_request, post_request
 
-import requests
 from requests import HTTPError
 
 
@@ -92,7 +91,7 @@ def create_package(
         headers = {"Content-Type": "application/json"}
 
 
-    response = requests.post(
+    response = post_request(
         headers=headers,
         json={
             "packageName": package_name,
@@ -120,7 +119,7 @@ def push_package(package_id: str,
         headers = {"Content-Type": "application/json"}
 
 
-    response = requests.post(
+    response = post_request(
         headers=headers,
         json={
             "shareDestination": location_uri,
