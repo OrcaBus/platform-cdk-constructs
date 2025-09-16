@@ -107,17 +107,29 @@ def get_ssm_value(parameter_name) -> str:
 
     return get_ssm_parameter_response['Parameter']['Value']
 
+ORCABUS_ACCESS_TOKEN = None
+HOSTNAME = None
 
 def get_orcabus_token() -> str:
     """
     From the AWS Secrets Manager, retrieve the OrcaBus token.
     :return:
     """
-    return (
-        json.loads(
-            get_secret_value(environ.get("ORCABUS_TOKEN_SECRET_ID"))
-        )['id_token']
-    )
+    global ORCABUS_ACCESS_TOKEN
+    if ORCABUS_ACCESS_TOKEN is None:
+        ORCABUS_ACCESS_TOKEN = (
+            json.loads(
+                get_secret_value(environ.get("ORCABUS_TOKEN_SECRET_ID"))
+            )['id_token']
+        )
+    return ORCABUS_ACCESS_TOKEN
+
 
 def get_hostname() -> str:
-    return get_ssm_value(environ.get("HOSTNAME_SSM_PARAMETER_NAME"))
+    global HOSTNAME
+
+    if HOSTNAME is None:
+        HOSTNAME = (
+            get_ssm_value(environ.get("HOSTNAME_SSM_PARAMETER_NAME"))
+        )
+    return HOSTNAME
