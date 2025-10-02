@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import warnings
 # Standard imports
 from typing import Optional, cast, List
 import logging
@@ -58,16 +58,16 @@ def get_library_id_list_in_sequence(sequence_orcabus_id: str) -> List[str]:
 
 
 def get_library_ids_in_sequence(sequence_orcabus_id: str) -> List[str]:
-    DeprecationWarning(
+    warnings.warn(DeprecationWarning(
         "get_library_ids_in_sequence is deprecated. Use get_library_id_list_in_sequence instead."
-    )
+    ))
     return get_library_id_list_in_sequence(sequence_orcabus_id=sequence_orcabus_id)
 
 
 def get_libraries_from_instrument_run_id(instrument_run_id: str) -> List[str]:
-    DeprecationWarning(
+    warnings.warn(DeprecationWarning(
         "get_libraries_from_instrument_run_id is deprecated. Use get_library_id_list_from_instrument_run_id instead."
-    )
+    ))
     return get_library_id_list_from_instrument_run_id(instrument_run_id=instrument_run_id)
 
 
