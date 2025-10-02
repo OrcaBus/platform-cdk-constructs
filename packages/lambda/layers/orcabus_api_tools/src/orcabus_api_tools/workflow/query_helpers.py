@@ -46,16 +46,16 @@ def list_workflow_runs_by_workflow_name(
 
 # Deprecated
 def get_workflow_by_workflow_name(workflow_name: str) -> List[WorkflowRunDetail]:
-    DeprecationWarning(
+    warnings.warn(DeprecationWarning(
         "This function is deprecated, "
         "please use list_workflow_runs_by_workflow_name instead"
-    )
+    ))
     return list_workflow_runs_by_workflow_name(workflow_name)
 
 
-def get_workflows_from_analysis_run_id(workflow_name: str) -> List[WorkflowRunDetail]:
-    DeprecationWarning(
+def get_workflows_from_analysis_run_id(analysis_run_id: str) -> List[WorkflowRunDetail]:
+    warnings.warn(DeprecationWarning(
         "This function is deprecated, "
         "please use list_workflow_runs_from_analysis_run_id instead"
-    )
-    return list_workflow_runs_from_analysis_run_id(workflow_name)
+    ))
+    return list_workflow_runs_from_analysis_run_id(analysis_run_id)

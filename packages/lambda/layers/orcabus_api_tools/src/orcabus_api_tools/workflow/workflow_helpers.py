@@ -34,10 +34,14 @@ def list_workflows(
         validation_state: Optional[ValidationStateType] = None,
 ) -> List[Workflow]:
     """
-    Given a workflow, list the workflow object
-    :param workflow_name:
-    :param workflow_version:
-    :return:
+    List workflow objects matching the provided filters.
+    :param workflow_name: The name of the workflow to filter by.
+    :param workflow_version: (Optional) The version of the workflow to filter by.
+    :param code_version: (Optional) The code version to filter by.
+    :param execution_engine: (Optional) The execution engine type to filter by.
+    :param execution_engine_pipeline_id: (Optional) The execution engine pipeline ID to filter by. Only used if execution_engine is specified.
+    :param validation_state: (Optional) The validation state to filter by.
+    :return: A list of Workflow objects matching the provided filters.
     """
 
     # List all workflows
