@@ -4,11 +4,12 @@
 import json
 from functools import reduce
 from operator import concat
+from pathlib import Path
 from typing import List, Dict, Union
 import typing
 import boto3
 from datetime import datetime, timedelta, timezone
-from urllib.parse import urlparse, unquote
+from urllib.parse import urlparse, unquote, urlunparse
 from itertools import batched
 
 # Local imports
@@ -126,9 +127,56 @@ def list_files_from_portal_run_id(
         return all_files_list
 
     return list(filter(
-        lambda file_iter_: not '/ica_logs/' in file_iter_['key'],
+        lambda file_iter_: not (
+            f"logs/{portal_run_id}/" in file_iter_['key'] or
+            f"cache/{portal_run_id}/" in file_iter_['key']
+        ),
         all_files_list
     ))
+
+
+def list_output_files_from_portal_run_id(
+        portal_run_id: str
+) -> List[FileObject]:
+    return list(filter(
+        lambda file_iter_: not (
+                f"cache/{portal_run_id}/" in file_iter_['key']
+        ),
+        list_files_from_portal_run_id(
+            portal_run_id=portal_run_id,
+            remove_log_files=True
+        )
+    ))
+
+
+def get_portal_run_id_root_prefix(portal_run_id: str) -> str:
+    # Get portal run id midfix from portal_run_id
+    all_portal_run_id_files = list_output_files_from_portal_run_id(
+        portal_run_id
+    )
+
+    # Sort by most recent output
+    all_portal_run_id_files.sort(
+        key=lambda file_iter_: datetime.fromisoformat(file_iter_['eventTime']).timestamp(),
+        reverse=True
+    )
+
+    if len(all_portal_run_id_files) == 0:
+        raise ValueError(f"No files found for portal run id {portal_run_id}")
+
+    portal_run_id_analysis_file = all_portal_run_id_files[0]
+
+    # Get root for the portal run id
+    parts_list = []
+    for idx, part in enumerate(Path(portal_run_id_analysis_file['key']).parts):
+        if part == portal_run_id:
+            parts_list.append(part)
+            break
+        else:
+            parts_list.append(part)
+    return str(urlunparse((
+        "s3", portal_run_id_analysis_file['bucket'], str("/".join(parts_list)), None, None, None
+    )))
 
 
 def get_presigned_url(s3_object_id: str) -> str:
