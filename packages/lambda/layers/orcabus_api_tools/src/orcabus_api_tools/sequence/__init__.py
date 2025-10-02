@@ -42,9 +42,11 @@ def get_sequence_request_response_results(
 
 from .sequence_helpers import (
     get_sequence_object_from_instrument_run_id,
-    get_libraries_from_instrument_run_id,
+    get_library_id_list_in_sequence,
+    get_library_id_list_from_instrument_run_id,
+    get_libraries_from_instrument_run_id,  # Deprecated
     get_sample_sheet_from_orcabus_id,
-    get_library_ids_in_sequence,
+    get_library_ids_in_sequence,  # Deprecated
     get_sample_sheet_from_instrument_run_id
 )
 
@@ -54,6 +56,8 @@ __all__ = [
     "get_sample_sheet_from_orcabus_id",
     "get_library_ids_in_sequence",
     "get_sample_sheet_from_instrument_run_id",
+    "get_library_id_list_in_sequence",
+    "get_library_id_list_from_instrument_run_id",
 ]
 
 
