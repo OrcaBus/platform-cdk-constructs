@@ -45,6 +45,12 @@ from .metadata_helpers import (
 from .query_helpers import (
     get_workflow_by_workflow_name,
     get_workflows_from_analysis_run_id,
+    list_workflow_runs_by_workflow_name,
+    list_workflow_runs_from_analysis_run_id,
+)
+
+from .workflow_helpers import (
+    list_workflows,
 )
 
 from .payload_helpers import (
@@ -70,13 +76,19 @@ __all__ = [
     "get_workflows_from_library_id",
     "get_workflows_from_library_id_list",
     # Query
+    # Deprecated
     "get_workflow_by_workflow_name",
     "get_workflows_from_analysis_run_id",
+    # New
+    "list_workflow_runs_by_workflow_name",
+    "list_workflow_runs_from_analysis_run_id",
     # Payload
     "get_payload",
     "get_payload_from_state_orcabus_id",
     "get_latest_payload_from_workflow_run",
     "get_latest_payload_from_portal_run_id",
+    # Workflow
+    "list_workflows",
     # Workflow Run
     "get_workflow_run",
     "get_workflow_run_from_portal_run_id",

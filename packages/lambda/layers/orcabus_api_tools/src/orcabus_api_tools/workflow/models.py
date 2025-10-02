@@ -53,6 +53,22 @@ ContextUseCaseType = Literal[
     'STORAGE',
 ]
 
+ExecutionEngineType = Literal[
+    'Unknown',
+    'ICA',
+    'SEQERA',
+    'AWS_BATCH',
+    'AWS_ECS',
+    'AWS_EKS',
+]
+
+ValidationStateType = Literal[
+    'UNVALIDATED',
+    'VALIDATED',
+    'DEPRECATED',
+    'FAILED',
+]
+
 # Classes
 class StateDetail(TypedDict):
     orcabusId: str
