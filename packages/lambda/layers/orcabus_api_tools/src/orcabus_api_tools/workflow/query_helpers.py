@@ -13,7 +13,7 @@ from .globals import WORKFLOW_RUN_ENDPOINT
 from .models import WorkflowRunDetail
 
 
-def get_workflows_from_analysis_run_id(analysis_run_id: str) -> List[WorkflowRunDetail]:
+def list_workflow_runs_from_analysis_run_id(analysis_run_id: str) -> List[WorkflowRunDetail]:
     """
     Use the query analysisRuns__analysisRunId to get workflows from an analysis run id
     :param analysis_run_id:
@@ -27,7 +27,7 @@ def get_workflows_from_analysis_run_id(analysis_run_id: str) -> List[WorkflowRun
     )
 
 
-def get_workflow_by_workflow_name(
+def list_workflow_runs_by_workflow_name(
         workflow_name: str,
 ) -> List[WorkflowRunDetail]:
     """
@@ -42,3 +42,20 @@ def get_workflow_by_workflow_name(
             "workflow__name": workflow_name
         }
     )
+
+
+# Deprecated
+def get_workflow_by_workflow_name(workflow_name: str) -> List[WorkflowRunDetail]:
+    DeprecationWarning(
+        "This function is deprecated, "
+        "please use list_workflow_runs_by_workflow_name instead"
+    )
+    return list_workflow_runs_by_workflow_name(workflow_name)
+
+
+def get_workflows_from_analysis_run_id(workflow_name: str) -> List[WorkflowRunDetail]:
+    DeprecationWarning(
+        "This function is deprecated, "
+        "please use list_workflow_runs_from_analysis_run_id instead"
+    )
+    return list_workflow_runs_from_analysis_run_id(workflow_name)
