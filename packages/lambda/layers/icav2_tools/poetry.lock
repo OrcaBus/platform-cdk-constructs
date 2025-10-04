@@ -36,6 +36,21 @@ html5lib = ["html5lib"]
 lxml = ["lxml"]
 
 [[package]]
+name = "binaryornot"
+version = "0.4.4"
+description = "Ultra-lightweight pure Python package to check if a file is binary or text."
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "binaryornot-0.4.4-py2.py3-none-any.whl", hash = "sha256:b8b71173c917bddcd2c16070412e369c3ed7f0528926f70cac18a6c97fd563e4"},
+    {file = "binaryornot-0.4.4.tar.gz", hash = "sha256:359501dfc9d40632edc9fac890e19542db1a287bbcfa58175b66658392018061"},
+]
+
+[package.dependencies]
+chardet = ">=3.0.2"
+
+[[package]]
 name = "cachecontrol"
 version = "0.14.3"
 description = "httplib2 caching for requests"
@@ -67,6 +82,18 @@ groups = ["main"]
 files = [
     {file = "certifi-2025.8.3-py3-none-any.whl", hash = "sha256:f6c12493cfb1b06ba2ff328595af9350c65d6644968e5d3a2ffd78699af217a5"},
     {file = "certifi-2025.8.3.tar.gz", hash = "sha256:e564105f78ded564e3ae7c923924435e1daa7463faeab5bb932bc53ffae63407"},
+]
+
+[[package]]
+name = "chardet"
+version = "5.2.0"
+description = "Universal encoding detector for Python 3"
+optional = false
+python-versions = ">=3.7"
+groups = ["main"]
+files = [
+    {file = "chardet-5.2.0-py3-none-any.whl", hash = "sha256:e1cf59446890a00105fe7b7912492ea04b6e6f06d4b742b2c788469e34c82970"},
+    {file = "chardet-5.2.0.tar.gz", hash = "sha256:1b3b6ff479a8c414bc3fa2c0852995695c4a026dcd6d0633b2dd092ca39c1cf7"},
 ]
 
 [[package]]
@@ -1106,18 +1133,19 @@ test = ["websockets"]
 
 [[package]]
 name = "wrapica"
-version = "2.38.0.dev20250902211000"
+version = "2.40.0.dev20251004172048"
 description = "Secondary level functions for ICAv2 based off libica"
 optional = false
 python-versions = "<3.15,>=3.12"
 groups = ["main"]
 files = [
-    {file = "wrapica-2.38.0.dev20250902211000-py3-none-any.whl", hash = "sha256:b76c614356109dec3ebd4bfe73e9e5440009b73780482ec738e32f01eb44b187"},
-    {file = "wrapica-2.38.0.dev20250902211000.tar.gz", hash = "sha256:9e831e9c006ef54e7fd6a9dab46fb63bfa059bc97a435347a567ce88bb22d07e"},
+    {file = "wrapica-2.40.0.dev20251004172048-py3-none-any.whl", hash = "sha256:7fd0e310c1ddacee1f95116e25f9ca9a525e7da26482d95254a75f6fcb4d298a"},
+    {file = "wrapica-2.40.0.dev20251004172048.tar.gz", hash = "sha256:8b22c2a5adce4223a0dd9617d7429b4b5a358762c965de12ffe10a64a7e1fdbe"},
 ]
 
 [package.dependencies]
 beautifulsoup4 = ">=4.10.0,<5"
+binaryornot = ">=0.4.4,<1"
 cwl_utils = ">=0.38,<1"
 libica = ">=3.1,<4"
 pandas = ">=2.2.2,<3"
@@ -1141,4 +1169,4 @@ reference = "testpypi"
 [metadata]
 lock-version = "2.1"
 python-versions = ">3.12,<3.15"
-content-hash = "a3a28af29c59f6623188fea2b6cbc1729c34ecf80dac14f3164170c9b0e4e442"
+content-hash = "55ea852aa096b4680a2300e64d3b9333cf62dd5b6ed2f2ed02dc76e7370acf9e"
