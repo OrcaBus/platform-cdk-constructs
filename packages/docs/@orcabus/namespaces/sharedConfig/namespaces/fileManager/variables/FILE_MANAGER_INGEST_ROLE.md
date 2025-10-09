@@ -8,4 +8,4 @@
 
 > `const` **FILE\_MANAGER\_INGEST\_ROLE**: `"orcabus-file-manager-ingest-role"` = `"orcabus-file-manager-ingest-role"`
 
-Defined in: [packages/shared-config/file-manager.ts:66](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/file-manager.ts#L66)
+Defined in: [packages/shared-config/file-manager.ts:67](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/file-manager.ts#L67)
