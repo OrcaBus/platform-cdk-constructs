@@ -8,4 +8,4 @@
 
 > `const` **FILE\_MANAGER\_CACHE\_BUCKETS**: `Record`\<[`StageName`](../../account/type-aliases/StageName.md), `string`[]\>
 
-Defined in: [packages/shared-config/file-manager.ts:44](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/file-manager.ts#L44)
+Defined in: [packages/shared-config/file-manager.ts:45](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/file-manager.ts#L45)
