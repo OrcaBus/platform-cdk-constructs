@@ -127,7 +127,7 @@ def get_request(url: str, params: Optional[Dict] = None) -> Dict:
 
 def patch_request(
         url: str,
-        json_data: Optional[Dict] = None,
+        json_data: Optional[Union[Dict, List]] = None,
         params: Optional[Union[List | Dict]] = None
 ) -> Dict:
     # Get authorization header
