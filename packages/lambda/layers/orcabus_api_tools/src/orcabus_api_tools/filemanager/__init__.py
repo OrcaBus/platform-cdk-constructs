@@ -1,5 +1,5 @@
 # Standard
-from typing import Dict, Optional
+from typing import Dict, Optional, Union, List
 
 # Locals
 from .globals import FILEMANAGER_SUBDOMAIN_NAME
@@ -40,7 +40,7 @@ def get_file_manager_request(
 
 def file_manager_patch_request(
         endpoint: str,
-        json_data: Optional[Dict] = None,
+        json_data: Optional[Union[Dict, List]] = None,
         params: Optional[Dict] = None
 ):
     return patch_request(
