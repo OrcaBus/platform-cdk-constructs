@@ -19,12 +19,12 @@ from ..utils.miscell import get_bucket_key_pair_from_uri
 from . import (
     get_file_manager_request_response_results,
     get_file_manager_request,
-    file_manager_patch_request
+    file_manager_patch_request, file_manager_post_request
 )
 from .globals import (
     S3_LIST_ENDPOINT,
     S3_BUCKETS_BY_ACCOUNT_ID,
-    S3_PREFIXES_BY_ACCOUNT_ID, S3_ATTRIBUTES_LIST_ENDPOINT
+    S3_PREFIXES_BY_ACCOUNT_ID, S3_ATTRIBUTES_LIST_ENDPOINT, S3_SYNC_ENDPOINT
 )
 
 if typing.TYPE_CHECKING:
@@ -399,5 +399,20 @@ def update_ingest_id(s3_object_id: str, new_ingest_id: str) -> Dict:
         json_data=json_data,
         params = {
             "updateTag": json.dumps(True)
+        }
+    )
+
+
+def crawl_filemanager_sync(
+        bucket: str,
+        prefix: str
+):
+    # We might want to make sure this has completed before moving onto a next step
+    # Sync the file manager with the S3 bucket and prefix
+    file_manager_post_request(
+        endpoint=S3_SYNC_ENDPOINT,
+        json_data={
+            "bucket": bucket,
+            "prefix": f"{prefix.rstrip('/')}/",
         }
     )

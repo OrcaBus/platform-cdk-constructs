@@ -3,7 +3,7 @@ from typing import Dict, Optional, Union, List
 
 # Locals
 from .globals import FILEMANAGER_SUBDOMAIN_NAME
-from ..utils.requests_helpers import get_request_response_results, get_url, get_request, patch_request
+from ..utils.requests_helpers import get_request_response_results, get_url, get_request, patch_request, post_request
 
 
 def get_file_manager_url(endpoint: str) -> str:
@@ -50,6 +50,18 @@ def file_manager_patch_request(
     )
 
 
+def file_manager_post_request(
+        endpoint: str,
+        json_data: Optional[Union[Dict, List]] = None,
+        params: Optional[Dict] = None
+):
+    return post_request(
+        get_file_manager_url(endpoint),
+        json_data=json_data,
+        params=params
+    )
+
+
 # Set all
 from .file_helpers import (
     get_file_object_from_s3_uri,
@@ -75,6 +87,7 @@ from .file_helpers import (
     get_restore_prefix_from_account_id,
     get_analysis_cache_prefix_from_account_id,
     update_ingest_id,
+    crawl_filemanager_sync,
 )
 
 __all__ = [
@@ -101,4 +114,5 @@ __all__ = [
     "get_restore_prefix_from_account_id",
     "get_analysis_cache_prefix_from_account_id",
     "update_ingest_id",
+    "crawl_filemanager_sync",
 ]

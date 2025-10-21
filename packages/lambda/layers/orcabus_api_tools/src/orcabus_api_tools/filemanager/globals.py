@@ -6,6 +6,7 @@ FILEMANAGER_SUBDOMAIN_NAME = "file"
 S3_LIST_ENDPOINT = "api/v1/s3"
 
 S3_ATTRIBUTES_LIST_ENDPOINT = "api/v1/s3/attributes"
+S3_SYNC_ENDPOINT = "api/v1/s3/crawl/sync"
 
 # TODO: Move to env vars
 #
