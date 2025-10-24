@@ -23,6 +23,12 @@ jobs:
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Update npm to support OIDC
+        run: npm install -g npm@latest
+
+      - name: Verify npm version
+        run: npm --version
+
       - run: corepack enable
       
       - run: pnpm install --ignore-scripts
