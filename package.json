@@ -17,8 +17,7 @@
   "keywords": [],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OrcaBus/platform-cdk-constructs.git",
-    "directory": "packages"
+    "url": "git+https://github.com/OrcaBus/platform-cdk-constructs.git"
   },
   "license": "MIT",
   "author": {
