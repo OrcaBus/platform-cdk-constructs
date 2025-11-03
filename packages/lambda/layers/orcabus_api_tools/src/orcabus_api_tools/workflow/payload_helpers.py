@@ -42,7 +42,7 @@ def get_payload_from_state_orcabus_id(workflow_run_orcabus_id: str, state_orcabu
     return get_payload(workflow_run_state_payload_id)
 
 
-def get_latest_payload_from_workflow_run(workflow_run_orcabus_id: str) -> Payload:
+def get_latest_payload_from_workflow_run(workflow_run_orcabus_id: str) -> Optional[Payload]:
     """
     Get the payload from the workflow run
     :param workflow_run_orcabus_id:
@@ -53,11 +53,11 @@ def get_latest_payload_from_workflow_run(workflow_run_orcabus_id: str) -> Payloa
     # Get the workflow run
     workflow_run = get_workflow_run(workflow_run_orcabus_id)
 
-    # Get the payload
-    return Payload(**get_payload_from_state_orcabus_id(
+    # Get the payload from the current state
+    return get_payload_from_state_orcabus_id(
         workflow_run_orcabus_id=workflow_run_orcabus_id,
         state_orcabus_id=workflow_run['currentState']['orcabusId']
-    ))
+    )
 
 
 def get_latest_payload_from_portal_run_id(portal_run_id: str) -> Payload:
