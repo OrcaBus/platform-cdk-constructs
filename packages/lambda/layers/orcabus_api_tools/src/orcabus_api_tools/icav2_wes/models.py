@@ -48,6 +48,7 @@ class WESResponse(TypedDict):
     outputs: NotRequired[Dict[str, Any]]
     engineParameters: EngineParameters
     tags: NotRequired[Dict[str, Any]]
+    icav2AnalysisId: NotRequired[str]
     createdAt: str
     updatedAt: str
     projectId: str
