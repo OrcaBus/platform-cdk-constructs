@@ -283,14 +283,14 @@ files = [
 
 [[package]]
 name = "libica"
-version = "3.1"
+version = "3.2"
 description = "Python SDK for Illumina Connected Analytics"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "libica-3.1-py3-none-any.whl", hash = "sha256:ef27d5576a5765d39a5f8617f18e46fbb2dce85e64e627e4f998a248d08e5439"},
-    {file = "libica-3.1.tar.gz", hash = "sha256:6b4f18d35d9881ec870b5d5b6ad5daa58e29110ab5d4537847cbf646086aafec"},
+    {file = "libica-3.2-py3-none-any.whl", hash = "sha256:7a3f20085fc553e6aa36ddafea0d239611614b334c1de34d1e48d62427afd2ee"},
+    {file = "libica-3.2.tar.gz", hash = "sha256:51b2ef2f7d40d86ee9100cc5417ff6dbd22de80af7ca6e2d62c1f02b3eb39c5b"},
 ]
 
 [package.dependencies]
@@ -1133,21 +1133,21 @@ test = ["websockets"]
 
 [[package]]
 name = "wrapica"
-version = "2.40.0.dev20251005111713"
+version = "2.40.1"
 description = "Secondary level functions for ICAv2 based off libica"
 optional = false
 python-versions = "<3.15,>=3.12"
 groups = ["main"]
 files = [
-    {file = "wrapica-2.40.0.dev20251005111713-py3-none-any.whl", hash = "sha256:179cf811e213212097463aa8b05b6723158e02d47880554f9b0d69616ef60890"},
-    {file = "wrapica-2.40.0.dev20251005111713.tar.gz", hash = "sha256:a062b749936c4a913bf7a2bc96e0a94ad37f74061f240605c2cc4c75fd1ec2fa"},
+    {file = "wrapica-2.40.1-py3-none-any.whl", hash = "sha256:bb418dff8f9ee40d872f331551e349a74ef2e960e74b022293618a038f2d05b6"},
+    {file = "wrapica-2.40.1.tar.gz", hash = "sha256:ddeff0b5f3d446cc8652592efd390e1631a41e33269426056b8a905b3774b3b2"},
 ]
 
 [package.dependencies]
 beautifulsoup4 = ">=4.10.0,<5"
 binaryornot = ">=0.4.4,<1"
 cwl_utils = ">=0.38,<1"
-libica = ">=3.1,<4"
+libica = ">=3.2,<4"
 pandas = ">=2.2.2,<3"
 PyJWT = ">=2.8.0,<3"
 "ruamel.base" = ">=1.0.0,<2"
@@ -1161,12 +1161,7 @@ docs = ["sphinx (>=7.2.6,<8)", "sphinx-rtd-theme (>=2.0.0,<3)", "sphinx_autodoc_
 test = ["pytest", "pytest-mock"]
 toml = ["tomli_w (>=1.0.0,<2)"]
 
-[package.source]
-type = "legacy"
-url = "https://test.pypi.org/simple"
-reference = "testpypi"
-
 [metadata]
 lock-version = "2.1"
 python-versions = ">3.12,<3.15"
-content-hash = "367e1225ea130ae4343132d3da2b2e6e611cba5c52fc18fdbfc391c548a7c4a5"
+content-hash = "50d509625bebfcf44a0da67a7f778a6c11add69b9b06463d38d7fad63e17999d"
