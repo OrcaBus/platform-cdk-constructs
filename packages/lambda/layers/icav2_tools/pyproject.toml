@@ -15,7 +15,7 @@ repository = "https://github.com/orcabus/platform-cdk-constructs"
 
 [tool.poetry.dependencies]
 python = ">3.12,<3.15"
-wrapica = "2.40.1.post20251107120738"
+wrapica = "2.40.1.post20251107162736"
 
 [tool.poetry.group.dev]
 optional = true
