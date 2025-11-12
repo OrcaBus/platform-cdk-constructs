@@ -12,13 +12,13 @@ import {ANALYSIS_ARCHIVE_BUCKET, FASTQ_ARCHIVE_BUCKET, ONCOANALYSER_BUCKET, PIPE
 import { validateSecretName } from "./secrets";
 
 // The inventory bucket used for testing filemanager.
-export const FILEMANAGER_INVENTORY_BUCKET = "filemanager-inventory-test";
+export const FILE_MANAGER_INVENTORY_BUCKET = "filemanager-inventory-test";
 
 // Regular buckets where all data is available and ingested.
 export const FILE_MANAGER_BUCKETS: Record<StageName, string[]> = {
   BETA: [
     ONCOANALYSER_BUCKET.BETA,
-    FILEMANAGER_INVENTORY_BUCKET,
+    FILE_MANAGER_INVENTORY_BUCKET,
     `ntsm-fingerprints-${BETA_ENVIRONMENT.account}-${BETA_ENVIRONMENT.region}`,
     `fastq-manager-sequali-outputs-${BETA_ENVIRONMENT.account}-${BETA_ENVIRONMENT.region}`,
     `data-sharing-artifacts-${BETA_ENVIRONMENT.account}-${BETA_ENVIRONMENT.region}`,
