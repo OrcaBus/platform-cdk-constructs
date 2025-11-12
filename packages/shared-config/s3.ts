@@ -28,3 +28,21 @@ export const PIPELINE_CACHE_PREFIX: Record<StageName, string> = {
   PROD: "byob-icav2/production/",
 }
 
+/**
+ * The oncoanalyser bucket.
+ */
+export const ONCOANALYSER_BUCKET: Record<StageName, string> = {
+  BETA: 'umccr-temp-dev',
+  GAMMA: 'umccr-temp-stg',
+  PROD: 'org.umccr.data.oncoanalyser',
+}
+
+/**
+ * The analysis archive bucket.
+ */
+export const ANALYSIS_ARCHIVE_BUCKET = "archive-prod-analysis-503977275616-ap-southeast-2";
+
+/**
+ * The fastq archive bucket.
+ */
+export const FASTQ_ARCHIVE_BUCKET = "archive-prod-fastq-503977275616-ap-southeast-2";

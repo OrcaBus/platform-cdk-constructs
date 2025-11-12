@@ -8,28 +8,28 @@ import {
   PROD_ENVIRONMENT,
 } from "../deployment-stack-pipeline";
 import { StageName } from "./accounts";
-import {PIPELINE_CACHE_BUCKET} from "./s3";
+import {ANALYSIS_ARCHIVE_BUCKET, FASTQ_ARCHIVE_BUCKET, ONCOANALYSER_BUCKET, PIPELINE_CACHE_BUCKET} from "./s3";
 import { validateSecretName } from "./secrets";
 
 // Regular buckets where all data is available and ingested.
 export const FILE_MANAGER_BUCKETS: Record<StageName, string[]> = {
   BETA: [
-    "umccr-temp-dev",
+    ONCOANALYSER_BUCKET.BETA,
     `ntsm-fingerprints-${BETA_ENVIRONMENT.account}-${BETA_ENVIRONMENT.region}`,
     `fastq-manager-sequali-outputs-${BETA_ENVIRONMENT.account}-${BETA_ENVIRONMENT.region}`,
     `data-sharing-artifacts-${BETA_ENVIRONMENT.account}-${BETA_ENVIRONMENT.region}`,
     "filemanager-inventory-test",
   ],
   GAMMA: [
-    "umccr-temp-stg",
+    ONCOANALYSER_BUCKET.GAMMA,
     `ntsm-fingerprints-${GAMMA_ENVIRONMENT.account}-${GAMMA_ENVIRONMENT.region}`,
     `fastq-manager-sequali-outputs-${GAMMA_ENVIRONMENT.account}-${GAMMA_ENVIRONMENT.region}`,
     `data-sharing-artifacts-${GAMMA_ENVIRONMENT.account}-${GAMMA_ENVIRONMENT.region}`,
   ],
   PROD: [
-    "org.umccr.data.oncoanalyser",
-    "archive-prod-analysis-503977275616-ap-southeast-2",
-    "archive-prod-fastq-503977275616-ap-southeast-2",
+    ONCOANALYSER_BUCKET.PROD,
+    ANALYSIS_ARCHIVE_BUCKET,
+    FASTQ_ARCHIVE_BUCKET,
     `ntsm-fingerprints-${PROD_ENVIRONMENT.account}-${PROD_ENVIRONMENT.region}`,
     `fastq-manager-sequali-outputs-${PROD_ENVIRONMENT.account}-${PROD_ENVIRONMENT.region}`,
     `data-sharing-artifacts-${PROD_ENVIRONMENT.account}-${PROD_ENVIRONMENT.region}`,
