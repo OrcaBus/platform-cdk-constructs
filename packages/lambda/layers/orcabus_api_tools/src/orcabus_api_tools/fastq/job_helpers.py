@@ -7,11 +7,13 @@ Update helpers for the update script.
 - run_ntsm
 - run_file_compression_information
 """
+from typing import Dict, Any
+
 # Standard imports
 
 # Local imports
 from . import fastq_patch_request
-from .globals import FASTQ_ENDPOINT
+from .globals import FASTQ_ENDPOINT, FASTQ_SET_ENDPOINT
 from .models import Job
 
 
@@ -62,4 +64,26 @@ def run_read_count_stats(fastq_id: str) -> Job:
         **fastq_patch_request(
             f"{FASTQ_ENDPOINT}/{fastq_id}:runReadCountInformation"
         )
+    )
+
+def run_extract_fingerprint(
+        fastq_set_id: str,
+        reference_name: str,
+        bam_uri: str
+) -> Dict[str, Any]:
+    """
+    Run extract fingerprint for a fastq_set_id.
+
+    :param bam_uri:
+    :param reference_name:
+    :param fastq_set_id: Fastq set str
+    """
+    return fastq_patch_request(
+        f"{FASTQ_SET_ENDPOINT}/{fastq_set_id}:runExtractFingerprint",
+        params={
+            "referenceName": reference_name
+        },
+        json_data={
+            "s3Uri": bam_uri
+        }
     )
