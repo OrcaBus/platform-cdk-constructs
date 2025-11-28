@@ -39,7 +39,8 @@ from .create_helpers import (
 
 from .metadata_helpers import (
     get_workflows_from_library_id,
-    get_workflows_from_library_id_list
+    get_workflows_from_library_id_list,
+    get_workflow_runs_from_metadata,
 )
 
 from .query_helpers import (
@@ -47,6 +48,7 @@ from .query_helpers import (
     get_workflows_from_analysis_run_id,
     list_workflow_runs_by_workflow_name,
     list_workflow_runs_from_analysis_run_id,
+    list_workflow_runs,
 )
 
 from .workflow_helpers import (
@@ -75,12 +77,14 @@ __all__ = [
     # Metadata
     "get_workflows_from_library_id",
     "get_workflows_from_library_id_list",
+    "get_workflow_runs_from_metadata",
     # Query
     # Deprecated
     "get_workflow_by_workflow_name",
     "get_workflows_from_analysis_run_id",
-    # New
     "list_workflow_runs_by_workflow_name",
+    # New
+    "list_workflow_runs",
     "list_workflow_runs_from_analysis_run_id",
     # Payload
     "get_payload",
