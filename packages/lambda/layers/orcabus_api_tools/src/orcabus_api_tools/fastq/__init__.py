@@ -83,7 +83,8 @@ from .job_helpers import (
     run_qc_stats,
     run_ntsm,
     run_file_compression_stats,
-    run_read_count_stats
+    run_read_count_stats,
+    run_extract_fingerprint
 )
 
 # Query
@@ -114,6 +115,7 @@ from .update_helpers import (
     add_file_compression_information,
     add_ntsm_storage_object,
     add_read_set,
+    add_somalier_fingerprint,
     detach_read_set,
     validate_fastq,
     invalidate_fastq,
@@ -156,6 +158,7 @@ __all__ = [
     "run_ntsm",
     "run_file_compression_stats",
     "run_read_count_stats",
+    "run_extract_fingerprint",
     # Query
     "get_fastq",
     "get_fastq_set",
@@ -184,6 +187,7 @@ __all__ = [
     "detach_read_set",
     "validate_fastq",
     "invalidate_fastq",
+    "add_somalier_fingerprint",
     "link_fastq_list_row_to_fastq_set",
     "link_fastq_to_fastq_set",
     "unlink_fastq_list_row_from_fastq_set",
