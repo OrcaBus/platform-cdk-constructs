@@ -13,14 +13,14 @@ from .globals import PAYLOAD_ENDPOINT
 from .models import Payload
 
 
-def get_payload(payload_id: str) -> Payload:
+def get_payload(payload_id: str) -> Optional[Payload]:
     """
     Get payload from the payload id
     :param payload_id:
     :return:
     """
     # Get payload
-    return Payload(**get_workflow_request(f"{PAYLOAD_ENDPOINT}/{payload_id}"))
+    return cast(Payload, get_workflow_request(f"{PAYLOAD_ENDPOINT}/{payload_id}"))
 
 
 def get_payload_from_state_orcabus_id(workflow_run_orcabus_id: str, state_orcabus_id: str) -> Optional[Payload]:
