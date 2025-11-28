@@ -104,7 +104,7 @@ def get_file_object_from_ingest_id(ingest_id: str, **kwargs) -> FileObject:
     file_objects_list.sort(
         key=lambda file_obj_iter_: (
             StorageClassPriority[file_obj_iter_['storageClass']],
-            -datetime.fromisoformat(file_obj_iter_['eventTime']).timestamp()
+            -datetime.fromisoformat(file_obj_iter_['lastModifiedDate']).timestamp()
         )
     )
 
@@ -157,7 +157,7 @@ def get_portal_run_id_root_prefix(portal_run_id: str) -> str:
 
     # Sort by most recent output
     all_portal_run_id_files.sort(
-        key=lambda file_iter_: datetime.fromisoformat(file_iter_['eventTime']).timestamp(),
+        key=lambda file_iter_: datetime.fromisoformat(file_iter_['lastModifiedDate']).timestamp(),
         reverse=True
     )
 
@@ -277,7 +277,9 @@ def get_presigned_url_expiry(s3_presigned_url: str) -> datetime:
     return (creation_time + expiry_ext).astimezone(tz=timezone.utc)
 
 
-def get_s3_objs_from_ingest_ids_map(ingest_ids: List[str], **kwargs) -> List[Dict[str, Union[FileObject, str]]]:
+def get_s3_objs_from_ingest_ids_map(
+        ingest_ids: List[str], **kwargs
+) -> List[Dict[str, Union[FileObject, str]]]:
     # Check if the list is empty
     if len(ingest_ids) == 0:
         return []
@@ -322,7 +324,7 @@ def get_s3_objs_from_ingest_ids_map(ingest_ids: List[str], **kwargs) -> List[Dic
         s3_objects_match.sort(
             key=lambda s3_object_iter_: (
                 StorageClassPriority[s3_object_iter_['fileObject']['storageClass']],
-                -datetime.fromisoformat(s3_object_iter_['fileObject']['eventTime']).timestamp()
+                -datetime.fromisoformat(s3_object_iter_['fileObject']['lastModifiedDate']).timestamp()
             )
         )
 
