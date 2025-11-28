@@ -76,7 +76,7 @@ def run_extract_fingerprint(
 
     :param bam_uri:
     :param reference_name:
-    :param fastq_set_id: Fastq set str
+    :param fastq_set_id: Fastq set id
     """
     return fastq_patch_request(
         f"{FASTQ_SET_ENDPOINT}/{fastq_set_id}:runExtractFingerprint",

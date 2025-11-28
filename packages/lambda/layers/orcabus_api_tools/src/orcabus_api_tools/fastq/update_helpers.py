@@ -242,12 +242,12 @@ def set_is_not_current_fastq_set(fastq_set_id: str) -> FastqSet:
 def add_somalier_fingerprint(
     fastq_set_id: str,
     s3_uri: str
-) -> Fastq:
+) -> FastqSet:
     """
     Add a Somalier storage object to a fastq set id.
 
     :param fastq_set_id: Fastq str
-    :param somalier_fastq_storage_object: Somalier str
+    :param s3_uri: Somalier s3 uri
     """
     return fastq_patch_request(
         f"{FASTQ_SET_ENDPOINT}/{fastq_set_id}:addFingerprint",
