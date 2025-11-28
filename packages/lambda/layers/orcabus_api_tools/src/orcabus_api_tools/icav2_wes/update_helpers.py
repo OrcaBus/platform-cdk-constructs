@@ -17,9 +17,12 @@ def update_icav2_wes_analysis_status(
     # Confirm param keys are valid
     for key in kwargs.keys():
         if key not in WESPatchRequest.__annotations__:
-            raise ValueError(f"Invalid parameter key: {key}. Valid keys are: {', '.join(WESPatchRequest.__annotations__.keys())}")
+            raise ValueError(
+                f"Invalid parameter key: {key}. "
+                f"Valid keys are: {', '.join(WESPatchRequest.__annotations__.keys())}"
+            )
 
-
+    # Return the patch request
     return icav2_wes_patch_request(
         f"{ANALYSES_ENDPOINT}/{icav2_wes_orcabus_id}",
         json_data=dict(filter(

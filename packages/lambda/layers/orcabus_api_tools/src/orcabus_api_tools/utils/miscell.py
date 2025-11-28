@@ -1,6 +1,11 @@
+#!/usr/bin/env python3
+
+# Imports
+from typing import Tuple
 from urllib.parse import urlparse
 
-def get_bucket_key_pair_from_uri(s3_uri: str) -> (str, str):
+
+def get_bucket_key_pair_from_uri(s3_uri: str) -> Tuple[str, str]:
     """
     Get the bucket and key from an s3 uri
     :param s3_uri:
