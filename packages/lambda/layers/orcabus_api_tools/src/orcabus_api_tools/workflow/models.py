@@ -41,6 +41,7 @@ Payload is
 """
 
 # Imports
+import typing
 from typing import TypedDict, Optional, Dict, List, NotRequired, Literal
 
 # Literals
@@ -110,6 +111,24 @@ class AnalysisRun(TypedDict):
     comment: NotRequired[str]
     contexts: List[str]
     readsets: List[str]
+
+
+class Workflow(TypedDict):
+    name: str
+    version: str
+    codeVersion: NotRequired[str]
+    executionEngine: NotRequired[str]
+    executionEnginePipelineId: NotRequired[str]
+    validationState: NotRequired[str]
+
+
+class ReadSet(TypedDict):
+    orcabusId: str
+    rgid: str
+
+
+class EventLibrary('LibraryBase'):
+    readsets: List[ReadSet]
 
 
 class WorkflowRunDetail(TypedDict):
