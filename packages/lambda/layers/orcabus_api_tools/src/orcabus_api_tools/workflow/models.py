@@ -41,7 +41,11 @@ Payload is
 """
 
 # Imports
+import typing
 from typing import TypedDict, Optional, Dict, List, NotRequired, Literal
+
+# Import directly, safe as we do not do any internal imports under metadata.models.
+from ..metadata.models import LibraryBase
 
 # Literals
 AnalysisStatusType = Literal[
@@ -76,12 +80,6 @@ class StateDetail(TypedDict):
     timestamp: str
 
 
-class Workflow(TypedDict):
-    orcabusId: str
-    name: str
-    version: str
-
-
 class State(StateDetail):
     comment: str
     workflowRun: str
@@ -110,6 +108,25 @@ class AnalysisRun(TypedDict):
     comment: NotRequired[str]
     contexts: List[str]
     readsets: List[str]
+
+
+class Workflow(TypedDict):
+    orcabusId: str
+    name: str
+    version: str
+    codeVersion: NotRequired[str]
+    executionEngine: NotRequired[str]
+    executionEnginePipelineId: NotRequired[str]
+    validationState: NotRequired[str]
+
+
+class ReadSet(TypedDict):
+    orcabusId: str
+    rgid: str
+
+
+class EventLibrary(LibraryBase):
+    readsets: List[ReadSet]
 
 
 class WorkflowRunDetail(TypedDict):
