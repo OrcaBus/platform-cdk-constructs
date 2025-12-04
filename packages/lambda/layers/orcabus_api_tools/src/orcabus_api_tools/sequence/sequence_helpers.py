@@ -94,11 +94,17 @@ def get_sequence_object_from_instrument_run_id(instrument_run_id: str) -> Option
     if len(sequence_run_dict_list) > 1:
         logging.warning(
             f"Multiple sequence runs found for instrument run id {instrument_run_id}. "
-            f"Returning the last one."
+            f"Returning the last one that has a sequenceRunName"
         )
+        return cast(Sequence, next(filter(
+            lambda sequence_run_iter_: (
+                sequence_run_iter_.get('sequenceRunName') is not None
+            ),
+            reversed(sequence_run_dict_list)
+        )))
 
-    # Return the last sequence run
-    return cast(Sequence, sequence_run_dict_list[-1])
+    # Return the first (and only) sequence run
+    return cast(Sequence, sequence_run_dict_list[0])
 
 
 def get_sample_sheet_from_orcabus_id(sequence_orcabus_id: str) -> SampleSheet:
