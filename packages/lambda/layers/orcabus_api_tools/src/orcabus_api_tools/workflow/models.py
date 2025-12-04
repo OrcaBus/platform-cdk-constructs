@@ -44,6 +44,9 @@ Payload is
 import typing
 from typing import TypedDict, Optional, Dict, List, NotRequired, Literal
 
+# Import directly, safe as we do not do any internal imports under metadata.models.
+from ..metadata.models import LibraryBase
+
 # Literals
 AnalysisStatusType = Literal[
     'ACTIVE',
@@ -77,12 +80,6 @@ class StateDetail(TypedDict):
     timestamp: str
 
 
-class Workflow(TypedDict):
-    orcabusId: str
-    name: str
-    version: str
-
-
 class State(StateDetail):
     comment: str
     workflowRun: str
@@ -114,6 +111,7 @@ class AnalysisRun(TypedDict):
 
 
 class Workflow(TypedDict):
+    orcabusId: str
     name: str
     version: str
     codeVersion: NotRequired[str]
@@ -127,7 +125,7 @@ class ReadSet(TypedDict):
     rgid: str
 
 
-class EventLibrary('LibraryBase'):
+class EventLibrary(LibraryBase):
     readsets: List[ReadSet]
 
 
