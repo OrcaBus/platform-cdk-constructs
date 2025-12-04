@@ -94,7 +94,7 @@ def get_sequence_object_from_instrument_run_id(instrument_run_id: str) -> Option
     if len(sequence_run_dict_list) > 1:
         logging.warning(
             f"Multiple sequence runs found for instrument run id {instrument_run_id}. "
-            f"Returning the last one that has a status and v1pre3Id."
+            f"Returning the last one that has a sequenceRunName"
         )
         return cast(Sequence, next(filter(
             lambda sequence_run_iter_: (
