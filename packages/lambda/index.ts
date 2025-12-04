@@ -321,6 +321,10 @@ export class PythonUvFunction extends PythonFunction {
                                 `find ${outputDir} -type d -name '__pycache__' -exec rm -rf {}/* \\;`,
                                 // Delete the __pycache__ directories themselves
                                 `find ${outputDir} -type d -name '__pycache__' -delete`,
+                                // Uninstall boto3 & botocore to avoid bloating the image
+                                // pip is aliased to 'uv pip' so no need to include --yes parameter
+                                `pip uninstall boto3 botocore`,
+                                `rm -rf ${outputDir}/boto3 ${outputDir}/botocore`,
                             ];
                         },
                     },
