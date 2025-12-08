@@ -7,9 +7,8 @@ Interact with the SRM service
 # Standard imports
 from pathlib import Path
 import warnings
-from typing import Optional, cast, List
+from typing import Optional, cast, List, Dict
 import logging
-
 
 # Local imports
 from . import get_sequence_request, sequence_post_request
@@ -129,7 +128,7 @@ def get_sample_sheet_from_orcabus_id(sequence_orcabus_id: str) -> SampleSheet:
 
 def add_samplesheet(
         instrument_run_id: str,
-        samplesheet: Path,
+        samplesheet_path: Path,
         created_by: str,
         comment: str
 ) -> Dict:
