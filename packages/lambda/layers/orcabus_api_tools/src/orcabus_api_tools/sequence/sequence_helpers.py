@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
-import warnings
+
+"""
+Interact with the SRM service
+"""
+
 # Standard imports
+from pathlib import Path
+import warnings
 from typing import Optional, cast, List
 import logging
 
 
 # Local imports
-from . import get_sequence_request
+from . import get_sequence_request, sequence_post_request
 from .globals import SEQUENCE_RUN_ENDPOINT, SEQUENCE_ENDPOINT
-from .models import SequenceDetail, SampleSheet, Sequence
+from .models import SampleSheet, Sequence
 
 
 def get_sample_sheet_from_instrument_run_id(instrument_run_id: str) -> Optional[SampleSheet]:
@@ -121,3 +127,30 @@ def get_sample_sheet_from_orcabus_id(sequence_orcabus_id: str) -> SampleSheet:
     )
 
 
+def add_samplesheet(
+        instrument_run_id: str,
+        samplesheet: Path,
+        created_by: str,
+        comment: str
+) -> Dict:
+    """
+    Add a sample sheet to the sequence run.
+    :param instrument_run_id: The instrument run identifier for which the sample sheet is being added.
+    :param samplesheet: Path to the sample sheet file to be uploaded.
+    :param created_by: The user who is adding the sample sheet.
+    :param comment: A comment describing the sample sheet or the reason for adding it.
+    :return: Response from the API containing the updated sequence information.
+    """
+    # Open the sample sheet file
+    with open(samplesheet, 'r') as ss_file:
+        ss_content = ss_file.read()
+
+    return sequence_post_request(
+        endpoint=f"{SEQUENCE_RUN_ENDPOINT}/action/add_samplesheet/",
+        json_data={
+            "file": ss_content,
+            "instrument_run_id": instrument_run_id,
+            "created_by": created_by,
+            "comment": comment
+        }
+    )
