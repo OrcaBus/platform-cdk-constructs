@@ -7,7 +7,7 @@ from typing import Dict, Optional
 from ..utils.requests_helpers import (
     get_request_response_results,
     get_request,
-    get_url
+    get_url, post_request
 )
 from .globals import SEQUENCE_SUBDOMAIN_NAME
 from .models import Sequence, SequenceDetail, SampleSheet
@@ -39,6 +39,15 @@ def get_sequence_request_response_results(
     return get_request_response_results(get_sequence_url(endpoint), params=params)
 
 
+def sequence_post_request(
+        endpoint: str,
+        json_data: Optional[Dict] = None,
+):
+    return post_request(
+        get_sequence_url(endpoint),
+        json_data=json_data
+)
+
 
 from .sequence_helpers import (
     get_sequence_object_from_instrument_run_id,
@@ -47,7 +56,8 @@ from .sequence_helpers import (
     get_libraries_from_instrument_run_id,  # Deprecated
     get_sample_sheet_from_orcabus_id,
     get_library_ids_in_sequence,  # Deprecated
-    get_sample_sheet_from_instrument_run_id
+    get_sample_sheet_from_instrument_run_id,
+    add_samplesheet,
 )
 
 __all__ = [
@@ -58,6 +68,7 @@ __all__ = [
     "get_sample_sheet_from_instrument_run_id",
     "get_library_id_list_in_sequence",
     "get_library_id_list_from_instrument_run_id",
+    "add_samplesheet",
 ]
 
 

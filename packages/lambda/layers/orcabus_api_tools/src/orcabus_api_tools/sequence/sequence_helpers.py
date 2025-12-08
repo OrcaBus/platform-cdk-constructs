@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 import warnings
+from pathlib import Path
 # Standard imports
 from typing import Optional, cast, List
 import logging
 
 
 # Local imports
-from . import get_sequence_request
+from . import get_sequence_request, sequence_post_request
 from .globals import SEQUENCE_RUN_ENDPOINT, SEQUENCE_ENDPOINT
 from .models import SequenceDetail, SampleSheet, Sequence
 
@@ -121,3 +122,30 @@ def get_sample_sheet_from_orcabus_id(sequence_orcabus_id: str) -> SampleSheet:
     )
 
 
+def add_samplesheet(
+        instrument_run_id: str,
+        samplesheet: Path,
+        created_by: str,
+        comment: str
+):
+    """
+    Add a sample sheet to the sequence run.
+    :param instrument_run_id:
+    :param samplesheet:
+    :param created_by:
+    :param comment:
+    :return:
+    """
+    # Open the sample sheet file
+    with open(samplesheet, 'r') as ss_file:
+        ss_content = ss_file.read()
+
+    return sequence_post_request(
+        endpoint=f"{SEQUENCE_RUN_ENDPOINT}/action/add_samplesheet/",
+        json_data={
+            "file": ss_content,
+            "instrument_run_id": instrument_run_id,
+            "created_by": created_by,
+            "comment": comment
+        }
+    )
