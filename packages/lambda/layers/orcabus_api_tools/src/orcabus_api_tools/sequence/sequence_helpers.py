@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
-import warnings
-from pathlib import Path
+
+"""
+Interact with the SRM service
+"""
+
 # Standard imports
+from pathlib import Path
+import warnings
 from typing import Optional, cast, List
 import logging
 
@@ -9,7 +14,7 @@ import logging
 # Local imports
 from . import get_sequence_request, sequence_post_request
 from .globals import SEQUENCE_RUN_ENDPOINT, SEQUENCE_ENDPOINT
-from .models import SequenceDetail, SampleSheet, Sequence
+from .models import SampleSheet, Sequence
 
 
 def get_sample_sheet_from_instrument_run_id(instrument_run_id: str) -> Optional[SampleSheet]:

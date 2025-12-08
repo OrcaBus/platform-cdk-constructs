@@ -7,7 +7,8 @@ from typing import Dict, Optional
 from ..utils.requests_helpers import (
     get_request_response_results,
     get_request,
-    get_url, post_request
+    get_url,
+    post_request
 )
 from .globals import SEQUENCE_SUBDOMAIN_NAME
 from .models import Sequence, SequenceDetail, SampleSheet
