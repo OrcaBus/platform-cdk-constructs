@@ -132,14 +132,14 @@ def add_samplesheet(
         samplesheet: Path,
         created_by: str,
         comment: str
-):
+) -> Dict:
     """
     Add a sample sheet to the sequence run.
-    :param instrument_run_id:
-    :param samplesheet:
-    :param created_by:
-    :param comment:
-    :return:
+    :param instrument_run_id: The instrument run identifier for which the sample sheet is being added.
+    :param samplesheet: Path to the sample sheet file to be uploaded.
+    :param created_by: The user who is adding the sample sheet.
+    :param comment: A comment describing the sample sheet or the reason for adding it.
+    :return: Response from the API containing the updated sequence information.
     """
     # Open the sample sheet file
     with open(samplesheet, 'r') as ss_file:

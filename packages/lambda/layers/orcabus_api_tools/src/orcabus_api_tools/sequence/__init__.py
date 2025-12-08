@@ -43,7 +43,7 @@ def get_sequence_request_response_results(
 def sequence_post_request(
         endpoint: str,
         json_data: Optional[Dict] = None,
-):
+) -> Dict:
     return post_request(
         get_sequence_url(endpoint),
         json_data=json_data
