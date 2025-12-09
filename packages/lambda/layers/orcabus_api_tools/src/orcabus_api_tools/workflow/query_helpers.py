@@ -28,7 +28,8 @@ def list_workflow_runs(
     :param current_status:
     :return:
     """
-    return get_workflow_request_response_results(
+    # Get workflow runs
+    workflow_runs = get_workflow_request_response_results(
         WORKFLOW_RUN_ENDPOINT,
         params=dict(filter(
             lambda item: item[1] is not None,
@@ -36,11 +37,20 @@ def list_workflow_runs(
                 "workflow__name": workflow_name,
                 "workflow__version": workflow_version,
                 "workflow__codeVersion": code_version,
-                "currentState__status": current_status,
                 "analysisRun__orcabusId": analysis_run_id
             }.items()
         ))
     )
+
+    # Check if status is set?
+    if current_status is None:
+        return workflow_runs
+
+    # Filter by status
+    return list(filter(
+        lambda workflow_run_iter_: workflow_run_iter_.get("currentState", {}).get("status") == current_status,
+        workflow_runs
+    ))
 
 
 # Deprecated
