@@ -135,5 +135,6 @@ def list_libraries_in_individual(individual_orcabus_id: str) -> List[LibraryDeta
             lambda subject_iter_: list_libraries_in_subject(subject_iter_['orcabusId']),
             # Get list of subject orcabus ids
             get_individual_from_individual_orcabus_id(individual_orcabus_id)["subjectSet"]
-        ))
+        )),
+        []
     ))

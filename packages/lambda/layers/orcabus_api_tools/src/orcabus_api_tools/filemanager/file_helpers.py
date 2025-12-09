@@ -245,7 +245,8 @@ def get_presigned_urls_from_ingest_ids(ingest_ids: List[str]) -> List[Dict[str, 
                 })
             ),
             ingest_id_batches
-        ))
+        )),
+        []
     ))
 
     s3_object_list = get_s3_objs_from_ingest_ids_map(ingest_ids)
@@ -303,7 +304,8 @@ def get_s3_objs_from_ingest_ids_map(
                             **kwargs
                         }),
                     ingest_id_batches
-                ))
+                )),
+                []
             ))
         ))
     except TypeError as e:

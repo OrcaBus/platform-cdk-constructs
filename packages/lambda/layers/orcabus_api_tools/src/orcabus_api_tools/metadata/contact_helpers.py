@@ -3,15 +3,16 @@
 """
 Helpers for using the contact API endpoint
 """
-
 # Standard imports
+from functools import reduce
+from operator import concat
 from typing import List
 from requests import HTTPError
 
 # Local imports
 from . import get_metadata_request_response_results, get_item_objs_from_item_id_list
 from .globals import CONTACT_ENDPOINT, ORCABUS_ULID_REGEX_MATCH
-from .models import Contact
+from .models import Contact, Library
 from .errors import ContactNotFoundError
 
 
@@ -107,3 +108,41 @@ def get_all_contacts() -> List[Contact]:
     :return:
     """
     return get_metadata_request_response_results(CONTACT_ENDPOINT)
+
+
+def list_libraries_for_contact_orcabus_id(contact_orcabus_id: str) -> List[Library]:
+    """
+    Given a contact orcabus id, get libraries associated with projects, associated with the contact
+    :param contact_orcabus_id:
+    :return:
+    """
+    from .project_helpers import list_libraries_in_project
+
+    # Get the contact object
+    contact_obj = get_contact_from_contact_orcabus_id(contact_orcabus_id)
+
+    # For each project in the projectSet, get the libraries in the project
+    library_object_list = list(reduce(
+        concat,
+        list(map(
+            lambda project_iter_: list_libraries_in_project(project_iter_['orcabusId']),
+            contact_obj.get('projectSet', [])
+        )),
+        []
+    ))
+
+    # Remove duplicates by library orcabus id
+    library_object_list = list({lib['orcabusId']: lib for lib in library_object_list}.values())
+
+    return library_object_list
+
+
+def list_libraries_for_contact_id(contact_id: str) -> List[Library]:
+    """
+    Get libraries associated with a contact id
+    :param contact_id:
+    :return:
+    """
+    return list_libraries_for_contact_orcabus_id(
+        get_contact_orcabus_id_from_contact_id(contact_id)
+    )

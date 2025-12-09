@@ -1,11 +1,15 @@
 #!/usr/bin/env python
+from functools import reduce
+from operator import concat
 from typing import Union, List
 
 from requests import HTTPError
 
 from .globals import LIBRARY_ENDPOINT, ORCABUS_ULID_REGEX_MATCH
-from .models import Library, Subject
-from . import get_metadata_request_response_results, get_item_objs_from_item_id_list
+from .models import Library, Subject, Contact, Project
+from . import (
+    get_metadata_request_response_results, get_item_objs_from_item_id_list
+)
 from .errors import LibraryNotFoundError
 
 
@@ -166,31 +170,77 @@ def get_library_workflow(library_id: str) -> Union[str | None]:
     return library.get("workflow")
 
 
-# def get_library_project_owner(library_id: str) -> Union[str | None]:
-#     """
-#     Given a library id, collect the library project owner
-#     :param library_id:
-#     :return:
-#     """
-#     library = get_library_from_library_id(library_id)
-#
-#     return library.get("projectOwner")
-#
-#
-# def get_library_project_name(library_id: str) -> Union[str | None]:
-#     """
-#     Given a library id, collect the library workflow
-#     :param library_id:
-#     :return:
-#     """
-#     library = get_library_from_library_id(library_id)
-#
-#     return library.get("projectName")
-
-
 def get_all_libraries() -> List[Library]:
     """
     Collect all libraries from the database
     :return:
     """
     return get_metadata_request_response_results(LIBRARY_ENDPOINT)
+
+
+def get_project_list_from_library_orcabus_id(library_orcabus_id: str) -> List[Project]:
+    """
+    Given a library orcabus id, collect the project list
+    :param library_orcabus_id:
+    :return:
+    """
+    # Local imports
+    from .project_helpers import get_project_from_project_orcabus_id
+
+    # For each project in the projectSet, get the project (convert from ProjectDetail to Project)
+    # Then return the list
+    return list(map(
+        lambda project_iter_: get_project_from_project_orcabus_id(project_iter_['orcabusId']),
+        get_library_from_library_orcabus_id(library_orcabus_id).get("projectSet", [])
+    ))
+
+
+def get_project_list_from_library_id(library_id: str) -> List[Project]:
+    """
+    Given a library id, collect the project list
+    :param library_id:
+    :return:
+    """
+    return get_project_list_from_library_orcabus_id(get_library_orcabus_id_from_library_id(library_id))
+
+
+def get_contact_list_from_library_orcabus_id(library_orcabus_id: str) -> List[Contact]:
+    """
+    Given a library orcabus id, collect the contact list
+    :param library_orcabus_id:
+    :return:
+    """
+    # Local imports
+    from .project_helpers import get_project_from_project_orcabus_id
+    from .contact_helpers import get_contact_from_contact_orcabus_id
+
+    # For each project in the projectSet,
+    # Get the contact set, then we reduce to a single list
+    contact_list = list(reduce(
+        concat,
+        list(map(
+            lambda project_iter_: get_project_from_project_orcabus_id(project_iter_['orcabusId']).get('contactSet', []),
+            get_library_from_library_orcabus_id(library_orcabus_id).get("projectSet", [])
+        )),
+        []
+    ))
+
+    # We need to deduplicate the contact list
+    contact_list = list({contact_iter_['orcabusId']: contact_iter_ for contact_iter_ in contact_list}.values())
+
+    # Then convert from ContactDetail to Contact objects by fetching each contact
+    contact_list = list(map(
+        lambda contact_iter_: get_contact_from_contact_orcabus_id(contact_iter_['orcabusId']),
+        contact_list
+    ))
+
+    return contact_list
+
+
+def get_contact_list_from_library_id(library_id: str) -> List[Contact]:
+    """
+    Given a library id, collect the contact list
+    :param library_id:
+    :return:
+    """
+    return get_contact_list_from_library_orcabus_id(get_library_orcabus_id_from_library_id(library_id))
