@@ -147,7 +147,7 @@ def add_samplesheet(
     return sequence_post_request(
         endpoint=f"{SEQUENCE_RUN_ENDPOINT}/action/add_samplesheet/",
         json_data={
-            "file": ss_content,
+            "file": (samplesheet_path.name, open(samplesheet_path, 'rb'), 'text/csv'),
             "instrument_run_id": instrument_run_id,
             "created_by": created_by,
             "comment": comment
