@@ -191,7 +191,7 @@ def get_project_list_from_library_orcabus_id(library_orcabus_id: str) -> List[Pr
     # Then return the list
     return list(map(
         lambda project_iter_: get_project_from_project_orcabus_id(project_iter_['orcabusId']),
-        get_library_from_library_orcabus_id(library_orcabus_id)["projectSet"]
+        get_library_from_library_orcabus_id(library_orcabus_id).get("projectSet", [])
     ))
 
 
@@ -219,9 +219,10 @@ def get_contact_list_from_library_orcabus_id(library_orcabus_id: str) -> List[Co
     contact_list = list(reduce(
         concat,
         list(map(
-            lambda project_iter_: get_project_from_project_orcabus_id(project_iter_['orcabusId'])['contactSet'],
-            get_library_from_library_orcabus_id(library_orcabus_id)["projectSet"]
-        ))
+            lambda project_iter_: get_project_from_project_orcabus_id(project_iter_['orcabusId']).get('contactSet', []),
+            get_library_from_library_orcabus_id(library_orcabus_id).get("projectSet", [])
+        )),
+        []
     ))
 
     # We need to deduplicate the contact list

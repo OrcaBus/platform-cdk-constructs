@@ -102,7 +102,8 @@ def get_item_from_item_id_list_batched(
                     )
                 ),
                 item_id_lists
-            ))
+            )),
+            []
         ))
     except TypeError as e:
         # TypeError: reduce() of empty sequence with no initial value

@@ -126,8 +126,9 @@ def list_libraries_for_contact_orcabus_id(contact_orcabus_id: str) -> List[Libra
         concat,
         list(map(
             lambda project_iter_: list_libraries_in_project(project_iter_['orcabusId']),
-            contact_obj['projectSet']
-        ))
+            contact_obj.get('projectSet', [])
+        )),
+        []
     ))
 
     # Remove duplicates by library orcabus id

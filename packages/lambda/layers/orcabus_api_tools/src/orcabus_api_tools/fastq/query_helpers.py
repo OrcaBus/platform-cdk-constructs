@@ -149,7 +149,8 @@ def get_fastqs_batched(
                     rowsPerPage=100
                 ),
                 item_lists
-            ))
+            )),
+            []
         ))
     except TypeError as e:
         # TypeError: reduce() of empty iterable with no initial value
