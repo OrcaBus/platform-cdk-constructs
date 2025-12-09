@@ -141,15 +141,13 @@ def add_samplesheet(
     :return: Response from the API containing the updated sequence information.
     """
     # Open the sample sheet file
-    with open(samplesheet_path, 'r') as ss_file:
-        ss_content = ss_file.read()
-
-    return sequence_post_request(
-        endpoint=f"{SEQUENCE_RUN_ENDPOINT}/action/add_samplesheet/",
-        json_data={
-            "file": ss_content,
-            "instrument_run_id": instrument_run_id,
-            "created_by": created_by,
-            "comment": comment
-        }
-    )
+    with open(samplesheet_path, 'rb') as file_data:
+        return sequence_post_request(
+            endpoint=f"{SEQUENCE_RUN_ENDPOINT}/action/add_samplesheet/",
+            files={
+                "file": ("SampleSheet.csv", file_data, 'text/csv'),
+                "instrument_run_id": (None, instrument_run_id),
+                "created_by": (None, created_by),
+                "comment": (None, comment),
+            }
+        )

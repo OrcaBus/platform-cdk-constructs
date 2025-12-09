@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-import json
-from typing import Dict, Optional, List, Union
-from urllib.parse import urlunparse, unquote, urlparse, parse_qs
 
 # Standard imports
+import json
 import requests
+from io import BufferedReader
+from typing import Dict, Optional, List, Union, Tuple
+from urllib.parse import urlunparse, unquote, urlparse, parse_qs
 import logging
 from copy import deepcopy
-
 from fastapi.encoders import jsonable_encoder
 from requests import HTTPError
 
@@ -159,13 +159,15 @@ def patch_request(
 def post_request(
         url: str,
         json_data: Optional[Dict] = None,
-        params: Optional[Dict] = None
+        params: Optional[Dict] = None,
+        files:  Optional[Dict[str, Tuple[str, BufferedReader, str]]] = None,
 ) -> Dict:
     """
     Run post request against the fastq endpoint
     :param json_data:
     :param url:
     :param params:
+    :param files:
     :return:
     """
     # Get authorization header
@@ -173,7 +175,11 @@ def post_request(
         "Authorization": f"Bearer {get_orcabus_token()}",
     }
 
-    if json_data is not None:
+    # Set content type headers
+    if files is not None:
+        # Let requests set the content type for multipart
+        pass
+    elif json_data is not None:
        headers.update({
            "Content-Type": "application/json"
        })
@@ -183,7 +189,8 @@ def post_request(
         url,
         headers=headers,
         json=json_data,
-        params=params
+        params=params,
+        files=files,
     )
 
     try:
