@@ -119,6 +119,8 @@ from .contact_helpers import (
     get_contacts_list_from_contact_orcabus_id_list,
     coerce_contact_id_or_orcabus_id_to_contact_orcabus_id,
     get_all_contacts,
+    list_libraries_for_contact_id,
+    list_libraries_for_contact_orcabus_id,
 )
 
 from .individual_helpers import (
@@ -145,7 +147,11 @@ from .library_helpers import (
     get_library_assay_type,
     get_library_phenotype,
     get_library_workflow,
-    get_all_libraries
+    get_all_libraries,
+    get_project_list_from_library_orcabus_id,
+    get_project_list_from_library_id,
+    get_contact_list_from_library_orcabus_id,
+    get_contact_list_from_library_id
 )
 
 from .project_helpers import (
@@ -191,6 +197,8 @@ __all__ = [
     "get_contacts_list_from_contact_orcabus_id_list",
     "coerce_contact_id_or_orcabus_id_to_contact_orcabus_id",
     "get_all_contacts",
+    "list_libraries_for_contact_id",
+    "list_libraries_for_contact_orcabus_id",
 
     # Individual Helpers
     "get_individual_from_individual_id",
@@ -216,6 +224,10 @@ __all__ = [
     "get_library_phenotype",
     "get_library_workflow",
     "get_all_libraries",
+    "get_project_list_from_library_orcabus_id",
+    "get_project_list_from_library_id",
+    "get_contact_list_from_library_orcabus_id",
+    "get_contact_list_from_library_id",
 
     # Project Helpers
     "get_project_from_project_id",
