@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 # Standard imports
-from typing import Dict, Optional
+from io import BufferedReader
+from typing import Dict, Optional, Tuple
 
 # Local imports
 from ..utils.requests_helpers import (
@@ -43,11 +44,20 @@ def get_sequence_request_response_results(
 def sequence_post_request(
         endpoint: str,
         json_data: Optional[Dict] = None,
+        files: Optional[Dict[str, Tuple[str, BufferedReader, str]]] = None,
 ) -> Dict:
+    """
+    Waap POST request with sequence base url
+    :param endpoint:
+    :param json_data:
+    :param files:
+    :return:
+    """
     return post_request(
         get_sequence_url(endpoint),
-        json_data=json_data
-)
+        json_data=json_data,
+        files=files,
+    )
 
 
 from .sequence_helpers import (
