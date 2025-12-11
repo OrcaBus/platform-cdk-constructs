@@ -2,7 +2,9 @@ from typing import (
     Optional,
     TypedDict,
     Dict,
-    Literal
+    Literal,
+    NotRequired,
+    Any
 )
 
 """
@@ -48,6 +50,54 @@ StorageClassPriority: Dict[StorageClassType, int] = {
     "Glacier": 5,
     "DeepArchive": 6,
 }
+
+EventType = Literal[
+    "Created",
+    "Deleted",
+    "Other"
+]
+
+ReasonType = Literal[
+    "CreatedPut",
+    "CreatedPost",
+    "CreatedCopy",
+    "CreatedCompleteMultipartUpload",
+    "Deleted",
+    "DeletedLifecycle",
+    "Restored",
+    "RestoreExpired",
+    "StorageClassChanged",
+    "Crawl",
+    "Unknown",
+    "CrawlRestored"
+]
+
+ArchiveStatusType = Literal[
+    "ArchiveAccess",
+    "DeepArchiveAccess"
+]
+
+
+class FileQueryParameters(TypedDict):
+    caseSensitive: NotRequired[bool]
+    currentState: NotRequired[bool]
+    eventType: NotRequired[EventType]
+    bucket: NotRequired[str]
+    key: NotRequired[str]
+    versionId: NotRequired[str]
+    eventTime: NotRequired[str]
+    size: NotRequired[int]
+    sha256: NotRequired[str]
+    lastModifiedDate: NotRequired[str]
+    eTag: NotRequired[str]
+    storageClass: NotRequired[StorageClassType]
+    isDeleteMarker: NotRequired[bool]
+    reason: NotRequired[ReasonType]
+    archiveStatus: NotRequired[ArchiveStatusType]
+    isAccessible: NotRequired[bool]
+    ingestId: NotRequired[str]
+    attributes: NotRequired[Dict[str, Any]]
+
 
 class FileObject(TypedDict):
     # Identifier

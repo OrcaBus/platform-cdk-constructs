@@ -5,7 +5,7 @@ import json
 from functools import reduce
 from operator import concat
 from pathlib import Path
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Optional, Unpack
 import typing
 import boto3
 from datetime import datetime, timedelta, timezone
@@ -14,7 +14,7 @@ from itertools import batched
 
 # Local imports
 from .errors import S3FileNotFoundError, S3DuplicateFileCopyError
-from .models import FileObject, StorageClassPriority
+from .models import FileObject, StorageClassPriority, FileQueryParameters
 from ..utils.miscell import get_bucket_key_pair_from_uri
 from . import (
     get_file_manager_request_response_results,
@@ -84,7 +84,10 @@ def get_file_object_from_id(s3_object_id: str) -> FileObject:
     return FileObject(**response[0])
 
 
-def get_file_object_from_ingest_id(ingest_id: str, **kwargs) -> FileObject:
+def get_file_object_from_ingest_id(
+        ingest_id: str,
+        **kwargs: Unpack[FileQueryParameters]
+) -> FileObject:
     response = get_file_manager_request_response_results(S3_LIST_ENDPOINT, {
         "ingestId": ingest_id,
         **kwargs
@@ -199,8 +202,21 @@ def get_s3_uri_from_s3_object_id(s3_object_id: str) -> str:
     return f"s3://{file_object['bucket']}/{file_object['key']}"
 
 
-def get_s3_uri_from_ingest_id(ingest_id: str) -> str:
-    file_object: FileObject = get_file_object_from_ingest_id(ingest_id)
+def get_s3_uri_from_ingest_id(
+        ingest_id: str,
+        bucket: Optional[str] = None,
+        key_prefix: Optional[str] = None
+) -> str:
+    file_object: FileObject = get_file_object_from_ingest_id(
+        ingest_id=ingest_id,
+        **dict(filter(
+            lambda param_iter_: param_iter_[1] is not None,
+            {
+                "bucket": bucket,
+                "key": f"{key_prefix}*" if key_prefix else None
+            }.items()
+        ))
+    )
     return f"s3://{file_object['bucket']}/{file_object['key']}"
 
 
