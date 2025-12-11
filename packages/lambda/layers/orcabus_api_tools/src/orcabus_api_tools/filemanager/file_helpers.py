@@ -214,7 +214,7 @@ def get_s3_uri_from_ingest_id(
             {
                 "bucket": bucket,
                 "key": f"{key_prefix}*" if key_prefix else None
-            }
+            }.items()
         ))
     )
     return f"s3://{file_object['bucket']}/{file_object['key']}"
