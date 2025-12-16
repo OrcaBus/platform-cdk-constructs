@@ -118,7 +118,19 @@ def get_file_object_from_ingest_id(
 def list_files_from_portal_run_id(
         portal_run_id: str,
         remove_log_files: bool = True,
+        workflow_name: Optional[str] = None
 ) -> List[FileObject]:
+    """
+    Given a portal run id, list all files.
+    If we want to remove log files, we filter them out, but we need the workflow name.
+    If remove_log_files is True and workflow_name is None, we collect the workflow name from the workflow manager API.
+    :param portal_run_id:
+    :param remove_log_files:
+    :param workflow_name:
+    :return:
+    """
+    # Relative imports are local to avoid circular imports errors
+    from ..workflow import get_workflow_run_from_portal_run_id
 
     # Get files from cache
     all_files_list = get_file_manager_request_response_results(S3_ATTRIBUTES_LIST_ENDPOINT, {
@@ -126,13 +138,18 @@ def list_files_from_portal_run_id(
         "currentState": json.dumps(True)
     })
 
+    # If we don't want to remove log files, return all files
     if not remove_log_files:
         return all_files_list
 
+    # Get the workflow name if not provided
+    if workflow_name is None:
+        workflow_name = get_workflow_run_from_portal_run_id(portal_run_id)['workflow']['name']
+
     return list(filter(
         lambda file_iter_: not (
-            f"logs/{portal_run_id}/" in file_iter_['key'] or
-            f"cache/{portal_run_id}/" in file_iter_['key']
+            f"logs/{workflow_name}/{portal_run_id}/" in file_iter_['key'] or
+            f"cache/{workflow_name}/{portal_run_id}/" in file_iter_['key']
         ),
         all_files_list
     ))
