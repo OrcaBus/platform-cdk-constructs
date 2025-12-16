@@ -13,6 +13,7 @@
 
 ## Interfaces
 
+- [CodeBuildStepProps](interfaces/CodeBuildStepProps.md)
 - [DeploymentStackPipelineProps](interfaces/DeploymentStackPipelineProps.md)
 - [ICrossDeploymentArtifactBucket](interfaces/ICrossDeploymentArtifactBucket.md)
 - [StackConfigProps](interfaces/StackConfigProps.md)
