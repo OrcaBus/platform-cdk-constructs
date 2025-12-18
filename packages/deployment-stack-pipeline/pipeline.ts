@@ -358,6 +358,10 @@ export class DeploymentStackPipeline extends Construct {
           ? [
               new CodeBuildStep("DriftOnFailBetaCheck", {
                 commands: [
+                  "node -v",
+                  "npm install --global corepack@latest",
+                  "corepack --version",
+                  "corepack enable",
                   `${cdkCommand} drift ${getStackId(betaEnvName)} --fail`,
                 ],
               }),
