@@ -362,7 +362,7 @@ export class DeploymentStackPipeline extends Construct {
                   "npm install --global corepack@latest",
                   "corepack --version",
                   "corepack enable",
-                  "pnpm install",
+                  "pnpm install --frozen-lockfile --ignore-scripts",
                   `${cdkCommand} drift ${getStackId(betaEnvName)} --fail`,
                 ],
               }),
