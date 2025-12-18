@@ -362,6 +362,7 @@ export class DeploymentStackPipeline extends Construct {
                   "npm install --global corepack@latest",
                   "corepack --version",
                   "corepack enable",
+                  "pnpm install",
                   `${cdkCommand} drift ${getStackId(betaEnvName)} --fail`,
                 ],
               }),
