@@ -4,7 +4,7 @@ import { Construct } from "constructs";
 import * as cdk from "aws-cdk-lib";
 import {
   DeploymentStackPipeline,
-  TOOLCHAIN_ENVIRONMENT,
+  BETA_ENVIRONMENT,
 } from "../packages/deployment-stack-pipeline";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
@@ -32,8 +32,12 @@ class DevStack extends cdk.Stack {
     super(scope, id, props);
 
     new DeploymentStackPipeline(this, "DeploymentPipeline", {
-      githubBranch: "main",
+      githubBranch: "feat/fail-on-drift",
       githubRepo: "platform-cdk-constructs",
+      reuseExistingArtifactBucket: false,
+      enableSlackNotification: false,
+      isFailOnDriftCheck: true,
+      cdkCommand: "cd dev && ls -a && pnpm cdk",
       stack: DeploymentStack,
       stackName: "TestStack",
       stackConfig: {
@@ -48,13 +52,13 @@ class DevStack extends cdk.Stack {
         "pnpm cdk synth",
       ],
       cdkOut: "dev/cdk.out",
-      stripAssemblyAssets: true,
+      stripAssemblyAssets: false,
     });
   }
 }
 
 new DevStack(app, "DevStack", {
-  env: TOOLCHAIN_ENVIRONMENT,
+  env: BETA_ENVIRONMENT,
   tags: {
     "umccr-org:Stack": "DevStack",
     "umccr-org:Product": "OrcaBus",

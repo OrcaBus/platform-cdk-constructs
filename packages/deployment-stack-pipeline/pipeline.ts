@@ -3,7 +3,9 @@ import { Duration, Environment, Stack, Stage } from "aws-cdk-lib";
 import {
   BuildSpec,
   ComputeType,
+  IProject,
   LinuxArmBuildImage,
+  PipelineProject,
 } from "aws-cdk-lib/aws-codebuild";
 import { StringParameter } from "aws-cdk-lib/aws-ssm";
 import {
@@ -12,7 +14,6 @@ import {
   CodePipelineActionFactoryResult,
   CodePipelineSource,
   ICodePipelineActionFactory,
-  ManualApprovalStep,
   ProduceActionOptions,
   Step,
 } from "aws-cdk-lib/pipelines";
@@ -22,6 +23,7 @@ import {
   PipelineType,
   PipelineNotificationEvents,
   IStage,
+  Artifact,
 } from "aws-cdk-lib/aws-codepipeline";
 import {
   BETA_ENVIRONMENT,
@@ -32,6 +34,7 @@ import { SlackChannelConfiguration } from "aws-cdk-lib/aws-chatbot";
 import { DetailType } from "aws-cdk-lib/aws-codestarnotifications";
 import { CrossDeploymentArtifactBucket } from "./artifact-bucket";
 import {
+  CodeBuildAction,
   ManualApprovalAction,
   ManualApprovalActionProps,
 } from "aws-cdk-lib/aws-codepipeline-actions";
@@ -171,6 +174,18 @@ export interface DeploymentStackPipelineProps {
    * @see https://github.com/aws/aws-cdk/issues/9917
    */
   readonly stripAssemblyAssets?: boolean;
+  /**
+   * The CDK CLI command entrypoint to use for the stack
+   * For example: 'pnpm cdk-stateless', 'pnpm cdk-stateful', or 'pnpm cdk'.
+   */
+  readonly cdkCommand?: string;
+  /**
+   * If set, performs a drift check before deploying to the environment stage.
+   * The deployment will fail and not continue if drift is detected.
+   *
+   * @default false
+   */
+  readonly isFailOnDriftCheck?: boolean;
 }
 
 /**
@@ -194,7 +209,7 @@ export class DeploymentStackPipeline extends Construct {
 
     const codeStarArn = StringParameter.valueForStringParameter(
       this,
-      "/orcabus/codestar_github_arn",
+      "codestar_github_arn",
     );
     const codeStarSourceActionName = "pipeline-src";
     const sourceFile = CodePipelineSource.connection(
@@ -311,10 +326,26 @@ export class DeploymentStackPipeline extends Construct {
       });
     }
 
+    const rootStackName = Stack.of(this).stackName;
+    const constructId = this.node.id;
+    const getStackId = (envName: string) =>
+      `${rootStackName}/${constructId}/${envName}/${props.stackName}`;
+
+    const { cdkCommand, isFailOnDriftCheck } = props;
+
+    if (isFailOnDriftCheck && cdkCommand === undefined) {
+      throw new Error(
+        "cdkCommand must be specified when isFailOnDriftCheck is enabled.",
+      );
+    }
+    const isFailOnDriftCheckStep = isFailOnDriftCheck && cdkCommand;
+
+    const betaEnvName = "OrcaBusBeta";
+
     cdkPipeline.addStage(
       new DeploymentStage(
         this,
-        "OrcaBusBeta",
+        betaEnvName,
         stageEnv.beta,
         props.stackName,
         props.stack,
@@ -322,46 +353,83 @@ export class DeploymentStackPipeline extends Construct {
         props.githubRepo,
         props.githubBranch,
       ),
-    );
-
-    cdkPipeline.addStage(
-      new DeploymentStage(
-        this,
-        "OrcaBusGamma",
-        stageEnv.gamma,
-        props.stackName,
-        props.stack,
-        props.stackConfig.gamma,
-        props.githubRepo,
-        props.githubBranch,
-      ),
       {
-        post: [
-          new ManualApprovalActionStep("PromoteToProd", {
-            actionName: "PromoteToProd",
-            // Custom steps bypass stage pre/post ordering, so runOrder must be explicitly set.
-            // Set to 5 to ensure this runs after all OrcaBusGamma stage steps complete.
-            // (Gamma deployment typically uses 2 steps, so 5 provides adequate buffer)
-            runOrder: 5,
-            // 60-minute timeout allows queued pipeline executions to proceed if approval expires
-            timeout: Duration.minutes(60),
-          }),
-        ],
+        pre: isFailOnDriftCheckStep
+          ? [
+              new CodeBuildStep("DriftOnFailBetaCheck", {
+                commands: [
+                  `${cdkCommand} drift ${getStackId(betaEnvName)} --fail`,
+                ],
+              }),
+            ]
+          : undefined,
       },
     );
 
-    cdkPipeline.addStage(
-      new DeploymentStage(
-        this,
-        "OrcaBusProd",
-        stageEnv.prod,
-        props.stackName,
-        props.stack,
-        props.stackConfig.prod,
-        props.githubRepo,
-        props.githubBranch,
-      ),
-    );
+    // /**
+    //  * GAMMA
+    //  */
+    // const gammaEnvName = "OrcaBusGamma";
+    // const gammaFailOnDrift =
+    //   isFailOnDriftCheck && cdkCommand
+    //     ? new FailOnDrift({
+    //         cdkCommand: cdkCommand,
+    //         stackId: getStackId(gammaEnvName),
+    //       })
+    //     : undefined;
+    // cdkPipeline.addStage(
+    //   new DeploymentStage(
+    //     this,
+    //     gammaEnvName,
+    //     stageEnv.gamma,
+    //     props.stackName,
+    //     props.stack,
+    //     props.stackConfig.gamma,
+    //     props.githubRepo,
+    //     props.githubBranch,
+    //   ),
+    //   {
+    //     pre: gammaFailOnDrift ? [gammaFailOnDrift] : undefined,
+    //     post: [
+    //       new ManualApprovalActionStep("PromoteToProd", {
+    //         actionName: "PromoteToProd",
+    //         // Custom steps bypass stage pre/post ordering, so runOrder must be explicitly set.
+    //         // Set to 5 to ensure this runs after all OrcaBusGamma stage steps complete.
+    //         // (Gamma deployment typically uses 2 steps, so 5 provides adequate buffer)
+    //         runOrder: 5,
+    //         // 60-minute timeout allows queued pipeline executions to proceed if approval expires
+    //         timeout: Duration.minutes(60),
+    //       }),
+    //     ],
+    //   },
+    // );
+
+    // /**
+    //  * PROD
+    //  */
+    // const prodEnvName = "OrcaBusProd";
+    // const prodFailOnDrift =
+    //   isFailOnDriftCheck && cdkCommand
+    //     ? new FailOnDrift({
+    //         cdkCommand: cdkCommand,
+    //         stackId: getStackId(prodEnvName),
+    //       })
+    //     : undefined;
+    // cdkPipeline.addStage(
+    //   new DeploymentStage(
+    //     this,
+    //     prodEnvName,
+    //     stageEnv.prod,
+    //     props.stackName,
+    //     props.stack,
+    //     props.stackConfig.prod,
+    //     props.githubRepo,
+    //     props.githubBranch,
+    //   ),
+    //   {
+    //     pre: prodFailOnDrift ? [prodFailOnDrift] : undefined,
+    //   },
+    // );
 
     cdkPipeline.buildPipeline();
 
@@ -462,3 +530,64 @@ class DeploymentStage extends Stage {
     });
   }
 }
+
+// class FailOnDrift extends CodeBuildStep {
+//   constructor({
+//     cdkCommand,
+//     stackId,
+//   }: {
+//     cdkCommand: string;
+//     stackId: string;
+//   }) {
+//     super(`FailOnDrift${stackId}`, {
+//       commands: [`${cdkCommand} drift ${stackId} --fail`],
+//     });
+//   }
+// }
+
+// class FailOnDriftActionStep extends Step implements ICodePipelineActionFactory {
+//   private readonly scope: Construct;
+//   private readonly stackId: string;
+//   private readonly cdkCommand: string;
+//   private readonly artifactInput: Artifact;
+
+//   constructor(
+//     id: string,
+//     props: {
+//       scope: Construct;
+//       cdkCommand: string;
+//       stackId: string;
+//       artifactInput: Artifact;
+//     },
+//   ) {
+//     super(id);
+//     this.scope = props.scope;
+//     this.cdkCommand = props.cdkCommand;
+//     this.stackId = props.stackId;
+//     this.artifactInput = props.artifactInput;
+//   }
+
+//   public produceAction(
+//     stage: IStage,
+//     options: ProduceActionOptions,
+//   ): CodePipelineActionFactoryResult {
+//     stage.addAction(
+//       new CodeBuildAction({
+//         actionName: `FailOnDriftCheck-${this.stackId}`,
+//         input: this.artifactInput,
+//         project: new PipelineProject(this.scope, `ProjectDriftCheckStack`, {
+//           buildSpec: BuildSpec.fromObject({
+//             version: "0.2",
+//             phases: {
+//               build: {
+//                 commands: [`${this.cdkCommand} drift ${this.stackId} --fail`],
+//               },
+//             },
+//           }),
+//         }),
+//       }),
+//     );
+
+//     return { runOrdersConsumed: 1 };
+//   }
+// }
