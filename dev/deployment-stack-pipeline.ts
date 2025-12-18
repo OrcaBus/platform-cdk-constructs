@@ -37,7 +37,7 @@ class DevStack extends cdk.Stack {
       reuseExistingArtifactBucket: false,
       enableSlackNotification: false,
       isFailOnDriftCheck: true,
-      cdkCommand: "cd dev && ls -a && pnpm cdk",
+      cdkCommand: "cd dev && ls -a && pnpm i && pnpm cdk",
       stack: DeploymentStack,
       stackName: "TestStack",
       stackConfig: {
