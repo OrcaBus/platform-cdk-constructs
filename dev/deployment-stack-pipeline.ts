@@ -49,6 +49,12 @@ class DevStack extends cdk.Stack {
       ],
       cdkOut: "dev/cdk.out",
       stripAssemblyAssets: true,
+      unitAppTestConfig: {
+        command: ["node -v"],
+      },
+      unitIacTestConfig: {
+        command: ["node -v"],
+      },
     });
   }
 }
