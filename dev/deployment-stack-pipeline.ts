@@ -32,7 +32,7 @@ class DevStack extends cdk.Stack {
     super(scope, id, props);
 
     new DeploymentStackPipeline(this, "DeploymentPipeline", {
-      githubBranch: "feat/fail-on-drift",
+      githubBranch: "main",
       githubRepo: "platform-cdk-constructs",
       reuseExistingArtifactBucket: false,
       enableSlackNotification: false,
