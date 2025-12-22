@@ -103,6 +103,17 @@ export interface DriftCheckConfig {
   readonly installCommand?: string;
 }
 
+export interface CodeBuildStepProps {
+  /**
+   * the main command for the build step to run
+   */
+  readonly command: string[];
+  /**
+   * Partial buildspec for this CodeBuildStep
+   */
+  readonly partialBuildSpec?: Record<string, any>;
+}
+
 export interface DeploymentStackPipelineProps {
   /**
    * The GitHub branch name the pipeline will listen to.
@@ -162,6 +173,22 @@ export interface DeploymentStackPipelineProps {
    * @default DEFAULT_SYNTH_STEP_PARTIAL_BUILD_SPEC
    */
   readonly synthBuildSpec?: Record<string, any>;
+  /**
+   * Configuration for the CodeBuild step that runs unit tests for the main application code.
+   * This step will execute in parallel with {@link unitIacTestConfig} as part of the synth stage dependencies.
+   * Both must succeed before the synth step runs.
+   *
+   * ensure your command includes 'cd' to the main app directory, as the build context starts from the root.
+   */
+  readonly unitAppTestConfig: CodeBuildStepProps;
+  /**
+   * Configuration for the CodeBuild step that runs unit tests for Infrastructure-as-Code (IaC) at the repository root.
+   * This step will execute in parallel with {@link unitAppTestConfig} as part of the synth stage dependencies.
+   * Both must succeed before the synth step runs.
+   *
+   * The default command will be from the root of the repo: ["make install", "make test"]
+   */
+  readonly unitIacTestConfig?: CodeBuildStepProps;
   /**
    * The stage environment for the deployment stack
    */
@@ -279,21 +306,71 @@ export class DeploymentStackPipeline extends Construct {
       ]);
     }
 
+    // Add unit test for IaC at the root of the
+    const {
+      command: unitIacTestCommand = ["make install", "make test"],
+      partialBuildSpec: unitIacPartialBuildSpec = undefined,
+    } = props.unitIacTestConfig || {};
+    const unitIacTest = new CodeBuildStep("UnitIacTest", {
+      commands: unitIacTestCommand,
+      input: sourceFile,
+      buildEnvironment: {
+        privileged: true,
+        computeType: ComputeType.LARGE,
+        buildImage: LinuxArmBuildImage.AMAZON_LINUX_2_STANDARD_3_0,
+        environmentVariables: {
+          NODE_OPTIONS: {
+            value: "--max-old-space-size=8192",
+          },
+        },
+      },
+      partialBuildSpec: unitIacPartialBuildSpec
+        ? BuildSpec.fromObject(unitIacPartialBuildSpec)
+        : undefined,
+    });
+
+    // Adding unit test for the main app
+    const {
+      command: unitAppTestCommand,
+      partialBuildSpec: unitAppPartialBuildSpec = undefined,
+    } = props.unitAppTestConfig;
+    const unitAppTest = new CodeBuildStep("UnitAppTest", {
+      commands: unitAppTestCommand,
+      input: sourceFile,
+      buildEnvironment: {
+        privileged: true,
+        computeType: ComputeType.LARGE,
+        buildImage: LinuxArmBuildImage.AMAZON_LINUX_2_STANDARD_3_0,
+        environmentVariables: {
+          NODE_OPTIONS: {
+            value: "--max-old-space-size=8192",
+          },
+        },
+      },
+      partialBuildSpec: unitAppPartialBuildSpec
+        ? BuildSpec.fromObject(unitAppPartialBuildSpec)
+        : undefined,
+    });
+
     const { synthBuildSpec = DEFAULT_SYNTH_STEP_PARTIAL_BUILD_SPEC } = props;
+    const synthStep = new CodeBuildStep("CdkSynth", {
+      installCommands: [
+        "node -v",
+        "npm install --global corepack@latest",
+        "corepack --version",
+        "corepack enable",
+      ],
+      commands: props.cdkSynthCmd,
+      input: sourceFile,
+      primaryOutputDirectory: props.cdkOut || "cdk.out",
+      partialBuildSpec: BuildSpec.fromObject(synthBuildSpec),
+    });
+    synthStep.addStepDependency(unitIacTest);
+    synthStep.addStepDependency(unitAppTest);
+
     const cdkPipeline = new CodePipeline(this, "CDKCodePipeline", {
       codePipeline: this.pipeline,
-      synth: new CodeBuildStep("CdkSynth", {
-        installCommands: [
-          "node -v",
-          "npm install --global corepack@latest",
-          "corepack --version",
-          "corepack enable",
-        ],
-        commands: props.cdkSynthCmd,
-        input: sourceFile,
-        primaryOutputDirectory: props.cdkOut || "cdk.out",
-        partialBuildSpec: BuildSpec.fromObject(synthBuildSpec),
-      }),
+      synth: synthStep,
       selfMutation: true,
       codeBuildDefaults: {
         buildEnvironment: {

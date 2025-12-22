@@ -13,6 +13,7 @@
 
 ## Interfaces
 
+- [CodeBuildStepProps](interfaces/CodeBuildStepProps.md)
 - [DeploymentStackPipelineProps](interfaces/DeploymentStackPipelineProps.md)
 - [DriftCheckConfig](interfaces/DriftCheckConfig.md)
 - [FailOnDriftBuildStepProps](interfaces/FailOnDriftBuildStepProps.md)
