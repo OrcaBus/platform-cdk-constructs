@@ -38,6 +38,7 @@ import {
   ManualApprovalAction,
   ManualApprovalActionProps,
 } from "aws-cdk-lib/aws-codepipeline-actions";
+import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 
 /**
  * The default partial build spec for the synth step in the pipeline.
@@ -80,6 +81,26 @@ export interface StackConfigProps {
    * The configuration for the prod stage
    */
   readonly prod: Record<string, any>;
+}
+
+/**
+ * Configuration for pre-deployment drift detection checks.
+ */
+export interface DriftCheckConfig {
+  /**
+   * CDK CLI entrypoint used to run the drift command.
+   * Examples: "pnpm cdk", "pnpm cdk-stateful", "pnpm cdk-stateless".
+   * Must support: "drift <stackId>".
+   */
+  readonly cdkCommand: string;
+  /**
+   * Command to install dependencies before running CDK.
+   * If your app is in a subdirectory, prefix with "cd <dir> &&".
+   * Example: "cd dev && pnpm install --frozen-lockfile --ignore-scripts"
+   *
+   * Default: "pnpm install --frozen-lockfile --ignore-scripts"
+   */
+  readonly installCommand?: string;
 }
 
 export interface DeploymentStackPipelineProps {
@@ -175,17 +196,10 @@ export interface DeploymentStackPipelineProps {
    */
   readonly stripAssemblyAssets?: boolean;
   /**
-   * The CDK CLI command entrypoint to use for the stack
-   * For example: 'pnpm cdk-stateless', 'pnpm cdk-stateful', or 'pnpm cdk'.
+   * Configuration for drift detection checks before deployment.
+   * If specified, the pipeline will check for CloudFormation drift and fail if detected.
    */
-  readonly cdkCommand?: string;
-  /**
-   * If set, performs a drift check before deploying to the environment stage.
-   * The deployment will fail and not continue if drift is detected.
-   *
-   * @default false
-   */
-  readonly isFailOnDriftCheck?: boolean;
+  readonly driftCheckConfig?: DriftCheckConfig;
 }
 
 /**
@@ -326,22 +340,20 @@ export class DeploymentStackPipeline extends Construct {
       });
     }
 
+    // Construct function to get StackId for drift check
     const rootStackName = Stack.of(this).stackName;
     const constructId = this.node.id;
     const getStackId = (envName: string) =>
       `${rootStackName}/${constructId}/${envName}/${props.stackName}`;
 
-    const { cdkCommand, isFailOnDriftCheck } = props;
-
-    if (isFailOnDriftCheck && cdkCommand === undefined) {
-      throw new Error(
-        "cdkCommand must be specified when isFailOnDriftCheck is enabled.",
-      );
-    }
-    const isFailOnDriftCheckStep = isFailOnDriftCheck && cdkCommand;
+    // Drift check config
+    const isDriftCheckStep = !!props.driftCheckConfig;
+    const cdkInstallCmd =
+      props.driftCheckConfig?.installCommand ??
+      "pnpm install --frozen-lockfile --ignore-scripts";
+    const cdkRunCmd = props.driftCheckConfig?.cdkCommand ?? ``;
 
     const betaEnvName = "OrcaBusBeta";
-
     cdkPipeline.addStage(
       new DeploymentStage(
         this,
@@ -354,87 +366,89 @@ export class DeploymentStackPipeline extends Construct {
         props.githubBranch,
       ),
       {
-        pre: isFailOnDriftCheckStep
+        pre: isDriftCheckStep
           ? [
-              new CodeBuildStep("DriftOnFailBetaCheck", {
-                commands: [
-                  "node -v",
-                  "npm install --global corepack@latest",
-                  "corepack --version",
-                  "corepack enable",
-                  "pnpm install --frozen-lockfile --ignore-scripts",
-                  `${cdkCommand} drift ${getStackId(betaEnvName)} --fail`,
-                ],
+              new FailOnDriftBuildStep("DriftOnFailBetaCheck", {
+                accountEnv: stageEnv.beta,
+                stackId: getStackId(betaEnvName),
+                cdkCommand: cdkRunCmd,
+                installCommand: cdkInstallCmd,
               }),
             ]
           : undefined,
       },
     );
 
-    // /**
-    //  * GAMMA
-    //  */
-    // const gammaEnvName = "OrcaBusGamma";
-    // const gammaFailOnDrift =
-    //   isFailOnDriftCheck && cdkCommand
-    //     ? new FailOnDrift({
-    //         cdkCommand: cdkCommand,
-    //         stackId: getStackId(gammaEnvName),
-    //       })
-    //     : undefined;
-    // cdkPipeline.addStage(
-    //   new DeploymentStage(
-    //     this,
-    //     gammaEnvName,
-    //     stageEnv.gamma,
-    //     props.stackName,
-    //     props.stack,
-    //     props.stackConfig.gamma,
-    //     props.githubRepo,
-    //     props.githubBranch,
-    //   ),
-    //   {
-    //     pre: gammaFailOnDrift ? [gammaFailOnDrift] : undefined,
-    //     post: [
-    //       new ManualApprovalActionStep("PromoteToProd", {
-    //         actionName: "PromoteToProd",
-    //         // Custom steps bypass stage pre/post ordering, so runOrder must be explicitly set.
-    //         // Set to 5 to ensure this runs after all OrcaBusGamma stage steps complete.
-    //         // (Gamma deployment typically uses 2 steps, so 5 provides adequate buffer)
-    //         runOrder: 5,
-    //         // 60-minute timeout allows queued pipeline executions to proceed if approval expires
-    //         timeout: Duration.minutes(60),
-    //       }),
-    //     ],
-    //   },
-    // );
+    /**
+     * GAMMA
+     */
+    const gammaEnvName = "OrcaBusGamma";
 
-    // /**
-    //  * PROD
-    //  */
-    // const prodEnvName = "OrcaBusProd";
-    // const prodFailOnDrift =
-    //   isFailOnDriftCheck && cdkCommand
-    //     ? new FailOnDrift({
-    //         cdkCommand: cdkCommand,
-    //         stackId: getStackId(prodEnvName),
-    //       })
-    //     : undefined;
-    // cdkPipeline.addStage(
-    //   new DeploymentStage(
-    //     this,
-    //     prodEnvName,
-    //     stageEnv.prod,
-    //     props.stackName,
-    //     props.stack,
-    //     props.stackConfig.prod,
-    //     props.githubRepo,
-    //     props.githubBranch,
-    //   ),
-    //   {
-    //     pre: prodFailOnDrift ? [prodFailOnDrift] : undefined,
-    //   },
-    // );
+    cdkPipeline.addStage(
+      new DeploymentStage(
+        this,
+        gammaEnvName,
+        stageEnv.gamma,
+        props.stackName,
+        props.stack,
+        props.stackConfig.gamma,
+        props.githubRepo,
+        props.githubBranch,
+      ),
+      {
+        pre: isDriftCheckStep
+          ? [
+              new FailOnDriftBuildStep("DriftOnFailGammaCheck", {
+                accountEnv: stageEnv.gamma,
+                stackId: getStackId(gammaEnvName),
+                cdkCommand: cdkRunCmd,
+                installCommand: cdkInstallCmd,
+              }),
+            ]
+          : undefined,
+        post: [
+          new ManualApprovalActionStep("PromoteToProd", {
+            actionName: "PromoteToProd",
+            // Custom steps bypass stage pre/post ordering, so runOrder must be explicitly set.
+            // Set to 5 to ensure this runs after all OrcaBusGamma stage steps complete.
+            // (Gamma deployment typically uses 2 steps, so 5 provides adequate buffer)
+            runOrder: 5,
+            // 60-minute timeout allows queued pipeline executions to proceed if approval expires
+            timeout: Duration.minutes(60),
+          }),
+        ],
+      },
+    );
+
+    /**
+     * PROD
+     */
+    const prodEnvName = "OrcaBusProd";
+
+    cdkPipeline.addStage(
+      new DeploymentStage(
+        this,
+        prodEnvName,
+        stageEnv.prod,
+        props.stackName,
+        props.stack,
+        props.stackConfig.prod,
+        props.githubRepo,
+        props.githubBranch,
+      ),
+      {
+        pre: isDriftCheckStep
+          ? [
+              new FailOnDriftBuildStep("DriftOnFailProdCheck", {
+                accountEnv: stageEnv.prod,
+                stackId: getStackId(prodEnvName),
+                cdkCommand: cdkRunCmd,
+                installCommand: cdkInstallCmd,
+              }),
+            ]
+          : undefined,
+      },
+    );
 
     cdkPipeline.buildPipeline();
 
@@ -536,63 +550,75 @@ class DeploymentStage extends Stage {
   }
 }
 
-// class FailOnDrift extends CodeBuildStep {
-//   constructor({
-//     cdkCommand,
-//     stackId,
-//   }: {
-//     cdkCommand: string;
-//     stackId: string;
-//   }) {
-//     super(`FailOnDrift${stackId}`, {
-//       commands: [`${cdkCommand} drift ${stackId} --fail`],
-//     });
-//   }
-// }
+export interface FailOnDriftBuildStepProps {
+  /**
+   * AWS account and region where the drift check runs.
+   * Used to assume the CDK lookup role and set AWS_DEFAULT_REGION.
+   */
+  readonly accountEnv: Environment;
+  /**
+   * Fully qualified CDK stack ID to check for drift.
+   *
+   * Format: `<rootStack>/<constructId>/<envName>/<stackName>`
+   *
+   * Example: `DevStack/DeploymentPipeline/OrcaBusBeta/TestStack`
+   */
+  readonly stackId: string;
+  /**
+   * CDK CLI entrypoint used to run the drift command.
+   * Examples: "pnpm cdk", "pnpm cdk-stateful", "pnpm cdk-stateless".
+   * Must support: "drift <stackId>".
+   */
+  readonly cdkCommand: string;
+  /**
+   * Command to install dependencies before running CDK.
+   * If your app is in a subdirectory, prefix with "cd <dir> &&".
+   * Example: "cd dev && pnpm install --frozen-lockfile --ignore-scripts"
+   *
+   * Default: "pnpm install --frozen-lockfile --ignore-scripts"
+   */
+  readonly installCommand?: string;
+}
 
-// class FailOnDriftActionStep extends Step implements ICodePipelineActionFactory {
-//   private readonly scope: Construct;
-//   private readonly stackId: string;
-//   private readonly cdkCommand: string;
-//   private readonly artifactInput: Artifact;
+class FailOnDriftBuildStep extends CodeBuildStep {
+  constructor(
+    id: string,
+    {
+      accountEnv,
+      stackId,
+      cdkCommand,
+      installCommand,
+    }: FailOnDriftBuildStepProps,
+  ) {
+    const cdkInstall = installCommand
+      ? installCommand
+      : "pnpm install --frozen-lockfile --ignore-scripts";
 
-//   constructor(
-//     id: string,
-//     props: {
-//       scope: Construct;
-//       cdkCommand: string;
-//       stackId: string;
-//       artifactInput: Artifact;
-//     },
-//   ) {
-//     super(id);
-//     this.scope = props.scope;
-//     this.cdkCommand = props.cdkCommand;
-//     this.stackId = props.stackId;
-//     this.artifactInput = props.artifactInput;
-//   }
+    super(id, {
+      commands: [
+        "node -v",
+        "npm install --global corepack@latest",
+        "corepack --version",
+        "corepack enable",
+        cdkInstall,
 
-//   public produceAction(
-//     stage: IStage,
-//     options: ProduceActionOptions,
-//   ): CodePipelineActionFactoryResult {
-//     stage.addAction(
-//       new CodeBuildAction({
-//         actionName: `FailOnDriftCheck-${this.stackId}`,
-//         input: this.artifactInput,
-//         project: new PipelineProject(this.scope, `ProjectDriftCheckStack`, {
-//           buildSpec: BuildSpec.fromObject({
-//             version: "0.2",
-//             phases: {
-//               build: {
-//                 commands: [`${this.cdkCommand} drift ${this.stackId} --fail`],
-//               },
-//             },
-//           }),
-//         }),
-//       }),
-//     );
+        `LOOKUP_ROLE_ARN="arn:aws:iam::${accountEnv.account}:role/cdk-hnb659fds-lookup-role-${accountEnv.account}-${accountEnv.region}"`,
+        'SESSION_NAME="drift-check"',
+        'read AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN < <(aws sts assume-role --role-arn "$LOOKUP_ROLE_ARN" --role-session-name "$SESSION_NAME" --duration-seconds 900 --query \'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]\' --output text)',
+        "export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN",
+        `export AWS_DEFAULT_REGION="${accountEnv.region}"`,
+        "aws sts get-caller-identity",
 
-//     return { runOrdersConsumed: 1 };
-//   }
-// }
+        `if ${cdkCommand} ls | grep -Fq "${stackId}"; then echo "Stack ${stackId} found; checking for drift..."; ${cdkCommand} drift "${stackId}" -e --fail; else echo "Stack not found in cdk ls; skipping drift check."; fi`,
+      ],
+      rolePolicyStatements: [
+        new PolicyStatement({
+          actions: ["sts:AssumeRole"],
+          resources: [
+            `arn:aws:iam::${accountEnv.account}:role/cdk-hnb659fds-lookup-role-${accountEnv.account}-${accountEnv.region}`,
+          ],
+        }),
+      ],
+    });
+  }
+}

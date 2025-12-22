@@ -14,6 +14,8 @@
 ## Interfaces
 
 - [DeploymentStackPipelineProps](interfaces/DeploymentStackPipelineProps.md)
+- [DriftCheckConfig](interfaces/DriftCheckConfig.md)
+- [FailOnDriftBuildStepProps](interfaces/FailOnDriftBuildStepProps.md)
 - [ICrossDeploymentArtifactBucket](interfaces/ICrossDeploymentArtifactBucket.md)
 - [StackConfigProps](interfaces/StackConfigProps.md)
 - [StageEnvProps](interfaces/StageEnvProps.md)

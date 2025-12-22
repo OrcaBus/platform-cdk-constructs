@@ -36,8 +36,11 @@ class DevStack extends cdk.Stack {
       githubRepo: "platform-cdk-constructs",
       reuseExistingArtifactBucket: false,
       enableSlackNotification: false,
-      isFailOnDriftCheck: true,
-      cdkCommand: "cd dev && ls -a && pnpm i && pnpm cdk",
+      driftCheckConfig: {
+        cdkCommand: "pnpm cdk",
+        installCommand:
+          "cd dev && pnpm install --frozen-lockfile --ignore-scripts",
+      },
       stack: DeploymentStack,
       stackName: "TestStack",
       stackConfig: {
