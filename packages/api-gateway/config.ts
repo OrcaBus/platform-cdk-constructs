@@ -36,7 +36,7 @@ export const DEFAULT_ALLOW_CORS_ORIGINS: Record<StageName, string[]> = {
     "http://localhost:3000",
   ],
   GAMMA: ["https://orcaui.stg.umccr.org", "https://portal.stg.umccr.org"],
-  PROD: ["https://orcaui.prod.umccr.org", "https://portal.umccr.org"],
+  PROD: ["https://orcaui.umccr.org", "https://portal.umccr.org"],
 };
 
 // portal - TokenServiceStack
