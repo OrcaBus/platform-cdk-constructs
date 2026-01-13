@@ -9,6 +9,11 @@ export type StageName = "BETA" | "GAMMA" | "PROD";
 export const REGION = "ap-southeast-2";
 
 /**
+ * ICA Account ID.
+ */
+export const ICA_ACCOUNT_ID = "079623148045";
+
+/**
  * Beta Account ID.
  */
 export const BETA_ACCOUNT_ID = "843407916570";
