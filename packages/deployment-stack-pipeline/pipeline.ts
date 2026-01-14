@@ -274,6 +274,9 @@ export class DeploymentStackPipeline extends Construct {
       pipelineType: PipelineType.V2,
       pipelineName: props.pipelineName,
       crossAccountKeys: true,
+      // enable restartExecutionOnUpdate
+      // https://stackoverflow.com/questions/75701776/updatepipeline-stage-in-cdk-pipeline-is-cancelled
+      restartExecutionOnUpdate: true,
     });
 
     if (props.includedFilePaths || props.excludedFilePaths) {
