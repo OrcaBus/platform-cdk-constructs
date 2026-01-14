@@ -32,7 +32,7 @@ cdk.out
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:163](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L163)
 
-The command to run to synth the cdk stack which also installing the cdk dependencies. e.g. ["yarn install --immutable", "yarn cdk synth"]
+The command to run to synth the cdk stack which also installing the cdk dependencies. e.g. ["pnpm install --frozen-lockfile", "pnpm cdk synth"]
 
 ***
 
@@ -251,4 +251,4 @@ Configuration for the CodeBuild step that runs unit tests for Infrastructure-as-
 This step will execute in parallel with [unitAppTestConfig](#unitapptestconfig) as part of the synth stage dependencies.
 Both must succeed before the synth step runs.
 
-The default command will be from the root of the repo: ["make install", "make test"]
+The default command will be from the root of the repo: ["npm install --global corepack@latest", "corepack enable", "make install", "make test"]
