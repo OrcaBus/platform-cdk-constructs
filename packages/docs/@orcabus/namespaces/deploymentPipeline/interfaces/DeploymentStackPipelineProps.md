@@ -251,4 +251,4 @@ Configuration for the CodeBuild step that runs unit tests for Infrastructure-as-
 This step will execute in parallel with [unitAppTestConfig](#unitapptestconfig) as part of the synth stage dependencies.
 Both must succeed before the synth step runs.
 
-The default command will be from the root of the repo: ["make install", "make test"]
+The default command will be from the root of the repo: ["corepack enable", "make install", "make test"]

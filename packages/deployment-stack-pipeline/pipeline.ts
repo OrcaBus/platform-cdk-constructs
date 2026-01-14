@@ -158,7 +158,7 @@ export interface DeploymentStackPipelineProps {
    */
   readonly excludedFilePaths?: string[];
   /**
-   * The command to run to synth the cdk stack which also installing the cdk dependencies. e.g. ["yarn install --immutable", "yarn cdk synth"]
+   * The command to run to synth the cdk stack which also installing the cdk dependencies. e.g. ["pnpm install --frozen-lockfile", "pnpm cdk synth"]
    */
   readonly cdkSynthCmd: string[];
   /**
@@ -186,7 +186,7 @@ export interface DeploymentStackPipelineProps {
    * This step will execute in parallel with {@link unitAppTestConfig} as part of the synth stage dependencies.
    * Both must succeed before the synth step runs.
    *
-   * The default command will be from the root of the repo: ["make install", "make test"]
+   * The default command will be from the root of the repo: ["npm install --global corepack@latest", "corepack enable", "make install", "make test"]
    */
   readonly unitIacTestConfig?: CodeBuildStepProps;
   /**
@@ -308,7 +308,12 @@ export class DeploymentStackPipeline extends Construct {
 
     // Add unit test for IaC at the root of the
     const {
-      command: unitIacTestCommand = ["make install", "make test"],
+      command: unitIacTestCommand = [
+        "npm install --global corepack@latest",
+        "corepack enable",
+        "make install",
+        "make test",
+      ],
       partialBuildSpec: unitIacPartialBuildSpec = undefined,
     } = props.unitIacTestConfig || {};
     const unitIacTest = new CodeBuildStep("UnitIacTest", {
