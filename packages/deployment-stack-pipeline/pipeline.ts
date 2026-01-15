@@ -314,10 +314,19 @@ export class DeploymentStackPipeline extends Construct {
       command: unitIacTestCommand = [
         "npm install --global corepack@latest",
         "corepack enable",
-        "make install",
-        "make test",
+        "pnpm install --frozen-lockfile --ignore-scripts",
+        "pnpm test",
       ],
-      partialBuildSpec: unitIacPartialBuildSpec = undefined,
+      partialBuildSpec: unitIacPartialBuildSpec = {
+        phases: {
+          install: {
+            "runtime-versions": {
+              nodejs: "22",
+            },
+          },
+        },
+        version: "0.2",
+      },
     } = props.unitIacTestConfig || {};
     const unitIacTest = new CodeBuildStep("UnitIacTest", {
       commands: unitIacTestCommand,
