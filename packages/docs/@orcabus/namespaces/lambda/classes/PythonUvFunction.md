@@ -48,7 +48,7 @@ Defined in: [packages/lambda/index.ts:134](https://github.com/OrcaBus/platform-c
 
 > `protected` `optional` **\_connections**: `Connections`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:263
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:263
 
 **`Internal`**
 
@@ -66,7 +66,7 @@ May be unset, in which case this Lambda is not configured use in a VPC.
 
 > `protected` **\_functionUrlInvocationGrants**: `Record`\<`string`, `iam.Grant`\>
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:279
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:279
 
 **`Internal`**
 
@@ -82,7 +82,7 @@ Mapping of function URL invocation principals to grants. Used to de-dupe `grantI
 
 > `protected` **\_invocationGrants**: `Record`\<`string`, `iam.Grant`\>
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:274
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:274
 
 **`Internal`**
 
@@ -98,7 +98,7 @@ Mapping of invocation principals to grants. Used to de-dupe `grantInvoke()` call
 
 > `readonly` **\_layers**: `ILayerVersion`[]
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:718
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:718
 
 **`Internal`**
 
@@ -112,7 +112,7 @@ Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_mod
 
 > `optional` **\_logRetention**: `LogRetention`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:720
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:720
 
 **`Internal`**
 
@@ -126,7 +126,7 @@ Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_mod
 
 > `protected` `readonly` `optional` **\_skipPermissions**: `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:256
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:256
 
 **`Internal`**
 
@@ -145,7 +145,7 @@ on the imported lambda outside CDK.
 
 > `protected` **\_warnIfCurrentVersionCalled**: `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:269
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:269
 
 **`Internal`**
 
@@ -161,7 +161,7 @@ Flag to delay adding a warning message until current version is invoked.
 
 > `readonly` **architecture**: `Architecture`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:710
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:710
 
 The architecture of this Lambda Function (this is an optional attribute and defaults to X86_64).
 
@@ -175,7 +175,7 @@ The architecture of this Lambda Function (this is an optional attribute and defa
 
 > `protected` `readonly` **canCreatePermissions**: `true` = `true`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:716
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:716
 
 Whether the addPermission() call adds any permissions
 
@@ -192,7 +192,7 @@ from different accounts.
 
 > `readonly` `optional` **deadLetterQueue**: `IQueue`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:702
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:702
 
 The DLQ (as queue) associated with this Lambda Function (this is an optional attribute).
 
@@ -206,7 +206,7 @@ The DLQ (as queue) associated with this Lambda Function (this is an optional att
 
 > `readonly` `optional` **deadLetterTopic**: `ITopic`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:706
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:706
 
 The DLQ (as topic) associated with this Lambda Function (this is an optional attribute).
 
@@ -220,7 +220,7 @@ The DLQ (as topic) associated with this Lambda Function (this is an optional att
 
 > `readonly` **env**: `ResourceEnvironment`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:80
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:80
 
 The environment this resource belongs to.
 
@@ -242,7 +242,7 @@ different than the stack they were imported into.
 
 > `readonly` **functionArn**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:686
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:686
 
 ARN of this function
 
@@ -256,7 +256,7 @@ ARN of this function
 
 > `readonly` **functionName**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:682
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:682
 
 Name of this function
 
@@ -270,7 +270,7 @@ Name of this function
 
 > `readonly` **grantPrincipal**: `IPrincipal`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:698
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:698
 
 The principal this Lambda Function is running as
 
@@ -298,7 +298,7 @@ The tree node.
 
 > `readonly` **permissionsNode**: `Node`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:715
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:715
 
 The construct node where permissions are attached.
 
@@ -312,7 +312,7 @@ The construct node where permissions are attached.
 
 > `protected` `readonly` **physicalName**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:92
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:92
 
 Returns a string-encoded token that resolves to the physical name that
 should be passed to the CloudFormation resource.
@@ -333,7 +333,7 @@ This value will resolve to one of the following:
 
 > `readonly` `optional` **role**: `IRole`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:690
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:690
 
 Execution role associated with this function
 
@@ -347,7 +347,7 @@ Execution role associated with this function
 
 > `readonly` **runtime**: `Runtime`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:694
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:694
 
 The runtime configured for this lambda.
 
@@ -361,7 +361,7 @@ The runtime configured for this lambda.
 
 > `readonly` **stack**: `Stack`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:79
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:79
 
 The stack in which this resource is defined.
 
@@ -375,7 +375,7 @@ The stack in which this resource is defined.
 
 > `readonly` `optional` **tenancyConfig**: `TenancyConfig`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:733
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:733
 
 The tenancy configuration for this function.
 
@@ -389,7 +389,7 @@ The tenancy configuration for this function.
 
 > `readonly` `optional` **timeout**: `Duration`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:714
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:714
 
 The timeout configured for this lambda.
 
@@ -403,7 +403,7 @@ The timeout configured for this lambda.
 
 > `static` **\_VER\_PROPS**: `object`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:605
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:605
 
 **`Internal`**
 
@@ -421,7 +421,7 @@ Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_mod
 
 > `readonly` `static` **PROPERTY\_INJECTION\_ID**: `string`
 
-Defined in: node\_modules/.pnpm/@aws-cdk+aws-lambda-python-alpha@2.233.0-alpha.0\_aws-cdk-lib@2.233.0\_constructs@10.4.2\_\_constructs@10.4.2/node\_modules/@aws-cdk/aws-lambda-python-alpha/lib/function.d.ts:42
+Defined in: node\_modules/.pnpm/@aws-cdk+aws-lambda-python-alpha@2.233.0-alpha.0\_aws-cdk-lib@2.235.0\_constructs@10.4.2\_\_constructs@10.4.2/node\_modules/@aws-cdk/aws-lambda-python-alpha/lib/function.d.ts:42
 
 Uniquely identifies this class.
 
@@ -437,7 +437,7 @@ Uniquely identifies this class.
 
 > **get** **connections**(): `Connections`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:321
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:321
 
 Access the Connections object
 
@@ -459,7 +459,7 @@ Will fail if not a VPC-enabled Lambda Function
 
 > **get** **currentVersion**(): `Version`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:602
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:602
 
 Returns a `lambda.Version` which represents the current version of this
 Lambda function. A new version will be created every time the function's
@@ -484,7 +484,7 @@ prop when initializing the `lambda.Function`.
 
 > **get** **functionRef**(): `FunctionReference`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:295
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:295
 
 A reference to a Function resource.
 
@@ -504,7 +504,7 @@ A reference to a Function resource.
 
 > **get** **isBoundToVpc**(): `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:328
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:328
 
 Whether or not this Lambda function was bound to a VPC
 
@@ -526,7 +526,7 @@ If this is is `false`, trying to access the `connections` object will fail.
 
 > **get** **latestVersion**(): `IVersion`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:322
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:322
 
 The `$LATEST` version of this function.
 
@@ -553,7 +553,7 @@ function configuration, use `lambdaFunction.currentVersion` instead.
 
 > **get** **logGroup**(): `ILogGroup`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:809
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:809
 
 The LogGroup where the Lambda function's logs are made available.
 
@@ -580,7 +580,7 @@ to never expire even if it was configured with a different value.
 
 > **get** **resourceArnsForGrantInvoke**(): `string`[]
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:603
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:603
 
 The ARN(s) to put into the resource field of the generated IAM policy for grantInvoke()
 
@@ -598,7 +598,7 @@ The ARN(s) to put into the resource field of the generated IAM policy for grantI
 
 > **\_checkEdgeCompatibility**(): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:811
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:811
 
 **`Internal`**
 
@@ -616,7 +616,7 @@ Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_mod
 
 > **\_enableCrossEnvironment**(): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:104
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:104
 
 **`Internal`**
 
@@ -639,7 +639,7 @@ through its absolute name/arn.
 
 > `protected` **\_functionNode**(): `Node`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:359
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:369
 
 **`Internal`**
 
@@ -660,7 +660,7 @@ For use internally for constructs, when the tree is set up in non-standard ways.
 
 > `protected` **\_isStackAccount**(): `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:374
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:384
 
 **`Internal`**
 
@@ -689,7 +689,7 @@ true if account id of function matches the account specified on the stack, false
 
 > **addAlias**(`aliasName`, `options?`): `Alias`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:798
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:798
 
 Defines an alias for this function.
 
@@ -737,7 +737,7 @@ Alias options
 
 > **addEnvironment**(`key`, `value`, `options?`): `this`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:742
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:742
 
 Adds an environment variable to this Lambda function.
 If this is a ref to a Lambda function, this operation results in a no-op.
@@ -776,7 +776,7 @@ Environment variable options.
 
 > **addEventSource**(`source`): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:351
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:361
 
 Adds an event source to this function.
 
@@ -808,7 +808,7 @@ myFunction.addEventSource(new SqsEventSource(myQueue));
 
 > **addEventSourceMapping**(`id`, `options`): `EventSourceMapping`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:329
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:329
 
 Adds an event source that maps to this AWS Lambda function.
 
@@ -840,7 +840,7 @@ mapping options
 
 > **addFunctionUrl**(`options?`): `FunctionUrl`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:353
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:363
 
 Adds a url to this lambda function.
 
@@ -864,7 +864,7 @@ Adds a url to this lambda function.
 
 > **addLayers**(...`layers`): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:775
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:775
 
 Adds one or more Lambda Layers to this Lambda function.
 
@@ -894,7 +894,7 @@ if there are already 5 layers on this function, or the layer is incompatible wit
 
 > **addPermission**(`id`, `permission`): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:311
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:311
 
 Adds a permission to the Lambda resource policy.
 
@@ -930,7 +930,7 @@ Permission for details.
 
 > **addToRolePolicy**(`statement`): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:315
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:315
 
 Adds a statement to the IAM role assumed by the instance.
 
@@ -954,7 +954,7 @@ Adds a statement to the IAM role assumed by the instance.
 
 > **applyRemovalPolicy**(`policy`): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:116
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:116
 
 Apply the given removal policy to this resource
 
@@ -986,7 +986,7 @@ account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
 
 > **configureAsyncInvoke**(`options`): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:352
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:362
 
 Configures options for asynchronous invocation.
 
@@ -1010,7 +1010,7 @@ Configures options for asynchronous invocation.
 
 > **considerWarningOnInvokeFunctionPermissions**(`scope`, `action`): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:304
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:304
 
 A warning will be added to functions under the following conditions:
 - permissions that include `lambda:InvokeFunction` are added to the unqualified function.
@@ -1043,7 +1043,7 @@ This function is overridden as a noOp for QualifiedFunctionBase.
 
 > `protected` **generatePhysicalName**(): `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:117
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:117
 
 #### Returns
 
@@ -1059,7 +1059,7 @@ Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_mod
 
 > `protected` **getResourceArnAttribute**(`arnAttr`, `arnComponents`): `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:147
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:147
 
 Returns an environment-sensitive token that should be used for the
 resource's "ARN" attribute (e.g. `bucket.bucketArn`).
@@ -1101,7 +1101,7 @@ cross-environment references to work.
 
 > `protected` **getResourceNameAttribute**(`nameAttr`): `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:129
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:129
 
 Returns an environment-sensitive token that should be used for the
 resource's "name" attribute (e.g. `bucket.bucketName`).
@@ -1133,9 +1133,11 @@ Commonly this is the resource's `ref`.
 
 > **grantInvoke**(`grantee`): `Grant`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:333
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:335
 
 Grant the given identity permissions to invoke this Lambda
+
+[disable-awslint:no-grants]
 
 #### Parameters
 
@@ -1157,9 +1159,11 @@ Grant the given identity permissions to invoke this Lambda
 
 > **grantInvokeCompositePrincipal**(`compositePrincipal`): `Grant`[]
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:350
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:360
 
 Grant multiple principals the ability to invoke this Lambda via CompositePrincipal
+
+[disable-awslint:no-grants]
 
 #### Parameters
 
@@ -1181,10 +1185,12 @@ Grant multiple principals the ability to invoke this Lambda via CompositePrincip
 
 > **grantInvokeLatestVersion**(`grantee`): `Grant`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:338
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:342
 
 Grant the given identity permissions to invoke the $LATEST version or
 unqualified version of this Lambda
+
+[disable-awslint:no-grants]
 
 #### Parameters
 
@@ -1206,9 +1212,11 @@ unqualified version of this Lambda
 
 > **grantInvokeUrl**(`grantee`): `Grant`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:346
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:354
 
 Grant the given identity permissions to invoke this Lambda Function URL
+
+[disable-awslint:no-grants]
 
 #### Parameters
 
@@ -1230,9 +1238,11 @@ Grant the given identity permissions to invoke this Lambda Function URL
 
 > **grantInvokeVersion**(`grantee`, `version`): `Grant`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:342
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:348
 
 Grant the given identity permissions to invoke the given version of this Lambda
+
+[disable-awslint:no-grants]
 
 #### Parameters
 
@@ -1258,7 +1268,7 @@ Grant the given identity permissions to invoke the given version of this Lambda
 
 > **invalidateVersionBasedOn**(`x`): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:767
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:767
 
 Mix additional information into the hash of the Version object
 
@@ -1297,7 +1307,7 @@ This method may be called more than once.
 
 > **metric**(`metricName`, `props?`): `Metric`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/lambda-augmentations.generated.d.ts:39
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/lambda-augmentations.generated.d.ts:39
 
 Return the given named metric for this Function
 
@@ -1325,7 +1335,7 @@ Return the given named metric for this Function
 
 > **metricDuration**(`props?`): `Metric`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/lambda-augmentations.generated.d.ts:63
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/lambda-augmentations.generated.d.ts:63
 
 How long execution of this Lambda takes
 
@@ -1351,7 +1361,7 @@ Average over 5 minutes
 
 > **metricErrors**(`props?`): `Metric`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/lambda-augmentations.generated.d.ts:57
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/lambda-augmentations.generated.d.ts:57
 
 How many invocations of this Lambda fail
 
@@ -1377,7 +1387,7 @@ Sum over 5 minutes
 
 > **metricInvocations**(`props?`): `Metric`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/lambda-augmentations.generated.d.ts:51
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/lambda-augmentations.generated.d.ts:51
 
 How often this Lambda is invoked
 
@@ -1403,7 +1413,7 @@ Sum over 5 minutes
 
 > **metricThrottles**(`props?`): `Metric`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/lambda-augmentations.generated.d.ts:45
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/lambda-augmentations.generated.d.ts:45
 
 How often this Lambda is throttled
 
@@ -1447,7 +1457,7 @@ Returns a string representation of this construct.
 
 > `protected` **warnInvokeFunctionPermissions**(`scope`): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:305
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function-base.d.ts:305
 
 #### Parameters
 
@@ -1469,7 +1479,7 @@ Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_mod
 
 > `static` **classifyVersionProperty**(`propertyName`, `locked`): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:615
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:615
 
 Record whether specific properties in the `AWS::Lambda::Function` resource should
 also be associated to the Version resource.
@@ -1503,7 +1513,7 @@ whether the property should be associated to the version or not.
 
 > `static` **fromFunctionArn**(`scope`, `id`, `functionArn`): `IFunction`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:626
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:626
 
 Import a lambda function into the CDK using its ARN.
 
@@ -1538,7 +1548,7 @@ in the same account and region as the stack you are importing it into.
 
 > `static` **fromFunctionAttributes**(`scope`, `id`, `attrs`): `IFunction`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:638
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:638
 
 Creates a Lambda function object which represents a function not defined
 within this stack.
@@ -1580,7 +1590,7 @@ the attributes of the function to import
 
 > `static` **fromFunctionName**(`scope`, `id`, `functionName`): `IFunction`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:619
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:619
 
 Import a lambda function into the CDK using its name
 
@@ -1654,7 +1664,7 @@ true if `x` is an object created from a class which extends `Construct`.
 
 > `static` **isOwnedResource**(`construct`): `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:78
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:78
 
 Returns true if the construct was created by CDK, and false otherwise
 
@@ -1678,7 +1688,7 @@ Returns true if the construct was created by CDK, and false otherwise
 
 > `static` **isResource**(`construct`): `construct is Resource`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:74
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:74
 
 Check whether the given construct is a Resource
 
@@ -1702,7 +1712,7 @@ Check whether the given construct is a Resource
 
 > `static` **metricAll**(`metricName`, `props?`): `Metric`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:642
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:642
 
 Return the given named metric for this Lambda
 
@@ -1730,7 +1740,7 @@ Return the given named metric for this Lambda
 
 > `static` **metricAllConcurrentExecutions**(`props?`): `Metric`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:672
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:672
 
 Metric for the number of concurrent executions across all Lambdas
 
@@ -1760,7 +1770,7 @@ max over 5 minutes
 
 > `static` **metricAllDuration**(`props?`): `Metric`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:654
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:654
 
 Metric for the Duration executing all Lambdas
 
@@ -1790,7 +1800,7 @@ average over 5 minutes
 
 > `static` **metricAllErrors**(`props?`): `Metric`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:648
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:648
 
 Metric for the number of Errors executing all Lambdas
 
@@ -1820,7 +1830,7 @@ sum over 5 minutes
 
 > `static` **metricAllInvocations**(`props?`): `Metric`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:660
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:660
 
 Metric for the number of invocations of all Lambdas
 
@@ -1850,7 +1860,7 @@ sum over 5 minutes
 
 > `static` **metricAllThrottles**(`props?`): `Metric`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:666
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:666
 
 Metric for the number of throttled invocations of all Lambdas
 
@@ -1880,7 +1890,7 @@ sum over 5 minutes
 
 > `static` **metricAllUnreservedConcurrentExecutions**(`props?`): `Metric`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:678
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-lambda/lib/function.d.ts:678
 
 Metric for the number of unreserved concurrent executions across all Lambdas
 
