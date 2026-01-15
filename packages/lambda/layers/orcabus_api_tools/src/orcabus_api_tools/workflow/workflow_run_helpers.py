@@ -32,7 +32,6 @@ def get_workflow_run(workflow_run_orcabus_id: str) -> WorkflowRun:
         raise WorkflowRunNotFoundError(workflow_run_id=workflow_run_orcabus_id) from e
 
     # Get the workflow attribute of the workflow_run, make sure it uses 'name' and 'version'
-    # Rather than 'workflowName' and 'workflowVersion'
     workflow_obj = copy(workflow_run.get("workflow", {}))
 
     # Re-add the workflow object to the workflow_run
@@ -117,9 +116,9 @@ def add_comment_to_workflow_run(
 ) -> None:
     """
     Add a comment to the workflow run
-    :param workflow_run_orcabus_id:
-    :param comment:
-    :param author:
+    :param workflow_run_orcabus_id: The ID of the workflow run.
+    :param comment: The comment text to add to the workflow run.
+    :param author: The author of the comment.
     :return:
     """
 
