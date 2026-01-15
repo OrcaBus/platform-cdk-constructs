@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from typing import Optional, Dict
 
-from orcabus_api_tools.utils.requests_helpers import get_url, get_request_response_results, get_request
+from orcabus_api_tools.utils.requests_helpers import get_url, get_request_response_results, get_request, post_request
 from orcabus_api_tools.workflow.globals import WORKFLOW_SUBDOMAIN_NAME
 
 
@@ -29,6 +29,18 @@ def get_workflow_request_response_results(
         params: Optional[Dict] = None,
 ):
     return get_request_response_results(get_workflow_url(endpoint), params=params)
+
+
+def post_workflow_request(
+        endpoint: str,
+        json_data: dict | None = None,
+        params: dict | None = None,
+):
+    return post_request(
+        get_workflow_url(endpoint),
+        params=params,
+        json_data=json_data
+    )
 
 
 # Now 'import all'
@@ -67,6 +79,7 @@ from .workflow_run_helpers import (
     get_workflow_run_from_portal_run_id,
     get_workflow_run_state,
     get_workflow_run_state_from_state_orcabus_id,
+    add_comment_to_workflow_run,
 )
 
 
@@ -97,5 +110,6 @@ __all__ = [
     "get_workflow_run",
     "get_workflow_run_from_portal_run_id",
     "get_workflow_run_state",
-    "get_workflow_run_state_from_state_orcabus_id"
+    "get_workflow_run_state_from_state_orcabus_id",
+    "add_comment_to_workflow_run"
 ]

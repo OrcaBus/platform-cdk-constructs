@@ -7,7 +7,11 @@ from copy import copy
 
 # Standard imports
 from requests import HTTPError
-from . import get_workflow_request_response_results, get_workflow_request
+from . import (
+    get_workflow_request_response_results,
+    get_workflow_request,
+    post_workflow_request
+)
 
 # Local imports
 from .globals import WORKFLOW_RUN_ENDPOINT
@@ -30,10 +34,6 @@ def get_workflow_run(workflow_run_orcabus_id: str) -> WorkflowRun:
     # Get the workflow attribute of the workflow_run, make sure it uses 'name' and 'version'
     # Rather than 'workflowName' and 'workflowVersion'
     workflow_obj = copy(workflow_run.get("workflow", {}))
-    if 'workflowName' in workflow_obj:
-        workflow_obj['name'] = workflow_obj.pop('workflowName')
-    if 'workflowVersion' in workflow_obj:
-        workflow_obj['version'] = workflow_obj.pop('workflowVersion')
 
     # Re-add the workflow object to the workflow_run
     workflow_run['workflow'] = workflow_obj
@@ -108,3 +108,28 @@ def get_workflow_run_state(workflow_run_orcabus_id: str, status: str) -> State:
             workflow_run_id=workflow_run_orcabus_id,
             status=status
         ) from e
+
+
+def add_comment_to_workflow_run(
+        workflow_run_orcabus_id: str,
+        comment: str,
+        author: str,
+) -> None:
+    """
+    Add a comment to the workflow run
+    :param workflow_run_orcabus_id:
+    :param comment:
+    :param author:
+    :return:
+    """
+
+    # Post comment
+    post_workflow_request(
+        f"{WORKFLOW_RUN_ENDPOINT}/{workflow_run_orcabus_id}/comment",
+        {
+            "comment": comment,
+            "createdBy": author,
+            # workflowRun parameter required but not actually used
+            "workflowRun": workflow_run_orcabus_id
+        }
+    )

@@ -41,7 +41,6 @@ Payload is
 """
 
 # Imports
-import typing
 from typing import TypedDict, Optional, Dict, List, NotRequired, Literal
 
 # Import directly, safe as we do not do any internal imports under metadata.models.
