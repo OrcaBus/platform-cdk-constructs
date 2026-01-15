@@ -8,6 +8,6 @@
 
 > `const` **PROD\_ACCOUNT\_ID**: `"472057503814"` = `"472057503814"`
 
-Defined in: [packages/shared-config/accounts.ts:22](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/accounts.ts#L22)
+Defined in: [packages/shared-config/accounts.ts:27](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/accounts.ts#L27)
 
 Production Account ID.

@@ -8,6 +8,6 @@
 
 > `const` **ACCOUNT\_ID\_ALIAS**: `Record`\<[`StageName`](../type-aliases/StageName.md), `string`\>
 
-Defined in: [packages/shared-config/accounts.ts:27](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/accounts.ts#L27)
+Defined in: [packages/shared-config/accounts.ts:32](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/accounts.ts#L32)
 
 Mapping from stage name to AWS Account ID.
