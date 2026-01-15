@@ -50,7 +50,7 @@ Defined in: [packages/named-lambda-role/index.ts:27](https://github.com/OrcaBus/
 
 > `readonly` **assumeRoleAction**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:288
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:290
 
 When this Principal is used in an AssumeRole policy, the action to use.
 
@@ -64,7 +64,7 @@ When this Principal is used in an AssumeRole policy, the action to use.
 
 > `readonly` `optional` **assumeRolePolicy**: `PolicyDocument`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:292
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:294
 
 The assume role policy document associated with this role.
 
@@ -78,15 +78,17 @@ The assume role policy document associated with this role.
 
 > `readonly` **env**: `ResourceEnvironment`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:111
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:80
 
 The environment this resource belongs to.
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 #### Inherited from
 
@@ -98,13 +100,27 @@ that might be different than the stack they were imported into.
 
 > `readonly` **grantPrincipal**: `IPrincipal`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:286
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:288
 
 The principal to grant permissions to
 
 #### Inherited from
 
 `Role.grantPrincipal`
+
+***
+
+### grants
+
+> `readonly` **grants**: `RoleGrants`
+
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:314
+
+Collection of grant methods for a Role
+
+#### Inherited from
+
+`Role.grants`
 
 ***
 
@@ -126,7 +142,7 @@ The tree node.
 
 > `readonly` `optional` **permissionsBoundary**: `IManagedPolicy`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:308
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:310
 
 Returns the permissions boundary attached to this role
 
@@ -140,7 +156,7 @@ Returns the permissions boundary attached to this role
 
 > `protected` `readonly` **physicalName**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:123
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:92
 
 Returns a string-encoded token that resolves to the physical name that
 should be passed to the CloudFormation resource.
@@ -161,7 +177,7 @@ This value will resolve to one of the following:
 
 > `readonly` **policyFragment**: `PrincipalPolicyFragment`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:304
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:306
 
 Returns the role.
 
@@ -173,9 +189,9 @@ Returns the role.
 
 ### principalAccount
 
-> `readonly` **principalAccount**: `undefined` \| `string`
+> `readonly` **principalAccount**: `string` \| `undefined`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:287
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:289
 
 The AWS account ID of this principal.
 Can be undefined when the account is not known
@@ -193,7 +209,7 @@ it's assumed to be AWS::AccountId.
 
 > `readonly` **roleArn**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:296
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:298
 
 Returns the ARN of this role.
 
@@ -207,7 +223,7 @@ Returns the ARN of this role.
 
 > `readonly` **roleName**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:300
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:302
 
 Returns the name of the role.
 
@@ -221,7 +237,7 @@ Returns the name of the role.
 
 > `readonly` **stack**: `Stack`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:110
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:79
 
 The stack in which this resource is defined.
 
@@ -235,7 +251,7 @@ The stack in which this resource is defined.
 
 > `readonly` `static` **PROPERTY\_INJECTION\_ID**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:220
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:222
 
 Uniquely identifies this class.
 
@@ -251,7 +267,7 @@ Uniquely identifies this class.
 
 > **get** **roleId**(): `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:354
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:361
 
 Returns the stable and unique string identifying the role. For example,
 AIDAJQABLZS4A3QDU576Q.
@@ -266,13 +282,33 @@ AIDAJQABLZS4A3QDU576Q.
 
 `Role.roleId`
 
+***
+
+### roleRef
+
+#### Get Signature
+
+> **get** **roleRef**(): `RoleReference`
+
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:325
+
+A reference to a Role resource.
+
+##### Returns
+
+`RoleReference`
+
+#### Inherited from
+
+`Role.roleRef`
+
 ## Methods
 
 ### \_enableCrossEnvironment()
 
 > **\_enableCrossEnvironment**(): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:135
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:104
 
 **`Internal`**
 
@@ -295,7 +331,7 @@ through its absolute name/arn.
 
 > **addManagedPolicy**(`policy`): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:330
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:337
 
 Attaches a managed policy to this role.
 
@@ -321,7 +357,7 @@ The the managed policy to attach.
 
 > **addToPolicy**(`statement`): `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:325
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:332
 
 #### Parameters
 
@@ -343,7 +379,7 @@ Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_mod
 
 > **addToPrincipalPolicy**(`statement`): `AddToPrincipalPolicyResult`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:324
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:331
 
 Adds a permission to the role's default policy document.
 If there is no default policy attached to this role, it will be created.
@@ -370,7 +406,7 @@ The permission statement to add to the policy document
 
 > **applyRemovalPolicy**(`policy`): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:371
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:378
 
 Skip applyRemovalPolicy if role synthesis is prevented by customizeRoles.
 Because in this case, this construct does not have a CfnResource in the tree.
@@ -397,7 +433,7 @@ RemovalPolicy
 
 > **attachInlinePolicy**(`policy`): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:335
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:342
 
 Attaches a policy to this role.
 
@@ -423,7 +459,7 @@ The policy to attach
 
 > `protected` **generatePhysicalName**(): `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:148
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:117
 
 #### Returns
 
@@ -439,7 +475,7 @@ Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_mod
 
 > `protected` **getResourceArnAttribute**(`arnAttr`, `arnComponents`): `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:178
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:147
 
 Returns an environment-sensitive token that should be used for the
 resource's "ARN" attribute (e.g. `bucket.bucketArn`).
@@ -481,7 +517,7 @@ cross-environment references to work.
 
 > `protected` **getResourceNameAttribute**(`nameAttr`): `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:160
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:129
 
 Returns an environment-sensitive token that should be used for the
 resource's "name" attribute (e.g. `bucket.bucketName`).
@@ -513,7 +549,7 @@ Commonly this is the resource's `ref`.
 
 > **grant**(`grantee`, ...`actions`): `Grant`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:339
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:346
 
 Grant the actions defined in actions to the identity Principal on this resource.
 
@@ -541,7 +577,7 @@ Grant the actions defined in actions to the identity Principal on this resource.
 
 > **grantAssumeRole**(`identity`): `Grant`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:347
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:354
 
 Grant permissions to the given principal to assume this role.
 
@@ -565,7 +601,7 @@ Grant permissions to the given principal to assume this role.
 
 > **grantPassRole**(`identity`): `Grant`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:343
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:350
 
 Grant permissions to the given principal to pass this role.
 
@@ -607,7 +643,7 @@ Returns a string representation of this construct.
 
 > **withoutPolicyUpdates**(`options?`): `IRole`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:364
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:371
 
 Return a copy of this Role object whose Policies will not be updated
 
@@ -637,7 +673,7 @@ Role's policies yourself.
 
 > `static` **customizeRoles**(`scope`, `options?`): `void`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:285
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:287
 
 Customize the creation of IAM roles within the given scope
 
@@ -692,7 +728,7 @@ iam.Role.customizeRoles(app, {
 
 > `static` **fromLookup**(`scope`, `id`, `options`): `IRole`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:224
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:226
 
 Lookup an existing Role.
 
@@ -724,7 +760,7 @@ Lookup an existing Role.
 
 > `static` **fromRoleArn**(`scope`, `id`, `roleArn`, `options?`): `IRole`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:242
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:244
 
 Import an external role by ARN.
 
@@ -777,7 +813,7 @@ allow customizing the behavior of the returned role
 
 > `static` **fromRoleName**(`scope`, `id`, `roleName`, `options?`): `IRole`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:258
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:260
 
 Import an external role by name.
 
@@ -866,7 +902,7 @@ true if `x` is an object created from a class which extends `Construct`.
 
 > `static` **isOwnedResource**(`construct`): `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:109
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:78
 
 Returns true if the construct was created by CDK, and false otherwise
 
@@ -890,7 +926,7 @@ Returns true if the construct was created by CDK, and false otherwise
 
 > `static` **isResource**(`construct`): `construct is Resource`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:105
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/core/lib/resource.d.ts:74
 
 Check whether the given construct is a Resource
 
@@ -914,7 +950,7 @@ Check whether the given construct is a Resource
 
 > `static` **isRole**(`x`): `x is Role`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.213.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:246
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.233.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-iam/lib/role.d.ts:248
 
 Return whether the given object is a Role
 
