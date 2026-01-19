@@ -41,6 +41,7 @@ export const FILE_MANAGER_BUCKETS: Record<StageName, string[]> = {
     "project-data-889522050439-ap-southeast-2",
     "project-data-491085415398-ap-southeast-2",
     "project-data-071784445872-ap-southeast-2",
+    "project-data-980504796380-ap-southeast-2"
   ],
 };
 
