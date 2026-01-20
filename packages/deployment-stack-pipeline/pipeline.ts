@@ -4,9 +4,7 @@ import {
   BucketCacheOptions,
   BuildSpec, Cache,
   ComputeType,
-  IProject,
   LinuxArmBuildImage,
-  PipelineProject,
 } from "aws-cdk-lib/aws-codebuild";
 import { StringParameter } from "aws-cdk-lib/aws-ssm";
 import {
@@ -24,7 +22,6 @@ import {
   PipelineType,
   PipelineNotificationEvents,
   IStage,
-  Artifact,
 } from "aws-cdk-lib/aws-codepipeline";
 import {
   BETA_ENVIRONMENT,
@@ -35,7 +32,6 @@ import { SlackChannelConfiguration } from "aws-cdk-lib/aws-chatbot";
 import { DetailType } from "aws-cdk-lib/aws-codestarnotifications";
 import { CrossDeploymentArtifactBucket } from "./artifact-bucket";
 import {
-  CodeBuildAction,
   ManualApprovalAction,
   ManualApprovalActionProps,
 } from "aws-cdk-lib/aws-codepipeline-actions";
@@ -494,8 +490,6 @@ export class DeploymentStackPipeline extends Construct {
                 stackId: getStackId(betaEnvName),
                 cdkCommand: cdkRunCmd,
                 installCommand: cdkInstallCmd,
-                cacheOptions: props.cacheOptions,
-                cacheBucket,
               }),
             ]
           : undefined,
@@ -526,8 +520,6 @@ export class DeploymentStackPipeline extends Construct {
                 stackId: getStackId(gammaEnvName),
                 cdkCommand: cdkRunCmd,
                 installCommand: cdkInstallCmd,
-                cacheOptions: props.cacheOptions,
-                cacheBucket,
               }),
             ]
           : undefined,
@@ -569,8 +561,6 @@ export class DeploymentStackPipeline extends Construct {
                 stackId: getStackId(prodEnvName),
                 cdkCommand: cdkRunCmd,
                 installCommand: cdkInstallCmd,
-                cacheOptions: props.cacheOptions,
-                cacheBucket,
               }),
             ]
           : undefined,
@@ -705,10 +695,6 @@ export interface FailOnDriftBuildStepProps {
    * Default: "pnpm install --frozen-lockfile --ignore-scripts"
    */
   readonly installCommand?: string;
-  /**
-   * Specify options for creating an S3 cache.
-   */
-  readonly cacheOptions?: CacheOptions;
 }
 
 class FailOnDriftBuildStep extends CodeBuildStep {
@@ -719,11 +705,7 @@ class FailOnDriftBuildStep extends CodeBuildStep {
       stackId,
       cdkCommand,
       installCommand,
-      cacheBucket,
-      cacheOptions
-    }: FailOnDriftBuildStepProps & {
-      cacheBucket?: IBucket
-    },
+    }: FailOnDriftBuildStepProps,
   ) {
     const cdkInstall = installCommand
       ? installCommand
@@ -753,8 +735,7 @@ class FailOnDriftBuildStep extends CodeBuildStep {
             `arn:aws:iam::${accountEnv.account}:role/cdk-hnb659fds-lookup-role-${accountEnv.account}-${accountEnv.region}`,
           ],
         }),
-      ],
-      ...(cacheBucket !== undefined && { cache: Cache.bucket(cacheBucket, cacheOptions) }),
+      ]
     });
   }
 }

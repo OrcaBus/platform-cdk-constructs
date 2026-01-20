@@ -13,6 +13,7 @@
 
 ## Interfaces
 
+- [CacheOptions](interfaces/CacheOptions.md)
 - [CodeBuildStepProps](interfaces/CodeBuildStepProps.md)
 - [DeploymentStackPipelineProps](interfaces/DeploymentStackPipelineProps.md)
 - [DriftCheckConfig](interfaces/DriftCheckConfig.md)
