@@ -1,7 +1,8 @@
 import { Construct } from "constructs";
 import { Duration, Environment, Stack, Stage } from "aws-cdk-lib";
 import {
-  BuildSpec,
+  BucketCacheOptions,
+  BuildSpec, Cache,
   ComputeType,
   IProject,
   LinuxArmBuildImage,
@@ -39,6 +40,7 @@ import {
   ManualApprovalActionProps,
 } from "aws-cdk-lib/aws-codepipeline-actions";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
+import {Bucket, IBucket} from "aws-cdk-lib/aws-s3";
 
 /**
  * The default partial build spec for the synth step in the pipeline.
@@ -227,6 +229,21 @@ export interface DeploymentStackPipelineProps {
    * If specified, the pipeline will check for CloudFormation drift and fail if detected.
    */
   readonly driftCheckConfig?: DriftCheckConfig;
+  /**
+   * Specify options for creating an S3 cache.
+   */
+  readonly cacheOptions?: CacheOptions;
+}
+
+/**
+ * Options for creating an S3 cache to use across build steps. If specified, a bucket will be created
+ * for the cache under `<stackName>-CacheBucket`.
+ *
+ * The partial buildspec must still contain definitions for paths and keys if used.
+ * @see https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec.cache
+ */
+export interface CacheOptions extends BucketCacheOptions {
+  readonly bucket: string;
 }
 
 /**
@@ -309,6 +326,13 @@ export class DeploymentStackPipeline extends Construct {
       ]);
     }
 
+    let cacheBucket = undefined;
+    if (props.cacheOptions !== undefined) {
+      cacheBucket = new Bucket(this, 'CacheBucket', {
+        bucketName: props.stackName + '-CacheBucket'
+      });
+    }
+
     // Add unit test for IaC at the root of the
     const {
       command: unitIacTestCommand = [
@@ -344,6 +368,7 @@ export class DeploymentStackPipeline extends Construct {
       partialBuildSpec: unitIacPartialBuildSpec
         ? BuildSpec.fromObject(unitIacPartialBuildSpec)
         : undefined,
+      ...(cacheBucket !== undefined && { cache: Cache.bucket(cacheBucket, props.cacheOptions) }),
     });
 
     // Adding unit test for the main app
@@ -367,6 +392,7 @@ export class DeploymentStackPipeline extends Construct {
       partialBuildSpec: unitAppPartialBuildSpec
         ? BuildSpec.fromObject(unitAppPartialBuildSpec)
         : undefined,
+      ...(cacheBucket !== undefined && { cache: Cache.bucket(cacheBucket, props.cacheOptions) }),
     });
 
     const { synthBuildSpec = DEFAULT_SYNTH_STEP_PARTIAL_BUILD_SPEC } = props;
@@ -381,6 +407,7 @@ export class DeploymentStackPipeline extends Construct {
       input: sourceFile,
       primaryOutputDirectory: props.cdkOut || "cdk.out",
       partialBuildSpec: BuildSpec.fromObject(synthBuildSpec),
+      ...(cacheBucket !== undefined && { cache: Cache.bucket(cacheBucket, props.cacheOptions) }),
     });
     synthStep.addStepDependency(unitIacTest);
     synthStep.addStepDependency(unitAppTest);
@@ -467,6 +494,8 @@ export class DeploymentStackPipeline extends Construct {
                 stackId: getStackId(betaEnvName),
                 cdkCommand: cdkRunCmd,
                 installCommand: cdkInstallCmd,
+                cacheOptions: props.cacheOptions,
+                cacheBucket,
               }),
             ]
           : undefined,
@@ -497,6 +526,8 @@ export class DeploymentStackPipeline extends Construct {
                 stackId: getStackId(gammaEnvName),
                 cdkCommand: cdkRunCmd,
                 installCommand: cdkInstallCmd,
+                cacheOptions: props.cacheOptions,
+                cacheBucket,
               }),
             ]
           : undefined,
@@ -538,6 +569,8 @@ export class DeploymentStackPipeline extends Construct {
                 stackId: getStackId(prodEnvName),
                 cdkCommand: cdkRunCmd,
                 installCommand: cdkInstallCmd,
+                cacheOptions: props.cacheOptions,
+                cacheBucket,
               }),
             ]
           : undefined,
@@ -672,6 +705,10 @@ export interface FailOnDriftBuildStepProps {
    * Default: "pnpm install --frozen-lockfile --ignore-scripts"
    */
   readonly installCommand?: string;
+  /**
+   * Specify options for creating an S3 cache.
+   */
+  readonly cacheOptions?: CacheOptions;
 }
 
 class FailOnDriftBuildStep extends CodeBuildStep {
@@ -682,7 +719,11 @@ class FailOnDriftBuildStep extends CodeBuildStep {
       stackId,
       cdkCommand,
       installCommand,
-    }: FailOnDriftBuildStepProps,
+      cacheBucket,
+      cacheOptions
+    }: FailOnDriftBuildStepProps & {
+      cacheBucket?: IBucket
+    },
   ) {
     const cdkInstall = installCommand
       ? installCommand
@@ -713,6 +754,7 @@ class FailOnDriftBuildStep extends CodeBuildStep {
           ],
         }),
       ],
+      ...(cacheBucket !== undefined && { cache: Cache.bucket(cacheBucket, cacheOptions) }),
     });
   }
 }
