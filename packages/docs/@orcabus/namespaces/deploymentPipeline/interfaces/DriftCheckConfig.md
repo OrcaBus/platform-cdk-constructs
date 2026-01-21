@@ -6,7 +6,7 @@
 
 # Interface: DriftCheckConfig
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:89](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L89)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:87](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L87)
 
 Configuration for pre-deployment drift detection checks.
 
@@ -16,7 +16,7 @@ Configuration for pre-deployment drift detection checks.
 
 > `readonly` **cdkCommand**: `string`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:95](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L95)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:93](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L93)
 
 CDK CLI entrypoint used to run the drift command.
 Examples: "pnpm cdk", "pnpm cdk-stateful", "pnpm cdk-stateless".
@@ -28,7 +28,7 @@ Must support: "drift <stackId>".
 
 > `readonly` `optional` **installCommand**: `string`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:103](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L103)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:101](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L101)
 
 Command to install dependencies before running CDK.
 If your app is in a subdirectory, prefix with "cd <dir> &&".

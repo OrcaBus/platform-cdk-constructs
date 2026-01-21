@@ -1,11 +1,10 @@
 import { Construct } from "constructs";
 import { Duration, Environment, Stack, Stage } from "aws-cdk-lib";
 import {
-  BuildSpec,
+  BucketCacheOptions,
+  BuildSpec, Cache,
   ComputeType,
-  IProject,
   LinuxArmBuildImage,
-  PipelineProject,
 } from "aws-cdk-lib/aws-codebuild";
 import { StringParameter } from "aws-cdk-lib/aws-ssm";
 import {
@@ -23,7 +22,6 @@ import {
   PipelineType,
   PipelineNotificationEvents,
   IStage,
-  Artifact,
 } from "aws-cdk-lib/aws-codepipeline";
 import {
   BETA_ENVIRONMENT,
@@ -34,11 +32,11 @@ import { SlackChannelConfiguration } from "aws-cdk-lib/aws-chatbot";
 import { DetailType } from "aws-cdk-lib/aws-codestarnotifications";
 import { CrossDeploymentArtifactBucket } from "./artifact-bucket";
 import {
-  CodeBuildAction,
   ManualApprovalAction,
   ManualApprovalActionProps,
 } from "aws-cdk-lib/aws-codepipeline-actions";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
+import { CodeBuildCacheBucket } from "./cache-bucket";
 
 /**
  * The default partial build spec for the synth step in the pipeline.
@@ -227,6 +225,30 @@ export interface DeploymentStackPipelineProps {
    * If specified, the pipeline will check for CloudFormation drift and fail if detected.
    */
   readonly driftCheckConfig?: DriftCheckConfig;
+  /**
+   * Configure the `cache` options for each `CodeBuildStep`. This will allow CodeBuild to use
+   * S3 caching with the `CODEBUILD_CACHE_BUCKET` bucket.
+   *
+   * The partial buildspec must still contain definitions for cache paths and keys if used.
+   * @see https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec.cache
+   */
+  readonly cacheOptions?: CacheOptions;
+}
+
+/**
+ * Options for creating an S3 cache to use across build steps. If specified, the bucket under
+ * `CODEBUILD_CACHE_BUCKET` will be used for caching. This bucket is managed by the shared-resources
+ * service.
+ *
+ * The partial buildspec must still contain definitions for paths and keys if used.
+ * @see https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec.cache
+ */
+export interface CacheOptions {
+  /**
+   * Specify the namespace for the cache. This option is required because the cache bucket is shared across
+   * all projects so a namespace is required to uniquely identify the cache. Use the project name, e.g. `filemanager`.
+   */
+  readonly namespace: string;
 }
 
 /**
@@ -309,6 +331,14 @@ export class DeploymentStackPipeline extends Construct {
       ]);
     }
 
+    let cacheBucket = undefined;
+    let cacheOptions: BucketCacheOptions | undefined = undefined;
+    if (props.cacheOptions !== undefined) {
+      cacheBucket = CodeBuildCacheBucket.fromLookup(this).cacheBucket;
+      cacheOptions = { cacheNamespace: props.cacheOptions.namespace }
+    }
+
+
     // Add unit test for IaC at the root of the
     const {
       command: unitIacTestCommand = [
@@ -344,6 +374,7 @@ export class DeploymentStackPipeline extends Construct {
       partialBuildSpec: unitIacPartialBuildSpec
         ? BuildSpec.fromObject(unitIacPartialBuildSpec)
         : undefined,
+      cache: cacheBucket ? Cache.bucket(cacheBucket, cacheOptions) : undefined,
     });
 
     // Adding unit test for the main app
@@ -367,6 +398,7 @@ export class DeploymentStackPipeline extends Construct {
       partialBuildSpec: unitAppPartialBuildSpec
         ? BuildSpec.fromObject(unitAppPartialBuildSpec)
         : undefined,
+      cache: cacheBucket ? Cache.bucket(cacheBucket, cacheOptions) : undefined,
     });
 
     const { synthBuildSpec = DEFAULT_SYNTH_STEP_PARTIAL_BUILD_SPEC } = props;
@@ -381,6 +413,7 @@ export class DeploymentStackPipeline extends Construct {
       input: sourceFile,
       primaryOutputDirectory: props.cdkOut || "cdk.out",
       partialBuildSpec: BuildSpec.fromObject(synthBuildSpec),
+      cache: cacheBucket ? Cache.bucket(cacheBucket, cacheOptions) : undefined,
     });
     synthStep.addStepDependency(unitIacTest);
     synthStep.addStepDependency(unitAppTest);
@@ -712,7 +745,7 @@ class FailOnDriftBuildStep extends CodeBuildStep {
             `arn:aws:iam::${accountEnv.account}:role/cdk-hnb659fds-lookup-role-${accountEnv.account}-${accountEnv.region}`,
           ],
         }),
-      ],
+      ]
     });
   }
 }

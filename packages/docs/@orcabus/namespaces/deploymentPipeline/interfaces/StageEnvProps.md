@@ -6,7 +6,7 @@
 
 # Interface: StageEnvProps
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:56](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L56)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:54](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L54)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:56](https://github.c
 
 > `readonly` **beta**: `Environment`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:60](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L60)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:58](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L58)
 
 The environment for the beta stage
 
@@ -24,7 +24,7 @@ The environment for the beta stage
 
 > `readonly` **gamma**: `Environment`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:64](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L64)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:62](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L62)
 
 The environment for the gamma stage
 
@@ -34,6 +34,6 @@ The environment for the gamma stage
 
 > `readonly` **prod**: `Environment`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:68](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L68)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:66](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L66)
 
 The environment for the prod stage

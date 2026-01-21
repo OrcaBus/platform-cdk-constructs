@@ -6,7 +6,7 @@
 
 # Interface: CodeBuildStepProps
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:106](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L106)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:104](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L104)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:106](https://github.
 
 > `readonly` **command**: `string`[]
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:110](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L110)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:108](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L108)
 
 the main command for the build step to run
 
@@ -24,6 +24,6 @@ the main command for the build step to run
 
 > `readonly` `optional` **partialBuildSpec**: `Record`\<`string`, `any`\>
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:114](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L114)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:112](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L112)
 
 Partial buildspec for this CodeBuildStep
