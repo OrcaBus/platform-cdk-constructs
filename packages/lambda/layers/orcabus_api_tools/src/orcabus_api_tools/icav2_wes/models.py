@@ -37,6 +37,8 @@ class WESPostRequest(TypedDict):
 class WESPatchRequest(TypedDict):
     status: str
     icav2AnalysisId: NotRequired[str]
+    errorType: NotRequired[str]
+    errorMessageUri: NotRequired[str]
 
 
 class WESResponse(TypedDict):
