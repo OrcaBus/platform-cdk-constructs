@@ -36,7 +36,7 @@ import {
   ManualApprovalActionProps,
 } from "aws-cdk-lib/aws-codepipeline-actions";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
-import {Bucket, IBucket} from "aws-cdk-lib/aws-s3";
+import { CodeBuildCacheBucket } from "./cache-bucket";
 
 /**
  * The default partial build spec for the synth step in the pipeline.
@@ -226,20 +226,29 @@ export interface DeploymentStackPipelineProps {
    */
   readonly driftCheckConfig?: DriftCheckConfig;
   /**
-   * Specify options for creating an S3 cache.
+   * Configure the `cache` options for each `CodeBuildStep`. This will allow CodeBuild to use
+   * S3 caching with the `CODEBUILD_CACHE_BUCKET` bucket.
+   *
+   * The partial buildspec must still contain definitions for cache paths and keys if used.
+   * @see https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec.cache
    */
   readonly cacheOptions?: CacheOptions;
 }
 
 /**
- * Options for creating an S3 cache to use across build steps. If specified, a bucket will be created
- * for the cache under `<stackName>-CacheBucket`.
+ * Options for creating an S3 cache to use across build steps. If specified, the bucket under
+ * `CODEBUILD_CACHE_BUCKET` will be used for caching. This bucket is managed by the shared-resources
+ * service.
  *
  * The partial buildspec must still contain definitions for paths and keys if used.
  * @see https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec.cache
  */
-export interface CacheOptions extends BucketCacheOptions {
-  readonly bucket: string;
+export interface CacheOptions {
+  /**
+   * Specify the namespace for the cache. This option is required because the cache bucket is shared across
+   * all projects so a namespace is required to uniquely identify the cache. Use the project name, e.g. `filemanager`.
+   */
+  readonly namespace: string;
 }
 
 /**
@@ -323,11 +332,12 @@ export class DeploymentStackPipeline extends Construct {
     }
 
     let cacheBucket = undefined;
+    let cacheOptions: BucketCacheOptions | undefined = undefined;
     if (props.cacheOptions !== undefined) {
-      cacheBucket = new Bucket(this, 'CacheBucket', {
-        bucketName: props.stackName + '-CacheBucket'
-      });
+      cacheBucket = CodeBuildCacheBucket.fromLookup(this).cacheBucket;
+      cacheOptions = { cacheNamespace: props.cacheOptions.namespace }
     }
+
 
     // Add unit test for IaC at the root of the
     const {
@@ -364,7 +374,7 @@ export class DeploymentStackPipeline extends Construct {
       partialBuildSpec: unitIacPartialBuildSpec
         ? BuildSpec.fromObject(unitIacPartialBuildSpec)
         : undefined,
-      ...(cacheBucket !== undefined && { cache: Cache.bucket(cacheBucket, props.cacheOptions) }),
+      cache: cacheBucket ? Cache.bucket(cacheBucket, cacheOptions) : undefined,
     });
 
     // Adding unit test for the main app
@@ -388,7 +398,7 @@ export class DeploymentStackPipeline extends Construct {
       partialBuildSpec: unitAppPartialBuildSpec
         ? BuildSpec.fromObject(unitAppPartialBuildSpec)
         : undefined,
-      ...(cacheBucket !== undefined && { cache: Cache.bucket(cacheBucket, props.cacheOptions) }),
+      cache: cacheBucket ? Cache.bucket(cacheBucket, cacheOptions) : undefined,
     });
 
     const { synthBuildSpec = DEFAULT_SYNTH_STEP_PARTIAL_BUILD_SPEC } = props;
@@ -403,7 +413,7 @@ export class DeploymentStackPipeline extends Construct {
       input: sourceFile,
       primaryOutputDirectory: props.cdkOut || "cdk.out",
       partialBuildSpec: BuildSpec.fromObject(synthBuildSpec),
-      ...(cacheBucket !== undefined && { cache: Cache.bucket(cacheBucket, props.cacheOptions) }),
+      cache: cacheBucket ? Cache.bucket(cacheBucket, cacheOptions) : undefined,
     });
     synthStep.addStepDependency(unitIacTest);
     synthStep.addStepDependency(unitAppTest);

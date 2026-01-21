@@ -14,9 +14,16 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:115](https://github.
 
 > `readonly` `optional` **cacheOptions**: [`CacheOptions`](CacheOptions.md)
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:231](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L231)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:235](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L235)
 
-Specify options for creating an S3 cache.
+Configure the `cache` options for each `CodeBuildStep`. This will allow CodeBuild to use
+S3 caching with the `CODEBUILD_CACHE_BUCKET` bucket.
+
+The partial buildspec must still contain definitions for cache paths and keys if used.
+
+#### See
+
+https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec.cache
 
 ***
 

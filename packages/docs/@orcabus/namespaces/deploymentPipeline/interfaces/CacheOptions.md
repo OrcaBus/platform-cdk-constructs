@@ -6,10 +6,11 @@
 
 # Interface: CacheOptions
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:241](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L241)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:246](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L246)
 
-Options for creating an S3 cache to use across build steps. If specified, a bucket will be created
-for the cache under `<stackName>-CacheBucket`.
+Options for creating an S3 cache to use across build steps. If specified, the bucket under
+`CODEBUILD_CACHE_BUCKET` will be used for caching. This bucket is managed by the shared-resources
+service.
 
 The partial buildspec must still contain definitions for paths and keys if used.
 
@@ -17,53 +18,13 @@ The partial buildspec must still contain definitions for paths and keys if used.
 
 https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec.cache
 
-## Extends
-
-- `BucketCacheOptions`
-
 ## Properties
 
-### bucket
+### namespace
 
-> `readonly` **bucket**: `string`
+> `readonly` **namespace**: `string`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:242](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L242)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:251](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L251)
 
-***
-
-### cacheNamespace?
-
-> `readonly` `optional` **cacheNamespace**: `string`
-
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-codebuild/lib/cache.d.ts:17
-
-Defines the scope of the cache.
-You can use this namespace to share a cache across multiple projects.
-
-#### See
-
-https://docs.aws.amazon.com/codebuild/latest/userguide/caching-s3.html#caching-s3-sharing
-
-#### Default
-
-```ts
-undefined - No cache namespace, which means that the cache is not shared across multiple projects.
-```
-
-#### Inherited from
-
-`BucketCacheOptions.cacheNamespace`
-
-***
-
-### prefix?
-
-> `readonly` `optional` **prefix**: `string`
-
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-codebuild/lib/cache.d.ts:8
-
-The prefix to use to store the cache in the bucket
-
-#### Inherited from
-
-`BucketCacheOptions.prefix`
+Specify the namespace for the cache. This option is required because the cache bucket is shared across
+all projects so a namespace is required to uniquely identify the cache. Use the project name, e.g. `filemanager`.
