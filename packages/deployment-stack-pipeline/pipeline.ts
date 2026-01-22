@@ -110,6 +110,10 @@ export interface CodeBuildStepProps {
    * Partial buildspec for this CodeBuildStep
    */
   readonly partialBuildSpec?: Record<string, any>;
+  /**
+   * The install commands to run before the main command.
+   */
+  readonly installCommands?: string[];
 }
 
 export interface DeploymentStackPipelineProps {
@@ -341,10 +345,12 @@ export class DeploymentStackPipeline extends Construct {
 
     // Add unit test for IaC at the root of the
     const {
-      command: unitIacTestCommand = [
+      installCommands: unitIacTestInstall = [
         "npm install --global corepack@latest",
         "corepack enable",
         "pnpm install --frozen-lockfile --ignore-scripts",
+      ],
+      command: unitIacTestCommand = [
         "pnpm test",
       ],
       partialBuildSpec: unitIacPartialBuildSpec = {
@@ -359,6 +365,7 @@ export class DeploymentStackPipeline extends Construct {
       },
     } = props.unitIacTestConfig || {};
     const unitIacTest = new CodeBuildStep("UnitIacTest", {
+      installCommands: unitIacTestInstall,
       commands: unitIacTestCommand,
       input: sourceFile,
       buildEnvironment: {
@@ -380,10 +387,12 @@ export class DeploymentStackPipeline extends Construct {
     // Adding unit test for the main app
     const {
       command: unitAppTestCommand,
+      installCommands: unitAppTestInstall = undefined,
       partialBuildSpec: unitAppPartialBuildSpec = undefined,
     } = props.unitAppTestConfig;
     const unitAppTest = new CodeBuildStep("UnitAppTest", {
       commands: unitAppTestCommand,
+      installCommands: unitAppTestInstall,
       input: sourceFile,
       buildEnvironment: {
         privileged: true,
