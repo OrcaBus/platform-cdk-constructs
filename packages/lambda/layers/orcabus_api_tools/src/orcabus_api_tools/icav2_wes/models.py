@@ -39,6 +39,7 @@ class WESPatchRequest(TypedDict):
     icav2AnalysisId: NotRequired[str]
     errorType: NotRequired[str]
     errorMessageUri: NotRequired[str]
+    stepsLaunchExecutionArn: NotRequired[str]
 
 
 class WESResponse(TypedDict):
