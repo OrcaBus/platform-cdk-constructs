@@ -20,6 +20,16 @@ the main command for the build step to run
 
 ***
 
+### installCommands?
+
+> `readonly` `optional` **installCommands**: `string`[]
+
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:116](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L116)
+
+The install commands to run before the main command.
+
+***
+
 ### partialBuildSpec?
 
 > `readonly` `optional` **partialBuildSpec**: `Record`\<`string`, `any`\>

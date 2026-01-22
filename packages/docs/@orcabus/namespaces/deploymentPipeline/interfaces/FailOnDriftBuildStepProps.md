@@ -6,7 +6,7 @@
 
 # Interface: FailOnDriftBuildStepProps
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:680](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L680)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:689](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L689)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:680](https://github.
 
 > `readonly` **accountEnv**: `Environment`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:685](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L685)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:694](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L694)
 
 AWS account and region where the drift check runs.
 Used to assume the CDK lookup role and set AWS_DEFAULT_REGION.
@@ -25,7 +25,7 @@ Used to assume the CDK lookup role and set AWS_DEFAULT_REGION.
 
 > `readonly` **cdkCommand**: `string`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:699](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L699)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:708](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L708)
 
 CDK CLI entrypoint used to run the drift command.
 Examples: "pnpm cdk", "pnpm cdk-stateful", "pnpm cdk-stateless".
@@ -37,7 +37,7 @@ Must support: "drift <stackId>".
 
 > `readonly` `optional` **installCommand**: `string`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:707](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L707)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:716](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L716)
 
 Command to install dependencies before running CDK.
 If your app is in a subdirectory, prefix with "cd <dir> &&".
@@ -51,7 +51,7 @@ Default: "pnpm install --frozen-lockfile --ignore-scripts"
 
 > `readonly` **stackId**: `string`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:693](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L693)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:702](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L702)
 
 Fully qualified CDK stack ID to check for drift.
 
