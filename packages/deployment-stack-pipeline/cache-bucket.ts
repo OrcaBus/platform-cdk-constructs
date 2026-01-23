@@ -17,10 +17,7 @@ export interface ICacheBucket {
 /**
  * Creates a cache bucket for use with CodeBuild.
  */
-export class CodeBuildCacheBucket
-  extends Construct
-  implements ICacheBucket
-{
+export class CodeBuildCacheBucket extends Construct implements ICacheBucket {
   /**
    * The S3 bucket used to cache CodeBuild builds.
    */
@@ -43,13 +40,9 @@ export class CodeBuildCacheBucket
    * @returns ICacheBucket
    */
   public static fromLookup(scope: Construct): ICacheBucket {
-    const cacheBucket = Bucket.fromBucketAttributes(
-      scope,
-      "CacheBucket",
-      {
-        bucketName: CODEBUILD_CACHE_BUCKET,
-      },
-    );
+    const cacheBucket = Bucket.fromBucketAttributes(scope, "CacheBucket", {
+      bucketName: CODEBUILD_CACHE_BUCKET,
+    });
 
     return {
       cacheBucket,
