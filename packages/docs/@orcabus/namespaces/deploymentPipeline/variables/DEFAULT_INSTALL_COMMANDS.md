@@ -8,6 +8,6 @@
 
 > `const` **DEFAULT\_INSTALL\_COMMANDS**: `string`[]
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:58](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L58)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:59](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L59)
 
 The default install commands for CodeBuild steps.

@@ -2,7 +2,8 @@ import { Construct } from "constructs";
 import { Duration, Environment, Stack, Stage } from "aws-cdk-lib";
 import {
   BucketCacheOptions,
-  BuildSpec, Cache,
+  BuildSpec,
+  Cache,
   ComputeType,
   LinuxArmBuildImage,
 } from "aws-cdk-lib/aws-codebuild";
@@ -39,7 +40,7 @@ import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { CodeBuildCacheBucket } from "./cache-bucket";
 
 /**
- * The default partial build spec for the synth step in the pipeline.
+ * The default partial build spec for code build steps in the pipeline.
  */
 export const DEFAULT_PARTIAL_BUILD_SPEC = {
   phases: {
@@ -49,7 +50,7 @@ export const DEFAULT_PARTIAL_BUILD_SPEC = {
       },
     },
   },
-  version: "0.2"
+  version: "0.2",
 };
 
 /**
@@ -367,23 +368,26 @@ export class DeploymentStackPipeline extends Construct {
     let cacheOptions: BucketCacheOptions | undefined = undefined;
     if (props.cacheOptions !== undefined) {
       cacheBucket = CodeBuildCacheBucket.fromLookup(this).cacheBucket;
-      cacheOptions = { cacheNamespace: props.cacheOptions.namespace, prefix: props.cacheOptions.prefix ?? props.cacheOptions.namespace }
+      cacheOptions = {
+        cacheNamespace: props.cacheOptions.namespace,
+        prefix: props.cacheOptions.prefix ?? props.cacheOptions.namespace,
+      };
     }
     const setCachePaths = (buildSpec: Record<string, any> | undefined) => {
       if (buildSpec !== undefined && !("cache" in buildSpec)) {
         buildSpec["cache"] = {
-          "paths": props.cacheOptions?.paths ?? ["node_modules/**/*"]
-        }
+          paths: props.cacheOptions?.paths ?? ["node_modules/**/*"],
+        };
       }
-    }
+    };
 
     // Add unit test for IaC at the root of the
     const {
       installCommands: unitIacTestInstall = DEFAULT_INSTALL_COMMANDS,
-      command: unitIacTestCommand = [
-        "pnpm test",
-      ],
-      partialBuildSpec: unitIacPartialBuildSpec = DEFAULT_PARTIAL_BUILD_SPEC,
+      command: unitIacTestCommand = ["pnpm test"],
+      partialBuildSpec: unitIacPartialBuildSpec = structuredClone(
+        DEFAULT_PARTIAL_BUILD_SPEC,
+      ),
     } = props.unitIacTestConfig || {};
     setCachePaths(unitIacPartialBuildSpec);
 
@@ -411,7 +415,9 @@ export class DeploymentStackPipeline extends Construct {
     const {
       command: unitAppTestCommand,
       installCommands: unitAppTestInstall = DEFAULT_INSTALL_COMMANDS,
-      partialBuildSpec: unitAppPartialBuildSpec = DEFAULT_PARTIAL_BUILD_SPEC,
+      partialBuildSpec: unitAppPartialBuildSpec = structuredClone(
+        DEFAULT_PARTIAL_BUILD_SPEC,
+      ),
     } = props.unitAppTestConfig;
     setCachePaths(unitAppPartialBuildSpec);
 
@@ -437,7 +443,7 @@ export class DeploymentStackPipeline extends Construct {
 
     const {
       synthInstallCommands = DEFAULT_INSTALL_COMMANDS,
-      synthBuildSpec = DEFAULT_PARTIAL_BUILD_SPEC
+      synthBuildSpec = structuredClone(DEFAULT_PARTIAL_BUILD_SPEC),
     } = props;
     setCachePaths(synthBuildSpec);
 
@@ -734,7 +740,7 @@ export interface FailOnDriftBuildStepProps {
    * If your app is in a subdirectory, prefix with "cd <dir> &&".
    * Example: "cd dev && pnpm install --frozen-lockfile --ignore-scripts"
    *
-   * Default: "pnpm install --frozen-lockfile --ignore-scripts"
+   * @default DEFAULT_INSTALL_COMMANDS merged with &&.
    */
   readonly installCommand?: string;
 }
@@ -773,7 +779,7 @@ class FailOnDriftBuildStep extends CodeBuildStep {
             `arn:aws:iam::${accountEnv.account}:role/cdk-hnb659fds-lookup-role-${accountEnv.account}-${accountEnv.region}`,
           ],
         }),
-      ]
+      ],
     });
   }
 }

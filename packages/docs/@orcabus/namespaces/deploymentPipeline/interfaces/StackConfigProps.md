@@ -6,7 +6,7 @@
 
 # Interface: StackConfigProps
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:81](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L81)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:82](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L82)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:81](https://github.c
 
 > `readonly` **beta**: `Record`\<`string`, `any`\>
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:85](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L85)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:86](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L86)
 
 The configuration for the beta (dev) stage
 
@@ -24,7 +24,7 @@ The configuration for the beta (dev) stage
 
 > `readonly` **gamma**: `Record`\<`string`, `any`\>
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:89](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L89)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:90](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L90)
 
 The configuration for the gamma (stg) stage
 
@@ -34,6 +34,6 @@ The configuration for the gamma (stg) stage
 
 > `readonly` **prod**: `Record`\<`string`, `any`\>
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:93](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L93)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:94](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L94)
 
 The configuration for the prod stage
