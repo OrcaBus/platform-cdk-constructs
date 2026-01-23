@@ -6,7 +6,7 @@
 
 # Interface: CodeBuildStepProps
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:104](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L104)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:116](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L116)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:104](https://github.
 
 > `readonly` **command**: `string`[]
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:108](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L108)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:120](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L120)
 
 the main command for the build step to run
 
@@ -24,7 +24,7 @@ the main command for the build step to run
 
 > `readonly` `optional` **installCommands**: `string`[]
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:116](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L116)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:128](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L128)
 
 The install commands to run before the main command.
 
@@ -34,6 +34,6 @@ The install commands to run before the main command.
 
 > `readonly` `optional` **partialBuildSpec**: `Record`\<`string`, `any`\>
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:112](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L112)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:124](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L124)
 
 Partial buildspec for this CodeBuildStep

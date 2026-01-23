@@ -41,7 +41,7 @@ import { CodeBuildCacheBucket } from "./cache-bucket";
 /**
  * The default partial build spec for the synth step in the pipeline.
  */
-export const DEFAULT_SYNTH_STEP_PARTIAL_BUILD_SPEC = {
+export const DEFAULT_PARTIAL_BUILD_SPEC = {
   phases: {
     install: {
       "runtime-versions": {
@@ -49,7 +49,19 @@ export const DEFAULT_SYNTH_STEP_PARTIAL_BUILD_SPEC = {
       },
     },
   },
+  version: "0.2"
 };
+
+/**
+ * The default install commands for CodeBuild steps.
+ */
+export const DEFAULT_INSTALL_COMMANDS = [
+  "npm install --global corepack@latest",
+  "corepack enable",
+  "node -v",
+  "corepack --version",
+  "pnpm install --frozen-lockfile --ignore-scripts",
+];
 
 export interface StageEnvProps {
   /**
@@ -170,11 +182,18 @@ export interface DeploymentStackPipelineProps {
    */
   readonly cdkOut?: string;
   /**
-   * Additional configuration for the CodeBuild step during the CDK synth phase. It will passed as the `partialBuildSpec` to the `CodeBuildStep`.
+   * Additional configuration for the CodeBuild step during the CDK synth phase. It will be passed as the
+   * `partialBuildSpec` to the `CodeBuildStep`.
    *
-   * @default DEFAULT_SYNTH_STEP_PARTIAL_BUILD_SPEC
+   * @default DEFAULT_PARTIAL_BUILD_SPEC
    */
   readonly synthBuildSpec?: Record<string, any>;
+  /**
+   * The install commands for the synth step.
+   *
+   * @default DEFAULT_INSTALL_COMMANDS
+   */
+  readonly synthInstallCommands?: string[];
   /**
    * Configuration for the CodeBuild step that runs unit tests for the main application code.
    * This step will execute in parallel with {@link unitIacTestConfig} as part of the synth stage dependencies.
@@ -243,9 +262,6 @@ export interface DeploymentStackPipelineProps {
  * Options for creating an S3 cache to use across build steps. If specified, the bucket under
  * `CODEBUILD_CACHE_BUCKET` will be used for caching. This bucket is managed by the shared-resources
  * service.
- *
- * The partial buildspec must still contain definitions for paths and keys if used.
- * @see https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec.cache
  */
 export interface CacheOptions {
   /**
@@ -253,6 +269,18 @@ export interface CacheOptions {
    * all projects so a namespace is required to uniquely identify the cache. Use the project name, e.g. `filemanager`.
    */
   readonly namespace: string;
+  /**
+   * The prefix for the cache controlling the prefix on S3. If left unspecified, this will default to the namespace.
+   */
+  readonly prefix?: string;
+  /**
+   * The paths to cache. This will default to the `node_modules` directory if unspecified.
+   *
+   * Note that if the cache is specified in the buildspec, that config will take precedence. This option is only used
+   * as a convenience to specify paths, and will not override the buildspec cache config.
+   * @see https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec.cache
+   */
+  readonly paths?: string[];
 }
 
 /**
@@ -339,31 +367,26 @@ export class DeploymentStackPipeline extends Construct {
     let cacheOptions: BucketCacheOptions | undefined = undefined;
     if (props.cacheOptions !== undefined) {
       cacheBucket = CodeBuildCacheBucket.fromLookup(this).cacheBucket;
-      cacheOptions = { cacheNamespace: props.cacheOptions.namespace }
+      cacheOptions = { cacheNamespace: props.cacheOptions.namespace, prefix: props.cacheOptions.prefix ?? props.cacheOptions.namespace }
     }
-
+    const setCachePaths = (buildSpec: Record<string, any> | undefined) => {
+      if (buildSpec !== undefined && !("cache" in buildSpec)) {
+        buildSpec["cache"] = {
+          "paths": props.cacheOptions?.paths ?? ["node_modules/**/*"]
+        }
+      }
+    }
 
     // Add unit test for IaC at the root of the
     const {
-      installCommands: unitIacTestInstall = [
-        "npm install --global corepack@latest",
-        "corepack enable",
-        "pnpm install --frozen-lockfile --ignore-scripts",
-      ],
+      installCommands: unitIacTestInstall = DEFAULT_INSTALL_COMMANDS,
       command: unitIacTestCommand = [
         "pnpm test",
       ],
-      partialBuildSpec: unitIacPartialBuildSpec = {
-        phases: {
-          install: {
-            "runtime-versions": {
-              nodejs: "22",
-            },
-          },
-        },
-        version: "0.2",
-      },
+      partialBuildSpec: unitIacPartialBuildSpec = DEFAULT_PARTIAL_BUILD_SPEC,
     } = props.unitIacTestConfig || {};
+    setCachePaths(unitIacPartialBuildSpec);
+
     const unitIacTest = new CodeBuildStep("UnitIacTest", {
       installCommands: unitIacTestInstall,
       commands: unitIacTestCommand,
@@ -387,9 +410,11 @@ export class DeploymentStackPipeline extends Construct {
     // Adding unit test for the main app
     const {
       command: unitAppTestCommand,
-      installCommands: unitAppTestInstall = undefined,
-      partialBuildSpec: unitAppPartialBuildSpec = undefined,
+      installCommands: unitAppTestInstall = DEFAULT_INSTALL_COMMANDS,
+      partialBuildSpec: unitAppPartialBuildSpec = DEFAULT_PARTIAL_BUILD_SPEC,
     } = props.unitAppTestConfig;
+    setCachePaths(unitAppPartialBuildSpec);
+
     const unitAppTest = new CodeBuildStep("UnitAppTest", {
       commands: unitAppTestCommand,
       installCommands: unitAppTestInstall,
@@ -410,14 +435,14 @@ export class DeploymentStackPipeline extends Construct {
       cache: cacheBucket ? Cache.bucket(cacheBucket, cacheOptions) : undefined,
     });
 
-    const { synthBuildSpec = DEFAULT_SYNTH_STEP_PARTIAL_BUILD_SPEC } = props;
+    const {
+      synthInstallCommands = DEFAULT_INSTALL_COMMANDS,
+      synthBuildSpec = DEFAULT_PARTIAL_BUILD_SPEC
+    } = props;
+    setCachePaths(synthBuildSpec);
+
     const synthStep = new CodeBuildStep("CdkSynth", {
-      installCommands: [
-        "node -v",
-        "npm install --global corepack@latest",
-        "corepack --version",
-        "corepack enable",
-      ],
+      installCommands: synthInstallCommands,
       commands: props.cdkSynthCmd,
       input: sourceFile,
       primaryOutputDirectory: props.cdkOut || "cdk.out",
@@ -484,9 +509,7 @@ export class DeploymentStackPipeline extends Construct {
 
     // Drift check config
     const isDriftCheckStep = !!props.driftCheckConfig;
-    const cdkInstallCmd =
-      props.driftCheckConfig?.installCommand ??
-      "pnpm install --frozen-lockfile --ignore-scripts";
+    const cdkInstallCmd = props.driftCheckConfig?.installCommand;
     const cdkRunCmd = props.driftCheckConfig?.cdkCommand ?? ``;
 
     const betaEnvName = "OrcaBusBeta";
@@ -728,14 +751,10 @@ class FailOnDriftBuildStep extends CodeBuildStep {
   ) {
     const cdkInstall = installCommand
       ? installCommand
-      : "pnpm install --frozen-lockfile --ignore-scripts";
+      : DEFAULT_INSTALL_COMMANDS.join(" && ");
 
     super(id, {
       commands: [
-        "node -v",
-        "npm install --global corepack@latest",
-        "corepack --version",
-        "corepack enable",
         cdkInstall,
 
         `LOOKUP_ROLE_ARN="arn:aws:iam::${accountEnv.account}:role/cdk-hnb659fds-lookup-role-${accountEnv.account}-${accountEnv.region}"`,
