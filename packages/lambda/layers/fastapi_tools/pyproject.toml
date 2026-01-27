@@ -14,7 +14,7 @@ homepage = "https://github.com/orcabus/platform-cdk-constructs"
 repository = "https://github.com/orcabus/platform-cdk-constructs"
 
 [tool.poetry.dependencies]
-python = "^3.12, <3.13"
+python = "^3.14, <3.15"
 fastapi = {extras = ["standard"], version = ">=0.115.6"}
 pydantic = "^2.10.5"
 mangum = "^0.19.0"

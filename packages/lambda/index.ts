@@ -226,7 +226,7 @@ export class PythonUvFunction extends PythonFunction {
         if (!PythonUvFunction.orcabusApiToolsLayer.has(scope)) {
             const layer = new PythonLayerVersion(scope, 'orcabusApiToolsLayer', {
                 entry: path.join(__dirname, 'layers/orcabus_api_tools'),
-                compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
+                compatibleRuntimes: [lambda.Runtime.PYTHON_3_14],
                 compatibleArchitectures: [lambda.Architecture.ARM_64],
                 license: 'GPL3',
                 description: 'orcabusApiToolsLayer',
@@ -263,7 +263,7 @@ export class PythonUvFunction extends PythonFunction {
         if (!PythonUvFunction.martLayer.has(scope)) {
             const layer = new PythonLayerVersion(scope, 'martToolsLayer', {
                 entry: path.join(__dirname, 'layers/mart_tools'),
-                compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
+                compatibleRuntimes: [lambda.Runtime.PYTHON_3_14],
                 compatibleArchitectures: [lambda.Architecture.ARM_64],
                 license: 'GPL3',
                 description: 'martToolsLayer',
@@ -299,7 +299,7 @@ export class PythonUvFunction extends PythonFunction {
         if (!PythonUvFunction.icav2Layer.has(scope)) {
             const layer = new PythonLayerVersion(scope, 'icav2ToolsLayer', {
                 entry: path.join(__dirname, 'layers/icav2_tools'),
-                compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
+                compatibleRuntimes: [lambda.Runtime.PYTHON_3_14],
                 compatibleArchitectures: [lambda.Architecture.ARM_64],
                 license: 'GPL3',
                 description: 'icav2ToolsLayer',
@@ -339,7 +339,7 @@ export class PythonUvFunction extends PythonFunction {
         if (!PythonUvFunction.fastApiLayer.has(scope)) {
             const layer = new PythonLayerVersion(scope, 'fastApiLayer', {
                 entry: path.join(__dirname, 'layers/fastapi_tools'),
-                compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
+                compatibleRuntimes: [lambda.Runtime.PYTHON_3_14],
                 compatibleArchitectures: [lambda.Architecture.ARM_64],
                 license: 'GPL3',
                 description: 'fastApiLayer',
