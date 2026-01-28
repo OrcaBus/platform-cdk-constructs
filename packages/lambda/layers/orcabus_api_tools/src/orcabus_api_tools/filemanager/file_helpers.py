@@ -425,14 +425,29 @@ def update_ingest_id(s3_object_id: str, new_ingest_id: str) -> Dict:
 
 def crawl_filemanager_sync(
         bucket: str,
-        prefix: str
+        prefix: Optional[str] = None
 ):
+    """
+    Trigger a filemanager sync for the given bucket and prefix
+    :param bucket:
+    :param prefix:
+    """
     # We might want to make sure this has completed before moving onto a next step
     # Sync the file manager with the S3 bucket and prefix
     file_manager_post_request(
         endpoint=S3_SYNC_ENDPOINT,
-        json_data={
-            "bucket": bucket,
-            "prefix": f"{prefix.rstrip('/')}/",
-        }
+        json_data=dict(filter(
+            lambda kv_iter_: kv_iter_[1] is not None,
+            {
+                "bucket": bucket,
+                "prefix": (
+                    f"{prefix.rstrip('/')}/"
+                    if (
+                            prefix and
+                            prefix != "/"
+                    )
+                    else None
+                ),
+            }.items()
+        ))
     )
