@@ -443,8 +443,8 @@ def crawl_filemanager_sync(
                 "prefix": (
                     f"{prefix.rstrip('/')}/"
                     if (
-                            prefix is not None and
-                            not prefix == "/"
+                            prefix and
+                            prefix != "/"
                     )
                     else None
                 ),
