@@ -127,6 +127,10 @@ export interface CodeBuildStepProps {
    * The install commands to run before the main command.
    */
   readonly installCommands?: string[];
+  /**
+   * The additional policy statements to add to the CodeBuildStep role.
+   */
+  readonly rolePolicyStatements?: PolicyStatement[];
 }
 
 export interface DeploymentStackPipelineProps {
@@ -176,6 +180,10 @@ export interface DeploymentStackPipelineProps {
    * The command to run to synth the cdk stack which also installing the cdk dependencies. e.g. ["pnpm install --frozen-lockfile", "pnpm cdk synth"]
    */
   readonly cdkSynthCmd: string[];
+  /**
+   * The additional policy statements to add to the CodeBuildStep role during the synth step.
+   */
+  readonly synthRolePolicyStatements?: PolicyStatement[];
   /**
    * The location where the cdk output will be stored.
    *
@@ -388,6 +396,7 @@ export class DeploymentStackPipeline extends Construct {
       partialBuildSpec: unitIacPartialBuildSpec = structuredClone(
         DEFAULT_PARTIAL_BUILD_SPEC,
       ),
+      rolePolicyStatements: unitIacRolePolicyStatements,
     } = props.unitIacTestConfig || {};
     setCachePaths(unitIacPartialBuildSpec);
 
@@ -409,6 +418,7 @@ export class DeploymentStackPipeline extends Construct {
         ? BuildSpec.fromObject(unitIacPartialBuildSpec)
         : undefined,
       cache: cacheBucket ? Cache.bucket(cacheBucket, cacheOptions) : undefined,
+      rolePolicyStatements: unitIacRolePolicyStatements,
     });
 
     // Adding unit test for the main app
@@ -418,6 +428,7 @@ export class DeploymentStackPipeline extends Construct {
       partialBuildSpec: unitAppPartialBuildSpec = structuredClone(
         DEFAULT_PARTIAL_BUILD_SPEC,
       ),
+      rolePolicyStatements: unitAppRolePolicyStatements,
     } = props.unitAppTestConfig;
     setCachePaths(unitAppPartialBuildSpec);
 
@@ -439,11 +450,13 @@ export class DeploymentStackPipeline extends Construct {
         ? BuildSpec.fromObject(unitAppPartialBuildSpec)
         : undefined,
       cache: cacheBucket ? Cache.bucket(cacheBucket, cacheOptions) : undefined,
+      rolePolicyStatements: unitAppRolePolicyStatements,
     });
 
     const {
       synthInstallCommands = DEFAULT_INSTALL_COMMANDS,
       synthBuildSpec = structuredClone(DEFAULT_PARTIAL_BUILD_SPEC),
+      synthRolePolicyStatements,
     } = props;
     setCachePaths(synthBuildSpec);
 
@@ -454,6 +467,7 @@ export class DeploymentStackPipeline extends Construct {
       primaryOutputDirectory: props.cdkOut || "cdk.out",
       partialBuildSpec: BuildSpec.fromObject(synthBuildSpec),
       cache: cacheBucket ? Cache.bucket(cacheBucket, cacheOptions) : undefined,
+      rolePolicyStatements: synthRolePolicyStatements,
     });
     synthStep.addStepDependency(unitIacTest);
     synthStep.addStepDependency(unitAppTest);
