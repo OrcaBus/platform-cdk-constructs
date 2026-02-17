@@ -12,7 +12,7 @@
 """
 
 from typing import (
-    TypedDict, NotRequired, Literal, List, Union
+    TypedDict, NotRequired, Literal, List, Union, Dict
 )
 
 JobType = Literal['FASTQ_DECOMPRESSION']
@@ -99,6 +99,7 @@ class JobCreateParameters(TypedDict):
     outputUriPrefix: NotRequired[str]
     sampling: NotRequired[bool]
     noSplitByLane: NotRequired[bool]
+    fileUriByFastqIdMap: NotRequired[Dict[str, List[str]]]
 
 
 class JobQueryParameters(TypedDict):
