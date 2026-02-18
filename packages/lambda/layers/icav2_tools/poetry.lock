@@ -77,17 +77,17 @@ chardet = ">=3.0.2"
 
 [[package]]
 name = "boto3"
-version = "1.42.46"
+version = "1.42.51"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "boto3-1.42.46-py3-none-any.whl", hash = "sha256:679cf4930e559621653bbd1439cf6e93b138cbaf46e36e5d7d95319999b7a356"},
-    {file = "boto3-1.42.46.tar.gz", hash = "sha256:c8c82ab34dd8d2d4d93a562d0e75fca164efa644651d3ccddb0f4aa88a481b38"},
+    {file = "boto3-1.42.51-py3-none-any.whl", hash = "sha256:c3e75ab1c4df6b1049aecfae56d15f5ff99d68ec6a05f24741bab08ad5d5406e"},
+    {file = "boto3-1.42.51.tar.gz", hash = "sha256:a010376cdc2432faa6c3338f04591142a1374da1b7eba94b80c0c7f1b525eff7"},
 ]
 
 [package.dependencies]
-botocore = ">=1.42.46,<1.43.0"
+botocore = ">=1.42.51,<1.43.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.16.0,<0.17.0"
 
@@ -96,13 +96,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.42.46"
+version = "1.42.51"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "botocore-1.42.46-py3-none-any.whl", hash = "sha256:f7459fcf586f38a3b0a242a172d3332141c770a3f5767bbb21e79d810db95d75"},
-    {file = "botocore-1.42.46.tar.gz", hash = "sha256:fc290b33aba6e271f627c4f46b8bcebfa1a94e19157d396732da417404158c01"},
+    {file = "botocore-1.42.51-py3-none-any.whl", hash = "sha256:216c4c148f37f882c7239fce1d8023acdc664643952ce1d6827c7edc829903d3"},
+    {file = "botocore-1.42.51.tar.gz", hash = "sha256:d7b03905b8066c25dd5bde1b7dc4af15ebdbaa313abbb2543db179b1d5efae3d"},
 ]
 
 [package.dependencies]
@@ -111,7 +111,7 @@ python-dateutil = ">=2.1,<3.0.0"
 urllib3 = {version = ">=1.25.4,<2.2.0 || >2.2.0,<3", markers = "python_version >= \"3.10\""}
 
 [package.extras]
-crt = ["awscrt (==0.29.2)"]
+crt = ["awscrt (==0.31.2)"]
 
 [[package]]
 name = "cachecontrol"
@@ -332,13 +332,13 @@ testing = ["pytest (<9)", "pytest-mock"]
 
 [[package]]
 name = "fastapi"
-version = "0.128.7"
+version = "0.129.0"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 files = [
-    {file = "fastapi-0.128.7-py3-none-any.whl", hash = "sha256:6bd9bd31cb7047465f2d3fa3ba3f33b0870b17d4eaf7cdb36d1576ab060ad662"},
-    {file = "fastapi-0.128.7.tar.gz", hash = "sha256:783c273416995486c155ad2c0e2b45905dedfaf20b9ef8d9f6a9124670639a24"},
+    {file = "fastapi-0.129.0-py3-none-any.whl", hash = "sha256:b4946880e48f462692b31c083be0432275cbfb6e2274566b1be91479cc1a84ec"},
+    {file = "fastapi-0.129.0.tar.gz", hash = "sha256:61315cebd2e65df5f97ec298c888f9de30430dd0612d59d6480beafbc10655af"},
 ]
 
 [package.dependencies]
@@ -355,13 +355,13 @@ standard-no-fastapi-cloud-cli = ["email-validator (>=2.0.0)", "fastapi-cli[stand
 
 [[package]]
 name = "filelock"
-version = "3.20.3"
+version = "3.24.2"
 description = "A platform independent file lock."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "filelock-3.20.3-py3-none-any.whl", hash = "sha256:4b0dda527ee31078689fc205ec4f1c1bf7d56cf88b6dc9426c4f230e46c2dce1"},
-    {file = "filelock-3.20.3.tar.gz", hash = "sha256:18c57ee915c7ec61cff0ecf7f0f869936c7c30191bb0cf406f1341778d0834e1"},
+    {file = "filelock-3.24.2-py3-none-any.whl", hash = "sha256:667d7dc0b7d1e1064dd5f8f8e80bdac157a6482e8d2e02cd16fd3b6b33bd6556"},
+    {file = "filelock-3.24.2.tar.gz", hash = "sha256:c22803117490f156e59fafce621f0550a7a853e2bbf4f87f112b11d469b6c81b"},
 ]
 
 [[package]]
@@ -959,13 +959,13 @@ files = [
 
 [[package]]
 name = "rdflib"
-version = "7.5.0"
+version = "7.6.0"
 description = "RDFLib is a Python library for working with RDF, a simple yet powerful language for representing information."
 optional = false
 python-versions = ">=3.8.1"
 files = [
-    {file = "rdflib-7.5.0-py3-none-any.whl", hash = "sha256:b011dfc40d0fc8a44252e906dcd8fc806a7859bc231be190c37e9568a31ac572"},
-    {file = "rdflib-7.5.0.tar.gz", hash = "sha256:663083443908b1830e567350d72e74d9948b310f827966358d76eebdc92bf592"},
+    {file = "rdflib-7.6.0-py3-none-any.whl", hash = "sha256:30c0a3ebf4c0e09215f066be7246794b6492e054e782d7ac2a34c9f70a15e0dd"},
+    {file = "rdflib-7.6.0.tar.gz", hash = "sha256:6c831288d5e4a5a7ece85d0ccde9877d512a3d0f02d7c06455d00d6d0ea379df"},
 ]
 
 [package.dependencies]
@@ -973,6 +973,7 @@ pyparsing = ">=2.1.0,<4"
 
 [package.extras]
 berkeleydb = ["berkeleydb (>=18.1.0,<19.0.0)"]
+graphdb = ["httpx (>=0.28.1,<0.29.0)"]
 html = ["html5rdf (>=1.2,<2)"]
 lxml = ["lxml (>=4.3,<6.0)"]
 networkx = ["networkx (>=2,<4)"]
@@ -1309,13 +1310,13 @@ test = ["pytest", "websockets"]
 
 [[package]]
 name = "wrapica"
-version = "2.40.1.post20260211135303"
+version = "2.40.1.post20260218114718"
 description = "Secondary level functions for ICAv2 based off libica"
 optional = false
 python-versions = "<3.15,>=3.12"
 files = [
-    {file = "wrapica-2.40.1.post20260211135303-py3-none-any.whl", hash = "sha256:fdaa1cd38afad6c49aee73cf850fc677d6c44888513a720179d4ef2ec9c8dccf"},
-    {file = "wrapica-2.40.1.post20260211135303.tar.gz", hash = "sha256:9ed8dac997dfb7f0b330b0a17fc3a01951973ca9cf3707cc2a54c395e975c5aa"},
+    {file = "wrapica-2.40.1.post20260218114718-py3-none-any.whl", hash = "sha256:7e5f9c4366c5a3a88352a39ac02fd9d2c0e921df430be1711cd9b2ac62b018cc"},
+    {file = "wrapica-2.40.1.post20260218114718.tar.gz", hash = "sha256:738041f19a497ceb7475b28e9801e88ac9c39e3645aad8c164eb7a33b96dc7c3"},
 ]
 
 [package.dependencies]
@@ -1341,4 +1342,4 @@ toml = ["tomli_w (>=1.0.0,<2)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.14, <3.15"
-content-hash = "12f2100ad25049928ca20166a4461fb1b983bded05699415292e3fe136b0e871"
+content-hash = "12f49e90ff50a719b775ea0f14625db72a7767256ac6180a6c5e06ad8bb60f52"
