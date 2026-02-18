@@ -32,6 +32,7 @@ LOCAL_HTTP_CACHE_PORT = 2773
 PARAMETER_URL = '/systemsmanager/parameters/get/'
 SECRETS_URL = '/secretsmanager/get/'
 
+
 def retrieve_extension_value(url, query):
     url = str(urlunparse((
         'http',
