@@ -126,7 +126,7 @@ def add_comment_to_workflow_run(
     post_workflow_request(
         f"{WORKFLOW_RUN_ENDPOINT}/{workflow_run_orcabus_id}/comment",
         {
-            "comment": comment,
+            "text": comment,
             "createdBy": author,
             # workflowRun parameter required but not actually used
             "workflowRun": workflow_run_orcabus_id
