@@ -35,7 +35,7 @@ Must support: "drift <stackId>".
 
 ### installCommand?
 
-> `readonly` `optional` **installCommand**: `string`
+> `readonly` `optional` **installCommand?**: `string`
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:759](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L759)
 

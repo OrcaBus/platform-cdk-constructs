@@ -12,7 +12,7 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:136](https://github.
 
 ### cacheOptions?
 
-> `readonly` `optional` **cacheOptions**: [`CacheOptions`](CacheOptions.md)
+> `readonly` `optional` **cacheOptions?**: [`CacheOptions`](CacheOptions.md)
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:267](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L267)
 
@@ -29,7 +29,7 @@ https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build
 
 ### cdkOut?
 
-> `readonly` `optional` **cdkOut**: `string`
+> `readonly` `optional` **cdkOut?**: `string`
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:192](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L192)
 
@@ -55,7 +55,7 @@ The command to run to synth the cdk stack which also installing the cdk dependen
 
 ### driftCheckConfig?
 
-> `readonly` `optional` **driftCheckConfig**: [`DriftCheckConfig`](DriftCheckConfig.md)
+> `readonly` `optional` **driftCheckConfig?**: [`DriftCheckConfig`](DriftCheckConfig.md)
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:259](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L259)
 
@@ -66,7 +66,7 @@ If specified, the pipeline will check for CloudFormation drift and fail if detec
 
 ### enableSlackNotification?
 
-> `readonly` `optional` **enableSlackNotification**: `boolean`
+> `readonly` `optional` **enableSlackNotification?**: `boolean`
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:230](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L230)
 
@@ -82,7 +82,7 @@ True
 
 ### excludedFilePaths?
 
-> `readonly` `optional` **excludedFilePaths**: `string`[]
+> `readonly` `optional` **excludedFilePaths?**: `string`[]
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:178](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L178)
 
@@ -117,7 +117,7 @@ The repository name that exist in the 'OrcaBus' github organisation. e.g. `a-mic
 
 ### includedFilePaths?
 
-> `readonly` `optional` **includedFilePaths**: `string`[]
+> `readonly` `optional` **includedFilePaths?**: `string`[]
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:171](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L171)
 
@@ -129,7 +129,7 @@ https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-co
 
 ### notificationEvents?
 
-> `readonly` `optional` **notificationEvents**: `PipelineNotificationEvents`[]
+> `readonly` `optional` **notificationEvents?**: `PipelineNotificationEvents`[]
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:238](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L238)
 
@@ -157,7 +157,7 @@ The pipeline name in the bastion account.
 
 ### reuseExistingArtifactBucket?
 
-> `readonly` `optional` **reuseExistingArtifactBucket**: `boolean`
+> `readonly` `optional` **reuseExistingArtifactBucket?**: `boolean`
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:246](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L246)
 
@@ -205,7 +205,7 @@ name e.g. `OrcaBusBeta-<stackName>`, `OrcaBusGamma-<stackName>`, `OrcaBusProd-<s
 
 ### stageEnv?
 
-> `readonly` `optional` **stageEnv**: [`StageEnvProps`](StageEnvProps.md)
+> `readonly` `optional` **stageEnv?**: [`StageEnvProps`](StageEnvProps.md)
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:225](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L225)
 
@@ -215,7 +215,7 @@ The stage environment for the deployment stack
 
 ### stripAssemblyAssets?
 
-> `readonly` `optional` **stripAssemblyAssets**: `boolean`
+> `readonly` `optional` **stripAssemblyAssets?**: `boolean`
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:254](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L254)
 
@@ -230,7 +230,7 @@ https://github.com/aws/aws-cdk/issues/9917
 
 ### synthBuildSpec?
 
-> `readonly` `optional` **synthBuildSpec**: `Record`\<`string`, `any`\>
+> `readonly` `optional` **synthBuildSpec?**: `Record`\<`string`, `any`\>
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:199](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L199)
 
@@ -247,7 +247,7 @@ DEFAULT_PARTIAL_BUILD_SPEC
 
 ### synthInstallCommands?
 
-> `readonly` `optional` **synthInstallCommands**: `string`[]
+> `readonly` `optional` **synthInstallCommands?**: `string`[]
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:205](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L205)
 
@@ -263,7 +263,7 @@ DEFAULT_INSTALL_COMMANDS
 
 ### synthRolePolicyStatements?
 
-> `readonly` `optional` **synthRolePolicyStatements**: `PolicyStatement`[]
+> `readonly` `optional` **synthRolePolicyStatements?**: `PolicyStatement`[]
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:186](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L186)
 
@@ -287,7 +287,7 @@ ensure your command includes 'cd' to the main app directory, as the build contex
 
 ### unitIacTestConfig?
 
-> `readonly` `optional` **unitIacTestConfig**: [`CodeBuildStepProps`](CodeBuildStepProps.md)
+> `readonly` `optional` **unitIacTestConfig?**: [`CodeBuildStepProps`](CodeBuildStepProps.md)
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:221](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L221)
 

@@ -12,7 +12,7 @@ Defined in: [packages/lambda/index.ts:51](https://github.com/OrcaBus/platform-cd
 
 ### athenaDatabaseName?
 
-> `readonly` `optional` **athenaDatabaseName**: `string`
+> `readonly` `optional` **athenaDatabaseName?**: `string`
 
 Defined in: [packages/lambda/index.ts:65](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L65)
 
@@ -22,7 +22,7 @@ Provide the athenaDatabaseName, otherwise it will default to @MART_ENV_VARS.ATHE
 
 ### athenaDatasourceName?
 
-> `readonly` `optional` **athenaDatasourceName**: `string`
+> `readonly` `optional` **athenaDatasourceName?**: `string`
 
 Defined in: [packages/lambda/index.ts:60](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L60)
 
@@ -32,7 +32,7 @@ Provide the athenaDatasourceName, otherwise it will default to @MART_ENV_VARS.at
 
 ### athenaWorkgroupName?
 
-> `readonly` `optional` **athenaWorkgroupName**: `string`
+> `readonly` `optional` **athenaWorkgroupName?**: `string`
 
 Defined in: [packages/lambda/index.ts:55](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L55)
 

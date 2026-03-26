@@ -16,9 +16,9 @@ Defined in: [packages/dynamodb/index.ts:7](https://github.com/OrcaBus/platform-c
 
 ### billing?
 
-> `readonly` `optional` **billing**: `Billing`
+> `readonly` `optional` **billing?**: `Billing`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:299
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:304
 
 The billing mode and capacity settings to apply to the table.
 
@@ -36,9 +36,9 @@ Billing.onDemand()
 
 ### ~~contributorInsights?~~
 
-> `readonly` `optional` **contributorInsights**: `boolean`
+> `readonly` `optional` **contributorInsights?**: `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:170
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:175
 
 Whether CloudWatch contributor insights is enabled.
 
@@ -60,9 +60,9 @@ false
 
 ### contributorInsightsSpecification?
 
-> `readonly` `optional` **contributorInsightsSpecification**: `ContributorInsightsSpecification`
+> `readonly` `optional` **contributorInsightsSpecification?**: `ContributorInsightsSpecification`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:175
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:180
 
 Whether CloudWatch contributor insights is enabled and what mode is selected
 
@@ -80,9 +80,9 @@ Whether CloudWatch contributor insights is enabled and what mode is selected
 
 ### deletionProtection?
 
-> `readonly` `optional` **deletionProtection**: `boolean`
+> `readonly` `optional` **deletionProtection?**: `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:181
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:186
 
 Whether deletion protection is enabled.
 
@@ -100,9 +100,9 @@ false
 
 ### dynamoStream?
 
-> `readonly` `optional` **dynamoStream**: `StreamViewType`
+> `readonly` `optional` **dynamoStream?**: `StreamViewType`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:287
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:292
 
 When an item in the table is modified, StreamViewType determines what information is
 written to the stream.
@@ -123,9 +123,9 @@ NEW_AND_OLD_IMAGES will be the StreamViewType for all replicas
 
 ### encryption?
 
-> `readonly` `optional` **encryption**: `TableEncryptionV2`
+> `readonly` `optional` **encryption?**: `TableEncryptionV2`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:347
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:365
 
 The server-side encryption.
 
@@ -143,9 +143,9 @@ TableEncryptionV2.dynamoOwnedKey()
 
 ### globalSecondaryIndexes?
 
-> `readonly` `optional` **globalSecondaryIndexes**: `GlobalSecondaryIndexPropsV2`[]
+> `readonly` `optional` **globalSecondaryIndexes?**: `GlobalSecondaryIndexPropsV2`[]
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:333
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:351
 
 Global secondary indexes.
 
@@ -163,11 +163,38 @@ Note: You can provide a maximum of 20 global secondary indexes.
 
 ***
 
+### globalTableSettingsReplicationMode?
+
+> `readonly` `optional` **globalTableSettingsReplicationMode?**: `GlobalTableSettingsReplicationMode`
+
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:327
+
+Controls whether table settings are synchronized across replicas.
+
+When set to ALL, synchronizable settings (billing mode, throughput, TTL, streams view type, GSIs)
+are automatically replicated across all replicas. When set to NONE, each replica manages its own
+settings independently (billing mode must be PAY_PER_REQUEST).
+
+Note: Some settings are always synchronized (key schema, LSIs) regardless of this setting,
+and some are never synchronized (table class, SSE, deletion protection, PITR, tags, resource policy).
+
+#### Default
+
+```ts
+GlobalTableSettingsReplicationMode.NONE
+```
+
+#### Inherited from
+
+`TablePropsV2.globalTableSettingsReplicationMode`
+
+***
+
 ### kinesisStream?
 
-> `readonly` `optional` **kinesisStream**: `IStream`
+> `readonly` `optional` **kinesisStream?**: `IStream`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:206
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:211
 
 Kinesis Data Stream to capture item level changes.
 
@@ -185,9 +212,9 @@ Kinesis Data Stream to capture item level changes.
 
 ### localSecondaryIndexes?
 
-> `readonly` `optional` **localSecondaryIndexes**: `LocalSecondaryIndexProps`[]
+> `readonly` `optional` **localSecondaryIndexes?**: `LocalSecondaryIndexProps`[]
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:341
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:359
 
 Local secondary indexes.
 
@@ -207,9 +234,9 @@ Note: You can only provide a maximum of 5 local secondary indexes.
 
 ### multiRegionConsistency?
 
-> `readonly` `optional` **multiRegionConsistency**: `MultiRegionConsistency`
+> `readonly` `optional` **multiRegionConsistency?**: `MultiRegionConsistency`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:325
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:343
 
 Specifies the consistency mode for a new global table.
 
@@ -229,7 +256,7 @@ MultiRegionConsistency.EVENTUAL
 
 > `readonly` **partitionKey**: `Attribute`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:260
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:265
 
 Partition key attribute definition.
 
@@ -241,7 +268,7 @@ Partition key attribute definition.
 
 ### partitionKeyName?
 
-> `readonly` `optional` **partitionKeyName**: `string`
+> `readonly` `optional` **partitionKeyName?**: `string`
 
 Defined in: [packages/dynamodb/index.ts:11](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/dynamodb/index.ts#L11)
 
@@ -251,9 +278,9 @@ Optional, name of the partition key, but by default set to 'id'
 
 ### ~~pointInTimeRecovery?~~
 
-> `readonly` `optional` **pointInTimeRecovery**: `boolean`
+> `readonly` `optional` **pointInTimeRecovery?**: `boolean`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:187
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:192
 
 Whether point-in-time recovery is enabled.
 
@@ -275,9 +302,9 @@ false - point in time recovery is not enabled.
 
 ### pointInTimeRecoverySpecification?
 
-> `readonly` `optional` **pointInTimeRecoverySpecification**: `PointInTimeRecoverySpecification`
+> `readonly` `optional` **pointInTimeRecoverySpecification?**: `PointInTimeRecoverySpecification`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:194
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:199
 
 Whether point-in-time recovery is enabled
 and recoveryPeriodInDays is set.
@@ -296,9 +323,9 @@ and recoveryPeriodInDays is set.
 
 ### removalPolicy?
 
-> `readonly` `optional` **removalPolicy**: `RemovalPolicy`
+> `readonly` `optional` **removalPolicy?**: `RemovalPolicy`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:293
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:298
 
 The removal policy applied to the table.
 
@@ -316,9 +343,9 @@ RemovalPolicy.RETAIN
 
 ### replicas?
 
-> `readonly` `optional` **replicas**: `ReplicaTableProps`[]
+> `readonly` `optional` **replicas?**: `ReplicaTableProps`[]
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:309
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:314
 
 Replica tables to deploy with the primary table.
 
@@ -340,9 +367,9 @@ to. Replica tables will only be supported if the stack deployment region is defi
 
 ### resourcePolicy?
 
-> `readonly` `optional` **resourcePolicy**: `PolicyDocument`
+> `readonly` `optional` **resourcePolicy?**: `PolicyDocument`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:218
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:223
 
 Resource policy to assign to DynamoDB Table.
 
@@ -364,9 +391,9 @@ https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dy
 
 ### sortKey?
 
-> `readonly` `optional` **sortKey**: `Attribute`
+> `readonly` `optional` **sortKey?**: `Attribute`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:266
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:271
 
 Sort key attribute definition.
 
@@ -384,7 +411,7 @@ Sort key attribute definition.
 
 ### sortKeyName?
 
-> `readonly` `optional` **sortKeyName**: `string`
+> `readonly` `optional` **sortKeyName?**: `string`
 
 Defined in: [packages/dynamodb/index.ts:16](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/dynamodb/index.ts#L16)
 
@@ -394,9 +421,9 @@ Optional, name of the sort key, but by default set to 'id_type'
 
 ### tableClass?
 
-> `readonly` `optional` **tableClass**: `TableClass`
+> `readonly` `optional` **tableClass?**: `TableClass`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:200
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:205
 
 The table class.
 
@@ -414,9 +441,9 @@ TableClass.STANDARD
 
 ### tableName?
 
-> `readonly` `optional` **tableName**: `string`
+> `readonly` `optional` **tableName?**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:272
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:277
 
 The name of the table.
 
@@ -434,9 +461,9 @@ The name of the table.
 
 ### tags?
 
-> `readonly` `optional` **tags**: `CfnTag`[]
+> `readonly` `optional` **tags?**: `CfnTag`[]
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:212
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:217
 
 Tags to be applied to the primary table (default replica table).
 
@@ -454,9 +481,9 @@ Tags to be applied to the primary table (default replica table).
 
 ### timeToLiveAttribute?
 
-> `readonly` `optional` **timeToLiveAttribute**: `string`
+> `readonly` `optional` **timeToLiveAttribute?**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:278
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:283
 
 The name of the TTL attribute.
 
@@ -474,9 +501,9 @@ The name of the TTL attribute.
 
 ### warmThroughput?
 
-> `readonly` `optional` **warmThroughput**: `WarmThroughput`
+> `readonly` `optional` **warmThroughput?**: `WarmThroughput`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:353
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:371
 
 The warm throughput configuration for the table.
 
@@ -494,9 +521,9 @@ The warm throughput configuration for the table.
 
 ### witnessRegion?
 
-> `readonly` `optional` **witnessRegion**: `string`
+> `readonly` `optional` **witnessRegion?**: `string`
 
-Defined in: node\_modules/.pnpm/aws-cdk-lib@2.235.0\_constructs@10.4.2/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:319
+Defined in: node\_modules/.pnpm/aws-cdk-lib@2.244.0\_constructs@10.6.0/node\_modules/aws-cdk-lib/aws-dynamodb/lib/table-v2.d.ts:337
 
 The witness Region for the MRSC global table.
 A MRSC global table can be configured with either three replicas, or with two replicas and one witness.

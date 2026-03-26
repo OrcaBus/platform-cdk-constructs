@@ -27,7 +27,7 @@ all projects so a namespace is required to uniquely identify the cache. Use the 
 
 ### paths?
 
-> `readonly` `optional` **paths**: `string`[]
+> `readonly` `optional` **paths?**: `string`[]
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:292](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L292)
 
@@ -44,7 +44,7 @@ https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build
 
 ### prefix?
 
-> `readonly` `optional` **prefix**: `string`
+> `readonly` `optional` **prefix?**: `string`
 
 Defined in: [packages/deployment-stack-pipeline/pipeline.ts:284](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L284)
 

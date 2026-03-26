@@ -12,7 +12,7 @@ Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:22](https://gi
 
 ### eventBus?
 
-> `readonly` `optional` **eventBus**: `IEventBus`
+> `readonly` `optional` **eventBus?**: `IEventBus`
 
 Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:32](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/eventbridge-rules/sfn-slack-notification.ts#L32)
 
@@ -34,7 +34,7 @@ The event statuses to listen for.
 
 ### includeConsoleLink?
 
-> `readonly` `optional` **includeConsoleLink**: `boolean`
+> `readonly` `optional` **includeConsoleLink?**: `boolean`
 
 Defined in: [packages/eventbridge-rules/sfn-slack-notification.ts:80](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/eventbridge-rules/sfn-slack-notification.ts#L80)
 
