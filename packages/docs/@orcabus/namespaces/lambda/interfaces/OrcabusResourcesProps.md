@@ -12,7 +12,7 @@ Defined in: [packages/lambda/index.ts:39](https://github.com/OrcaBus/platform-cd
 
 ### hostnameSsmParameterName?
 
-> `readonly` `optional` **hostnameSsmParameterName**: `string`
+> `readonly` `optional` **hostnameSsmParameterName?**: `string`
 
 Defined in: [packages/lambda/index.ts:48](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L48)
 
@@ -22,7 +22,7 @@ Provide the hostnameSsmParameterName, otherwise it will default to @DEFAULT_HOST
 
 ### orcabusTokenSecretId?
 
-> `readonly` `optional` **orcabusTokenSecretId**: `string`
+> `readonly` `optional` **orcabusTokenSecretId?**: `string`
 
 Defined in: [packages/lambda/index.ts:43](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L43)
 

@@ -12,7 +12,7 @@ Defined in: [packages/lambda/index.ts:68](https://github.com/OrcaBus/platform-cd
 
 ### icav2AccessTokenSecretId?
 
-> `readonly` `optional` **icav2AccessTokenSecretId**: `string`
+> `readonly` `optional` **icav2AccessTokenSecretId?**: `string`
 
 Defined in: [packages/lambda/index.ts:73](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L73)
 
@@ -23,7 +23,7 @@ otherwise it will default to @ICAV2_ACCESS_TOKEN_SECRET_ID
 
 ### icav2ProjectToStorageConfigurationsSsmParameterPathPrefix?
 
-> `readonly` `optional` **icav2ProjectToStorageConfigurationsSsmParameterPathPrefix**: `string`
+> `readonly` `optional` **icav2ProjectToStorageConfigurationsSsmParameterPathPrefix?**: `string`
 
 Defined in: [packages/lambda/index.ts:75](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L75)
 
@@ -31,7 +31,7 @@ Defined in: [packages/lambda/index.ts:75](https://github.com/OrcaBus/platform-cd
 
 ### icav2StorageConfigurationSsmParameterPathPrefix?
 
-> `readonly` `optional` **icav2StorageConfigurationSsmParameterPathPrefix**: `string`
+> `readonly` `optional` **icav2StorageConfigurationSsmParameterPathPrefix?**: `string`
 
 Defined in: [packages/lambda/index.ts:74](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L74)
 
@@ -39,6 +39,6 @@ Defined in: [packages/lambda/index.ts:74](https://github.com/OrcaBus/platform-cd
 
 ### icav2StorageCredentialsSsmParameterPathPrefix?
 
-> `readonly` `optional` **icav2StorageCredentialsSsmParameterPathPrefix**: `string`
+> `readonly` `optional` **icav2StorageCredentialsSsmParameterPathPrefix?**: `string`
 
 Defined in: [packages/lambda/index.ts:76](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/lambda/index.ts#L76)

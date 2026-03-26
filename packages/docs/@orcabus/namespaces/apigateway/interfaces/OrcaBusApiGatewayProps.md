@@ -46,7 +46,7 @@ to access this API.
 
 ### cognitoUserPoolIdParameterName?
 
-> `readonly` `optional` **cognitoUserPoolIdParameterName**: `string`
+> `readonly` `optional` **cognitoUserPoolIdParameterName?**: `string`
 
 Defined in: [packages/api-gateway/api-gateway.ts:53](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L53)
 

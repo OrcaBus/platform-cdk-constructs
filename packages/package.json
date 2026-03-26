@@ -27,7 +27,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^25.5.0",
     "aws-cdk": "^2.1113.0",
-    "aws-cdk-lib": "^2.244.0",
+    "aws-cdk-lib": "2.244.0",
     "cdk-nag": "^2.37.55",
     "constructs": "10.6.0",
     "jest": "^30.3.0",
@@ -39,9 +39,9 @@
     "typedoc-plugin-markdown": "^4.11.0"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-lambda-python-alpha": "^2.233.0-alpha.0",
-    "aws-cdk-lib": "^2.233.0",
-    "constructs": "^10.4.2"
+    "@aws-cdk/aws-lambda-python-alpha": "^2.244.0-alpha.0",
+    "aws-cdk-lib": "^2.244.0",
+    "constructs": "^10.6.0"
   },
   "stability": "experimental",
   "jsii": {

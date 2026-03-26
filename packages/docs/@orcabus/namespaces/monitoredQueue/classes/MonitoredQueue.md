@@ -67,7 +67,7 @@ Defined in: [packages/monitored-queue/index.ts:60](https://github.com/OrcaBus/pl
 
 > `readonly` **node**: `Node`
 
-Defined in: node\_modules/.pnpm/constructs@10.4.2/node\_modules/constructs/lib/construct.d.ts:266
+Defined in: node\_modules/.pnpm/constructs@10.6.0/node\_modules/constructs/lib/construct.d.ts:289
 
 The tree node.
 
@@ -105,7 +105,7 @@ Get the SQS queue ARN.
 
 > **toString**(): `string`
 
-Defined in: node\_modules/.pnpm/constructs@10.4.2/node\_modules/constructs/lib/construct.d.ts:279
+Defined in: node\_modules/.pnpm/constructs@10.6.0/node\_modules/constructs/lib/construct.d.ts:314
 
 Returns a string representation of this construct.
 
@@ -119,11 +119,44 @@ Returns a string representation of this construct.
 
 ***
 
+### with()
+
+> **with**(...`mixins`): `IConstruct`
+
+Defined in: node\_modules/.pnpm/constructs@10.6.0/node\_modules/constructs/lib/construct.d.ts:310
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+#### Parameters
+
+##### mixins
+
+...`IMixin`[]
+
+The mixins to apply
+
+#### Returns
+
+`IConstruct`
+
+This construct for chaining
+
+#### Inherited from
+
+`Construct.with`
+
+***
+
 ### isConstruct()
 
 > `static` **isConstruct**(`x`): `x is Construct`
 
-Defined in: node\_modules/.pnpm/constructs@10.4.2/node\_modules/constructs/lib/construct.d.ts:262
+Defined in: node\_modules/.pnpm/constructs@10.6.0/node\_modules/constructs/lib/construct.d.ts:285
 
 Checks if `x` is a construct.
 

@@ -12,7 +12,7 @@ Defined in: [packages/ecs/index.ts:42](https://github.com/OrcaBus/platform-cdk-c
 
 ### architecture?
 
-> `readonly` `optional` **architecture**: [`Architecture`](../type-aliases/Architecture.md)
+> `readonly` `optional` **architecture?**: [`Architecture`](../type-aliases/Architecture.md)
 
 Defined in: [packages/ecs/index.ts:68](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L68)
 
@@ -64,7 +64,7 @@ The number of CPUs to use, between 0.25 and 16. If not provided, the default is 
 
 ### runtimePlatform?
 
-> `readonly` `optional` **runtimePlatform**: `CpuArchitecture`
+> `readonly` `optional` **runtimePlatform?**: `CpuArchitecture`
 
 Defined in: [packages/ecs/index.ts:51](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L51)
 
@@ -74,7 +74,7 @@ The runtime CPU architecture, either X86_64 or ARM64. If not provided, the defau
 
 ### vpcName?
 
-> `readonly` `optional` **vpcName**: `string`
+> `readonly` `optional` **vpcName?**: `string`
 
 Defined in: [packages/ecs/index.ts:46](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/ecs/index.ts#L46)
 

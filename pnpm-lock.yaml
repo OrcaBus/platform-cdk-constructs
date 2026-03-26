@@ -46,7 +46,7 @@ importers:
         specifier: ^2.1113.0
         version: 2.1113.0
       aws-cdk-lib:
-        specifier: ^2.244.0
+        specifier: 2.244.0
         version: 2.244.0(constructs@10.6.0)
       cdk-nag:
         specifier: ^2.37.55

@@ -14,7 +14,7 @@ Props for the resource invoke construct.
 
 ### additionalHash?
 
-> `readonly` `optional` **additionalHash**: `string`
+> `readonly` `optional` **additionalHash?**: `string`
 
 Defined in: [packages/provider-function/index.ts:30](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L30)
 
@@ -37,7 +37,7 @@ The provider function.
 
 ### resourceProperties?
 
-> `readonly` `optional` **resourceProperties**: `Record`\<`string`, `unknown`\>
+> `readonly` `optional` **resourceProperties?**: `Record`\<`string`, `unknown`\>
 
 Defined in: [packages/provider-function/index.ts:23](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L23)
 
