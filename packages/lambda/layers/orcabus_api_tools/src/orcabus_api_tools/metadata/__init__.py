@@ -12,6 +12,7 @@ from ..utils.requests_helpers import (
 )
 
 # Local imports
+from .. import DEFAULT_BATCH_SIZE
 from .globals import METADATA_SUBDOMAIN_NAME
 
 
@@ -74,7 +75,7 @@ def get_item_from_item_id_list_batched(
         item_identifier: str,
         endpoint: str,
         accept_missing: bool = False,
-        batch_size: int = 50
+        batch_size: int = DEFAULT_BATCH_SIZE
 ) -> List[Dict[str, Any]]:
     """
     Get items from a list of item ids
