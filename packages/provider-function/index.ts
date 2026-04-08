@@ -2,7 +2,7 @@ import { Construct } from "constructs";
 import { Provider } from "aws-cdk-lib/custom-resources";
 import { IVpc, SubnetType } from "aws-cdk-lib/aws-ec2";
 import { CfnFunction, IFunction } from "aws-cdk-lib/aws-lambda";
-import { CfnResource, CustomResource } from "aws-cdk-lib";
+import { CfnResource, CustomResource, Duration } from "aws-cdk-lib";
 import CodeProperty = CfnFunction.CodeProperty;
 
 /**
@@ -17,6 +17,19 @@ export interface ProviderFunctionProps {
    * The provider function.
    */
   readonly function: IFunction;
+  /**
+   * The AWS Lambda function to invoke in order to determine if the operation is complete. Used to create
+   * an asynchronous operation for the provider.
+   */
+  readonly isCompleteHandler?: IFunction;
+  /**
+   * The interval between calls to the `isCompleteHandler`.
+   */
+  readonly queryInterval?: Duration;
+  /**
+   * The total timeout for the entire operation.
+   */
+  readonly totalTimeout?: Duration;
   /**
    * Properties that get defined in the template and passed to the Lambda function via `ResourceProperties`.
    */
@@ -49,6 +62,9 @@ export class ProviderFunction extends Construct {
 
     const provider = new Provider(this, "Provider", {
       onEventHandler: props.function,
+      isCompleteHandler: props.isCompleteHandler,
+      queryInterval: props.queryInterval,
+      totalTimeout: props.totalTimeout,
       vpc: props.vpc,
       vpcSubnets: { subnetType: SubnetType.PRIVATE_WITH_EGRESS },
     });

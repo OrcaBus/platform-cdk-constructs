@@ -16,7 +16,7 @@ Props for the resource invoke construct.
 
 > `readonly` `optional` **additionalHash?**: `string`
 
-Defined in: [packages/provider-function/index.ts:30](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L30)
+Defined in: [packages/provider-function/index.ts:43](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L43)
 
 An additional hash property that can be used to determine if the custom resource should be updated. By default,
 this is the s3Key of the Lambda code asset, which is derived from the asset hash. This is used to ensure that
@@ -35,13 +35,44 @@ The provider function.
 
 ***
 
+### isCompleteHandler?
+
+> `readonly` `optional` **isCompleteHandler?**: `IFunction`
+
+Defined in: [packages/provider-function/index.ts:24](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L24)
+
+The AWS Lambda function to invoke in order to determine if the operation is complete. Used to create
+an asynchronous operation for the provider.
+
+***
+
+### queryInterval?
+
+> `readonly` `optional` **queryInterval?**: `Duration`
+
+Defined in: [packages/provider-function/index.ts:28](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L28)
+
+The interval between calls to the `isCompleteHandler`.
+
+***
+
 ### resourceProperties?
 
 > `readonly` `optional` **resourceProperties?**: `Record`\<`string`, `unknown`\>
 
-Defined in: [packages/provider-function/index.ts:23](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L23)
+Defined in: [packages/provider-function/index.ts:36](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L36)
 
 Properties that get defined in the template and passed to the Lambda function via `ResourceProperties`.
+
+***
+
+### totalTimeout?
+
+> `readonly` `optional` **totalTimeout?**: `Duration`
+
+Defined in: [packages/provider-function/index.ts:32](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L32)
+
+The total timeout for the entire operation.
 
 ***
 
