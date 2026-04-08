@@ -6,7 +6,7 @@
 
 # Class: ProviderFunction
 
-Defined in: [packages/provider-function/index.ts:41](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L41)
+Defined in: [packages/provider-function/index.ts:54](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L54)
 
 A construct for invoking a Lambda function using the CDK provider framework:
 https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.custom_resources-readme.html#provider-framework.
@@ -25,7 +25,7 @@ to the provider framework.
 
 > **new ProviderFunction**(`scope`, `id`, `props`): `ProviderFunction`
 
-Defined in: [packages/provider-function/index.ts:45](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L45)
+Defined in: [packages/provider-function/index.ts:58](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L58)
 
 #### Parameters
 
@@ -71,7 +71,7 @@ The tree node.
 
 > **get** **function**(): `IFunction`
 
-Defined in: [packages/provider-function/index.ts:82](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L82)
+Defined in: [packages/provider-function/index.ts:98](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L98)
 
 Get the function.
 
@@ -87,7 +87,7 @@ Get the function.
 
 > **get** **response**(): `string`
 
-Defined in: [packages/provider-function/index.ts:75](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L75)
+Defined in: [packages/provider-function/index.ts:91](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/provider-function/index.ts#L91)
 
 Get the response of the Lambda function.
 
