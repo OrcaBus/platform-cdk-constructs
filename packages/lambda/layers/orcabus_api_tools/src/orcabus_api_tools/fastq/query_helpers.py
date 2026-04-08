@@ -177,12 +177,23 @@ def get_fastqs_in_libraries_and_instrument_run_id(library_id_list, instrument_ru
     :param instrument_run_id:
     :return:
     """
-    return get_fastqs(
-        instrumentRunId=instrument_run_id,
-        **{
-            "library[]": library_id_list,
-        }
-    )
+    # If we only have a 'few' libraries, we can return all in one
+    # Otherwise we need to batch
+    if len(library_id_list) < 50:
+        return get_fastqs(
+            instrumentRunId=instrument_run_id,
+            **{
+                "library[]": library_id_list,
+            }
+        )
+    # Uses batching
+    # Then filter over instrument run id
+    return list(filter(
+        lambda fastq_obj_iter_: fastq_obj_iter_['instrumentRunId'] == instrument_run_id,
+        get_fastqs_in_library_list(
+            library_id_list=library_id_list
+        )
+    ))
 
 
 def get_fastqs_in_sample(sample_id: str):
