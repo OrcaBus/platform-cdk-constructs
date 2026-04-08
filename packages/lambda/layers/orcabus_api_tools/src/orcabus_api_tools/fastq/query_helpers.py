@@ -27,6 +27,7 @@ from typing import List, Unpack
 from fastapi.encoders import jsonable_encoder
 
 # Local imports
+from .. import DEFAULT_BATCH_SIZE
 from . import get_fastq_request_response_results, get_fastq_request
 from .globals import FASTQ_ENDPOINT, FASTQ_SET_ENDPOINT, RGID_ENDPOINT
 from .models import (
@@ -166,7 +167,7 @@ def get_fastqs_in_library_list(
     return get_fastqs_batched(
         item_key="library",
         item_list=library_id_list,
-        batch_size=50
+        batch_size=DEFAULT_BATCH_SIZE
     )
 
 
@@ -179,7 +180,7 @@ def get_fastqs_in_libraries_and_instrument_run_id(library_id_list, instrument_ru
     """
     # If we only have a 'few' libraries, we can return all in one
     # Otherwise we need to batch
-    if len(library_id_list) < 50:
+    if len(library_id_list) < DEFAULT_BATCH_SIZE:
         return get_fastqs(
             instrumentRunId=instrument_run_id,
             **{
@@ -214,7 +215,7 @@ def get_fastqs_in_sample_list(sample_id_list: List[str]):
     return get_fastqs_batched(
         item_key="sample",
         item_list=sample_id_list,
-        batch_size=50
+        batch_size=DEFAULT_BATCH_SIZE
     )
 
 
