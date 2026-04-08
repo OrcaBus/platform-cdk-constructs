@@ -131,8 +131,8 @@ def list_files_from_portal_run_id(
         return all_files_list
 
     # Filter out logs and cache files
-    logs_re_obj = re.compile(f"logs/[\w|-]+/{portal_run_id}/")
-    cache_re_obj = re.compile(f"cache/[\w|-]+/{portal_run_id}/")
+    logs_re_obj = re.compile(rf"logs/[\w|-]+/{portal_run_id}/")
+    cache_re_obj = re.compile(rf"cache/[\w|-]+/{portal_run_id}/")
     return list(filter(
         lambda file_iter_: not (
             logs_re_obj.match(file_iter_['key']) or
