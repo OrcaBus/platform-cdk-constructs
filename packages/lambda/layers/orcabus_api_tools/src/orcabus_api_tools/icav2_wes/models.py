@@ -14,6 +14,19 @@ STATUS = Literal[
     'ABORTED',
 ]
 
+CurrencyType = Literal[
+    'iCredit'
+]
+
+
+class AnalysisPriceDict(TypedDict):
+    amount: float
+    currency: CurrencyType
+
+
+class AnalysisUsageDict(TypedDict):
+    price: AnalysisPriceDict
+
 
 class EngineParameters(TypedDict):
     # Launch Configurations
@@ -40,7 +53,6 @@ class WESPatchRequest(TypedDict):
     errorType: NotRequired[str]
     errorMessageUri: NotRequired[str]
     stepsLaunchExecutionArn: NotRequired[str]
-
 
 class WESResponse(TypedDict):
     """WES response object."""
