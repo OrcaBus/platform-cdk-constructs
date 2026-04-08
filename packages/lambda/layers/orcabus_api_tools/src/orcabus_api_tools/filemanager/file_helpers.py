@@ -11,6 +11,7 @@ import boto3
 from datetime import datetime, timedelta, timezone
 from urllib.parse import urlparse, unquote, urlunparse
 from itertools import batched
+import re
 
 # Local imports
 from .errors import S3FileNotFoundError, S3DuplicateFileCopyError
@@ -129,10 +130,13 @@ def list_files_from_portal_run_id(
     if not remove_log_files:
         return all_files_list
 
+    # Filter out logs and cache files
+    logs_re_obj = re.compile(rf"logs/[\w|-]+/{portal_run_id}/")
+    cache_re_obj = re.compile(rf"cache/[\w|-]+/{portal_run_id}/")
     return list(filter(
         lambda file_iter_: not (
-            f"logs/{portal_run_id}/" in file_iter_['key'] or
-            f"cache/{portal_run_id}/" in file_iter_['key']
+            logs_re_obj.match(file_iter_['key']) or
+            cache_re_obj.match(file_iter_['key'])
         ),
         all_files_list
     ))
