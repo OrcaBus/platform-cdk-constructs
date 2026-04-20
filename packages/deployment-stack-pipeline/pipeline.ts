@@ -5,6 +5,7 @@ import {
   BuildSpec,
   Cache,
   ComputeType,
+  IBuildImage,
   LinuxArmBuildImage,
 } from "aws-cdk-lib/aws-codebuild";
 import { StringParameter } from "aws-cdk-lib/aws-ssm";
@@ -204,6 +205,12 @@ export interface DeploymentStackPipelineProps {
    */
   readonly synthInstallCommands?: string[];
   /**
+   * The CodeBuild image to use for the build steps.
+   *
+   * @default LinuxArmBuildImage.AMAZON_LINUX_2023_STANDARD_3_0
+   */
+  readonly buildImage?: IBuildImage;
+  /**
    * Configuration for the CodeBuild step that runs unit tests for the main application code.
    * This step will execute in parallel with {@link unitIacTestConfig} as part of the synth stage dependencies.
    * Both must succeed before the synth step runs.
@@ -400,6 +407,8 @@ export class DeploymentStackPipeline extends Construct {
     } = props.unitIacTestConfig || {};
     setCachePaths(unitIacPartialBuildSpec);
 
+    const buildImage =
+      props.buildImage ?? LinuxArmBuildImage.AMAZON_LINUX_2023_STANDARD_3_0;
     const unitIacTest = new CodeBuildStep("UnitIacTest", {
       installCommands: unitIacTestInstall,
       commands: unitIacTestCommand,
@@ -407,7 +416,7 @@ export class DeploymentStackPipeline extends Construct {
       buildEnvironment: {
         privileged: true,
         computeType: ComputeType.LARGE,
-        buildImage: LinuxArmBuildImage.AMAZON_LINUX_2_STANDARD_3_0,
+        buildImage,
         environmentVariables: {
           NODE_OPTIONS: {
             value: "--max-old-space-size=8192",
@@ -439,7 +448,7 @@ export class DeploymentStackPipeline extends Construct {
       buildEnvironment: {
         privileged: true,
         computeType: ComputeType.LARGE,
-        buildImage: LinuxArmBuildImage.AMAZON_LINUX_2_STANDARD_3_0,
+        buildImage,
         environmentVariables: {
           NODE_OPTIONS: {
             value: "--max-old-space-size=8192",
@@ -479,7 +488,7 @@ export class DeploymentStackPipeline extends Construct {
       codeBuildDefaults: {
         buildEnvironment: {
           computeType: ComputeType.LARGE,
-          buildImage: LinuxArmBuildImage.AMAZON_LINUX_2_STANDARD_3_0,
+          buildImage,
           environmentVariables: {
             NODE_OPTIONS: {
               value: "--max-old-space-size=8192",
