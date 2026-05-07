@@ -19,3 +19,8 @@ export const DATABASE_PORT = 5432;
  * The name of the AWS Secrets Manager secret for the RDS master user.
  */
 export const RDS_MASTER_SECRET_NAME = "orcabus/master-rds"; // pragma: allowlist secret
+/**
+ * Get the name of the IAM policy created by the postgres-manager.
+ */
+export const formatRdsPolicyName = (serviceName: string): string =>
+  `orcabus-rds-connect-${serviceName}`;

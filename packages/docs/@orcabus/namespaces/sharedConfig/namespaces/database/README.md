@@ -13,3 +13,7 @@
 - [DB\_CLUSTER\_IDENTIFIER](variables/DB_CLUSTER_IDENTIFIER.md)
 - [DB\_CLUSTER\_RESOURCE\_ID\_PARAMETER\_NAME](variables/DB_CLUSTER_RESOURCE_ID_PARAMETER_NAME.md)
 - [RDS\_MASTER\_SECRET\_NAME](variables/RDS_MASTER_SECRET_NAME.md)
+
+## Functions
+
+- [formatRdsPolicyName](functions/formatRdsPolicyName.md)
