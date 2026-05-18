@@ -7,17 +7,16 @@
 # 4. Replaced /usr/app/venv/pip with uv pip shell script wrapper
 # The correct AWS SAM build image based on the runtime of the function will be
 # passed as build arg. The default allows to do `docker build .` when testing.
-ARG IMAGE=public.ecr.aws/sam/build-python3.14:latest
+ARG PYTHON_VERSION="3.14"
+ARG IMAGE_SHA="sha256:a27b2c51c4e59815c3579417d9bec138477587c7d4cf7bdc1c056ac63a152092"
+ARG IMAGE="public.ecr.aws/sam/build-python${PYTHON_VERSION}@${IMAGE_SHA}"
 FROM $IMAGE
 
 ARG TARGETPLATFORM
 ARG PIP_INDEX_URL
 ARG PIP_EXTRA_INDEX_URL
 ARG HTTPS_PROXY
-ARG POETRY_VERSION=1.5.1
-
-# ADDITION: Install uv
-RUN curl -LsSf https://astral.sh/uv/install.sh | XDG_CONFIG_HOME=/tmp UV_INSTALL_DIR=/usr/bin sh
+ARG POETRY_VERSION="1.5.1"
 
 # Add virtualenv path
 ENV PATH="/usr/app/venv/bin:$PATH"
@@ -34,8 +33,8 @@ ENV UV_CACHE_DIR=/tmp/uv-cache
 # ADDITION: Replace 'pip' with uv pip in the following chunk
 RUN \
     # create a new virtualenv for python to use
-    # so that it isn't using root
-    python -m venv /usr/app/venv && \
+    # so that it isn't using root \
+    uv venv /usr/app/venv "--python=${PYTHON_VERSION}" && \
     # Create a new location for the pip cache
     mkdir /tmp/pip-cache && \
     # Ensure all users can write to pip cache
@@ -49,7 +48,7 @@ RUN \
     # Ensure all users can write to uv cache
     chmod -R 777 /tmp/uv-cache && \
     # Install pipenv and poetry
-    uv pip install poetry==$POETRY_VERSION && \
+    uv pip install "poetry==${POETRY_VERSION}" && \
     # Ensure no temporary files remain in the caches
     rm -rf /tmp/pip-cache/* /tmp/poetry-cache/* /tmp/uv-cache/*
 
