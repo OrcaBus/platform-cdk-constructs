@@ -60,4 +60,7 @@ RUN \
 RUN printf '#!/usr/bin/env bash \nuv pip $@\n' > /usr/app/venv/bin/pip && \
     printf '#!/usr/bin/env bash \nuv pip $@\n' > /usr/app/venv/bin/pip3
 
+# ADDITION: Add the UV_PYTHON version to be /usr/app/venv/bin/python
+ENV UV_PYTHON="/usr/app/venv/bin/python"
+
 CMD [ "python" ]
