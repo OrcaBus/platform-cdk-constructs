@@ -16,7 +16,7 @@ ARG TARGETPLATFORM
 ARG PIP_INDEX_URL
 ARG PIP_EXTRA_INDEX_URL
 ARG HTTPS_PROXY
-ARG POETRY_VERSION="1.5.1"
+ARG POETRY_VERSION="2.4.1"
 
 # Add virtualenv path
 ENV PATH="/usr/app/venv/bin:$PATH"
@@ -32,7 +32,7 @@ ENV UV_CACHE_DIR=/tmp/uv-cache
 
 # ADDITION: Replace 'pip' with uv pip in the following chunk
 RUN \
-    # create a new virtualenv for python to use
+    # create a new virtualenv for python to use \
     # so that it isn't using root \
     uv venv /usr/app/venv "--python=${PYTHON_VERSION}" && \
     # Create a new location for the pip cache
