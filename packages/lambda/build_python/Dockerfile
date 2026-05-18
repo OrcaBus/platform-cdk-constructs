@@ -17,6 +17,7 @@ ARG PIP_INDEX_URL
 ARG PIP_EXTRA_INDEX_URL
 ARG HTTPS_PROXY
 ARG POETRY_VERSION="2.4.1"
+ARG POETRY_PLUGIN_EXPORT_VERSION="1.10.0"
 
 # Add virtualenv path
 ENV PATH="/usr/app/venv/bin:$PATH"
@@ -49,6 +50,8 @@ RUN \
     chmod -R 777 /tmp/uv-cache && \
     # Install pipenv and poetry
     uv pip install "poetry==${POETRY_VERSION}" && \
+    # Install poetry export plugin
+    poetry self add "poetry-plugin-export==${POETRY_PLUGIN_EXPORT_VERSION}" && \
     # Ensure no temporary files remain in the caches
     rm -rf /tmp/pip-cache/* /tmp/poetry-cache/* /tmp/uv-cache/*
 
