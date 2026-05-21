@@ -8,7 +8,7 @@
 
 > **formatRdsPolicyName**(`serviceName`): `string`
 
-Defined in: [packages/shared-config/database.ts:25](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/database.ts#L25)
+Defined in: [packages/shared-config/database.ts:27](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/database.ts#L27)
 
 Get the name of the IAM policy created by the postgres-manager.
 
