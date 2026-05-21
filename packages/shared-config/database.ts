@@ -1,3 +1,5 @@
+import {AuroraPostgresEngineVersion} from "aws-cdk-lib/aws-rds";
+
 /**
  * The identifier for the OrcaBus RDS database cluster.
  */
@@ -24,3 +26,7 @@ export const RDS_MASTER_SECRET_NAME = "orcabus/master-rds"; // pragma: allowlist
  */
 export const formatRdsPolicyName = (serviceName: string): string =>
   `orcabus-rds-connect-${serviceName}`;
+/**
+ * Major version of the orcabus postgres database.
+ */
+export const POSTGRES_MAJOR_VERSION = "17";
