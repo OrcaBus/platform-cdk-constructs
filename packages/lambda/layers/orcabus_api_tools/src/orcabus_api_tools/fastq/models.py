@@ -188,7 +188,7 @@ class FastqSet(TypedDict):
     fastqSet: List[Fastq]
     allowAdditionalFastq: bool
     isCurrentFastqSet: bool
-
+    somalier: Optional[FileStorageObject]
 
 class ReadCount(TypedDict):
     readCount: int
