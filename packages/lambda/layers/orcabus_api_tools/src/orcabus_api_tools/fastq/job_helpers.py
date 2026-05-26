@@ -7,7 +7,7 @@ Update helpers for the update script.
 - run_ntsm
 - run_file_compression_information
 """
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 # Standard imports
 
@@ -69,7 +69,7 @@ def run_read_count_stats(fastq_id: str) -> Job:
 def run_extract_fingerprint(
         fastq_set_id: str,
         reference_name: str,
-        bam_uri: str
+        bam_uri: Optional[str]
 ) -> Dict[str, Any]:
     """
     Run extract fingerprint for a fastq_set_id.
@@ -83,7 +83,11 @@ def run_extract_fingerprint(
         params={
             "referenceName": reference_name
         },
-        json_data={
-            "s3Uri": bam_uri
-        }
+        json_data=(
+            {
+                "s3Uri": bam_uri
+            }
+            if bam_uri is not None
+            else None
+        )
     )

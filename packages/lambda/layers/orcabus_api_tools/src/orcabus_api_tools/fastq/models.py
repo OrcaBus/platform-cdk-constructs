@@ -39,7 +39,9 @@ from typing import (
     TypedDict,
     Optional,
     Dict,
-    List, NotRequired, Union,
+    List,
+    NotRequired,
+    Union,
     Literal
 )
 from datetime import datetime
@@ -188,7 +190,7 @@ class FastqSet(TypedDict):
     fastqSet: List[Fastq]
     allowAdditionalFastq: bool
     isCurrentFastqSet: bool
-
+    somalier: Optional[FileStorageObject]
 
 class ReadCount(TypedDict):
     readCount: int
