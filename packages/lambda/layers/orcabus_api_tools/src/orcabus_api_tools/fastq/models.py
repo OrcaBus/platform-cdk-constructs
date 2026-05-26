@@ -39,7 +39,9 @@ from typing import (
     TypedDict,
     Optional,
     Dict,
-    List, NotRequired, Union,
+    List,
+    NotRequired,
+    Union,
     Literal
 )
 from datetime import datetime
