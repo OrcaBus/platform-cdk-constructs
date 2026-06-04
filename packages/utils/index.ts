@@ -70,7 +70,7 @@ function isShortSha(value: string): boolean {
   return /^[0-9a-f]{7}$/i.test(value);
 }
 
-function resolveGitCommitId(): string {
+export function resolveGitCommitId(): string {
   /**
    * Resolve the Git commit ID for traceability. In CodeBuild, use the resolved source version.
    * For local synths, attempt to get the current Git commit SHA.
