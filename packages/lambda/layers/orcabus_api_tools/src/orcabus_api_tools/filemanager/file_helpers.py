@@ -134,21 +134,17 @@ def list_files_from_portal_run_id(
 
     # Filter out logs
     if remove_log_files:
-        logs_re_obj = re.compile(rf"logs/[\w|-]+/{portal_run_id}/")
+        logs_re_obj = re.compile(rf"/logs/[\w|-]+/{portal_run_id}/")
         files_list = list(filter(
-        lambda file_iter_: not (
-            logs_re_obj.search(file_iter_['key'])
-        ),
-        files_list
-    ))
+            lambda file_iter_: not logs_re_obj.search(file_iter_['key']),
+            files_list
+        ))
 
     # Filter out cache files
     if remove_cache_files:
-        cache_re_obj = re.compile(rf"cache/[\w|-]+/{portal_run_id}/")
+        cache_re_obj = re.compile(rf"/cache/[\w|-]+/{portal_run_id}/")
         files_list = list(filter(
-            lambda file_iter_: not (
-                cache_re_obj.search(file_iter_['key'])
-            ),
+            lambda file_iter_: not cache_re_obj.search(file_iter_['key']),
             files_list
         ))
 
