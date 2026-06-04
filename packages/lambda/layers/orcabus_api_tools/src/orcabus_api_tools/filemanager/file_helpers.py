@@ -119,41 +119,47 @@ def get_file_object_from_ingest_id(
 def list_files_from_portal_run_id(
         portal_run_id: str,
         remove_log_files: bool = True,
+        remove_cache_files: bool = True,
 ) -> List[FileObject]:
 
     # Get files from cache
-    all_files_list = get_file_manager_request_response_results(S3_ATTRIBUTES_LIST_ENDPOINT, {
+    files_list = get_file_manager_request_response_results(S3_ATTRIBUTES_LIST_ENDPOINT, {
         "portalRunId": portal_run_id,
         "currentState": json.dumps(True)
     })
 
-    if not remove_log_files:
-        return all_files_list
+    # Check if we want all files
+    if not (remove_log_files or remove_cache_files):
+        return files_list
 
-    # Filter out logs and cache files
-    logs_re_obj = re.compile(rf"logs/[\w|-]+/{portal_run_id}/")
-    cache_re_obj = re.compile(rf"cache/[\w|-]+/{portal_run_id}/")
-    return list(filter(
-        lambda file_iter_: not (
-            logs_re_obj.match(file_iter_['key']) or
-            cache_re_obj.match(file_iter_['key'])
-        ),
-        all_files_list
-    ))
+    # Filter out logs
+    if remove_log_files:
+        logs_re_obj = re.compile(rf"/logs/[\w|-]+/{portal_run_id}/")
+        files_list = list(filter(
+            lambda file_iter_: not logs_re_obj.search(file_iter_['key']),
+            files_list
+        ))
+
+    # Filter out cache files
+    if remove_cache_files:
+        cache_re_obj = re.compile(rf"/cache/[\w|-]+/{portal_run_id}/")
+        files_list = list(filter(
+            lambda file_iter_: not cache_re_obj.search(file_iter_['key']),
+            files_list
+        ))
+
+    # Return filtered list
+    return files_list
 
 
 def list_output_files_from_portal_run_id(
         portal_run_id: str
 ) -> List[FileObject]:
-    return list(filter(
-        lambda file_iter_: not (
-                f"cache/{portal_run_id}/" in file_iter_['key']
-        ),
-        list_files_from_portal_run_id(
-            portal_run_id=portal_run_id,
-            remove_log_files=True
-        )
-    ))
+    return list_files_from_portal_run_id(
+        portal_run_id=portal_run_id,
+        remove_log_files=True,
+        remove_cache_files=True,
+    )
 
 
 def get_portal_run_id_root_prefix(portal_run_id: str) -> str:
