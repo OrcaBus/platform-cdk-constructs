@@ -46,7 +46,7 @@ export function synthesisMessageToString(sm: SynthesisMessage): string {
 }
 
 /**
- * Add GitCommitId tag to stack
+ * Add a GitCommitId CloudFormation output to the stack.
  */
 
 function runCommand(command: string): string | undefined {

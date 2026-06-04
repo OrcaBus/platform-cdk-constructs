@@ -39,7 +39,6 @@ import {
 } from "aws-cdk-lib/aws-codepipeline-actions";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { CodeBuildCacheBucket } from "./cache-bucket";
-import {resolveGitCommitId} from "../utils/index";
 
 /**
  * The default partial build spec for code build steps in the pipeline.
