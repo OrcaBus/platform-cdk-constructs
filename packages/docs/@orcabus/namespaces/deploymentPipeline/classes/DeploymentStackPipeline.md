@@ -6,7 +6,7 @@
 
 # Class: DeploymentStackPipeline
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:308](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L308)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:309](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L309)
 
 A CDK construct that creates a deployment pipeline across environments for the OrcaBus project.
 
@@ -23,7 +23,7 @@ before using this construct.
 
 > **new DeploymentStackPipeline**(`scope`, `id`, `props`): `DeploymentStackPipeline`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:314](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L314)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:315](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L315)
 
 #### Parameters
 
@@ -67,7 +67,7 @@ The tree node.
 
 > `readonly` **pipeline**: `Pipeline`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:312](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L312)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:313](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L313)
 
 The code pipeline construct that is created.
 

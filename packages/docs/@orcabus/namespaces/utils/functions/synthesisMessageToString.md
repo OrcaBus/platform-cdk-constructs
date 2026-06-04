@@ -8,7 +8,7 @@
 
 > **synthesisMessageToString**(`sm`): `string`
 
-Defined in: [packages/utils/index.ts:42](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/utils/index.ts#L42)
+Defined in: [packages/utils/index.ts:44](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/utils/index.ts#L44)
 
 Stringify the message data.
 
