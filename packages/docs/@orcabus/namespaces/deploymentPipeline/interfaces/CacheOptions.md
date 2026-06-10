@@ -6,7 +6,7 @@
 
 # Interface: CacheOptions
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:283](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L283)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:282](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L282)
 
 Options for creating an S3 cache to use across build steps. If specified, the bucket under
 `CODEBUILD_CACHE_BUCKET` will be used for caching. This bucket is managed by the shared-resources
@@ -18,7 +18,7 @@ service.
 
 > `readonly` **namespace**: `string`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:288](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L288)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:287](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L287)
 
 Specify the namespace for the cache. This option is required because the cache bucket is shared across
 all projects so a namespace is required to uniquely identify the cache. Use the project name, e.g. `filemanager`.
@@ -29,7 +29,7 @@ all projects so a namespace is required to uniquely identify the cache. Use the 
 
 > `readonly` `optional` **paths?**: `string`[]
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:300](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L300)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:299](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L299)
 
 The paths to cache. This will default to the `node_modules` directory if unspecified.
 
@@ -46,6 +46,6 @@ https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build
 
 > `readonly` `optional` **prefix?**: `string`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:292](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L292)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:291](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L291)
 
 The prefix for the cache controlling the prefix on S3. If left unspecified, this will default to the namespace.

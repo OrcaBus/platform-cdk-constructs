@@ -19,7 +19,7 @@ Allows us to see which version of a stack is currently deployed into an environm
 
 ### Constructor
 
-> **new GitStack**(`scope`, `id`, `props`): `GitStack`
+> **new GitStack**(`scope`, `id`, `props?`): `GitStack`
 
 Defined in: [packages/deployment-stack-pipeline/stack.ts:11](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/stack.ts#L11)
 
@@ -33,7 +33,7 @@ Defined in: [packages/deployment-stack-pipeline/stack.ts:11](https://github.com/
 
 `string`
 
-##### props
+##### props?
 
 `StackProps`
 

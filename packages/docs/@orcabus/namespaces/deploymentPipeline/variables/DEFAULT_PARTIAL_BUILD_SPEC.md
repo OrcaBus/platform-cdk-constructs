@@ -8,7 +8,7 @@
 
 > `const` **DEFAULT\_PARTIAL\_BUILD\_SPEC**: `object`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:47](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L47)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:46](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L46)
 
 The default partial build spec for code build steps in the pipeline.
 
