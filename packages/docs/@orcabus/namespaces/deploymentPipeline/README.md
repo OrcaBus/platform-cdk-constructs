@@ -10,6 +10,7 @@
 
 - [CrossDeploymentArtifactBucket](classes/CrossDeploymentArtifactBucket.md)
 - [DeploymentStackPipeline](classes/DeploymentStackPipeline.md)
+- [GitStack](classes/GitStack.md)
 
 ## Interfaces
 
