@@ -60,6 +60,16 @@ DEFAULT_COGNITO_USER_POOL_ID_PARAMETER_NAME
 
 ***
 
+### corsAllowHeaders?
+
+> `readonly` `optional` **corsAllowHeaders?**: `string`[]
+
+Defined in: [packages/api-gateway/api-gateway.ts:73](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L73)
+
+Allowed CORS headers.
+
+***
+
 ### corsAllowOrigins
 
 > `readonly` **corsAllowOrigins**: `string`[]
@@ -67,6 +77,16 @@ DEFAULT_COGNITO_USER_POOL_ID_PARAMETER_NAME
 Defined in: [packages/api-gateway/api-gateway.ts:69](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L69)
 
 Allowed CORS origins.
+
+***
+
+### corsExposeHeaders?
+
+> `readonly` `optional` **corsExposeHeaders?**: `string`[]
+
+Defined in: [packages/api-gateway/api-gateway.ts:77](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L77)
+
+The headers that are exposed to the client.
 
 ***
 
