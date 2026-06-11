@@ -67,6 +67,14 @@ export interface OrcaBusApiGatewayProps {
    * Allowed CORS origins.
    */
   readonly corsAllowOrigins: string[];
+  /**
+   * Allowed CORS headers.
+   */
+  readonly corsAllowHeaders?: string[];
+  /**
+   * The headers that are exposed to the client.
+   */
+  readonly corsExposeHeaders?: string[];
 }
 
 export class OrcaBusApiGateway extends Construct {
@@ -127,6 +135,7 @@ export class OrcaBusApiGateway extends Construct {
           "x-api-key",
           "x-amz-security-token",
           "x-amz-user-agent",
+          ...(props.corsAllowHeaders ?? []),
         ],
         allowMethods: [
           CorsHttpMethod.GET,
@@ -135,7 +144,9 @@ export class OrcaBusApiGateway extends Construct {
           CorsHttpMethod.POST,
           CorsHttpMethod.PATCH,
           CorsHttpMethod.DELETE,
+          CorsHttpMethod.PUT,
         ],
+        exposeHeaders: props.corsExposeHeaders,
         allowOrigins: props.corsAllowOrigins,
         maxAge: Duration.days(10),
       },

@@ -6,7 +6,7 @@
 
 # Class: OrcaBusApiGateway
 
-Defined in: [packages/api-gateway/api-gateway.ts:72](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L72)
+Defined in: [packages/api-gateway/api-gateway.ts:80](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L80)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/api-gateway/api-gateway.ts:72](https://github.com/OrcaBus/
 
 > **new OrcaBusApiGateway**(`scope`, `id`, `props`): `OrcaBusApiGateway`
 
-Defined in: [packages/api-gateway/api-gateway.ts:94](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L94)
+Defined in: [packages/api-gateway/api-gateway.ts:102](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L102)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/api-gateway/api-gateway.ts:94](https://github.com/OrcaBus/
 
 > `readonly` **authStackHttpLambdaAuthorizer**: `HttpLambdaAuthorizer`
 
-Defined in: [packages/api-gateway/api-gateway.ts:92](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L92)
+Defined in: [packages/api-gateway/api-gateway.ts:100](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L100)
 
 The Lambda HTTP Authorizer used to enforce authorization policies
 defined in the authorization stack.
@@ -62,7 +62,7 @@ Example: `authorizer: apiGateway.authStackHttpLambdaAuthorizer`
 
 > `readonly` **domainName**: `string`
 
-Defined in: [packages/api-gateway/api-gateway.ts:84](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L84)
+Defined in: [packages/api-gateway/api-gateway.ts:92](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L92)
 
 Domain name defined in this gateway
 
@@ -72,7 +72,7 @@ Domain name defined in this gateway
 
 > `readonly` **httpApi**: `HttpApi`
 
-Defined in: [packages/api-gateway/api-gateway.ts:80](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L80)
+Defined in: [packages/api-gateway/api-gateway.ts:88](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L88)
 
 The HTTP API
 
@@ -96,7 +96,7 @@ The tree node.
 
 > `readonly` **region**: `string`
 
-Defined in: [packages/api-gateway/api-gateway.ts:76](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L76)
+Defined in: [packages/api-gateway/api-gateway.ts:84](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/api-gateway/api-gateway.ts#L84)
 
 The AWS region where the API Gateway is deployed.
 
