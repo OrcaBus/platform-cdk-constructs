@@ -104,7 +104,7 @@ def get_request_response_results(url: str, params: Optional[Dict] = None) -> Lis
     return response_json['results']
 
 
-def get_request(url: str, params: Optional[Dict] = None) -> Dict:
+def get_request(url: str, params: Optional[Dict] = None) -> Union[Dict, List]:
     # Get authorization header
     headers = {
         "Authorization": f"Bearer {get_orcabus_token()}"
