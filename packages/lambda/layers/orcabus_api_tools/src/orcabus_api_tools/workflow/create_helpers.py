@@ -20,10 +20,15 @@ def create_portal_run_id():
 def create_workflow_run_name_from_workflow_name_workflow_version_and_portal_run_id(
         workflow_name: str,
         workflow_version: str,
-        portal_run_id: str
+        portal_run_id: str,
+        workflow_run_prefix: Optional[str] = None
 ):
     return '--'.join([
-        WORKFLOW_RUN_PREFIX,
+        (
+            WORKFLOW_RUN_PREFIX
+            if workflow_run_prefix is None
+            else workflow_run_prefix
+        ),
         workflow_name.lower(),
         workflow_version.replace(".", "-"),
         portal_run_id
