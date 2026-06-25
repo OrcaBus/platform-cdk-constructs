@@ -16,7 +16,7 @@ Properties for an SQS queue.
 
 > `readonly` `optional` **alarmOldestMessageSeconds?**: `number`
 
-Defined in: [packages/monitored-queue/index.ts:51](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L51)
+Defined in: [packages/monitored-queue/index.ts:55](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L55)
 
 Set an alarm when the age of the oldest message in the queue exceeds the number of seconds specified.
 Defaults to no alarm based on the oldest message.
@@ -50,3 +50,13 @@ The removal policy of the queue.
 Defined in: [packages/monitored-queue/index.ts:42](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L42)
 
 How long messages stay in the queue.
+
+***
+
+### visibilityTimeout?
+
+> `readonly` `optional` **visibilityTimeout?**: `Duration`
+
+Defined in: [packages/monitored-queue/index.ts:50](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/monitored-queue/index.ts#L50)
+
+The visibility timeout of the queue.

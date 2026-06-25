@@ -45,6 +45,10 @@ export interface QueueProps {
    */
   readonly removalPolicy?: RemovalPolicy;
   /**
+   * The visibility timeout of the queue.
+   */
+  readonly visibilityTimeout?: Duration;
+  /**
    * Set an alarm when the age of the oldest message in the queue exceeds the number of seconds specified.
    * Defaults to no alarm based on the oldest message.
    */
