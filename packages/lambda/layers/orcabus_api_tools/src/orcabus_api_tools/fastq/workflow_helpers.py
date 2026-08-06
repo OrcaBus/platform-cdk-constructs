@@ -20,6 +20,16 @@ def to_fastq_list_row(
         bucket: Optional[str] = None,
         key_prefix: Optional[str] = None,
 ) -> FastqListRowDict:
+    """Convert a FASTQ record to a workflow-compatible FastqListRow dictionary.
+
+    Args:
+        fastq_id: The FASTQ identifier to convert.
+        bucket: Optional S3 bucket override for the file URIs.
+        key_prefix: Optional S3 key prefix override for the file URIs.
+
+    Returns:
+        A FastqListRowDict suitable for use in CWL/WDL workflow inputs.
+    """
     return get_fastq_request(
         f"{FASTQ_ENDPOINT}/{fastq_id}/toFastqListRow",
         params=dict(filter(
@@ -37,6 +47,16 @@ def to_fastq_list_rows(
         bucket: Optional[str] = None,
         key_prefix: Optional[str] = None,
 ) -> List[FastqListRowDict]:
+    """Convert all FASTQs in a FASTQ set to workflow-compatible FastqListRow dictionaries.
+
+    Args:
+        fastq_set_id: The FASTQ set identifier.
+        bucket: Optional S3 bucket override for the file URIs.
+        key_prefix: Optional S3 key prefix override for the file URIs.
+
+    Returns:
+        A list of FastqListRowDict objects suitable for use in CWL/WDL workflow inputs.
+    """
     return get_fastq_request(
         f"{FASTQ_SET_ENDPOINT}/{fastq_set_id}/toFastqListRows",
         params=dict(filter(

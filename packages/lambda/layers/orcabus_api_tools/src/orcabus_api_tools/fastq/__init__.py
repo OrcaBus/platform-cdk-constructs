@@ -32,6 +32,15 @@ def get_fastq_request(
         endpoint: str,
         params: Optional[Dict] = None,
 ):
+    """Execute an authenticated GET request to the FASTQ service.
+
+    Args:
+        endpoint: The API endpoint path.
+        params: Optional query parameters.
+
+    Returns:
+        The parsed JSON response.
+    """
     return get_request(
         url=get_fastq_url(endpoint),
         params=params
@@ -42,6 +51,15 @@ def get_fastq_request_response_results(
         endpoint: str,
         params: Optional[Dict] = None,
 ):
+    """Execute a paginated GET request to the FASTQ service.
+
+    Args:
+        endpoint: The API endpoint path.
+        params: Optional query parameters.
+
+    Returns:
+        A list of all results across all pages.
+    """
     return get_request_response_results(
         url=get_fastq_url(endpoint),
         params=params,
@@ -53,6 +71,16 @@ def fastq_patch_request(
     params: Optional[Dict] = None,
     json_data: Optional[Union[List, Dict]] = None,
 ):
+    """Execute an authenticated PATCH request to the FASTQ service.
+
+    Args:
+        endpoint: The API endpoint path.
+        params: Optional query parameters.
+        json_data: Optional JSON body data.
+
+    Returns:
+        The parsed JSON response.
+    """
     return patch_request(
         url=get_fastq_url(endpoint),
         params=params,
@@ -65,6 +93,16 @@ def fastq_post_request(
     params: Optional[Dict] = None,
     json_data: Optional[Dict] = None,
 ):
+    """Execute an authenticated POST request to the FASTQ service.
+
+    Args:
+        endpoint: The API endpoint path.
+        params: Optional query parameters.
+        json_data: Optional JSON body data.
+
+    Returns:
+        The parsed JSON response.
+    """
     return post_request(
         url=get_fastq_url(endpoint),
         params=params,

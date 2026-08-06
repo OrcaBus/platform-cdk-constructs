@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Global constants for the FASTQ service, including subdomain names, API endpoints, and regex patterns."""
+
 import re
 
 # AWS PARAMETERS

@@ -73,6 +73,8 @@ JobStatus = Literal[
 
 
 class FileStorageObject(TypedDict):
+    """S3 file storage object with ingest and location metadata."""
+
     s3IngestId: str
     s3Uri: str
     storageClass: str
@@ -80,22 +82,30 @@ class FileStorageObject(TypedDict):
 
 
 class FastqStorageObject(FileStorageObject):
+    """FASTQ file storage object with compression size and checksum metadata."""
+
     gzipCompressionSizeInBytes: int
     rawMd5sum: str
 
 
 class ReadSet(TypedDict):
+    """A pair of FASTQ read files (R1 and R2) with their compression format."""
+
     r1: FastqStorageObject
     r2: FastqStorageObject
     compressionFormat: str
 
 
 class Library(TypedDict):
+    """Minimal library reference containing OrcaBus ID and library ID."""
+
     orcabusId: str
     libraryId: str
 
 
 class SequaliReportsDict(TypedDict):
+    """Collection of Sequali QC report file references."""
+
     sequaliHtml: FileStorageObject
     sequaliParquet: FileStorageObject
     multiqcHtml: FileStorageObject
@@ -103,6 +113,8 @@ class SequaliReportsDict(TypedDict):
 
 
 class QcStats(TypedDict):
+    """Quality control statistics for a FASTQ file."""
+
     insertSizeEstimate: int
     rawWgsCoverageEstimate: int
     r1Q20Fraction: float
@@ -115,6 +127,8 @@ class QcStats(TypedDict):
 
 # Deprecated: Use FastqCreate instead
 class FastqListRowCreate(TypedDict):
+    """Deprecated: Use FastqCreate instead. Parameters for creating a FASTQ record."""
+
     fastqSetId: Optional[str]
     index: str
     lane: int
@@ -133,6 +147,8 @@ class FastqListRowCreate(TypedDict):
 
 # Deprecated: Use Fastq instead
 class FastqListRow(TypedDict):
+    """Deprecated: Use Fastq instead. FASTQ record returned from the API."""
+
     id: str
     fastqSetId: Optional[str]
     index: str
@@ -151,6 +167,8 @@ class FastqListRow(TypedDict):
 
 
 class Fastq(TypedDict):
+    """FASTQ record returned from the API, representing a single FASTQ file pair."""
+
     id: str
     fastqSetId: Optional[str]
     index: str
@@ -169,6 +187,8 @@ class Fastq(TypedDict):
 
 
 class FastqCreate(TypedDict):
+    """Parameters for creating a new FASTQ record."""
+
     fastqSetId: Optional[str]
     index: str
     lane: int
@@ -186,6 +206,8 @@ class FastqCreate(TypedDict):
 
 
 class FastqSetCreate(TypedDict):
+    """Parameters for creating a new FASTQ set."""
+
     library: Library
     fastqSet: List[Union[str, Fastq]]
     allowAdditionalFastq: bool
@@ -193,6 +215,8 @@ class FastqSetCreate(TypedDict):
 
 
 class FastqSet(TypedDict):
+    """A FASTQ set grouping multiple FASTQ records for a library."""
+
     id: str
     library: Library
     fastqSet: List[Fastq]
@@ -201,11 +225,15 @@ class FastqSet(TypedDict):
     somalier: Optional[FileStorageObject]
 
 class ReadCount(TypedDict):
+    """Read count and estimated base count for a FASTQ file."""
+
     readCount: int
     baseCountEst: int
 
 
 class FileCompressionInformation(TypedDict):
+    """File compression metadata including format and sizes."""
+
     compressionFormat: str
     r1GzipCompressionSizeInBytes: Optional[int]
     r2GzipCompressionSizeInBytes: Optional[int]
@@ -214,6 +242,8 @@ class FileCompressionInformation(TypedDict):
 
 
 class FastqListRowDict(TypedDict):
+    """FASTQ list row in workflow-compatible dictionary format (for CWL/WDL inputs)."""
+
     rgid: str
     rglb: str
     rgsm: str
@@ -228,6 +258,8 @@ class FastqListRowDict(TypedDict):
 
 
 class FastqJob(TypedDict):
+    """A job associated with a FASTQ record (QC, compression, NTSM, read count)."""
+
     id: str
     fastqId: str
     jobType: FastqJobType
@@ -238,6 +270,7 @@ class FastqJob(TypedDict):
 
 
 class FastqSetJob(TypedDict):
+    """A job associated with a FASTQ set (e.g., fingerprint extraction)."""
     id: str
     fastqSetId: str
     jobType: FastqSetJobType
@@ -258,15 +291,21 @@ BoolLiteral = Literal[
 
 
 class FastqGetResponseParameters(TypedDict):
+    """Parameters for controlling FASTQ GET response detail level."""
+
     includeS3Details: NotRequired[bool]
 
 
 class StandardQueryParameters(TypedDict):
+    """Standard pagination query parameters."""
+
     page: NotRequired[int]
     rowsPerPage: NotRequired[int]
 
 
 class MetadataQueryParameter(TypedDict):
+    """Single-value metadata query parameters for filtering FASTQs."""
+
     library: NotRequired[str]
     sample: NotRequired[str]
     subject: NotRequired[str]
@@ -286,6 +325,8 @@ MetadataQueryParametersList = TypedDict(
 )
 
 class InstrumentRunIdQueryParameters(TypedDict):
+    """Instrument run filtering parameters."""
+
     index: NotRequired[str]
     lane: NotRequired[int]
     instrumentRunId: NotRequired[str]
@@ -306,6 +347,8 @@ class FastqParameters(
     MetadataQueryParametersList,
     InstrumentRunIdQueryParametersList
 ):
+    """Deprecated: Use FastqQueryParameters instead. Combined FASTQ query parameters."""
+
     valid: NotRequired[BoolLiteral]
     includeS3Details: NotRequired[BoolLiteral]
     fastqSetId: NotRequired[str]
@@ -318,6 +361,8 @@ class FastqQueryParameters(
     MetadataQueryParametersList,
     InstrumentRunIdQueryParametersList
 ):
+    """Combined FASTQ query parameters supporting pagination, metadata, and instrument run filters."""
+
     valid: NotRequired[BoolLiteral]
     includeS3Details: NotRequired[BoolLiteral]
     fastqSetId: NotRequired[str]
@@ -329,6 +374,8 @@ class FastqSetQueryParameters(
     MetadataQueryParametersList,
     InstrumentRunIdQueryParameters
 ):
+    """Query parameters for listing FASTQ sets with filtering options."""
+
     currentFastqSet: NotRequired[BoolLiteral]
     allowAdditionalFastq: NotRequired[BoolLiteral]
     includeS3Details: NotRequired[BoolLiteral]
