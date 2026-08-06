@@ -1,3 +1,4 @@
+"""AWS helper functions for executing Athena queries and retrieving results from S3."""
 
 # Standard imports
 import typing
@@ -18,20 +19,52 @@ if typing.TYPE_CHECKING:
 
 
 def get_athena_client() -> 'AthenaClient':
+    """Create and return a boto3 Athena client.
+
+    Returns:
+        AthenaClient: A boto3 Athena client instance.
+    """
     return boto3.client('athena')
 
 
 def get_s3_client() -> 'S3Client':
+    """Create and return a boto3 S3 client.
+
+    Returns:
+        S3Client: A boto3 S3 client instance.
+    """
     return boto3.client('s3')
 
 
 def get_bucket_key_tuple_from_s3_uri(s3_uri: str) -> Tuple[str, str]:
+    """Parse an S3 URI into its bucket and key components.
+
+    Args:
+        s3_uri: An S3 URI in the format 's3://bucket/key'.
+
+    Returns:
+        A tuple of (bucket_name, object_key).
+    """
     urlobj = urlparse(s3_uri)
 
     return urlobj.netloc, urlobj.path.lstrip('/')
 
 
 def run_athena_sql_query(sql_query: str) -> pd.DataFrame:
+    """Execute an SQL query against Athena and return results as a pandas DataFrame.
+
+    Submits the query, polls for completion, determines the correct column dtypes
+    from Athena metadata, and reads the CSV result from S3 with proper type coercion.
+
+    Args:
+        sql_query: The SQL query string to execute.
+
+    Returns:
+        A pandas DataFrame containing the query results with appropriate column types.
+
+    Raises:
+        RuntimeError: If the query fails or is cancelled.
+    """
     from .dataframe_helpers import get_pandas_dtypes_from_athena_query_execution
 
     athena_query_execution_id = get_athena_client().start_query_execution(
