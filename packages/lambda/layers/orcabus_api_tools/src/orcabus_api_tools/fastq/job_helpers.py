@@ -6,15 +6,15 @@ Job helpers for the fastq service.
 Fastq Jobs:
 - run_qc_stats
 - run_ntsm
-- run_file_compression_information
+- run_file_compression_stats
 - run_read_count_stats
 
 FastqSet Jobs:
 - run_extract_fingerprint
 """
-from typing import Optional
 
 # Standard imports
+from typing import Optional
 
 # Local imports
 from . import fastq_patch_request

@@ -31,7 +31,7 @@ from .. import DEFAULT_BATCH_SIZE
 from . import get_fastq_request_response_results, get_fastq_request
 from .globals import FASTQ_ENDPOINT, FASTQ_SET_ENDPOINT, RGID_ENDPOINT
 from .models import (
-    FastqSet, FastqJob, FastqSetJob, Job, FastqParameters, FastqSetQueryParameters,
+    FastqSet, FastqJob, FastqSetJob, FastqParameters, FastqSetQueryParameters,
     FastqGetResponseParameters, VALID_BATCH_KEYS, Fastq
 )
 
