@@ -20,11 +20,13 @@ JobStatusType = Literal['PENDING', 'RUNNING', 'FAILED', 'ABORTED', 'SUCCEEDED']
 
 # Output jobs
 class DecompressionJobOutputObjectItem(TypedDict):
+    """Single decompressed file output item mapping an ingest ID to its GZIP file URI."""
     ingestId: str
     gzipFileUri: str
 
 
 class DecompressionJobOutputObjectFastqId(TypedDict):
+    """Decompression output for a single FASTQ, containing its decompressed file URIs."""
     fastqId: str
     decompressedFileUriByOraFileIngestIdList: List[DecompressionJobOutputObjectItem]
 
@@ -82,6 +84,7 @@ JobOutputType = Union[
 ]
 
 class Job(TypedDict):
+    """Decompression job object representing the state of a decompression task."""
     id: str
     jobType: JobType
     stepsExecutionArn: str
@@ -93,6 +96,7 @@ class Job(TypedDict):
 
 
 class JobCreateParameters(TypedDict):
+    """Parameters for creating a new decompression job."""
     fastqIdList: List[str]
     jobType: JobType
     maxReads: NotRequired[int]
@@ -103,6 +107,7 @@ class JobCreateParameters(TypedDict):
 
 
 class JobQueryParameters(TypedDict):
+    """Query parameters for filtering decompression jobs."""
     fastqId: NotRequired[str]
     fastqSetId: NotRequired[str]
     status: NotRequired[JobStatusType]
@@ -115,6 +120,7 @@ class JobQueryParameters(TypedDict):
 
 
 class JobUpdateParameters(TypedDict):
+    """Parameters for updating a decompression job's status."""
     status: JobStatusType
     errorMessage: NotRequired[str]
     stepsExecutionArn: NotRequired[str]
