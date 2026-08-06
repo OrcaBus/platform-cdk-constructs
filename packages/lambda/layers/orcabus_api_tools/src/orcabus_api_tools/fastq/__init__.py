@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+Fastq Toolkit
+"""
+
 # Standard imports
 from typing import Dict, Optional, List, Union
 
