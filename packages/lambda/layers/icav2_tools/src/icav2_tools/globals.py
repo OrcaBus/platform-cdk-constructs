@@ -1,3 +1,5 @@
+"""Global constants for ICAv2 tools configuration, including API base URLs and SSM parameter paths."""
+
 from pathlib import Path
 
 # Set ICAV2 Base url
