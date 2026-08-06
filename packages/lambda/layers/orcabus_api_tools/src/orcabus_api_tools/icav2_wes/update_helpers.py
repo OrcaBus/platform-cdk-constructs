@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+"""Update helpers for the ICAv2 WES service."""
+
 from typing import Unpack
 
 from . import icav2_wes_patch_request

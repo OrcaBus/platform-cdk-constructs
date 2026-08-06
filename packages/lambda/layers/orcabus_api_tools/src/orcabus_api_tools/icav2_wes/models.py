@@ -1,3 +1,5 @@
+"""TypedDict models for the ICAv2 WES (Workflow Execution Service)."""
+
 from typing import (
     TypedDict, Dict, Any, Literal, NotRequired
 )
@@ -16,6 +18,8 @@ STATUS = Literal[
 
 
 class EngineParameters(TypedDict):
+    """Engine parameters for ICAv2 pipeline execution."""
+
     # Launch Configurations
     pipelineId: str
     projectId: str
@@ -35,6 +39,8 @@ class WESPostRequest(TypedDict):
 
 
 class WESPatchRequest(TypedDict):
+    """Parameters for updating a WES analysis status."""
+
     status: str
     icav2AnalysisId: NotRequired[str]
     errorType: NotRequired[str]
@@ -43,7 +49,8 @@ class WESPatchRequest(TypedDict):
 
 
 class WESResponse(TypedDict):
-    """WES response object."""
+    """WES analysis response object with status and metadata."""
+
     id: str
     name: str
     state: str
