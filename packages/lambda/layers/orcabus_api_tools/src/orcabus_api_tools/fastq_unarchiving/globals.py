@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Global constants for the fastq unarchiving service, including subdomain names and API endpoints."""
+
 import re
 
 # AWS PARAMETERS
