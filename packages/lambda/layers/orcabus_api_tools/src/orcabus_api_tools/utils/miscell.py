@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Miscellaneous utility functions for OrcaBus API tools."""
+
 # Imports
 from typing import Tuple
 from urllib.parse import urlparse
