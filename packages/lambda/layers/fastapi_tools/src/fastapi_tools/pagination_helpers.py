@@ -1,3 +1,9 @@
+"""Pagination helpers for FastAPI-based OrcaBus APIs.
+
+Provides TypedDict models and a Pydantic BaseModel for constructing paginated API responses
+with navigation links.
+"""
+
 import typing
 from typing import Optional, TypedDict, List, Any, ClassVar, Dict, Self
 from urllib.parse import urlparse, urlunparse
@@ -8,16 +14,22 @@ from .globals import DEFAULT_ROWS_PER_PAGE
 
 
 class Links(TypedDict):
+    """Navigation links for paginated responses, containing URLs to previous and next pages."""
+
     previous: Optional[str]
     next: Optional[str]
 
 
 class QueryPagination(TypedDict):
+    """Query parameters for pagination requests, specifying the page number and rows per page."""
+
     page: Optional[int]
     rowsPerPage: Optional[int]
 
 
 class ResponsePagination(QueryPagination):
+    """Response pagination metadata, extending QueryPagination with the total count of results."""
+
     count: int
 
 
@@ -36,6 +48,20 @@ class QueryPaginatedResponse(BaseModel):
 
     @classmethod
     def from_results_list(cls, results: List[Any], query_pagination: QueryPagination, params_response: Dict, **kwargs) -> Self:
+        """Construct a paginated response from a full results list.
+
+        Slices the results according to the requested page and rows per page, and generates
+        navigation links for previous/next pages.
+
+        Args:
+            results: The complete list of results to paginate.
+            query_pagination: The pagination parameters from the request.
+            params_response: Query parameters to include in navigation links.
+            **kwargs: Additional keyword arguments passed to resolve_url_placeholder.
+
+        Returns:
+            A new QueryPaginatedResponse instance with the appropriate page slice and links.
+        """
         # From pagination calculate the links
         if cls.url_placeholder is None:
             raise ValueError("URL must be set for QueryPaginatedResponse")
