@@ -31,7 +31,7 @@ from .. import DEFAULT_BATCH_SIZE
 from . import get_fastq_request_response_results, get_fastq_request
 from .globals import FASTQ_ENDPOINT, FASTQ_SET_ENDPOINT, RGID_ENDPOINT
 from .models import (
-    FastqSet, Job, FastqParameters, FastqSetQueryParameters,
+    FastqSet, FastqJob, FastqSetJob, Job, FastqParameters, FastqSetQueryParameters,
     FastqGetResponseParameters, VALID_BATCH_KEYS, Fastq
 )
 
@@ -282,13 +282,25 @@ def get_fastqs_in_fastq_set(fastq_set_id: str) -> List[Fastq]:
     )
 
 
-def get_fastq_jobs(fastq_id: str) -> List[Job]:
+def get_fastq_jobs(fastq_id: str) -> List[FastqJob]:
     """
-    Get all fastqs in a fastq set
+    Get all jobs for a fastq
     """
     return list(map(
-        lambda job_iter_: Job(**job_iter_),
+        lambda job_iter_: FastqJob(**job_iter_),
         get_fastq_request_response_results(
             f"{FASTQ_ENDPOINT}/{fastq_id}/jobs"
+        )
+    ))
+
+
+def get_fastq_set_jobs(fastq_set_id: str) -> List[FastqSetJob]:
+    """
+    Get all jobs for a fastq set
+    """
+    return list(map(
+        lambda job_iter_: FastqSetJob(**job_iter_),
+        get_fastq_request_response_results(
+            f"{FASTQ_SET_ENDPOINT}/{fastq_set_id}/jobs"
         )
     ))
