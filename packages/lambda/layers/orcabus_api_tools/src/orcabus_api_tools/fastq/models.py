@@ -47,11 +47,19 @@ from typing import (
 from datetime import datetime
 
 
-JobType = Literal[
+FastqJobType = Literal[
     'QC',
     'FILE_COMPRESSION',
     'NTSM',
     'READ_COUNT',
+]
+
+# Deprecated: Use FastqJobType instead
+JobType = FastqJobType
+
+
+FastqSetJobType = Literal[
+    'RUN_EXTRACT_FINGERPRINT',
 ]
 
 
@@ -219,14 +227,28 @@ class FastqListRowDict(TypedDict):
 
 
 
-class Job(TypedDict):
+class FastqJob(TypedDict):
     id: str
     fastqId: str
-    jobType: JobType
+    jobType: FastqJobType
     stepsExecutionArn: str
     status: JobStatus
     startTime: datetime
     endTime: Optional[datetime]
+
+
+class FastqSetJob(TypedDict):
+    id: str
+    fastqSetId: str
+    jobType: FastqSetJobType
+    stepsExecutionArn: str
+    status: JobStatus
+    startTime: datetime
+    endTime: Optional[datetime]
+
+
+# Deprecated: Use FastqJob instead
+Job = FastqJob
 
 BoolLiteral = Literal[
     'ALL',

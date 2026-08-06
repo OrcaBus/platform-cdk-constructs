@@ -1,66 +1,71 @@
 #!/usr/bin/env python3
 
 """
-Update helpers for the update script.
+Job helpers for the fastq service.
 
+Fastq Jobs:
 - run_qc_stats
 - run_ntsm
-- run_file_compression_information
+- run_file_compression_stats
+- run_read_count_stats
+
+FastqSet Jobs:
+- run_extract_fingerprint
 """
-from typing import Dict, Any, Optional
 
 # Standard imports
+from typing import Optional
 
 # Local imports
 from . import fastq_patch_request
 from .globals import FASTQ_ENDPOINT, FASTQ_SET_ENDPOINT
-from .models import Job
+from .models import FastqJob, FastqSetJob
 
 
-def run_qc_stats(fastq_id: str) -> Job:
+def run_qc_stats(fastq_id: str) -> FastqJob:
     """
     Add QC stats to a fastq_id.
 
     :param fastq_id: Fastq str
     """
-    return Job(
+    return FastqJob(
         **fastq_patch_request(
             f"{FASTQ_ENDPOINT}/{fastq_id}:runQcStats"
         )
     )
 
 
-def run_ntsm(fastq_id: str) -> Job:
+def run_ntsm(fastq_id: str) -> FastqJob:
     """
     Run ntsm for a fastq_id.
 
     :param fastq_id: Fastq str
     """
-    return Job(
+    return FastqJob(
         **fastq_patch_request(
             f"{FASTQ_ENDPOINT}/{fastq_id}:runNtsm"
         )
     )
 
-def run_file_compression_stats(fastq_id: str) -> Job:
+def run_file_compression_stats(fastq_id: str) -> FastqJob:
     """
     Run file compression stats for a fastq_id.
 
     :param fastq_id: Fastq str
     """
-    return Job(
+    return FastqJob(
         **fastq_patch_request(
             f"{FASTQ_ENDPOINT}/{fastq_id}:runFileCompressionInformation"
         )
     )
 
-def run_read_count_stats(fastq_id: str) -> Job:
+def run_read_count_stats(fastq_id: str) -> FastqJob:
     """
-    Run file compression stats for a fastq_id.
+    Run read count stats for a fastq_id.
 
     :param fastq_id: Fastq str
     """
-    return Job(
+    return FastqJob(
         **fastq_patch_request(
             f"{FASTQ_ENDPOINT}/{fastq_id}:runReadCountInformation"
         )
@@ -69,25 +74,27 @@ def run_read_count_stats(fastq_id: str) -> Job:
 def run_extract_fingerprint(
         fastq_set_id: str,
         reference_name: str,
-        bam_uri: Optional[str]
-) -> Dict[str, Any]:
+        bam_uri: Optional[str] = None
+) -> FastqSetJob:
     """
     Run extract fingerprint for a fastq_set_id.
 
-    :param bam_uri:
-    :param reference_name:
     :param fastq_set_id: Fastq set id
+    :param reference_name: Reference genome name
+    :param bam_uri: Optional S3 URI of the BAM file
     """
-    return fastq_patch_request(
-        f"{FASTQ_SET_ENDPOINT}/{fastq_set_id}:runExtractFingerprint",
-        params={
-            "referenceName": reference_name
-        },
-        json_data=(
-            {
-                "s3Uri": bam_uri
-            }
-            if bam_uri is not None
-            else None
+    return FastqSetJob(
+        **fastq_patch_request(
+            f"{FASTQ_SET_ENDPOINT}/{fastq_set_id}:runExtractFingerprint",
+            params={
+                "referenceName": reference_name
+            },
+            json_data=(
+                {
+                    "s3Uri": bam_uri
+                }
+                if bam_uri is not None
+                else None
+            )
         )
     )
