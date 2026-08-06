@@ -1,3 +1,5 @@
+"""Global constants for the sequence service, including subdomain name and API endpoints."""
+
 # Run name for sequence run manager
 SEQUENCE_SUBDOMAIN_NAME = 'sequence'
 

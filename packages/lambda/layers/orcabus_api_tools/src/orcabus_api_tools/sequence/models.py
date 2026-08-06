@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 
+"""TypedDict models for the sequence service."""
+
+# Standard imports
 from typing import TypedDict, Literal, Optional, Dict, List
 
+# Type hints
 StatusType = Literal['STARTED', 'FAILED', 'SUCCEEDED', 'ABORTED', 'RESOLVED']
 
 
 class SequenceDetail(TypedDict):
+    """Sequence detail object with instrument run metadata."""
+
     orcabusId: str
     instrumentRunId: str
     experimentName: str
@@ -15,6 +21,8 @@ class SequenceDetail(TypedDict):
 
 
 class Sequence(TypedDict):
+    """Full sequence object with all run metadata and associated libraries."""
+
     orcabusId: str
     libraries: List[str]
     sequenceRunId: str
@@ -36,6 +44,8 @@ class Sequence(TypedDict):
 
 
 class SampleSheet(TypedDict):
+    """Sample sheet object associated with a sequence run."""
+
     orcabusId: str
     sampleSheetName: str
     associationStatus: str
