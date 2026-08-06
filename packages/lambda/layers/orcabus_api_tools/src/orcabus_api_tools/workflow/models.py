@@ -74,18 +74,24 @@ ValidationStateType = Literal[
 
 # Classes
 class StateDetail(TypedDict):
+    """Brief workflow run state with status and timestamp."""
+
     orcabusId: str
     status: str
     timestamp: str
 
 
 class State(StateDetail):
+    """Full workflow run state including comment and references."""
+
     comment: str
     workflowRun: str
     payload: str
 
 
 class Analysis(TypedDict):
+    """Analysis definition with name, version, and status."""
+
     orcabusId: str
     analysisName: str
     analysisVersion: str
@@ -93,12 +99,16 @@ class Analysis(TypedDict):
 
 
 class Context(TypedDict):
+    """Execution context specifying compute or storage resources."""
+
     orcabusId: str
     name: str
     usecase: ContextUseCaseType
 
 
 class AnalysisRun(TypedDict):
+    """An analysis run instance linking an analysis to contexts and readsets."""
+
     orcabusId: str
     analysis: Analysis
     storageContext: Context
@@ -110,6 +120,8 @@ class AnalysisRun(TypedDict):
 
 
 class Workflow(TypedDict):
+    """Workflow definition with name, version, and execution engine details."""
+
     orcabusId: str
     name: str
     version: str
@@ -120,15 +132,21 @@ class Workflow(TypedDict):
 
 
 class ReadSet(TypedDict):
+    """A read set reference with OrcaBus ID and RGID."""
+
     orcabusId: str
     rgid: str
 
 
 class EventLibrary(LibraryBase):
+    """Library object with associated readsets for event processing."""
+
     readsets: List[ReadSet]
 
 
 class WorkflowRunDetail(TypedDict):
+    """Detailed workflow run object without library information."""
+
     orcabusId: str
     currentState: StateDetail
     workflow: Workflow
@@ -142,10 +160,14 @@ class WorkflowRunDetail(TypedDict):
 
 
 class WorkflowRun(WorkflowRunDetail):
+    """Full workflow run object including associated libraries."""
+
     libraries: List[Dict[str, str]]
 
 
 class Payload(TypedDict):
+    """Workflow run payload containing versioned data."""
+
     orcabusId: str
     payloadRefId: str
     version: str
