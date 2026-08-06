@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""Helper functions for interacting with the OrcaBus File Manager service.
+
+Provides functions for querying file objects, generating presigned URLs,
+resolving S3 URIs, and managing file metadata.
+"""
 
 # Standard imports
 import json
@@ -33,6 +38,18 @@ if typing.TYPE_CHECKING:
 
 
 def get_file_object_from_s3_uri(s3_uri: str) -> FileObject:
+    """Retrieve a file object by its S3 URI.
+
+    Args:
+        s3_uri: The full S3 URI (s3://bucket/key).
+
+    Returns:
+        The FileObject matching the URI.
+
+    Raises:
+        S3FileNotFoundError: If no file is found at the URI.
+        S3DuplicateFileCopyError: If multiple files match the URI.
+    """
     s3_bucket, s3_key = get_bucket_key_pair_from_uri(s3_uri)
 
     response = get_file_manager_request_response_results(S3_LIST_ENDPOINT, {
@@ -89,6 +106,21 @@ def get_file_object_from_ingest_id(
         ingest_id: str,
         **kwargs: Unpack[FileQueryParameters]
 ) -> FileObject:
+    """Retrieve a file object by its ingest ID.
+
+    If multiple copies exist, returns the one with highest storage class priority
+    and most recent modification date.
+
+    Args:
+        ingest_id: The file ingest identifier.
+        **kwargs: Additional FileQueryParameters for filtering.
+
+    Returns:
+        The FileObject with the best storage class match.
+
+    Raises:
+        S3FileNotFoundError: If no file is found with the ingest ID.
+    """
     response = get_file_manager_request_response_results(S3_LIST_ENDPOINT, {
         "ingestId": ingest_id,
         **kwargs
@@ -121,6 +153,16 @@ def list_files_from_portal_run_id(
         remove_log_files: bool = True,
         remove_cache_files: bool = True,
 ) -> List[FileObject]:
+    """List file objects associated with a portal run ID.
+
+    Args:
+        portal_run_id: The portal run identifier.
+        remove_log_files: If True, exclude log files from results.
+        remove_cache_files: If True, exclude cache files from results.
+
+    Returns:
+        A list of FileObject dictionaries matching the criteria.
+    """
 
     # Get files from cache
     files_list = get_file_manager_request_response_results(S3_ATTRIBUTES_LIST_ENDPOINT, {
@@ -155,6 +197,14 @@ def list_files_from_portal_run_id(
 def list_output_files_from_portal_run_id(
         portal_run_id: str
 ) -> List[FileObject]:
+    """List output files for a portal run, excluding logs and cache files.
+
+    Args:
+        portal_run_id: The portal run identifier.
+
+    Returns:
+        A list of FileObject dictionaries for output files only.
+    """
     return list_files_from_portal_run_id(
         portal_run_id=portal_run_id,
         remove_log_files=True,
@@ -163,6 +213,17 @@ def list_output_files_from_portal_run_id(
 
 
 def get_portal_run_id_root_prefix(portal_run_id: str) -> str:
+    """Determine the S3 root prefix for a portal run ID.
+
+    Args:
+        portal_run_id: The portal run identifier.
+
+    Returns:
+        The S3 URI prefix up to and including the portal run ID.
+
+    Raises:
+        ValueError: If no files are found for the portal run ID.
+    """
     # Get portal run id midfix from portal_run_id
     all_portal_run_id_files = list_output_files_from_portal_run_id(
         portal_run_id
@@ -204,10 +265,26 @@ def get_presigned_url(s3_object_id: str) -> str:
 
 
 def get_s3_object_id_from_s3_uri(s3_uri: str) -> str:
+    """Get the File Manager S3 object ID for a given S3 URI.
+
+    Args:
+        s3_uri: The full S3 URI.
+
+    Returns:
+        The s3ObjectId string.
+    """
     return get_file_object_from_s3_uri(s3_uri)['s3ObjectId']
 
 
 def get_s3_uri_from_s3_object_id(s3_object_id: str) -> str:
+    """Resolve an S3 object ID to its full S3 URI.
+
+    Args:
+        s3_object_id: The File Manager S3 object ID.
+
+    Returns:
+        The full S3 URI (s3://bucket/key).
+    """
     file_object: FileObject = get_file_object_from_id(s3_object_id)
     return f"s3://{file_object['bucket']}/{file_object['key']}"
 
@@ -217,6 +294,16 @@ def get_s3_uri_from_ingest_id(
         bucket: Optional[str] = None,
         key_prefix: Optional[str] = None
 ) -> str:
+    """Resolve an ingest ID to its full S3 URI.
+
+    Args:
+        ingest_id: The file ingest identifier.
+        bucket: Optional bucket filter.
+        key_prefix: Optional key prefix filter.
+
+    Returns:
+        The full S3 URI (s3://bucket/key).
+    """
     file_object: FileObject = get_file_object_from_ingest_id(
         ingest_id=ingest_id,
         **dict(filter(
@@ -231,6 +318,14 @@ def get_s3_uri_from_ingest_id(
 
 
 def get_ingest_id_from_s3_uri(s3_uri: str) -> str:
+    """Get the ingest ID for a given S3 URI.
+
+    Args:
+        s3_uri: The full S3 URI.
+
+    Returns:
+        The ingest ID string.
+    """
     return get_file_object_from_s3_uri(s3_uri)['ingestId']
 
 
@@ -254,10 +349,13 @@ def create_presigned_url_map(s3_object_iter_: Dict, presigned_url_list: List[str
 
 
 def get_presigned_urls_from_ingest_ids(ingest_ids: List[str]) -> List[Dict[str, str]]:
-    """
-    Get presigned urls from a list of ingest ids using the bulk presign method
-    :param ingest_ids:
-    :return:
+    """Generate presigned URLs for a list of ingest IDs using bulk presign.
+
+    Args:
+        ingest_ids: List of file ingest identifiers.
+
+    Returns:
+        A list of dicts with 'ingestId' and 'presignedUrl' keys.
     """
     # Split by groups of 100
     ingest_id_batches = batched(ingest_ids, 20)
@@ -307,6 +405,15 @@ def get_presigned_url_expiry(s3_presigned_url: str) -> datetime:
 def get_s3_objs_from_ingest_ids_map(
         ingest_ids: List[str], **kwargs
 ) -> List[Dict[str, Union[FileObject, str]]]:
+    """Retrieve file objects for a list of ingest IDs, deduplicating by storage class priority.
+
+    Args:
+        ingest_ids: List of file ingest identifiers.
+        **kwargs: Additional query parameters.
+
+    Returns:
+        A list of dicts with 'ingestId' and 'fileObject' keys.
+    """
     # Check if the list is empty
     if len(ingest_ids) == 0:
         return []
@@ -364,6 +471,15 @@ def get_s3_objs_from_ingest_ids_map(
 
 
 def file_search(bucket: str, key: str) -> List[FileObject]:
+    """Search for files matching bucket and key criteria.
+
+    Args:
+        bucket: The S3 bucket name.
+        key: The S3 key or key pattern.
+
+    Returns:
+        A list of FileObject dictionaries matching the search.
+    """
     filtered_params = dict(
         filter(
             lambda param_iter_: param_iter_[1] is not None,
@@ -383,6 +499,15 @@ def file_search(bucket: str, key: str) -> List[FileObject]:
 
 
 def list_files_recursively(bucket: str, key: str) -> List[FileObject]:
+    """List all files recursively under a bucket and key prefix.
+
+    Args:
+        bucket: The S3 bucket name.
+        key: The S3 key prefix (wildcard is appended automatically).
+
+    Returns:
+        A list of FileObject dictionaries.
+    """
     response = get_file_manager_request_response_results(
         S3_LIST_ENDPOINT,
         {
@@ -396,25 +521,64 @@ def list_files_recursively(bucket: str, key: str) -> List[FileObject]:
 
 
 def get_sts_client() -> 'STSClient':
+    """Create and return a boto3 STS client.
+
+    Returns:
+        A boto3 STSClient instance.
+    """
     return boto3.client('sts')
 
 
 def get_cache_bucket_from_account_id() -> str:
+    """Get the pipeline cache bucket name for the current AWS account.
+
+    Returns:
+        The S3 bucket name for the cache.
+    """
     return S3_BUCKETS_BY_ACCOUNT_ID["cache"][get_sts_client().get_caller_identity()['Account']]
 
 def get_archive_fastq_bucket_from_account_id():
+    """Get the archive FASTQ bucket name for the current AWS account.
+
+    Returns:
+        The S3 bucket name for archived FASTQs.
+    """
     return S3_BUCKETS_BY_ACCOUNT_ID["archive_fastq"][get_sts_client().get_caller_identity()['Account']]
 
 def get_archive_analysis_bucket_from_account_id():
+    """Get the archive analysis bucket name for the current AWS account.
+
+    Returns:
+        The S3 bucket name for archived analysis files.
+    """
     return S3_BUCKETS_BY_ACCOUNT_ID["archive_analysis"][get_sts_client().get_caller_identity()['Account']]
 
 def get_restore_prefix_from_account_id():
+    """Get the S3 prefix for restored files in the current AWS account.
+
+    Returns:
+        The S3 key prefix for restored files.
+    """
     return S3_PREFIXES_BY_ACCOUNT_ID["restore"][get_sts_client().get_caller_identity()['Account']]
 
 def get_analysis_cache_prefix_from_account_id():
+    """Get the S3 prefix for analysis cache in the current AWS account.
+
+    Returns:
+        The S3 key prefix for analysis cache files.
+    """
     return S3_PREFIXES_BY_ACCOUNT_ID["analysis"][get_sts_client().get_caller_identity()['Account']]
 
 def update_ingest_id(s3_object_id: str, new_ingest_id: str) -> Dict:
+    """Update the ingest ID for an S3 object in the File Manager.
+
+    Args:
+        s3_object_id: The File Manager S3 object ID.
+        new_ingest_id: The new ingest ID to assign.
+
+    Returns:
+        The API response dict.
+    """
     json_data = {
         'ingestId': [
             {

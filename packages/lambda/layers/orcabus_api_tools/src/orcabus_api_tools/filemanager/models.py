@@ -1,14 +1,9 @@
-from typing import (
-    Optional,
-    TypedDict,
-    Dict,
-    Literal,
-    NotRequired,
-    Any
-)
+"""File Manager service data models.
 
-"""
-Example File Object response
+Defines TypedDict models for S3 file objects tracked by the File Manager,
+including storage class types, event types, and query parameters.
+
+Example File Object response:
     {
       "attributes": null,
       "bucket": "string",
@@ -32,6 +27,15 @@ Example File Object response
       "versionId": "string"
     }
 """
+
+from typing import (
+    Optional,
+    TypedDict,
+    Dict,
+    Literal,
+    NotRequired,
+    Any
+)
 
 StorageClassType = Literal[
     "Standard",
@@ -79,6 +83,8 @@ ArchiveStatusType = Literal[
 
 
 class FileQueryParameters(TypedDict):
+    """Query parameters for filtering file objects in the File Manager."""
+
     caseSensitive: NotRequired[bool]
     currentState: NotRequired[bool]
     eventType: NotRequired[EventType]
@@ -100,6 +106,8 @@ class FileQueryParameters(TypedDict):
 
 
 class FileObject(TypedDict):
+    """File object representing an S3 object tracked by the File Manager service."""
+
     # Identifier
     s3ObjectId: str
 

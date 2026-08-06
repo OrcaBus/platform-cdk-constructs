@@ -1,3 +1,5 @@
+"""File Manager service toolkit for querying and managing S3 file objects in OrcaBus."""
+
 # Standard
 from typing import Dict, Optional, Union, List
 
@@ -7,10 +9,13 @@ from ..utils.requests_helpers import get_request_response_results, get_url, get_
 
 
 def get_file_manager_url(endpoint: str) -> str:
-    """
-    Get trhe URL for the File Manager endpoint
-    :param endpoint:
-    :return:
+    """Get the URL for the File Manager service endpoint.
+
+    Args:
+        endpoint: The API endpoint path.
+
+    Returns:
+        The fully qualified URL for the endpoint.
     """
     return get_url(
         endpoint=endpoint,
@@ -22,7 +27,16 @@ def get_file_manager_request_response_results(
         endpoint: str,
         params: Optional[Dict] = None,
 ):
-        return get_request_response_results(
+    """Execute a paginated GET request to the File Manager service.
+
+    Args:
+        endpoint: The API endpoint path.
+        params: Optional query parameters.
+
+    Returns:
+        A list of all results across all pages.
+    """
+    return get_request_response_results(
             url=get_file_manager_url(endpoint),
             params=params
         )
@@ -32,6 +46,15 @@ def get_file_manager_request(
         endpoint: str,
         params: Optional[Dict] = None,
 ):
+    """Execute an authenticated GET request to the File Manager service.
+
+    Args:
+        endpoint: The API endpoint path.
+        params: Optional query parameters.
+
+    Returns:
+        The parsed JSON response.
+    """
     return get_request(
         get_file_manager_url(endpoint),
         params=params
@@ -43,6 +66,16 @@ def file_manager_patch_request(
         json_data: Optional[Union[Dict, List]] = None,
         params: Optional[Dict] = None
 ):
+    """Execute an authenticated PATCH request to the File Manager service.
+
+    Args:
+        endpoint: The API endpoint path.
+        json_data: Optional JSON body data.
+        params: Optional query parameters.
+
+    Returns:
+        The parsed JSON response.
+    """
     return patch_request(
         get_file_manager_url(endpoint),
         json_data=json_data,
@@ -55,6 +88,16 @@ def file_manager_post_request(
         json_data: Optional[Union[Dict, List]] = None,
         params: Optional[Dict] = None
 ):
+    """Execute an authenticated POST request to the File Manager service.
+
+    Args:
+        endpoint: The API endpoint path.
+        json_data: Optional JSON body data.
+        params: Optional query parameters.
+
+    Returns:
+        The parsed JSON response.
+    """
     return post_request(
         get_file_manager_url(endpoint),
         json_data=json_data,
