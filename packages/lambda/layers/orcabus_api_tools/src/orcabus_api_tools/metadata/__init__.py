@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
-from functools import reduce
+
+"""
+Metadata helpers
+"""
+
+# Standard imports
 from itertools import batched
 from operator import concat
-# Standard imports
+from functools import reduce
 from typing import Dict, List, Any
 from urllib.error import HTTPError
 

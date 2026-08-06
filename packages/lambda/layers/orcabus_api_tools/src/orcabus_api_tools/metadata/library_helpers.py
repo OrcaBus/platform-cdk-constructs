@@ -1,14 +1,18 @@
 #!/usr/bin/env python
+"""Helper functions for querying and resolving library metadata from the OrcaBus metadata service."""
+
+# Standard imports
 from functools import reduce
 from operator import concat
 from typing import Union, List
-
 from requests import HTTPError
 
+# Local imports
 from .globals import LIBRARY_ENDPOINT, ORCABUS_ULID_REGEX_MATCH
 from .models import Library, Subject, Contact, Project
 from . import (
-    get_metadata_request_response_results, get_item_objs_from_item_id_list
+    get_metadata_request_response_results,
+    get_item_objs_from_item_id_list
 )
 from .errors import LibraryNotFoundError
 
