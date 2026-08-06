@@ -12,8 +12,14 @@ from .models import Job, JobType
 
 
 def create_job(fastq_ids: List[str], job_type: Optional[JobType] = None) -> Job:
-    """
-    Create the job
+    """Create a new fastq unarchiving job to restore files from S3 Glacier.
+
+    Args:
+        fastq_ids: List of FASTQ identifiers to restore.
+        job_type: The type of unarchiving job. Defaults to 'S3_UNARCHIVING'.
+
+    Returns:
+        The created Job object with its assigned ID and initial status.
     """
     if job_type is None:
         job_type = 'S3_UNARCHIVING'

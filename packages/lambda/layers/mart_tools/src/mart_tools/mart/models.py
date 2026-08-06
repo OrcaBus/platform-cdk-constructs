@@ -1,8 +1,18 @@
 #!/usr/bin/env python
 
+"""
+Data type models for Athena-to-Pandas type mapping.
+
+Provides enumerations for Athena DML data types and their corresponding
+pandas dtype equivalents, plus a mapping dictionary for type coercion
+when reading Athena query results into DataFrames.
+"""
+
 from enum import Enum
 
+
 class AthenaDMLTypes(Enum):
+    """Enumeration of Athena DML data types as defined in the AWS documentation."""
     # https://docs.aws.amazon.com/athena/latest/ug/data-types.html
     BOOLEAN = 'boolean'
     TINYINT = 'tinyint'
@@ -29,6 +39,7 @@ class AthenaDMLTypes(Enum):
 
 
 class PandasDtypes(Enum):
+    """Enumeration of pandas dtype strings used for Athena result type coercion."""
     # https://numpy.org/doc/stable/reference/arrays.dtypes.html
 
     # https://pandas.pydata.org/pandas-docs/stable/user_guide/basics.html#dtypes

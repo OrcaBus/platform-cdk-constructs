@@ -30,6 +30,7 @@ JobStatusType = Literal[
 ]
 
 class Job(TypedDict):
+    """Unarchiving job object representing the state of an S3 restore task."""
     id: str
     jobType: JobType
     stepsExecutionArn: str
@@ -40,6 +41,7 @@ class Job(TypedDict):
 
 
 class JobQueryParameters(TypedDict):
+    """Query parameters for filtering unarchiving jobs."""
     fastqId: NotRequired[str]
     status: NotRequired[JobStatusType]
     createdAfter: NotRequired[str]

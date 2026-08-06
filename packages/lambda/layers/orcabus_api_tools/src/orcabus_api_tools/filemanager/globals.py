@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Global constants for the File Manager service, including endpoints and bucket/prefix mappings."""
 
 # AWS PARAMETERS
 FILEMANAGER_SUBDOMAIN_NAME = "file"

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Global constants for the metadata service, including subdomain name, API endpoints, and regex patterns."""
 
 import re
 

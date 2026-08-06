@@ -12,10 +12,13 @@ from .globals import DEPLOY_STATUS_SUBDOMAIN_NAME
 
 
 def get_deploy_status_endpoint(endpoint: str) -> str:
-    """
-    Get the URL for the Metadata endpoint
-    :param endpoint:
-    :return:
+    """Get the URL for the deploy status service endpoint.
+
+    Args:
+        endpoint: The API endpoint path.
+
+    Returns:
+        The fully qualified URL for the endpoint.
     """
     return get_url(
         endpoint,

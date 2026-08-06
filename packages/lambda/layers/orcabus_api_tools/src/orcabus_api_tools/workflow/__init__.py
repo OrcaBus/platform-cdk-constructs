@@ -1,15 +1,26 @@
 #!/usr/bin/env python3
+
+
+"""
+Workflow Manager toolkit
+"""
+
+# Standard imports
 from typing import Optional, Dict
 
-from orcabus_api_tools.utils.requests_helpers import get_url, get_request_response_results, get_request, post_request
-from orcabus_api_tools.workflow.globals import WORKFLOW_SUBDOMAIN_NAME
+# Relative imports
+from ..utils.requests_helpers import get_url, get_request_response_results, get_request, post_request
+from .globals import WORKFLOW_SUBDOMAIN_NAME
 
 
 def get_workflow_url(endpoint: str) -> str:
-    """
-    Get the URL for the Metadata endpoint
-    :param endpoint:
-    :return:
+    """Get the URL for the workflow manager service endpoint.
+
+    Args:
+        endpoint: The API endpoint path.
+
+    Returns:
+        The fully qualified URL for the endpoint.
     """
     return get_url(
         endpoint,
@@ -21,6 +32,15 @@ def get_workflow_request(
         endpoint: str,
         params: Optional[Dict] = None,
 ):
+    """Execute an authenticated GET request to the workflow manager service.
+
+    Args:
+        endpoint: The API endpoint path.
+        params: Optional query parameters.
+
+    Returns:
+        The parsed JSON response.
+    """
     return get_request(get_workflow_url(endpoint), params=params)
 
 
@@ -28,6 +48,15 @@ def get_workflow_request_response_results(
         endpoint: str,
         params: Optional[Dict] = None,
 ):
+    """Execute a paginated GET request to the workflow manager service.
+
+    Args:
+        endpoint: The API endpoint path.
+        params: Optional query parameters.
+
+    Returns:
+        A list of all results across all pages.
+    """
     return get_request_response_results(get_workflow_url(endpoint), params=params)
 
 
@@ -36,6 +65,16 @@ def post_workflow_request(
         json_data: dict | None = None,
         params: dict | None = None,
 ):
+    """Execute an authenticated POST request to the workflow manager service.
+
+    Args:
+        endpoint: The API endpoint path.
+        json_data: Optional JSON body data.
+        params: Optional query parameters.
+
+    Returns:
+        The parsed JSON response.
+    """
     return post_request(
         get_workflow_url(endpoint),
         params=params,

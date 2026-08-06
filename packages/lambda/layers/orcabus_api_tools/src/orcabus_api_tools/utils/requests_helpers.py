@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+"""HTTP request helper functions for authenticated OrcaBus API interactions.
+
+Provides GET, PATCH, and POST request wrappers that automatically handle
+Bearer token authentication, pagination, and error handling.
+"""
+
 # Standard imports
 import json
 import requests
@@ -105,6 +111,18 @@ def get_request_response_results(url: str, params: Optional[Dict] = None) -> Lis
 
 
 def get_request(url: str, params: Optional[Dict] = None) -> Union[Dict, List]:
+    """Execute an authenticated GET request and return the JSON response.
+
+    Args:
+        url: The full URL to request.
+        params: Optional query parameters.
+
+    Returns:
+        The parsed JSON response as a Dict or List.
+
+    Raises:
+        HTTPError: If the response status code indicates an error.
+    """
     # Get authorization header
     headers = {
         "Authorization": f"Bearer {get_orcabus_token()}"
@@ -120,7 +138,11 @@ def get_request(url: str, params: Optional[Dict] = None) -> Union[Dict, List]:
     try:
         response.raise_for_status()
     except HTTPError as e:
-        raise HTTPError(f"Error {e} - {response.text}") from e
+        raise HTTPError(
+            f"Error {e} - {response.text}",
+            response=e.response,
+            request=e.request,
+        ) from e
 
     return response.json()
 
@@ -130,6 +152,19 @@ def patch_request(
         json_data: Optional[Union[Dict, List]] = None,
         params: Optional[Union[List | Dict]] = None
 ) -> Dict:
+    """Execute an authenticated PATCH request and return the JSON response.
+
+    Args:
+        url: The full URL to send the PATCH request to.
+        json_data: Optional JSON body data.
+        params: Optional query parameters.
+
+    Returns:
+        The parsed JSON response as a Dict.
+
+    Raises:
+        HTTPError: If the response status code indicates an error.
+    """
     # Get authorization header
     headers = {
         "Authorization": f"Bearer {get_orcabus_token()}"

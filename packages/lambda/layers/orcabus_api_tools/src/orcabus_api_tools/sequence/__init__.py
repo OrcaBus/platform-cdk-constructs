@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Sequence service toolkit for querying instrument runs, libraries, and sample sheets."""
+
 # Standard imports
 from io import BufferedReader
 from typing import Dict, Optional, Tuple
@@ -31,6 +33,15 @@ def get_sequence_request(
         endpoint: str,
         params: Optional[Dict] = None,
 ):
+    """Execute an authenticated GET request to the sequence service.
+
+    Args:
+        endpoint: The API endpoint path.
+        params: Optional query parameters.
+
+    Returns:
+        The parsed JSON response.
+    """
     return get_request(get_sequence_url(endpoint), params=params)
 
 
@@ -38,6 +49,15 @@ def get_sequence_request_response_results(
         endpoint: str,
         params: Optional[Dict] = None,
 ):
+    """Execute a paginated GET request to the sequence service.
+
+    Args:
+        endpoint: The API endpoint path.
+        params: Optional query parameters.
+
+    Returns:
+        A list of all results across all pages.
+    """
     return get_request_response_results(get_sequence_url(endpoint), params=params)
 
 

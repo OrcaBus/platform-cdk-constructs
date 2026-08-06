@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+"""AWS helper functions for OrcaBus API authentication and parameter retrieval.
+
+Provides cached access to SSM parameters and Secrets Manager secrets using
+the AWS Parameters and Secrets Lambda Extension, with fallback to direct
+boto3 API calls.
+"""
+
 # Standard imports
 import typing
 from typing import Optional
@@ -25,6 +32,15 @@ PARAMETER_URL = '/systemsmanager/parameters/get/'
 SECRETS_URL = '/secretsmanager/get/'
 
 def retrieve_extension_value(url, query):
+    """Retrieve a value from the AWS Parameters and Secrets Lambda Extension cache.
+
+    Args:
+        url: The extension endpoint path.
+        query: Dictionary of query parameters.
+
+    Returns:
+        The parsed JSON response from the extension.
+    """
     url = str(urlunparse((
         'http', f'localhost:{LOCAL_HTTP_CACHE_PORT}',
         url, None,
@@ -42,6 +58,14 @@ def retrieve_extension_value(url, query):
 
 
 def get_ssm_value_from_cache(parameter_name: str) -> Optional[str]:
+    """Attempt to retrieve an SSM parameter from the Lambda extension cache.
+
+    Args:
+        parameter_name: The full SSM parameter name.
+
+    Returns:
+        The parameter value if cached, None otherwise.
+    """
     try:
         return retrieve_extension_value(
             PARAMETER_URL,
@@ -56,6 +80,14 @@ def get_ssm_value_from_cache(parameter_name: str) -> Optional[str]:
 
 
 def get_secret_value_from_cache(secret_id: str) -> Optional[str]:
+    """Attempt to retrieve a secret from the Lambda extension cache.
+
+    Args:
+        secret_id: The Secrets Manager secret identifier.
+
+    Returns:
+        The secret string value if cached, None otherwise.
+    """
     try:
         return retrieve_extension_value(
             SECRETS_URL,
@@ -69,10 +101,20 @@ def get_secret_value_from_cache(secret_id: str) -> Optional[str]:
         return None
 
 def get_secretsmanager_client() -> 'SecretsManagerClient':
+    """Create and return a boto3 Secrets Manager client.
+
+    Returns:
+        A boto3 SecretsManagerClient instance.
+    """
     return boto3.client('secretsmanager')
 
 
 def get_ssm_client() -> 'SSMClient':
+    """Create and return a boto3 SSM client.
+
+    Returns:
+        A boto3 SSMClient instance.
+    """
     return boto3.client('ssm')
 
 
@@ -126,6 +168,14 @@ def get_orcabus_token() -> str:
 
 
 def get_hostname() -> str:
+    """Retrieve the OrcaBus API hostname from SSM parameters.
+
+    Uses module-level caching to avoid repeated SSM lookups on the same
+    Lambda invocation.
+
+    Returns:
+        The OrcaBus API hostname string.
+    """
     global HOSTNAME
 
     if HOSTNAME is None:

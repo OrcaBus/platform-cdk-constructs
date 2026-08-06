@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Fastq unarchiving service toolkit for managing S3 Glacier restore jobs."""
+
 # Standard imports
 from typing import Dict, Optional
 
@@ -15,10 +17,13 @@ from ..utils.requests_helpers import (
 
 # Get url for the subdomain
 def get_fastq_unarchiving_url(endpoint: str) -> str:
-    """
-    Get the URL for the Metadata endpoint
-    :param endpoint:
-    :return:
+    """Get the full URL for the fastq unarchiving service endpoint.
+
+    Args:
+        endpoint: The API endpoint path.
+
+    Returns:
+        The full URL for the fastq unarchiving service.
     """
     return get_url(
         endpoint=endpoint,
@@ -31,6 +36,15 @@ def get_fastq_unarchiving_request(
         endpoint: str,
         params: Optional[Dict] = None,
 ):
+    """Execute an authenticated GET request to the fastq unarchiving service.
+
+    Args:
+        endpoint: The API endpoint path.
+        params: Optional query parameters.
+
+    Returns:
+        The parsed JSON response.
+    """
     return get_request(
         url=get_fastq_unarchiving_url(endpoint),
         params=params
@@ -41,6 +55,15 @@ def get_fastq_unarchiving_request_response_results(
         endpoint: str,
         params: Optional[Dict] = None,
 ):
+    """Execute a paginated GET request to the fastq unarchiving service.
+
+    Args:
+        endpoint: The API endpoint path.
+        params: Optional query parameters.
+
+    Returns:
+        A list of all results across all pages.
+    """
     return get_request_response_results(
         url=get_fastq_unarchiving_url(endpoint),
         params=params
@@ -51,6 +74,15 @@ def fastq_unarchiving_patch_request(
     endpoint: str,
     json_data: Optional[Dict] = None,
 ):
+    """Execute an authenticated PATCH request to the fastq unarchiving service.
+
+    Args:
+        endpoint: The API endpoint path.
+        json_data: Optional JSON body data.
+
+    Returns:
+        The parsed JSON response.
+    """
     return patch_request(
         url=get_fastq_unarchiving_url(endpoint),
         json_data=json_data
@@ -61,6 +93,15 @@ def fastq_unarchiving_post_request(
     endpoint: str,
     json_data: Optional[Dict] = None,
 ):
+    """Execute an authenticated POST request to the fastq unarchiving service.
+
+    Args:
+        endpoint: The API endpoint path.
+        json_data: Optional JSON body data.
+
+    Returns:
+        The parsed JSON response.
+    """
     return post_request(
         url=get_fastq_unarchiving_url(endpoint),
         json_data=json_data

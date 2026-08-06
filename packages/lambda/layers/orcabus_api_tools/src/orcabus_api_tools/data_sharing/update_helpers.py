@@ -1,3 +1,5 @@
+"""Update helpers for the data sharing service."""
+
 from typing import Unpack
 
 from . import data_sharing_patch_request
@@ -9,11 +11,17 @@ def update_package_status(
         package_id: str,
         **kwargs: Unpack[JobPatchParameters]
 ) -> PackageObjectDict:
-    """
-    Add QC stats to a fastq_id.
+    """Update the status of a data sharing package.
 
-    :param package_id: The package id
-    :param kwargs: JobPatchParameters to update the package with.
+    Args:
+        package_id: The package identifier.
+        **kwargs: Update parameters matching JobPatchParameters TypedDict.
+
+    Returns:
+        The updated PackageObjectDict.
+
+    Raises:
+        ValueError: If any parameter key is not in JobPatchParameters.
     """
     # Raise error if any of the kwargs are not in the FastqListRowQueryParameters
     for key in kwargs.keys():
@@ -33,12 +41,14 @@ def update_push_job_status(
         push_job_id: str,
         **kwargs: Unpack[JobPatchParameters]
 ) -> PushJobObjectDict:
-    """
-    Add push job status to a push job.
+    """Update the status of a push job.
 
-    :param push_job_id: The push job id
-    :param push_job_status: The push job status to set
-    :param error_message: Optional error message
+    Args:
+        push_job_id: The push job identifier.
+        **kwargs: Update parameters matching JobPatchParameters TypedDict.
+
+    Returns:
+        The updated PushJobObjectDict.
     """
     return data_sharing_patch_request(
         f"{PUSH_ENDPOINT}/{push_job_id}",

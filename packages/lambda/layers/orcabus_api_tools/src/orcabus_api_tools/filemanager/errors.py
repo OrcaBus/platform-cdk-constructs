@@ -1,8 +1,12 @@
+"""Custom exception classes for the File Manager service."""
+
 # Imports
 from typing import Optional
 
 
 class S3FileNotFoundError(Exception):
+    """Raised when a file cannot be found in the File Manager by ID, URI, or ingest ID."""
+
     def __init__(
             self,
             s3_object_id: Optional[str] = None,
@@ -24,6 +28,8 @@ class S3FileNotFoundError(Exception):
 
 
 class S3DuplicateFileCopyError(Exception):
+    """Raised when multiple file copies are found for the same identifier."""
+
     def __init__(
             self,
             s3_object_id: Optional[str] = None,

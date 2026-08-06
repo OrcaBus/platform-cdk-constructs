@@ -1,8 +1,11 @@
-# SampleNotFoundError
+"""Custom exception classes for the metadata service, raised when entities cannot be found."""
+
 from typing import Optional
 
 
 class SampleNotFoundError(Exception):
+    """Raised when a sample cannot be found by ID or OrcaBus ID."""
+
     def __init__(
             self,
             sample_id: Optional[str] = None,
@@ -20,6 +23,8 @@ class SampleNotFoundError(Exception):
 
 
 class SubjectNotFoundError(Exception):
+    """Raised when a subject cannot be found by ID or OrcaBus ID."""
+
     def __init__(
             self,
             subject_id: Optional[str] = None,
@@ -37,6 +42,8 @@ class SubjectNotFoundError(Exception):
 
 
 class ProjectNotFoundError(Exception):
+    """Raised when a project cannot be found by ID or OrcaBus ID."""
+
     def __init__(
             self,
             project_id: Optional[str] = None,
@@ -54,6 +61,8 @@ class ProjectNotFoundError(Exception):
 
 
 class IndividualNotFoundError(Exception):
+    """Raised when an individual cannot be found by ID or OrcaBus ID."""
+
     def __init__(
             self,
             individual_id: Optional[str] = None,
@@ -71,6 +80,8 @@ class IndividualNotFoundError(Exception):
 
 
 class LibraryNotFoundError(Exception):
+    """Raised when a library cannot be found by ID or OrcaBus ID."""
+
     def __init__(
             self,
             library_id: Optional[str] = None,
@@ -88,6 +99,8 @@ class LibraryNotFoundError(Exception):
 
 
 class ContactNotFoundError(Exception):
+    """Raised when a contact cannot be found by ID or OrcaBus ID."""
+
     def __init__(
             self,
             contact_id: Optional[str] = None,

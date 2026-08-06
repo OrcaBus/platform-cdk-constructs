@@ -1,15 +1,8 @@
 #!/usr/bin/env python3
 
-"""
-Update helpers for the update script.
+"""Create helpers for the FASTQ service.
 
-- add_qc_stats
-- add_read_count
-- add_ntsm_storage_object / add_ntsm
-- add_fastq_pair_storage_object / add_read_set
-- detach_fastq_pair_storage_object / detach_read_set
-- validate
-- invalidate
+Functions for creating new FASTQ records and FASTQ sets via the FASTQ API.
 """
 
 # Standard imports

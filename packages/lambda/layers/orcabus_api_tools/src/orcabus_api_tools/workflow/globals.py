@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+"""
+Workflow manager globals
+"""
+
 # Run name for sequence run manager
 WORKFLOW_SUBDOMAIN_NAME = 'workflow'
 

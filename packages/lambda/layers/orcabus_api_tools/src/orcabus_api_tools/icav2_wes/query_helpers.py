@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Query helpers for the ICAv2 WES service."""
+
 from . import get_icav2_wes_request_response_results
 from .globals import ANALYSES_ENDPOINT
 from .models import WESResponse

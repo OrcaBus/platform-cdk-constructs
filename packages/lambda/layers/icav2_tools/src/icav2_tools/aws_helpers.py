@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""AWS helper functions for ICAv2 tools, providing access to SSM parameters, Secrets Manager,
+and ICAv2 storage configurations."""
 
 # Standard imports
 import typing
@@ -34,6 +36,15 @@ SECRETS_URL = '/secretsmanager/get/'
 
 
 def retrieve_extension_value(url, query):
+    """Retrieve a value from the AWS Parameters and Secrets Lambda Extension cache.
+
+    Args:
+        url: The extension endpoint path (e.g., '/systemsmanager/parameters/get/').
+        query: Dictionary of query parameters to pass to the extension.
+
+    Returns:
+        The parsed JSON response from the extension.
+    """
     url = str(urlunparse((
         'http',
         f'localhost:{LOCAL_HTTP_CACHE_PORT}',
@@ -52,6 +63,14 @@ def retrieve_extension_value(url, query):
 
 
 def get_ssm_value_from_cache(parameter_name: str) -> Optional[str]:
+    """Attempt to retrieve an SSM parameter value from the Lambda extension cache.
+
+    Args:
+        parameter_name: The full SSM parameter name.
+
+    Returns:
+        The parameter value if found in cache, None otherwise.
+    """
     try:
         return retrieve_extension_value(
             PARAMETER_URL,
@@ -66,6 +85,14 @@ def get_ssm_value_from_cache(parameter_name: str) -> Optional[str]:
 
 
 def get_ssm_list_from_cache(path: str) -> Optional[List[str]]:
+    """Attempt to retrieve SSM parameters by path from the Lambda extension cache.
+
+    Args:
+        path: The SSM parameter path to query.
+
+    Returns:
+        The parameters response if found in cache, None otherwise.
+    """
     try:
         return retrieve_extension_value(
             PARAMETER_URL,
@@ -81,6 +108,14 @@ def get_ssm_list_from_cache(path: str) -> Optional[List[str]]:
 
 
 def get_secret_value_from_cache(secret_id: str) -> Optional[str]:
+    """Attempt to retrieve a secret value from the Lambda extension cache.
+
+    Args:
+        secret_id: The Secrets Manager secret identifier.
+
+    Returns:
+        The secret string value if found in cache, None otherwise.
+    """
     try:
         return retrieve_extension_value(
             SECRETS_URL,
@@ -94,10 +129,20 @@ def get_secret_value_from_cache(secret_id: str) -> Optional[str]:
         return None
 
 def get_secretsmanager_client() -> 'SecretsManagerClient':
+    """Create and return a boto3 Secrets Manager client.
+
+    Returns:
+        A boto3 SecretsManagerClient instance.
+    """
     return boto3.client('secretsmanager')
 
 
 def get_ssm_client() -> 'SSMClient':
+    """Create and return a boto3 SSM client.
+
+    Returns:
+        A boto3 SSMClient instance.
+    """
     return boto3.client('ssm')
 
 
@@ -193,6 +238,12 @@ def get_storage_configuration_list() -> List['StorageConfigurationObjectModel']:
 
 
 def get_project_to_storage_configuration_list() -> List['ProjectToStorageMappingDictModel']:
+    """Retrieve the project-to-storage-configuration mapping list from SSM parameters.
+
+    Returns:
+        List of ProjectToStorageMappingDictModel objects mapping projects to their
+        storage configurations.
+    """
     # Get the ssm parameter list
     project_to_storage_ssm_parameter_list = get_ssm_parameters_list_by_path(str(PROJECT_TO_STORAGE_CONFIGURATION_SSM_PATH) + "/")
 
@@ -206,6 +257,11 @@ def get_project_to_storage_configuration_list() -> List['ProjectToStorageMapping
 
 
 def get_storage_credential_list() -> List['StorageCredentialMappingModel']:
+    """Retrieve the storage credential list from SSM parameters.
+
+    Returns:
+        List of StorageCredentialMappingModel objects containing storage credentials.
+    """
     # Get the ssm parameter list
     storage_credential_ssm_parameter_list = get_ssm_parameters_list_by_path(str(STORAGE_CREDENTIALS_SSM_PATH) + "/")
 

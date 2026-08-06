@@ -1,16 +1,6 @@
 #!/usr/bin/env python3
 
-"""
-Update helpers for the update script.
-
-- add_qc_stats
-- add_read_count
-- add_ntsm_storage_object / add_ntsm
-- add_fastq_pair_storage_object / add_read_set
-- detach_fastq_pair_storage_object / detach_read_set
-- validate
-- invalidate
-"""
+"""Update helpers for the fastq unarchiving service."""
 
 # Standard imports
 from typing import Optional
@@ -26,12 +16,15 @@ def update_status(
         job_status: JobStatusType,
         error_message: Optional[str] = None
 ) -> Job:
-    """
-    Add QC stats to a fastq_id.
+    """Update the status of an unarchiving job.
 
-    :param job_id: The job id
-    :param job_status: Dictionary of QC stats
-    :param error_message: Optional error message
+    Args:
+        job_id: The unique identifier of the job to update.
+        job_status: The new status to set.
+        error_message: Optional error message if the job failed.
+
+    Returns:
+        The updated Job object.
     """
     return fastq_unarchiving_patch_request(
         f"{JOB_ENDPOINT}/{job_id}",

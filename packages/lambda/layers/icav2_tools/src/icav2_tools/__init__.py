@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+"""ICAv2 tools for managing storage configurations, credentials, and environment variables
+for Illumina Connected Analytics v2 integration."""
 
 # Standard imports
 from os import environ
@@ -25,6 +27,11 @@ STORAGE_CREDENTIAL_FILE = None
 
 
 def create_storage_configuration_file() -> Path:
+    """Create a temporary YAML file containing the storage configuration list from SSM parameters.
+
+    Returns:
+        Path to the created temporary YAML file.
+    """
     storage_configuration_file = Path(NamedTemporaryFile(
         delete=False,
         prefix='storage-configuration',
@@ -40,6 +47,14 @@ def create_storage_configuration_file() -> Path:
 
 
 def get_storage_configuration_file() -> Path:
+    """Get or create the cached storage configuration file.
+
+    Uses module-level caching to avoid recreating the file on subsequent Lambda
+    invocations.
+
+    Returns:
+        Path to the storage configuration YAML file.
+    """
     global STORAGE_CONFIGURATION_FILE
     if STORAGE_CONFIGURATION_FILE is None:
         STORAGE_CONFIGURATION_FILE = create_storage_configuration_file()
@@ -47,6 +62,12 @@ def get_storage_configuration_file() -> Path:
 
 
 def create_project_to_storage_configuration_mapping_file() -> Path:
+    """Create a temporary YAML file containing the project-to-storage-configuration mapping
+    from SSM parameters.
+
+    Returns:
+        Path to the created temporary YAML file.
+    """
     project_to_storage_configuration_file = Path(NamedTemporaryFile(
         delete=False,
         prefix='project-to-storage-configuration',
@@ -62,6 +83,14 @@ def create_project_to_storage_configuration_mapping_file() -> Path:
 
 
 def get_project_to_storage_configuration_mapping_file() -> Path:
+    """Get or create the cached project-to-storage-configuration mapping file.
+
+    Uses module-level caching to avoid recreating the file on subsequent Lambda
+    invocations.
+
+    Returns:
+        Path to the project-to-storage-configuration YAML file.
+    """
     global PROJECT_TO_STORAGE_CONFIGURATION_MAPPING_FILE
     if PROJECT_TO_STORAGE_CONFIGURATION_MAPPING_FILE is None:
         PROJECT_TO_STORAGE_CONFIGURATION_MAPPING_FILE = create_project_to_storage_configuration_mapping_file()
@@ -69,6 +98,11 @@ def get_project_to_storage_configuration_mapping_file() -> Path:
 
 
 def create_storage_credential_file() -> Path:
+    """Create a temporary YAML file containing the storage credential list from SSM parameters.
+
+    Returns:
+        Path to the created temporary YAML file.
+    """
     storage_credential_file = Path(NamedTemporaryFile(
         delete=False,
         prefix='storage-credential',
@@ -84,6 +118,14 @@ def create_storage_credential_file() -> Path:
 
 
 def get_storage_credential_file() -> Path:
+    """Get or create the cached storage credential file.
+
+    Uses module-level caching to avoid recreating the file on subsequent Lambda
+    invocations.
+
+    Returns:
+        Path to the storage credential YAML file.
+    """
     global STORAGE_CREDENTIAL_FILE
     if STORAGE_CREDENTIAL_FILE is None:
         STORAGE_CREDENTIAL_FILE = create_storage_credential_file()

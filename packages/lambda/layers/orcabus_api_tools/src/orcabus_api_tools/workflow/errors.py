@@ -1,7 +1,11 @@
+"""Custom exception classes for the workflow manager service."""
+
 from typing import Optional
 
 
 class WorkflowRunNotFoundError(Exception):
+    """Raised when a workflow run cannot be found by ID or portal run ID."""
+
     def __init__(
             self,
             workflow_run_id: Optional[str] = None,
@@ -19,6 +23,8 @@ class WorkflowRunNotFoundError(Exception):
 
 
 class WorkflowRunStateNotFoundError(Exception):
+    """Raised when a workflow run state cannot be found."""
+
     def __init__(
             self,
             workflow_run_id: Optional[str] = None,
