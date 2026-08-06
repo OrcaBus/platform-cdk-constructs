@@ -10,7 +10,7 @@ import random
 from typing import Optional
 
 # Local imports
-from orcabus_api_tools.workflow.globals import WORKFLOW_RUN_PREFIX
+from .globals import WORKFLOW_RUN_PREFIX
 
 
 def generate_rand_hex_string(length: int = 8) -> str:

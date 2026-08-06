@@ -95,7 +95,7 @@ def data_sharing_post_request(
     Returns:
         The parsed JSON response.
     """
-    return patch_request(url=get_data_sharing_url(endpoint), json_data=json_data)
+    return post_request(url=get_data_sharing_url(endpoint), json_data=json_data)
 
 
 # Models

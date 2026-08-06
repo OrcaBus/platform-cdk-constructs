@@ -9,7 +9,7 @@ from itertools import batched
 from operator import concat
 from functools import reduce
 from typing import Dict, List, Any
-from urllib.error import HTTPError
+from requests import HTTPError
 
 # Util imports
 from ..utils.requests_helpers import (

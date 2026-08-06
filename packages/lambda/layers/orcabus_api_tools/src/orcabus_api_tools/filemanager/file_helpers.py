@@ -357,7 +357,7 @@ def get_presigned_urls_from_ingest_ids(ingest_ids: List[str]) -> List[Dict[str, 
     Returns:
         A list of dicts with 'ingestId' and 'presignedUrl' keys.
     """
-    # Split by groups of 100
+    # Split by groups of 20
     ingest_id_batches = batched(ingest_ids, 20)
 
     presigned_url_list: List[str] = list(reduce(
