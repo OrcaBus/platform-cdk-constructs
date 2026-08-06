@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "orcabus-pipeline-test-utils"
+version = "0.1.0"
+description = "Shared test utilities for OrcaBus Pipeline Orchestrator services"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [
+    { name = "OrcaBus Team" },
+]
+dependencies = [
+    "pytest>=7.4",
+    "moto[s3,ssm,secretsmanager,events,lambda]>=5.0",
+    "boto3>=1.34",
+    "docker>=7.0",
+    "jsonschema>=4.20",
+    "hypothesis>=6.0",
+]
+
+[project.entry-points.pytest11]
+orcabus_pipeline_test_utils = "orcabus_pipeline_test_utils.conftest_plugin"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/orcabus_pipeline_test_utils"]
