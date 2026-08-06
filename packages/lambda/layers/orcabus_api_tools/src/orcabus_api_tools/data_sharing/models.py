@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""TypedDict models for the data sharing service."""
+
 from typing import Literal, TypedDict, NotRequired, Union
 
 PackageStatusType = Literal[
@@ -20,6 +22,8 @@ PushJobStatusType = Literal[
 
 
 class PackageObjectDict(TypedDict):
+    """Data sharing package object with status and metadata."""
+
     id: str
     packageName: str
     stepsExecutionArn: str
@@ -30,6 +34,8 @@ class PackageObjectDict(TypedDict):
 
 
 class PushJobObjectDict(TypedDict):
+    """Push job object representing a data sharing transfer."""
+
     id: str
     stepFunctionsExecutionArn: str
     status: PushJobStatusType
@@ -42,5 +48,7 @@ class PushJobObjectDict(TypedDict):
 
 
 class JobPatchParameters(TypedDict):
+    """Parameters for updating a package or push job status."""
+
     status: Union[PackageStatusType, PushJobStatusType]
     errorMessage: NotRequired[str]

@@ -1,3 +1,5 @@
+"""Global constants for the data sharing service, including subdomain name and API endpoints."""
+
 # Imports
 import re
 
