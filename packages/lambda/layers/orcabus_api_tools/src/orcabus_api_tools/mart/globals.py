@@ -1,3 +1,5 @@
+"""Global constants for the mart module, defining environment variable names for Athena configuration."""
+
 # Globals
 # ATHENA
 WORKGROUP_ENV_VAR = 'ATHENA_WORKGROUP_NAME'

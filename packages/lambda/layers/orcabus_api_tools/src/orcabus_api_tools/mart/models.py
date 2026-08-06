@@ -1,8 +1,13 @@
 #!/usr/bin/env python
 
+"""Data type models for Athena-to-Pandas type mapping."""
+
 from enum import Enum
 
+
 class AthenaDMLTypes(Enum):
+    """Enumeration of Athena DML data types."""
+
     # https://docs.aws.amazon.com/athena/latest/ug/data-types.html
     BOOLEAN = 'boolean'
     TINYINT = 'tinyint'
@@ -29,6 +34,8 @@ class AthenaDMLTypes(Enum):
 
 
 class PandasDtypes(Enum):
+    """Enumeration of pandas dtype strings for Athena type coercion."""
+
     # https://numpy.org/doc/stable/reference/arrays.dtypes.html
 
     # https://pandas.pydata.org/pandas-docs/stable/user_guide/basics.html#dtypes
