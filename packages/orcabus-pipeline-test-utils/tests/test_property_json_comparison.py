@@ -14,7 +14,7 @@ from __future__ import annotations
 from hypothesis import given, settings, assume
 from hypothesis import strategies as st
 
-from orcabus_pipeline_test_utils.sfn_local.assertions import (
+from orcabus_pipeline_test_utils.assertions import (
     ANY_STRING_PLACEHOLDER,
     match_json,
 )
