@@ -1,7 +1,7 @@
 """OrcaBus Pipeline Test Utilities.
 
 Shared test utilities package for OrcaBus Pipeline Orchestrator services.
-Provides pytest fixtures, ASL validation, Step Functions Local test harness,
+Provides pytest fixtures, ASL validation, TestState API test harness,
 and post-deployment smoke test utilities.
 """
 
