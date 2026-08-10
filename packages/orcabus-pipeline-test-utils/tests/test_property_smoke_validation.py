@@ -19,7 +19,7 @@ from unittest.mock import MagicMock, patch
 import boto3
 from botocore.exceptions import ClientError
 from botocore.stub import Stubber
-from hypothesis import given, settings, assume
+from hypothesis import given, settings
 from hypothesis import strategies as st
 from moto import mock_aws
 

@@ -5,8 +5,6 @@ from __future__ import annotations
 from unittest.mock import MagicMock, patch
 
 import boto3
-import pytest
-from botocore.exceptions import ClientError
 from botocore.stub import Stubber
 
 from orcabus_pipeline_test_utils.smoke import SmokeTestResult
