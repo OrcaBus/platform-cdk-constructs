@@ -82,6 +82,7 @@ class TestStateClient:
         region_name: str = _DEFAULT_REGION,
         role_arn: str | None = None,
         session: boto3.Session | None = None,
+        client=None,
     ) -> None:
         """Initialise the TestState client.
 
@@ -89,11 +90,13 @@ class TestStateClient:
             region_name: AWS region for the Step Functions service.
             role_arn: Optional IAM role ARN. Not required when using mocks.
             session: Optional boto3 session. Creates a new one if not provided.
+            client: Optional pre-built boto3 stepfunctions client. If provided,
+                session is ignored for client creation.
         """
         self._region_name = region_name
         self._role_arn = role_arn
         self._session = session or boto3.Session(region_name=region_name)
-        self._client = self._session.client(
+        self._client = client or self._session.client(
             "stepfunctions", region_name=region_name
         )
 
