@@ -1,7 +1,7 @@
 # orcabus-pipeline-test-utils
 
 Shared test utilities for OrcaBus Pipeline Orchestrator services. Provides pytest fixtures,
-ASL validation, a Step Functions Local Docker-based test harness, and post-deployment smoke
+ASL validation, a Step Functions TestState API test harness, and post-deployment smoke
 test utilities.
 
 ## Installation
@@ -22,7 +22,7 @@ Requires Python >= 3.12.
 |--------|---------|--------------|
 | `fixtures` | Moto-based AWS mocks, Lambda context, event builder | Pre-deployment (unit tests) |
 | `asl_validation` | Structural validation of ASL JSON definitions | Pre-deployment (unit tests) |
-| `sfn_local` | Docker-based Step Functions Local integration tests | Pre-deployment (integration tests) |
+| `sfn_teststate` | Step Functions TestState API integration tests | Pre-deployment (integration tests) |
 | `smoke` | Live resource verification (Lambda, SFN, SSM) | Post-deployment (smoke tests) |
 
 ## Pytest Plugin (auto-registered fixtures)
@@ -264,9 +264,8 @@ Error classification:
 
 ### Pre-deployment tests (unitAppTestConfig)
 
-SFN Local and ASL validation tests run in the pipeline's `unitAppTestConfig` CodeBuild
-step, which executes before CDK synth. Docker is available since CodeBuild runs with
-`privileged: true`.
+ASL validation and TestState API tests run in the pipeline's `unitAppTestConfig` CodeBuild
+step, which executes before CDK synth.
 
 ```typescript
 unitAppTestConfig: {
@@ -275,10 +274,7 @@ unitAppTestConfig: {
     'pip install -e "./app[test]"',
   ],
   command: [
-    'python -m orcabus_pipeline_test_utils.sfn_local.runner ' +
-      '--mock-config app/step-functions-templates/tests/mocks/ ' +
-      '--tests app/step-functions-templates/tests/ ' +
-      '--timeout 180',
+    'pytest app/step-functions-templates/tests/ -v --tb=short',
   ],
   partialBuildSpec: {
     phases: { install: { 'runtime-versions': { nodejs: '22.x', python: '3.14' } } },
