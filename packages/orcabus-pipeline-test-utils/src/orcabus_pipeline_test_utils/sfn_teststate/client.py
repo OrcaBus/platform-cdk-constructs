@@ -113,6 +113,7 @@ class TestStateClient:
         context: dict | None = None,
         state_configuration: dict | None = None,
         field_validation_mode: str | None = None,
+        variables: str | dict | None = None,
     ) -> TestStateResult:
         """Test a single state using the TestState API.
 
@@ -184,17 +185,23 @@ class TestStateClient:
                 mock_obj["result"] = mock_result
             if field_validation_mode is not None:
                 mock_obj["fieldValidationMode"] = field_validation_mode
-            kwargs["mock"] = json.dumps(mock_obj)
+            kwargs["mock"] = mock_obj
 
         if mock_error is not None:
             mock_obj = {"errorOutput": mock_error}
             if field_validation_mode is not None:
                 mock_obj["fieldValidationMode"] = field_validation_mode
-            kwargs["mock"] = json.dumps(mock_obj)
+            kwargs["mock"] = mock_obj
 
         # Add context if provided
         if context is not None:
             kwargs["context"] = json.dumps(context)
+        # Add variables if provided (for testing states that reference assigned variables)
+        if variables is not None:
+            if isinstance(variables, dict):
+                kwargs["variables"] = json.dumps(variables)
+            else:
+                kwargs["variables"] = variables
 
         # Add state configuration if provided
         if state_configuration is not None:
