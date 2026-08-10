@@ -63,5 +63,16 @@ def check_ssm_parameters_exist(
                     error_message=error_message,
                 )
             )
+        except Exception as exc:
+            # Catch non-ClientError exceptions (network timeouts, etc.)
+            results.append(
+                SmokeTestResult(
+                    resource_name=path,
+                    resource_type="ssm_parameter",
+                    passed=False,
+                    error_type="config",
+                    error_message=str(exc),
+                )
+            )
 
     return results
