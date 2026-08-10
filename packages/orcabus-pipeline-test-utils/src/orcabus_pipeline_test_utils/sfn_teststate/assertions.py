@@ -305,11 +305,15 @@ class PathAssertion:
 
     @property
     def states_visited(self) -> list[str]:
-        """Return the list of state names visited (from nextState of prior + first state)."""
-        # We can't get state names directly from TestStateResult since
-        # the API doesn't echo the state name. We track via the caller.
-        # This is a convenience for the terminal status.
-        return [r.next_state for r in self._results[:-1]] if self._results else []
+        """Return the list of state transitions from the execution path.
+
+        Note: The TestState API does not echo the state name in its response.
+        This property returns the `next_state` values from each result
+        (excluding the last), representing the transitions observed during
+        the path execution. Use `assert_step_count` for verifying the
+        number of states actually executed.
+        """
+        return [r.next_state for r in self._results[:-1] if r.next_state] if self._results else []
 
     @property
     def terminal_status(self) -> str:

@@ -101,152 +101,99 @@ Checks performed:
 
 ### Placeholder resolver
 
-Use `placeholder_resolver` to substitute CDK token placeholders (e.g. `${Token[...]}}`)
-in ASL definitions before validation:
+Use `placeholder_resolver` to substitute `${__xxx__}` placeholders in ASL template
+strings before parsing and validation:
 
 ```python
+import json
 from orcabus_pipeline_test_utils.asl_validation.placeholder_resolver import resolve_placeholders
 
-resolved_asl = resolve_placeholders(asl_with_tokens)
-result = validate_asl_definition(resolved_asl)
+with open("step-functions-templates/my_workflow.asl.json") as f:
+    raw_asl_content = f.read()
+
+resolved_content = resolve_placeholders(raw_asl_content)
+asl = json.loads(resolved_content)
+result = validate_asl_definition(asl)
 ```
 
 ### Reference checker
 
-Use `reference_checker` to verify that all Lambda ARN references in your ASL map to
-actual Lambda functions in your CDK stack:
+Use `reference_checker` to verify that all Lambda ARN placeholders in your ASL
+correspond to entries in your CDK lambda configuration map:
 
 ```python
 from orcabus_pipeline_test_utils.asl_validation.reference_checker import check_lambda_arn_references
 
-errors = check_lambda_arn_references(asl_definition, known_lambda_arns=["arn:aws:lambda:..."])
+cdk_lambda_config = {
+    "lambdas": {
+        "my_handler": {
+            "placeholder": "${__my_handler_lambda_function_arn__}",
+            "entry": "app/lambdas/my_handler_py",
+        },
+    }
+}
+
+errors = check_lambda_arn_references(asl_definition, cdk_lambda_config)
 assert errors == []
 ```
 
-## Step Functions Local (Docker integration tests)
+## Step Functions TestState API (integration tests)
 
-Runs your state machine definitions against the `amazon/aws-stepfunctions-local` Docker
-image with mocked Lambda responses. No AWS credentials required.
+Tests individual states in your Step Functions definitions using the AWS
+[TestState API](https://docs.aws.amazon.com/step-functions/latest/apireference/API_TestState.html).
+Supports mocked service integrations, chained state execution, and data flow assertions.
 
-### Prerequisites
-
-- Docker installed and running
-
-### MockConfigFile builder
-
-Build the mock configuration that tells SFN Local how to respond to Task states:
+### Testing a single state
 
 ```python
-from orcabus_pipeline_test_utils.sfn_local.mock_config import MockConfigBuilder
+from orcabus_pipeline_test_utils.sfn_teststate import TestStateClient, TestStateAssertion
 
-config = (
-    MockConfigBuilder()
-    .add_state_machine("DragenWgtsWorkflow")
-    .add_test_case(
-        state_machine="DragenWgtsWorkflow",
-        test_case="HappyPath",
-        state_mocks={
-            "LaunchDragen": "MockLaunchSuccess",
-            "CheckStatus": "MockStatusComplete",
-        },
-    )
-    .add_mocked_response(
-        "MockLaunchSuccess",
-        {"0": {"Return": {"job_id": "job-123", "status": "LAUNCHED"}}},
-    )
-    .add_mocked_response(
-        "MockStatusComplete",
-        {"0": {"Return": {"status": "COMPLETE", "output_uri": "s3://results/"}}},
-    )
-    .build()
+client = TestStateClient(role_arn="arn:aws:iam::123456789012:role/sfn-test-role")
+
+result = client.test_state(
+    definition=asl_definition,
+    input_data={"sample_id": "SBJ00001"},
+    state_name="LaunchDragen",
+    mock_result={"job_id": "job-123", "status": "LAUNCHED"},
 )
 
-# Or write directly to a file
-MockConfigBuilder()...build()  # returns dict
-MockConfigBuilder()...write("tests/mocks/MockConfigFile.json")  # writes JSON file
+assertion = TestStateAssertion(result)
+assert assertion.assert_succeeded().passed
+assert assertion.assert_output({"job_id": "{% any_string %}", "status": "LAUNCHED"}).passed
+assert assertion.assert_next_state("CheckStatus").passed
 ```
 
-### SFN Local client
+### Chaining states (execution path)
 
 ```python
-import pytest
-from orcabus_pipeline_test_utils.sfn_local.client import SfnLocalClient
+from orcabus_pipeline_test_utils.sfn_teststate import TestStateClient, PathAssertion
 
-@pytest.mark.sfn_local
-def test_happy_path():
-    client = SfnLocalClient(endpoint_url="http://localhost:8083")
+client = TestStateClient(role_arn="arn:aws:iam::123456789012:role/sfn-test-role")
 
-    # Create the state machine
-    arn = client.create_state_machine(
-        name="DragenWgtsWorkflow",
-        definition=asl_definition,  # your parsed ASL JSON
-    )
-
-    # Start execution with a specific test case (selects mock config)
-    execution_arn = client.start_execution(
-        state_machine_arn=arn,
-        test_case="HappyPath",
-        input_data={"sample_id": "SBJ00001"},
-    )
-
-    # Wait for completion (polls until terminal state, 30s default timeout)
-    result = client.wait_for_execution(execution_arn)
-    assert result["status"] == "SUCCEEDED"
-
-    # Get execution history for detailed assertions
-    history = client.get_execution_history(execution_arn)
-```
-
-### Execution assertions
-
-```python
-from orcabus_pipeline_test_utils.sfn_local.assertions import ExecutionAssertion
-
-assertion = ExecutionAssertion(
-    execution_result=result,
-    execution_history=history,
+results = client.test_path(
+    definition=asl_definition,
+    input_data={"sample_id": "SBJ00001"},
+    state_mocks={
+        "LaunchDragen": {"result": {"job_id": "job-123", "status": "LAUNCHED"}},
+        "CheckStatus": {"result": {"status": "COMPLETE", "output_uri": "s3://results/"}},
+    },
 )
 
-# Assert terminal status
-assert assertion.assert_status("SUCCEEDED").passed
-
-# Assert output matches expected structure (supports {% any_string %} wildcards)
-assert assertion.assert_output({
-    "job_id": "{% any_string %}",
-    "status": "COMPLETE",
-    "output_uri": "s3://results/",
-}).passed
-
-# Assert specific states were visited
-assert assertion.assert_states_visited([
-    "LaunchDragen", "CheckStatus", "MarkComplete"
-]).passed
-
-# Assert parallel branches all completed
-assert assertion.assert_parallel_branches_complete(
-    expected_branch_count=3,
-    expected_terminal_states=["BranchADone", "BranchBDone", "BranchCDone"],
-).passed
-
-# Assert Map state output cardinality matches input
-assert assertion.assert_map_state_output_cardinality(
-    input_array=input_items,
-).passed
+path = PathAssertion(results)
+assert path.assert_path_succeeded().passed
+assert path.assert_step_count(3).passed
+assert path.assert_terminal_output({"status": "COMPLETE", "output_uri": "s3://results/"}).passed
 ```
 
-### CLI runner
+### Data flow inspection
 
-Orchestrates the full Docker lifecycle (start container → run pytest → stop container):
-
-```bash
-python -m orcabus_pipeline_test_utils.sfn_local.runner \
-    --mock-config app/step-functions-templates/tests/mocks/MockConfigFile.json \
-    --tests app/step-functions-templates/tests/ \
-    --timeout 180 \
-    --port 8083
+```python
+assertion = TestStateAssertion(result)
+assert assertion.assert_data_flow(
+    after_input_path={"sample_id": "SBJ00001"},
+    after_parameters={"FunctionName": "{% any_string %}", "Payload": {"sample_id": "SBJ00001"}},
+).passed
 ```
-
-Tests must be marked with `@pytest.mark.sfn_local` to be selected by the runner.
 
 ## Post-Deployment Smoke Tests
 
