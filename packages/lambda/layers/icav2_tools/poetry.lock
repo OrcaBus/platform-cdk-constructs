@@ -1402,14 +1402,14 @@ test = ["pytest", "websockets"]
 
 [[package]]
 name = "wrapica"
-version = "2.45.0"
+version = "2.47.0"
 description = "Secondary level functions for ICAv2 based off libica"
 optional = false
 python-versions = "<3.15,>=3.12"
 groups = ["main"]
 files = [
-    {file = "wrapica-2.45.0-py3-none-any.whl", hash = "sha256:99c07c84f3a63566c83f455af463f0e9136e2a3907b653e91f3833aa2479330f"},
-    {file = "wrapica-2.45.0.tar.gz", hash = "sha256:536ba0b38ec84a550d47729a117063457dfb6698ae4c0f16b66b7e2fd25c56b7"},
+    {file = "wrapica-2.47.0-py3-none-any.whl", hash = "sha256:aaaab6fe5af690250901f645a16b954eb3cd557ffe4fd02ceb13effc52dee9b0"},
+    {file = "wrapica-2.47.0.tar.gz", hash = "sha256:560f8085a144e3767a002d3646cbb44507218039cb1019bc1f94085258e216ab"},
 ]
 
 [package.dependencies]
@@ -1429,10 +1429,10 @@ websocket_client = ">=1.4.2,<2"
 [package.extras]
 build = ["build"]
 docs = ["boto3 (>=1.40.67)", "sphinx (>=7.2.6,<8)", "sphinx-rtd-theme (>=2.0.0,<3)", "sphinx_autodoc_typehints", "toml-to-requirements"]
-test = ["pytest", "pytest-mock"]
+test = ["hypothesis (>=6.0,<7)", "pytest", "pytest-mock"]
 toml = ["tomli_w (>=1.0.0,<2)"]
 
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.14, <3.15"
-content-hash = "bc23e25f37db3bb3594c75f16ee71e55607bc0206741efbd47512d6650e0cac9"
+content-hash = "58b3bad09e5415daf620b419241793ff945c867b2db61b4d83b26fb50e264452"
