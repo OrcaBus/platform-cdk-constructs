@@ -1,8 +1,10 @@
 ---
+name: generate-release
+description: Generate a GitHub release with categorized changelog for @orcabus/platform-cdk-constructs
 inclusion: manual
 ---
 
-# Generate Release Skill
+# Create GitHub Release
 
 Use this skill to generate a GitHub release for `@orcabus/platform-cdk-constructs`.
 
@@ -72,6 +74,10 @@ gh release create <new_tag> \
 ## Example Invocation
 
 > Generate a release for 1.9.0 targeting commit abc123, comparing against 1.8.0
+
+Or use the shorthand syntax:
+
+> /generate-release 1.9.0 targeting commit abc123, comparing against 1.8.0
 
 ## Notes
 
