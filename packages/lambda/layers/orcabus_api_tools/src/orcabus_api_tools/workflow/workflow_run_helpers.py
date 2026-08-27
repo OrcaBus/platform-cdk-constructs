@@ -78,6 +78,12 @@ def get_workflow_run_state_from_state_orcabus_id(
                 get_workflow_request(f"{WORKFLOW_RUN_ENDPOINT}/{workflow_run_orcabus_id}/state")
             )
         )
+    except StopIteration as e:
+        from .errors import WorkflowRunStateNotFoundError
+        raise WorkflowRunStateNotFoundError(
+            workflow_run_id=workflow_run_orcabus_id,
+            status=state_orcabus_id
+        ) from e
     except HTTPError as e:
         from .errors import WorkflowRunStateNotFoundError
         raise WorkflowRunStateNotFoundError(
@@ -101,6 +107,12 @@ def get_workflow_run_state(workflow_run_orcabus_id: str, status: str) -> State:
                 get_workflow_request(f"{WORKFLOW_RUN_ENDPOINT}/{workflow_run_orcabus_id}/state")
             )
         )
+    except StopIteration as e:
+        from .errors import WorkflowRunStateNotFoundError
+        raise WorkflowRunStateNotFoundError(
+            workflow_run_id=workflow_run_orcabus_id,
+            status=status
+        ) from e
     except HTTPError as e:
         from .errors import WorkflowRunStateNotFoundError
         raise WorkflowRunStateNotFoundError(
