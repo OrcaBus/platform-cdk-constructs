@@ -6,7 +6,7 @@
 from typing import List, cast
 
 # Shared imports
-from utils.requests_helpers import get_request
+from ..utils.requests_helpers import get_request
 
 # Local imports
 from . import get_deploy_status_endpoint
