@@ -338,14 +338,17 @@ def get_presigned_url_from_ingest_id(ingest_id: str) -> str:
     return get_presigned_url(get_file_object_from_ingest_id(ingest_id)['s3ObjectId'])
 
 
-def create_presigned_url_map(s3_object_iter_: Dict, presigned_url_list: List[str]):
-    return {
-        "ingestId": s3_object_iter_['ingestId'],
-        "presignedUrl": next(filter(
-            lambda presigned_url_iter_: unquote(urlparse(presigned_url_iter_).path.lstrip("/")) == s3_object_iter_['fileObject']['key'],
-            presigned_url_list
-        ))
-    }
+def create_presigned_url_map(s3_object_iter_: Dict, presigned_url_list: List[str]) -> Optional[Dict[str, str]]:
+    try:
+        return {
+            "ingestId": s3_object_iter_['ingestId'],
+            "presignedUrl": next(filter(
+                lambda presigned_url_iter_: unquote(urlparse(presigned_url_iter_).path.lstrip("/")) == s3_object_iter_['fileObject']['key'],
+                presigned_url_list
+            ))
+        }
+    except StopIteration:
+        return None
 
 
 def get_presigned_urls_from_ingest_ids(ingest_ids: List[str]) -> List[Dict[str, str]]:
@@ -373,12 +376,16 @@ def get_presigned_urls_from_ingest_ids(ingest_ids: List[str]) -> List[Dict[str, 
         []
     ))
 
+    # Get the S3 Object List
     s3_object_list = get_s3_objs_from_ingest_ids_map(ingest_ids)
 
     # Map the presigned urls to the s3 objects
-    return list(map(
-        lambda s3_object_iter_: create_presigned_url_map(s3_object_iter_, presigned_url_list),
-        s3_object_list
+    return list(filter(
+        lambda presigned_url_map_iter_: presigned_url_map_iter_ is not None,
+        list(map(
+            lambda s3_object_iter_: create_presigned_url_map(s3_object_iter_, presigned_url_list),
+            s3_object_list
+        ))
     ))
 
 

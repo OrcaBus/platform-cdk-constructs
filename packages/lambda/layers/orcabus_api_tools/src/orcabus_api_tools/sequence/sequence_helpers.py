@@ -101,12 +101,22 @@ def get_sequence_object_from_instrument_run_id(instrument_run_id: str) -> Option
             f"Multiple sequence runs found for instrument run id {instrument_run_id}. "
             f"Returning the last one that has a sequenceRunName"
         )
-        return cast(Sequence, next(filter(
-            lambda sequence_run_iter_: (
-                sequence_run_iter_.get('sequenceRunName') is not None
+        sequence_run_with_name = next(
+            filter(
+                lambda sequence_run_iter_: (
+                    sequence_run_iter_.get('sequenceRunName') is not None
+                ),
+                reversed(sequence_run_dict_list)
             ),
-            reversed(sequence_run_dict_list)
-        )))
+            None
+        )
+        if sequence_run_with_name is None:
+            logging.warning(
+                "None of the sequence runs for instrument run id %s had a sequenceRunName",
+                instrument_run_id
+            )
+            return None
+        return cast(Sequence, sequence_run_with_name)
 
     # Return the first (and only) sequence run
     return cast(Sequence, sequence_run_dict_list[0])
