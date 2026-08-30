@@ -60,14 +60,20 @@ def get_latest_payload_from_workflow_run(workflow_run_orcabus_id: str) -> Option
     )
 
 
-def get_latest_payload_from_portal_run_id(portal_run_id: str) -> Payload:
+def get_latest_payload_from_portal_run_id(portal_run_id: str) -> Optional[Payload]:
     from .workflow_run_helpers import get_workflow_run_from_portal_run_id
 
     # Get the workflow run
     workflow_run = get_workflow_run_from_portal_run_id(portal_run_id)
 
     # Get the payload
-    return Payload(**get_payload_from_state_orcabus_id(
+    payload = get_payload_from_state_orcabus_id(
         workflow_run_orcabus_id=workflow_run['orcabusId'],
         state_orcabus_id=workflow_run['currentState']['orcabusId']
-    ))
+    )
+
+    # No payload attached to the current state yet
+    if payload is None:
+        return None
+
+    return Payload(**payload)
