@@ -8,4 +8,4 @@
 
 > `const` **FILE\_MANAGER\_ACCESS\_KEY\_ARNS**: `Record`\<[`StageName`](../../account/type-aliases/StageName.md), `string`\>
 
-Defined in: [packages/shared-config/file-manager.ts:66](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/file-manager.ts#L66)
+Defined in: [packages/shared-config/file-manager.ts:67](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/shared-config/file-manager.ts#L67)
