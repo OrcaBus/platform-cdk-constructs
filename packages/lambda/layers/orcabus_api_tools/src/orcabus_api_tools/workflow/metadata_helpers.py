@@ -6,6 +6,7 @@ Get workflows from library id
 
 # Standard imports
 import typing
+from copy import copy
 from typing import List, Optional
 
 # Local imports
@@ -103,15 +104,12 @@ def get_workflows_from_rgid_list(
     if len(fastq_id_list) == 1:
         return all_workflows_intersected
 
-    for workflow_iter in all_workflows_intersected:
+    for workflow_iter in copy(all_workflows_intersected):
         # Get all libraries on run
-        fastqs_on_run = list(map(
-            lambda fastq_iter: fastq_iter['id'],
-            get_fastqs_on_workflow_run(workflow_iter['orcabusId'])
-        ))
+        fastq_id_list_on_run = get_readsets_on_workflow_run(workflow_run_id=workflow_iter['orcabusId'])
 
         # If any fastq on our list is not on the run, then we remove it
-        if not all(fastq_id in fastqs_on_run for fastq_id in fastq_id_list):
+        if not all(fastq_id in fastq_id_list_on_run for fastq_id in fastq_id_list):
             all_workflows_intersected.remove(workflow_iter)
 
     return all_workflows_intersected
