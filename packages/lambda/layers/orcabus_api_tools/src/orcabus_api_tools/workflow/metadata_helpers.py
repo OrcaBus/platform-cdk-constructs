@@ -34,7 +34,9 @@ def get_workflows_from_library_id(library_id: str) -> List[WorkflowRunDetail]:
     )
 
 
-def get_workflows_from_library_id_list(library_id_list: List[str]) -> List[WorkflowRunDetail]:
+def get_workflows_from_library_id_list(
+        library_id_list: List[str],
+) -> List[WorkflowRunDetail]:
     """
     Use the query libraries__libraryId to get workflows from a list of library ids
     However, we only collect the workflows that are associated will all libraries in the list,
@@ -44,9 +46,11 @@ def get_workflows_from_library_id_list(library_id_list: List[str]) -> List[Workf
     :return:
     """
 
+    # If no libraries, then no workflows
     if len(library_id_list) < 1:
         return []
 
+    # Get all workflows from this library id
     all_workflows_intersected = get_workflows_from_library_id(
         library_id_list[0]
     )
@@ -54,15 +58,16 @@ def get_workflows_from_library_id_list(library_id_list: List[str]) -> List[Workf
     if len(library_id_list) == 1:
         return all_workflows_intersected
 
-    for library_id in library_id_list[1:]:
-        workflows_for_library = get_workflows_from_library_id(library_id)
-        all_workflows_intersected = list(filter(
-            lambda workflow_iter_: workflow_iter_['orcabusId'] in list(map(
-                lambda all_workflows_iter_: all_workflows_iter_['orcabusId'],
-                all_workflows_intersected
-            )),
-            workflows_for_library
+    for workflow_iter in all_workflows_intersected:
+        # Get all libraries on run
+        library_ids_on_run = list(map(
+            lambda library_iter_: library_iter_['libraryId'],
+            get_libraries_from_workflow_run(workflow_iter['orcabusId'])
         ))
+
+        # If any library is not on the run, then we remove the run.
+        if not all(library_id in library_ids_on_run for library_id in library_id_list):
+            all_workflows_intersected.remove(workflow_iter)
 
     return all_workflows_intersected
 
