@@ -5,12 +5,19 @@ Get workflows from library id
 """
 
 # Standard imports
+import typing
 from typing import List, Optional
 
 # Local imports
 from . import get_workflow_request_response_results
 from .globals import WORKFLOW_RUN_ENDPOINT
 from .models import WorkflowRunDetail
+from .workflow_run_helpers import get_workflow_run
+
+# Type hints
+if typing.TYPE_CHECKING:
+    from ..metadata.models import LibraryBase
+    from ..fastq.models import Fastq
 
 
 def get_workflows_from_library_id(library_id: str) -> List[WorkflowRunDetail]:
@@ -177,3 +184,33 @@ def get_workflow_runs_from_metadata(
 
     # Return the filtered list of workflow runs
     return workflow_run_list
+
+
+def get_readsets_on_workflow_run(
+        workflow_run_id: str
+) -> List[str]:
+    return get_workflow_run(workflow_run_orcabus_id=workflow_run_id).get('readsets', [])
+
+
+def get_fastqs_on_workflow_run(
+        workflow_run_id: str
+) -> List['Fastq']:
+    # Import locally to prevent circular imports
+    from ..fastq import get_fastq
+
+    return list(map(
+        lambda fastq_id_iter_: get_fastq(fastq_id_iter_),
+        get_readsets_on_workflow_run(workflow_run_id=workflow_run_id)
+    ))
+
+
+def get_libraries_from_workflow_run(
+        workflow_run_id: str
+) -> List['LibraryBase']:
+    # Return object
+    return list(set(
+        list(map(
+            lambda fastq_obj_iter_: fastq_obj_iter_['library'],
+            get_fastqs_on_workflow_run(workflow_run_id)
+        ))
+    ))
