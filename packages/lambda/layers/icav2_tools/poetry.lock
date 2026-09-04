@@ -1402,14 +1402,14 @@ test = ["pytest", "websockets"]
 
 [[package]]
 name = "wrapica"
-version = "2.47.0"
+version = "2.48.1"
 description = "Secondary level functions for ICAv2 based off libica"
 optional = false
 python-versions = "<3.15,>=3.12"
 groups = ["main"]
 files = [
-    {file = "wrapica-2.47.0-py3-none-any.whl", hash = "sha256:aaaab6fe5af690250901f645a16b954eb3cd557ffe4fd02ceb13effc52dee9b0"},
-    {file = "wrapica-2.47.0.tar.gz", hash = "sha256:560f8085a144e3767a002d3646cbb44507218039cb1019bc1f94085258e216ab"},
+    {file = "wrapica-2.48.1-py3-none-any.whl", hash = "sha256:79c38aa7bbd6b0e24e9479c6c6680da0a95fb3891689ccc0467fcf0e6a292702"},
+    {file = "wrapica-2.48.1.tar.gz", hash = "sha256:f983ebfdb7dda20abcad82a0290a3acf28f458d551ad058c6c2cb7cd10b4b094"},
 ]
 
 [package.dependencies]
@@ -1435,4 +1435,4 @@ toml = ["tomli_w (>=1.0.0,<2)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.14, <3.15"
-content-hash = "58b3bad09e5415daf620b419241793ff945c867b2db61b4d83b26fb50e264452"
+content-hash = "24f9b0c33b0e2db53e39b1c9bf11d440ba13021c4b77f72e3fbb42de8394a9c6"
