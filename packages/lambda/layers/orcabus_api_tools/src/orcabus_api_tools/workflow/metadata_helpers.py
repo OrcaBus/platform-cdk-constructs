@@ -158,10 +158,10 @@ def get_workflow_runs_from_metadata(
         )
         workflow_run_list = list(filter(
             lambda workflow_run_iter_: (
-                workflow_run_iter_['orcabusId'] in list(map(
-                    lambda workflow_iter_: workflow_iter_['orcabusId'],
-                    workflow_library_id_list
-                ))
+                    workflow_run_iter_['orcabusId'] in list(map(
+                lambda workflow_iter_: workflow_iter_['orcabusId'],
+                workflow_library_id_list
+            ))
             ),
             workflow_run_list
         ))
@@ -173,10 +173,10 @@ def get_workflow_runs_from_metadata(
         )
         workflow_run_list = list(filter(
             lambda workflow_run_iter_: (
-                workflow_run_iter_['orcabusId'] in list(map(
-                    lambda workflow_iter_: workflow_iter_['orcabusId'],
-                    workflow_rgid_list
-                ))
+                    workflow_run_iter_['orcabusId'] in list(map(
+                lambda workflow_iter_: workflow_iter_['orcabusId'],
+                workflow_rgid_list
+            ))
             ),
             workflow_run_list
         ))
