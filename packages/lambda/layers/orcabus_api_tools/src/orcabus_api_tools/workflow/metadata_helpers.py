@@ -221,14 +221,14 @@ def get_libraries_from_workflow_run(
     :param workflow_run_id:
     :return:
     """
-    from ..metadata import get_libraries_from_library_orcabus_id_list
+    from ..metadata import get_libraries_list_from_library_id_list
 
     # Get the library orcabusIds
-    library_orcabus_id_list = list(set(
+    library_id_list = list(set(
         list(map(
-            lambda fastq_obj_iter_: fastq_obj_iter_['library']['orcabusId'],
-            get_fastqs_on_workflow_run(workflow_run_id)
+            lambda library_iter_: library_iter_['libraryId'],
+            get_workflow_run(workflow_run_id).get('libraries', [])
         ))
     ))
 
-    return get_libraries_from_library_orcabus_id_list(library_orcabus_id_list=library_orcabus_id_list)
+    return get_libraries_list_from_library_id_list(library_id_list=library_id_list)
