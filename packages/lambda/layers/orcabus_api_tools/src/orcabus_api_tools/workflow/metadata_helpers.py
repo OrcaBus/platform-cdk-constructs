@@ -103,20 +103,16 @@ def get_workflows_from_rgid_list(
     if len(fastq_id_list) == 1:
         return all_workflows_intersected
 
-    for fastq_id in fastq_id_list[1:]:
-        workflows_for_fastq_id = get_workflow_request_response_results(
-            WORKFLOW_RUN_ENDPOINT,
-            params={
-                "readsets": fastq_id
-            }
-        )
-        all_workflows_intersected = list(filter(
-            lambda workflow_iter_: workflow_iter_['orcabusId'] in list(map(
-                lambda all_workflows_iter_: all_workflows_iter_['orcabusId'],
-                all_workflows_intersected
-            )),
-            workflows_for_fastq_id
+    for workflow_iter in all_workflows_intersected:
+        # Get all libraries on run
+        fastqs_on_run = list(map(
+            lambda fastq_iter: fastq_iter['id'],
+            get_fastqs_on_workflow_run(workflow_iter['orcabusId'])
         ))
+
+        # If any fastq on our list is not on the run, then we remove it
+        if not all(fastq_id in fastqs_on_run for fastq_id in fastq_id_list):
+            all_workflows_intersected.remove(workflow_iter)
 
     return all_workflows_intersected
 
