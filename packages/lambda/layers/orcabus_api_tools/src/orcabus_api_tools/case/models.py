@@ -3,7 +3,7 @@
 """TypedDict models for the case service."""
 
 # Standard imports
-from typing import TypedDict, List, Optional, Dict, NotRequired
+from typing import TypedDict, List, NotRequired
 
 
 class ExternalEntity(TypedDict):
@@ -29,8 +29,8 @@ class LinkEntityRequest(TypedDict):
     entityId: str
 
 
-class SyncFromRedcapRequest(TypedDict, total=False):
+class SyncFromRedcapRequest(TypedDict):
     """Optional request body for syncing a case from RedCap."""
 
-    force: Optional[bool]
-    fields: Optional[List[str]]
+    force: NotRequired[bool]
+    fields: NotRequired[List[str]]
