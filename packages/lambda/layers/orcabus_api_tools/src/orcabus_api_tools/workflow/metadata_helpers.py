@@ -207,11 +207,20 @@ def get_fastqs_on_workflow_run(
 
 def get_libraries_from_workflow_run(
         workflow_run_id: str
-) -> List['LibraryBase']:
-    # Return object
-    return list(set(
+) -> List['Library']:
+    """
+    Get libraries on a workflow run
+    :param workflow_run_id:
+    :return:
+    """
+    from ..metadata import get_libraries_from_library_orcabus_id_list
+
+    # Get the library orcabusIds
+    library_orcabus_id_list = list(set(
         list(map(
-            lambda fastq_obj_iter_: fastq_obj_iter_['library'],
+            lambda fastq_obj_iter_: fastq_obj_iter_['library']['orcabusId'],
             get_fastqs_on_workflow_run(workflow_run_id)
         ))
     ))
+
+    return get_libraries_from_library_orcabus_id_list(library_orcabus_id_list=library_orcabus_id_list)
