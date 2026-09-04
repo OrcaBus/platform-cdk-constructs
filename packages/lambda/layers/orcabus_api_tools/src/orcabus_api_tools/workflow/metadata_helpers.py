@@ -16,7 +16,7 @@ from .workflow_run_helpers import get_workflow_run
 
 # Type hints
 if typing.TYPE_CHECKING:
-    from ..metadata.models import LibraryBase
+    from ..metadata.models import Library
     from ..fastq.models import Fastq
 
 
