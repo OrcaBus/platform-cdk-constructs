@@ -190,12 +190,22 @@ def get_workflow_runs_from_metadata(
 def get_readsets_on_workflow_run(
         workflow_run_id: str
 ) -> List[str]:
+    """
+    Returns a list of fastq ids on a run
+    :param workflow_run_id:
+    :return:
+    """
     return get_workflow_run(workflow_run_orcabus_id=workflow_run_id).get('readsets', [])
 
 
 def get_fastqs_on_workflow_run(
         workflow_run_id: str
 ) -> List['Fastq']:
+    """
+    Get the full fastq objects for each readset (fastq id) on a workflow run
+    :param workflow_run_id:
+    :return:
+    """
     # Import locally to prevent circular imports
     from ..fastq import get_fastq
 
