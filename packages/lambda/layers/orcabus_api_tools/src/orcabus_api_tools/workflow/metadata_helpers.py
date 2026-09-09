@@ -193,7 +193,10 @@ def get_readsets_on_workflow_run(
     :param workflow_run_id:
     :return:
     """
-    return get_workflow_run(workflow_run_orcabus_id=workflow_run_id).get('readsets', [])
+    return list(map(
+        lambda readset_iter_: readset_iter_['orcabusId'],
+        get_workflow_run(workflow_run_orcabus_id=workflow_run_id).get('readsets', [])
+    ))
 
 
 def get_fastqs_on_workflow_run(
