@@ -198,11 +198,13 @@ class PendingExternalEntityRequest(TypedDict):
     serviceName: NotRequired[Optional[str]]
 
 
-# Case (summary form)
-class Case(TypedDict):
+# Case (summary / base form)
+class CaseBase(TypedDict):
     """A case as returned by the case service (summary form).
 
-    Most descriptive fields are REDCap-managed and returned read-only.
+    This is the primitive/summary representation embedded when a case is
+    referenced from another resource (e.g. a user or external entity). Most
+    descriptive fields are REDCap-managed and returned read-only.
     """
 
     orcabusId: str
@@ -222,13 +224,13 @@ class Case(TypedDict):
     dueDate: NotRequired[Optional[str]]
 
 
-# Link objects (reference Case / ExternalEntity / User defined above)
+# Link objects (reference CaseBase / ExternalEntity / User defined above)
 class UserCase(TypedDict):
     """A case linked to a user, with link metadata."""
 
     description: NotRequired[Optional[str]]
     timestamp: str
-    case: Case
+    case: CaseBase
 
 
 class UserDetail(TypedDict):
@@ -244,7 +246,7 @@ class ExternalEntityCaseLink(TypedDict):
     """A case linked to an external entity, with link metadata."""
 
     timestamp: str
-    case: Case
+    case: CaseBase
 
 
 class ExternalEntityDetail(TypedDict):
@@ -312,32 +314,19 @@ class CaseUserCreateRequest(TypedDict):
 
 
 # Case (detailed form, with related sets)
-class CaseDetail(TypedDict):
+class CaseDetail(CaseBase):
     """A case with its related sets (external entities, users, states, comments).
 
-    This is the shape returned by both the list and retrieve endpoints.
+    Extends :class:`CaseBase` with the linked collections that the case service
+    embeds inline. This is the shape returned by both the list and retrieve
+    endpoints.
     """
 
-    orcabusId: str
-    alias: NotRequired[List[str]]
     externalEntitySet: List[CaseExternalEntityLink]
     pendingExternalEntities: List[PendingExternalEntity]
     userSet: List[CaseUserLink]
     latestState: Optional[State]
     commentSet: List[Comment]
-    rnasumReferences: NotRequired[List[str]]
-    requestFormId: str
-    type: CaseType
-    studyName: Optional[str]
-    studyId: Optional[str]
-    urNumber: Optional[str]
-    description: NotRequired[Optional[str]]
-    studyType: StudyType
-    isReportRequired: NotRequired[bool]
-    isNataAccredited: NotRequired[bool]
-    links: NotRequired[Optional[Dict[str, str]]]
-    redcapPayload: Optional[Dict[str, Any]]
-    dueDate: NotRequired[Optional[str]]
 
 
 class PatchedCaseDetailRequest(TypedDict):
