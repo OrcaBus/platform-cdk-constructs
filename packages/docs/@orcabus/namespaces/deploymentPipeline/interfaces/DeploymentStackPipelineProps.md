@@ -14,7 +14,7 @@ Defined in: [packages/deployment-stack-pipeline/pipeline.ts:137](https://github.
 
 > `readonly` `optional` **buildImage?**: `IBuildImage`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:212](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L212)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:219](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L219)
 
 The CodeBuild image to use for the build steps.
 
@@ -30,7 +30,7 @@ LinuxArmBuildImage.AMAZON_LINUX_2023_STANDARD_3_0
 
 > `readonly` `optional` **cacheOptions?**: [`CacheOptions`](CacheOptions.md)
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:274](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L274)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:281](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L281)
 
 Configure the `cache` options for each `CodeBuildStep`. This will allow CodeBuild to use
 S3 caching with the `CODEBUILD_CACHE_BUCKET` bucket.
@@ -47,7 +47,7 @@ https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build
 
 > `readonly` `optional` **cdkOut?**: `string`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:193](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L193)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:200](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L200)
 
 The location where the cdk output will be stored.
 
@@ -63,7 +63,7 @@ cdk.out
 
 > `readonly` **cdkSynthCmd**: `string`[]
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:183](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L183)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:190](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L190)
 
 The command to run to synth the cdk stack which also installing the cdk dependencies. e.g. ["pnpm install --frozen-lockfile", "pnpm cdk synth"]
 
@@ -73,7 +73,7 @@ The command to run to synth the cdk stack which also installing the cdk dependen
 
 > `readonly` `optional` **driftCheckConfig?**: [`DriftCheckConfig`](DriftCheckConfig.md)
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:266](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L266)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:273](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L273)
 
 Configuration for drift detection checks before deployment.
 If specified, the pipeline will check for CloudFormation drift and fail if detected.
@@ -84,7 +84,7 @@ If specified, the pipeline will check for CloudFormation drift and fail if detec
 
 > `readonly` `optional` **enableSlackNotification?**: `boolean`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:237](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L237)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:244](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L244)
 
 Enable notification to the 'alerts-build' slack channel.
 
@@ -100,7 +100,7 @@ True
 
 > `readonly` `optional` **excludedFilePaths?**: `string`[]
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:179](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L179)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:186](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L186)
 
 The list of patterns of Git repository file paths that, when a commit is pushed, are to be EXCLUDED from starting the pipeline.
 
@@ -121,11 +121,28 @@ This restriction is due to AWS resource tagging requirements.
 
 ***
 
+### githubOwner?
+
+> `readonly` `optional` **githubOwner?**: `string`
+
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:151](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L151)
+
+The GitHub organisation/owner that the repository belongs to. Use this when the deployment
+stack lives outside the 'OrcaBus' org (e.g. moved to another org for central management).
+
+#### Default
+
+```ts
+"OrcaBus"
+```
+
+***
+
 ### githubRepo
 
 > `readonly` **githubRepo**: `string`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:148](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L148)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:155](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L155)
 
 The repository name that exist in the 'OrcaBus' github organisation. e.g. `a-micro-service-repo`
 
@@ -135,7 +152,7 @@ The repository name that exist in the 'OrcaBus' github organisation. e.g. `a-mic
 
 > `readonly` `optional` **includedFilePaths?**: `string`[]
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:172](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L172)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:179](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L179)
 
 The list of patterns of Git repository file paths that, when a commit is pushed, are to be INCLUDED as criteria that starts the pipeline.
 
@@ -147,7 +164,7 @@ https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-co
 
 > `readonly` `optional` **notificationEvents?**: `PipelineNotificationEvents`[]
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:245](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L245)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:252](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L252)
 
 The pipeline notification events that will trigger a Slack channel notification.
 Only applies if `enableSlackNotification` is set to true.
@@ -165,7 +182,7 @@ Only applies if `enableSlackNotification` is set to true.
 
 > `readonly` **pipelineName**: `string`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:165](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L165)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:172](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L172)
 
 The pipeline name in the bastion account.
 
@@ -175,7 +192,7 @@ The pipeline name in the bastion account.
 
 > `readonly` `optional` **reuseExistingArtifactBucket?**: `boolean`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:253](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L253)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:260](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L260)
 
 Whether to reuse the existing artifact bucket for cross-deployment pipelines.
 If set to true, it will look up the existing artifact bucket in the TOOLCHAIN account.
@@ -192,7 +209,7 @@ True
 
 > `readonly` **stack**: `any`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:152](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L152)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:159](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L159)
 
 The stack to which the pipeline will be deploying to its respective account
 
@@ -202,7 +219,7 @@ The stack to which the pipeline will be deploying to its respective account
 
 > `readonly` **stackConfig**: [`StackConfigProps`](StackConfigProps.md)
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:161](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L161)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:168](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L168)
 
 The stack configuration/constants that will be passed to the stack props.
 
@@ -212,7 +229,7 @@ The stack configuration/constants that will be passed to the stack props.
 
 > `readonly` **stackName**: `string`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:157](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L157)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:164](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L164)
 
 The stack name (in cloudformation) for the stack defined in `stack`. The stack name will prepend with the stage
 name e.g. `OrcaBusBeta-<stackName>`, `OrcaBusGamma-<stackName>`, `OrcaBusProd-<stackName>`
@@ -223,7 +240,7 @@ name e.g. `OrcaBusBeta-<stackName>`, `OrcaBusGamma-<stackName>`, `OrcaBusProd-<s
 
 > `readonly` `optional` **stageEnv?**: [`StageEnvProps`](StageEnvProps.md)
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:232](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L232)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:239](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L239)
 
 The stage environment for the deployment stack
 
@@ -233,7 +250,7 @@ The stage environment for the deployment stack
 
 > `readonly` `optional` **stripAssemblyAssets?**: `boolean`
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:261](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L261)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:268](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L268)
 
 Remove assets from the CDK assembly pre-deployment to prevent hitting CodePipeline's 256 MB artifact size limit.
 Useful when CDK assets (Lambda code, Docker images, etc.) are large.
@@ -248,7 +265,7 @@ https://github.com/aws/aws-cdk/issues/9917
 
 > `readonly` `optional` **synthBuildSpec?**: `Record`\<`string`, `any`\>
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:200](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L200)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:207](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L207)
 
 Additional configuration for the CodeBuild step during the CDK synth phase. It will be passed as the
 `partialBuildSpec` to the `CodeBuildStep`.
@@ -265,7 +282,7 @@ DEFAULT_PARTIAL_BUILD_SPEC
 
 > `readonly` `optional` **synthInstallCommands?**: `string`[]
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:206](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L206)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:213](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L213)
 
 The install commands for the synth step.
 
@@ -281,7 +298,7 @@ DEFAULT_INSTALL_COMMANDS
 
 > `readonly` `optional` **synthRolePolicyStatements?**: `PolicyStatement`[]
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:187](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L187)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:194](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L194)
 
 The additional policy statements to add to the CodeBuildStep role during the synth step.
 
@@ -291,7 +308,7 @@ The additional policy statements to add to the CodeBuildStep role during the syn
 
 > `readonly` **unitAppTestConfig**: [`CodeBuildStepProps`](CodeBuildStepProps.md)
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:220](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L220)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:227](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L227)
 
 Configuration for the CodeBuild step that runs unit tests for the main application code.
 This step will execute in parallel with [unitIacTestConfig](#unitiactestconfig) as part of the synth stage dependencies.
@@ -305,7 +322,7 @@ ensure your command includes 'cd' to the main app directory, as the build contex
 
 > `readonly` `optional` **unitIacTestConfig?**: [`CodeBuildStepProps`](CodeBuildStepProps.md)
 
-Defined in: [packages/deployment-stack-pipeline/pipeline.ts:228](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L228)
+Defined in: [packages/deployment-stack-pipeline/pipeline.ts:235](https://github.com/OrcaBus/platform-cdk-constructs/blob/main/packages/deployment-stack-pipeline/pipeline.ts#L235)
 
 Configuration for the CodeBuild step that runs unit tests for Infrastructure-as-Code (IaC) at the repository root.
 This step will execute in parallel with [unitAppTestConfig](#unitapptestconfig) as part of the synth stage dependencies.

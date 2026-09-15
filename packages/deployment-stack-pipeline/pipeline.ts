@@ -143,6 +143,13 @@ export interface DeploymentStackPipelineProps {
    */
   readonly githubBranch: string;
   /**
+   * The GitHub organisation/owner that the repository belongs to. Use this when the deployment
+   * stack lives outside the 'OrcaBus' org (e.g. moved to another org for central management).
+   *
+   * @default "OrcaBus"
+   */
+  readonly githubOwner?: string;
+  /**
    * The repository name that exist in the 'OrcaBus' github organisation. e.g. `a-micro-service-repo`
    */
   readonly githubRepo: string;
@@ -323,8 +330,9 @@ export class DeploymentStackPipeline extends Construct {
       "codestar_github_arn",
     );
     const codeStarSourceActionName = "pipeline-src";
+    const githubOwner = props.githubOwner ?? "OrcaBus";
     const sourceFile = CodePipelineSource.connection(
-      `OrcaBus/${props.githubRepo}`,
+      `${githubOwner}/${props.githubRepo}`,
       props.githubBranch,
       {
         connectionArn: codeStarArn,
@@ -550,6 +558,7 @@ export class DeploymentStackPipeline extends Construct {
         props.stackName,
         props.stack,
         props.stackConfig.beta,
+        githubOwner,
         props.githubRepo,
         props.githubBranch,
       ),
@@ -580,6 +589,7 @@ export class DeploymentStackPipeline extends Construct {
         props.stackName,
         props.stack,
         props.stackConfig.gamma,
+        githubOwner,
         props.githubRepo,
         props.githubBranch,
       ),
@@ -621,6 +631,7 @@ export class DeploymentStackPipeline extends Construct {
         props.stackName,
         props.stack,
         props.stackConfig.prod,
+        githubOwner,
         props.githubRepo,
         props.githubBranch,
       ),
@@ -715,12 +726,13 @@ class DeploymentStage extends Stage {
     stackName: string,
     stackClass: new (scope: Construct, id: string, props: any) => Stack,
     appStackProps: any,
+    githubOwner: string,
     githubRepo: string,
     githubBranch?: string,
   ) {
     super(scope, environmentName, { env: env });
 
-    let source = `https://github.com/OrcaBus/${githubRepo}`;
+    let source = `https://github.com/${githubOwner}/${githubRepo}`;
     if (githubBranch !== undefined && githubBranch !== "main") {
       source = `${source}/tree/${githubBranch}`;
     }
