@@ -112,10 +112,20 @@ class SequaliReportsDict(TypedDict):
     multiqcParquet: FileStorageObject
 
 
+class PicardReportsDict(TypedDict):
+    """Collection of Picard CollectInsertSizeMetrics report file references."""
+
+    collectInsertSizeParquet: FileStorageObject
+    collectInsertSizePdf: FileStorageObject
+    multiqcHtml: FileStorageObject
+    multiqcParquet: FileStorageObject
+
+
 class QcStats(TypedDict):
     """Quality control statistics for a FASTQ file."""
 
     insertSizeEstimate: int
+    insertSizeStdEstimate: int
     rawWgsCoverageEstimate: int
     r1Q20Fraction: float
     r2Q20Fraction: float
@@ -123,6 +133,7 @@ class QcStats(TypedDict):
     r2GcFraction: float
     duplicationFractionEstimate: float
     sequaliReports: Optional[SequaliReportsDict]
+    picard: Optional[PicardReportsDict]
 
 
 # Deprecated: Use FastqCreate instead
