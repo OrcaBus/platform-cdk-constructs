@@ -10,6 +10,7 @@ from ..utils.requests_helpers import (
     get_request,
     get_request_response_results,
     get_url,
+    patch_request,
     post_request,
 )
 from .globals import CASE_SUBDOMAIN_NAME
@@ -78,18 +79,85 @@ def case_post_request(
     )
 
 
+def case_patch_request(
+        endpoint: str,
+        json_data: Optional[Dict] = None,
+) -> Dict:
+    """Execute an authenticated PATCH request to the case service.
+
+    Args:
+        endpoint: The API endpoint path.
+        json_data: Optional JSON body data.
+
+    Returns:
+        The parsed JSON response.
+    """
+    return patch_request(
+        get_case_url(endpoint),
+        json_data=json_data,
+    )
+
+
 from .case_helpers import (
+    # Case
     list_cases,
     get_case,
+    update_case,
+    get_case_activity,
+    # Case states
+    list_case_states,
+    # Case external entity links
     link_entity_to_case,
+    # Case user links
+    add_user_to_case,
+    # Sync
     sync_case_from_redcap,
+    # State
+    list_states,
+    get_state,
+    create_state,
+    archive_state,
+    # Comment
+    list_comments,
+    get_comment,
+    create_comment,
+    archive_comment,
+    # External entity
+    list_external_entities,
+    get_external_entity,
+    # User
+    list_users,
+    get_user,
 )
 
 __all__ = [
-    # Get helpers
+    # Case
     "list_cases",
     "get_case",
-    # Post helpers
+    "update_case",
+    "get_case_activity",
+    # Case states
+    "list_case_states",
+    # Case external entity links
     "link_entity_to_case",
+    # Case user links
+    "add_user_to_case",
+    # Sync
     "sync_case_from_redcap",
+    # State
+    "list_states",
+    "get_state",
+    "create_state",
+    "archive_state",
+    # Comment
+    "list_comments",
+    "get_comment",
+    "create_comment",
+    "archive_comment",
+    # External entity
+    "list_external_entities",
+    "get_external_entity",
+    # User
+    "list_users",
+    "get_user",
 ]
