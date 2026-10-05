@@ -51,4 +51,5 @@ class SampleSheet(TypedDict):
     associationStatus: str
     associationTimestamp: str
     sampleSheetContent: Optional[Dict]
+    sampleSheetContentOriginal: Optional[str]
     sequence: str
