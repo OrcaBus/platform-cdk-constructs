@@ -88,6 +88,7 @@ from .sequence_helpers import (
     get_sample_sheet_from_orcabus_id,
     get_library_ids_in_sequence,  # Deprecated
     get_sample_sheet_from_instrument_run_id,
+    list_sample_sheets_for_instrument_run_id,
     add_samplesheet,
 )
 
@@ -97,6 +98,7 @@ __all__ = [
     "get_sample_sheet_from_orcabus_id",
     "get_library_ids_in_sequence",
     "get_sample_sheet_from_instrument_run_id",
+    "list_sample_sheets_for_instrument_run_id",
     "get_library_id_list_in_sequence",
     "get_library_id_list_from_instrument_run_id",
     "add_samplesheet",

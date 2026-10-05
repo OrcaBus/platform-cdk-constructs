@@ -16,7 +16,9 @@ from .globals import SEQUENCE_RUN_ENDPOINT, SEQUENCE_ENDPOINT
 from .models import SampleSheet, Sequence
 
 
-def get_sample_sheet_from_instrument_run_id(instrument_run_id: str) -> Optional[SampleSheet]:
+def list_sample_sheets_for_instrument_run_id(
+        instrument_run_id: str,
+) -> Optional[List[SampleSheet]]:
     samplesheet_dict_list = sorted(
         get_sequence_request(endpoint=f"{SEQUENCE_ENDPOINT}/{instrument_run_id}/sample_sheets"),
         key=lambda x: x.get("orcabusId")
@@ -26,6 +28,38 @@ def get_sample_sheet_from_instrument_run_id(instrument_run_id: str) -> Optional[
         logging.warning("Could not find sample sheet for instrument run id: %s", instrument_run_id)
         return None
 
+    return samplesheet_dict_list
+
+
+def get_sample_sheet_from_instrument_run_id(
+        instrument_run_id: str,
+        sequence_run_id: Optional[str] = None
+) -> Optional[SampleSheet]:
+    samplesheet_dict_list = list_sample_sheets_for_instrument_run_id(
+        instrument_run_id=instrument_run_id
+    )
+
+    # None?
+    if samplesheet_dict_list is None:
+        logging.warning("Could not find sample sheet for instrument run id: %s", instrument_run_id)
+        return None
+
+    # Only one? Well that's the one
+    if len(samplesheet_dict_list) == 1:
+        return samplesheet_dict_list[0]
+
+    # Multiple, check based on Sequence
+    if sequence_run_id is not None:
+        samplesheet_match = next(
+            filter(
+                lambda samplesheet_iter_: samplesheet_iter_['sequence'] == sequence_run_id,
+                samplesheet_dict_list
+            ),
+            None
+        )
+        if samplesheet_match is not None:
+            return samplesheet_match
+
     # If there are multiple sample sheets, print to logs, but return the last one
     if len(samplesheet_dict_list) > 1:
         logging.warning(
@@ -33,17 +67,22 @@ def get_sample_sheet_from_instrument_run_id(instrument_run_id: str) -> Optional[
             f"Returning the last one."
         )
 
-    return cast(SampleSheet, samplesheet_dict_list[-1])
+    return samplesheet_dict_list[-1]
 
 
-def get_library_id_list_from_instrument_run_id(instrument_run_id: str) -> List[str]:
+def get_library_id_list_from_instrument_run_id(
+        instrument_run_id: str,
+        sequence_run_id: Optional[str] = None,
+) -> List[str]:
     """
     Get the sequence run object
     :param instrument_run_id:
+    :param sequence_run_id:
     :return:
     """
     sequence_run_object = get_sequence_object_from_instrument_run_id(
-        instrument_run_id=instrument_run_id
+        instrument_run_id=instrument_run_id,
+        sequence_run_id=sequence_run_id,
     )
 
     if sequence_run_object is None:
@@ -76,10 +115,14 @@ def get_libraries_from_instrument_run_id(instrument_run_id: str) -> List[str]:
     return get_library_id_list_from_instrument_run_id(instrument_run_id=instrument_run_id)
 
 
-def get_sequence_object_from_instrument_run_id(instrument_run_id: str) -> Optional[Sequence]:
+def get_sequence_object_from_instrument_run_id(
+        instrument_run_id: str,
+        sequence_run_id: Optional[str] = None,
+) -> Optional[Sequence]:
     """
     Get the sequence object from the instrument run id.
     :param instrument_run_id:
+    :param sequence_run_id:
     :return:
     """
 
@@ -87,7 +130,9 @@ def get_sequence_object_from_instrument_run_id(instrument_run_id: str) -> Option
     sequence_run_dict_list = sorted(
         get_sequence_request(endpoint=f"{SEQUENCE_ENDPOINT}/{instrument_run_id}/sequence_run"),
         # Orcabus ids are ulids so they are sortable by timestamp
-        key=lambda x: x.get("orcabusId")
+        key=lambda x: x.get("orcabusId"),
+        # And we want the latest
+        reverse=True
     )
 
     # Check we have at least one sequence run
@@ -95,31 +140,47 @@ def get_sequence_object_from_instrument_run_id(instrument_run_id: str) -> Option
         logging.warning("Could not find sequence run for instrument run id: %s", instrument_run_id)
         return None
 
+    if len(sequence_run_dict_list) == 1:
+        return cast(Sequence, sequence_run_dict_list[0])
+
     # Check if there are multiple sequence runs
-    if len(sequence_run_dict_list) > 1:
-        logging.warning(
-            f"Multiple sequence runs found for instrument run id {instrument_run_id}. "
-            f"Returning the last one that has a sequenceRunName"
-        )
-        sequence_run_with_name = next(
+    logging.warning(
+        f"Multiple sequence runs found for instrument run id {instrument_run_id}. "
+        f"Returning the last one that has a sequenceRunName"
+    )
+
+    # Try finding a matching sequence run id
+    if sequence_run_id is not None:
+        sequence_run_match = next(
             filter(
                 lambda sequence_run_iter_: (
-                    sequence_run_iter_.get('sequenceRunName') is not None
+                    sequence_run_iter_.get('sequenceRunId') == sequence_run_id
                 ),
-                reversed(sequence_run_dict_list)
+                sequence_run_dict_list
             ),
             None
         )
-        if sequence_run_with_name is None:
-            logging.warning(
-                "None of the sequence runs for instrument run id %s had a sequenceRunName",
-                instrument_run_id
-            )
-            return None
-        return cast(Sequence, sequence_run_with_name)
+        if sequence_run_match is not None:
+            return cast(Sequence, sequence_run_match)
 
-    # Return the first (and only) sequence run
-    return cast(Sequence, sequence_run_dict_list[0])
+    # Get the latest one with a sequence run name
+    sequence_run_with_name = next(
+        filter(
+            lambda sequence_run_iter_: (
+                sequence_run_iter_.get('sequenceRunName') is not None
+            ),
+            sequence_run_dict_list
+        ),
+        None
+    )
+    if sequence_run_with_name is None:
+        logging.warning(
+            "None of the sequence runs for instrument run id %s had a sequenceRunName",
+            instrument_run_id
+        )
+        return None
+
+    return cast(Sequence, sequence_run_with_name)
 
 
 def get_sample_sheet_from_orcabus_id(sequence_orcabus_id: str) -> SampleSheet:
