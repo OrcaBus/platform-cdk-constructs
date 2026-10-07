@@ -183,6 +183,10 @@ def get_sequence_object_from_instrument_run_id(
     return cast(Sequence, sequence_run_with_name)
 
 
+def get_sequence_run_object_from_sequence_orcabus_id(sequence_orcabus_id: str) -> Sequence:
+    return get_sequence_request(endpoint=f"{SEQUENCE_RUN_ENDPOINT}/{sequence_orcabus_id}")
+    
+
 def get_sample_sheet_from_orcabus_id(sequence_orcabus_id: str) -> SampleSheet:
     """
     Get the sample sheet from the orcabus id.
