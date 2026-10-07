@@ -39,16 +39,15 @@ export const DEFAULT_ALLOW_CORS_ORIGINS: Record<StageName, string[]> = {
   PROD: ["https://orcaui.umccr.org", "https://portal.umccr.org"],
 };
 
-// portal - TokenServiceStack
+// TokenServiceStack
 export const COGNITO_PORTAL_APP_CLIENT_ID_PARAMETER_NAME =
-  "/data_portal/client/data2/cog_app_client_id_stage";
+  "/cognito/service-app/app-client-id";
 
 export const COGNITO_ORCAUI_APP_CLIENT_ID_PARAMETER_NAME =
-  "/orcaui/cog_app_client_id_stage";
+  "/cognito/orcaui-app/app-client-id";
 
-// localhost development
 export const COGNITO_LOCAL_APP_CLIENT_ID_PARAMETER_NAME =
-  "/data_portal/client/cog_app_client_id_local";
+  "/cognito/localhost-app/app-client-id";
 
 // Base client IDs used across all environments
 const BASE_COGNITO_CLIENT_ID_PARAMETER_NAMES = [
